@@ -1,20 +1,30 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import Product from "./Product";
+import styled from "styled-components";
+import productList from "../data/products";
 
 const Display = styled.div`
     margin: 1rem;
-    border: 2px solid black;
-    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
-`
+    align-items: center;
+`;
 
 const Products = () => {
-    return (
-        <Display>
-            
-        </Display>
-    )
-}
+    const products = productList.map((item, index) => {
+        return (
+            <Product
+                key={index}
+                index={index}
+                title={item.title}
+                desc={item.desc}
+                price={item.price}
+            />
+        );
+    });
+
+    return <Display>{products}</Display>;
+};
 
 export default Products;

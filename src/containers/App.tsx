@@ -1,35 +1,38 @@
-import React from 'react';
-import '../styles//App.css';
+import React from "react";
+import "../styles//App.css";
 
-import Main from '../components/Main';
-import NavBar from '../components/NavBar';
+import Main from "../components/Main";
+import NavBar from "../components/NavBar";
 
-import { Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { reverseLogo } from '../actions/reverseLogo';
+import { connect } from "react-redux";
+
+import styled from "styled-components";
+
+const AppContainer = styled.div`
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+`;
 
 interface IProps {
-  cssClass: string,
-  reverseLogo(): any
+    cart: number;
 }
 
-const App: React.FC<IProps> = ({ cssClass, reverseLogo }) => {
-  return (
-    <div className="App">
-      <NavBar />
-      <Main />
-  </div>
-  )
-}
+const App: React.FC<IProps> = ({ cart }) => {
+    return (
+        <AppContainer>
+            <NavBar cart={cart} />
+            <Main />
+        </AppContainer>
+    );
+};
 
-const mapStateToProps = ({ cssClass }: { cssClass: string }) => {
+const mapStateToProps = ({ cart }: { cart: number }) => {
+    return { cart };
+};
 
-  return { cssClass }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-
-  return { reverseLogo: () => dispatch(reverseLogo()) }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

@@ -1,6 +1,6 @@
-import { createStore } from 'redux';
-import reverseLogo from './reducers/reverseLogo';
+import { createStore } from "redux";
+import addToCart from "./reducers/addToCart";
 
-const store = createStore(reverseLogo);
+const store = createStore(addToCart);
 
 export default store;

@@ -1,26 +1,30 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import { ListGroup, Button } from "react-bootstrap";
 
 const Panel = styled.div`
-    width: 20vw;
-    border: 2px solid black;
     margin: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-`
+    margin-right: 0;
+`;
 
 const SidePanel = () => {
     return (
         <Panel>
-            <a href="#">Category</a>
-            <a href="#">Brand</a>
-            <a href="#">Price</a>
-            <a href="#">Rating</a>
-            <a href="#">Location</a>
+            <ListGroup>
+                <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                <ListGroup.Item>Cras justo odio</ListGroup.Item>
+                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+                <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
+                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                <Button>Filter</Button>
+            </ListGroup>
         </Panel>
     );
-}
+};
 
 export default SidePanel;
