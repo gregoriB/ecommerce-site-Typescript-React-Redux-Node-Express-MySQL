@@ -19,19 +19,19 @@ const AppContainer = styled.div`
 `;
 
 interface IProps {
-    cart: number;
+    cart: number[];
 }
 
 const App: React.FC<IProps> = ({ cart }) => {
     return (
         <AppContainer>
-            <NavBar cart={cart} />
+            <NavBar cart={[...cart]} />
             <Main />
         </AppContainer>
     );
 };
 
-const mapStateToProps = ({ cart }: { cart: number }) => {
+const mapStateToProps = ({ cart }: { cart: number[] }) => {
     return { cart };
 };
 

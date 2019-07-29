@@ -1,5 +1,5 @@
 import React from "react";
-import Product from "./Product";
+import Product from "../containers/Product";
 import styled from "styled-components";
 import productList from "../data/products";
 

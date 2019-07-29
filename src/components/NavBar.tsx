@@ -13,7 +13,7 @@ const NavContainer = styled.div`
 `;
 
 interface IProps {
-    cart: number;
+    cart: number[];
 }
 
 const NavBar: React.FC<IProps> = ({ cart }) => {
