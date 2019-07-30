@@ -1,6 +1,7 @@
 const addToCart = (
     state = {
-        cart: [] as number[]
+        cart: {} as any,
+        productArr: [] as number[]
     },
     action: any
 ) => {
@@ -8,7 +9,11 @@ const addToCart = (
         case "ADD":
             state = {
                 ...state,
-                cart: [...state.cart, action.payload]
+                cart: {
+                    ...state.cart,
+                    [action.payload]: state.cart[action.payload] + 1 || 1
+                },
+                productArr: [...state.productArr, action.payload]
             };
             break;
         default:

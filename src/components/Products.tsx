@@ -4,11 +4,13 @@ import styled from "styled-components";
 import productList from "../data/products";
 
 const Display = styled.div`
+    width: 80%;
     margin: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    display: grid;
+    grid-gap: 2rem;
+    justify-items: center;
     align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
 `;
 
 const Products = () => {

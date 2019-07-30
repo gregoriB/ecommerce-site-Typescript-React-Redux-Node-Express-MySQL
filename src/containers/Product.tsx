@@ -30,9 +30,7 @@ const Product: React.FC<IProps> = ({
                 style={{
                     width: "18rem",
                     height: "25rem",
-                    margin: "1rem",
-                    marginTop: "0",
-                    marginLeft: "0"
+                    margin: "0"
                 }}
             >
                 <Card.Img

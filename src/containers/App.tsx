@@ -19,20 +19,24 @@ const AppContainer = styled.div`
 `;
 
 interface IProps {
-    cart: number[];
+    cart: {};
+    productArr: number[];
 }
 
-const App: React.FC<IProps> = ({ cart }) => {
+const App: React.FC<IProps> = ({ cart, productArr }) => {
     return (
         <AppContainer>
-            <NavBar cart={[...cart]} />
-            <Main />
+            <NavBar cart={cart} />
+            <Main productArr={productArr} />
         </AppContainer>
     );
 };
 
-const mapStateToProps = ({ cart }: { cart: number[] }) => {
-    return { cart };
+const mapStateToProps = (state: any) => {
+    return {
+        cart: state.cart,
+        productArr: state.productArr
+    };
 };
 
 export default connect(mapStateToProps)(App);

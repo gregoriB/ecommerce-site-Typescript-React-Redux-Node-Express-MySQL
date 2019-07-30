@@ -1,6 +1,7 @@
-import React from "react";
-import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import React, { useState } from "react";
 import styled from "styled-components";
+import ShoppingCartModal from "./ShoppingCartModal";
+import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 
 const NavContainer = styled.div`
     padding: 0 2rem;
@@ -13,28 +14,39 @@ const NavContainer = styled.div`
 `;
 
 interface IProps {
-    cart: number[];
+    cart: any;
 }
 
 const NavBar: React.FC<IProps> = ({ cart }) => {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
     return (
         <NavContainer>
             <Navbar bg="light" variant="light" className="nav-bar">
-                <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                <Navbar.Brand href="#home">My Web Store</Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
+                    <Nav.Link href="#home-page">Home</Nav.Link>
+                    <Nav.Link href="#about-page">About</Nav.Link>
+                    <Nav.Link href="#contact-page">Support</Nav.Link>
                 </Nav>
                 <Form inline>
                     <FormControl
                         type="text"
-                        placeholder="Search"
+                        placeholder="Search inventory"
                         className="mr-sm-2"
                     />
-                    <div>{cart}</div>
-                    <Button variant="outline-primary">Search</Button>
+                    <Button variant="outline-primary" href="#search-results">
+                        Search
+                    </Button>
                 </Form>
+                <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+                    Cart
+                </Button>
+                <ShoppingCartModal
+                    cart={cart}
+                    show={isModalOpen}
+                    onHide={() => setIsModalOpen(false)}
+                />
             </Navbar>
         </NavContainer>
     );
