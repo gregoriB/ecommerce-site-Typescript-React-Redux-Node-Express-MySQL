@@ -5,6 +5,7 @@ import Main from "../components/Main";
 import NavBar from "../components/NavBar";
 
 import { connect } from "react-redux";
+import { IState } from "../reducers/addToCart";
 
 import styled from "styled-components";
 
@@ -32,7 +33,7 @@ const App: React.FC<IProps> = ({ cart, productArr }) => {
     );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: IState) => {
     return {
         cart: state.cart,
         productArr: state.productArr

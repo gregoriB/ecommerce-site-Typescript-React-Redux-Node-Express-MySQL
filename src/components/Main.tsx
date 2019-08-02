@@ -1,9 +1,4 @@
-import React, {
-    useState,
-    useEffect,
-    ReactElement,
-    ReactHTMLElement
-} from "react";
+import React, { useState, useEffect } from "react";
 import SidePanel from "./SidePanel";
 import Products from "./Products";
 import BSToast from "./Toast";
@@ -32,7 +27,7 @@ interface IProps {
 }
 
 const Main: React.FC<IProps> = ({ productArr }) => {
-    const [activeToasts, setActiveToasts] = useState<any>([]);
+    const [activeToasts, setActiveToasts] = useState<React.ReactChild[]>([]);
 
     useEffect(() => {
         setActiveToasts(

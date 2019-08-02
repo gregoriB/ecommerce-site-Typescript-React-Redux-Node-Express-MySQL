@@ -14,7 +14,7 @@ const NavContainer = styled.div`
 `;
 
 interface IProps {
-    cart: any;
+    cart: Object;
 }
 
 const NavBar: React.FC<IProps> = ({ cart }) => {

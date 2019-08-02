@@ -3,18 +3,16 @@ import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { addToCart } from "../actions/addToCart";
+import { addToCart, IActionAdd } from "../actions/addToCart";
 
-const ProductContainer = styled.div`
-    /* height: 50vh; */
-`;
+const ProductContainer = styled.div``;
 
 interface IProps {
     index: number;
     title: string;
     desc: string;
     price: number;
-    addToCart(val: number): any;
+    addToCart(val: number): IActionAdd;
 }
 
 const Product: React.FC<IProps> = ({
@@ -24,6 +22,7 @@ const Product: React.FC<IProps> = ({
     addToCart,
     index
 }) => {
+    console.log(addToCart);
     return (
         <ProductContainer>
             <Card

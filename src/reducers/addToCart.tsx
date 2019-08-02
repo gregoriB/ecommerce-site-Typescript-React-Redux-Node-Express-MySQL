@@ -1,10 +1,18 @@
-const addToCart = (
-    state = {
-        cart: {} as any,
-        productArr: [] as number[]
-    },
-    action: any
-) => {
+import { IActionAdd } from "../actions/addToCart";
+
+export interface IState {
+    cart: {
+        [key: number]: number;
+    };
+    productArr: number[];
+}
+
+const initialState: IState = {
+    cart: {},
+    productArr: []
+};
+
+const addToCart = (state = initialState, action: IActionAdd) => {
     switch (action.type) {
         case "ADD":
             state = {

@@ -3,14 +3,14 @@ import { Modal, Button } from "react-bootstrap";
 import products from "../data/products";
 
 interface IProps {
-    cart: any;
+    cart: Object;
     show: boolean;
     onHide(): void;
 }
 
 const ShoppingCartModal: React.FC<IProps> = props => {
     const { cart, onHide } = props;
-    const [items, setItems] = useState<any>([]);
+    const [items, setItems] = useState<React.ReactElement[]>([]);
     const [total, setTotal] = useState();
 
     useEffect(() => {
