@@ -1,43 +1,40 @@
 {
-  "name": "ecommerce-react-redux",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@types/jest": "24.0.15",
-    "@types/node": "12.6.8",
-    "@types/react": "16.8.23",
-    "@types/react-dom": "16.8.5",
-    "@types/react-redux": "^7.1.1",
-    "@types/styled-components": "^4.1.18",
-    "bootstrap": "^4.3.1",
-    "react": "^16.8.6",
-    "react-bootstrap": "^1.0.0-beta.10",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "react-scripts": "3.0.1",
-    "react-transition-group": "^4.2.1",
-    "styled-components": "^4.3.2",
-    "typescript": "3.5.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+    "name": "ecommerce-site",
+    "version": "0.1.0",
+    "description": "Ecommerce site with shopping cart.  Uses React for the front-end and Node/Express for the back-end.",
+    "main": "server.ts",
+    "dependencies": {
+        "@types/express": "^4.17.0",
+        "concurrently": "^4.1.1",
+        "ecommerce-react-redux": "file:client",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "server": "ts-node server.ts",
+        "client": "npm start --prefix client",
+        "react-build": "cd ./client && npm run build",
+        "build": "concurrently \"npm build ./\" \"npm run react-build\"",
+        "start": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gregoriB/ecommerce-site-typescript-react-redux.git"
+    },
+    "keywords": [
+        "ecommerce",
+        "shopping",
+        "cart",
+        "node",
+        "express",
+        "react",
+        "redux",
+        "typescript"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "author": "Brandon Gregori",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/gregoriB/ecommerce-site-typescript-react-redux/issues"
+    },
+    "homepage": "https://github.com/gregoriB/ecommerce-site-typescript-react-redux#readme"
 }

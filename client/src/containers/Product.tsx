@@ -22,7 +22,6 @@ const Product: React.FC<IProps> = ({
     addToCart,
     index
 }) => {
-    console.log(addToCart);
     return (
         <ProductContainer>
             <Card

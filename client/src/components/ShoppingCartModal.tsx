@@ -13,6 +13,20 @@ const ShoppingCartModal: React.FC<IProps> = props => {
     const [items, setItems] = useState<React.ReactElement[]>([]);
     const [total, setTotal] = useState();
 
+    const submitOrder = async () => {
+        try {
+            const response = await fetch("http://localhost:34567", {
+                method: "POST",
+                body: JSON.stringify({ cart }),
+                headers: { "Content-Type": "applications/json" }
+            });
+            const json = await response.json();
+            console.log(json);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     useEffect(() => {
         let total = 0;
         setItems(
@@ -57,7 +71,9 @@ const ShoppingCartModal: React.FC<IProps> = props => {
                 )}
             </Modal.Body>
             <Modal.Footer>
-                {items.length > 0 && <Button>Got to checkout</Button>}
+                {items.length > 0 && (
+                    <Button onClick={submitOrder}>Got to checkout</Button>
+                )}
                 <Button onClick={onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
