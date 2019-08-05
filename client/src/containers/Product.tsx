@@ -5,10 +5,14 @@ import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { addToCart, IActionAdd } from "../actions/addToCart";
 
-const ProductContainer = styled.div``;
+const ProductContainer = styled.div`
+    background: red;
+    height: 25rem;
+`;
 
 interface IProps {
     index: number;
+    image: string;
     title: string;
     desc: string;
     price: number;
@@ -16,36 +20,70 @@ interface IProps {
 }
 
 const Product: React.FC<IProps> = ({
+    image,
     title,
     desc,
     price,
     addToCart,
     index
 }) => {
+    const shortenDescription = () => {
+        const maxLength = 150;
+        if (desc.length < maxLength) {
+            return;
+        }
+
+        return desc.slice(0, 150).trim() + "...";
+    };
+
     return (
         <ProductContainer>
             <Card
                 style={{
-                    width: "18rem",
-                    height: "25rem",
-                    margin: "0"
+                    boxSizing: "border-box",
+                    width: "20rem",
+                    height: "100%",
+                    margin: "0",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    border: "none",
+                    borderRadius: "0"
                 }}
             >
                 <Card.Img
+                    style={{
+                        width: "unset",
+                        maxHeight: "40%",
+                        margin: ".5rem"
+                    }}
                     variant="top"
-                    src="https://www.templaza.com/blog/components/com_easyblog/themes/wireframe/images/placeholder-image.png"
+                    src={image}
                 />
-                <Card.Body style={{ padding: ".5rem" }}>
+                <Card.Body
+                    style={{
+                        padding: ".5rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "flex-end",
+                        height: "60%"
+                    }}
+                >
                     <Card.Title style={{ fontSize: "1rem" }}>
                         {title}
                     </Card.Title>
-                    <Card.Text style={{ fontSize: ".7rem" }}>{desc}</Card.Text>
+                    <Card.Text
+                        style={{ fontSize: ".7rem", textAlign: "justify" }}
+                    >
+                        {shortenDescription()}
+                    </Card.Text>
                     <Card.Text style={{ fontSize: ".7rem" }}>
                         ${price}
                     </Card.Text>
                     <Button
                         variant="primary"
-                        style={{ position: "absolute", bottom: ".7rem" }}
+                        // style={{ position: "absolute", bottom: ".7rem" }}
                         onClick={() => addToCart(index)}
                     >
                         add to cart

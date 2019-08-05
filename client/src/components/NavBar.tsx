@@ -22,13 +22,13 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
 
     return (
         <NavContainer>
-            <Navbar bg="light" variant="light" className="nav-bar">
+            <Navbar
+                bg="light"
+                variant="light"
+                className="nav-bar"
+                style={{ justifyContent: "flex-start" }}
+            >
                 <Navbar.Brand href="#home">My Web Store</Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link href="#home-page">Home</Nav.Link>
-                    <Nav.Link href="#about-page">About</Nav.Link>
-                    <Nav.Link href="#contact-page">Support</Nav.Link>
-                </Nav>
                 <Form inline>
                     <FormControl
                         type="text"
@@ -39,6 +39,48 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                         Search
                     </Button>
                 </Form>
+                <Nav
+                    style={{
+                        // padding: ".5rem",
+                        // borderRadius: "5px",
+                        // margin: "0 !important",
+                        marginLeft: "auto",
+                        marginRight: "1rem"
+                        // background: "darkgray"
+                    }}
+                >
+                    <Form inline>
+                        <FormControl
+                            type="text"
+                            placeholder="username"
+                            className="mr-sm-2 form-control-sm"
+                        />
+                        <FormControl
+                            type="password"
+                            placeholder="password"
+                            className="mr-sm-2 form-control-sm"
+                        />
+                        <Button
+                            variant="outline-primary"
+                            href="#search-results"
+                            className="btn-sm"
+                        >
+                            Login
+                        </Button>
+                    </Form>
+                    <span
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginLeft: "1rem"
+                        }}
+                    >
+                        {"or "}
+                        <Nav.Link href="#home-page">
+                            register new account
+                        </Nav.Link>
+                    </span>
+                </Nav>
                 <Button variant="primary" onClick={() => setIsModalOpen(true)}>
                     Cart
                 </Button>

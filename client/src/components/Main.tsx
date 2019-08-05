@@ -7,7 +7,7 @@ import styled from "styled-components";
 const MainDiv = styled.div`
     display: flex;
     justify-content: center;
-    background-color: darkgray;
+    background-color: #f8f9fa;
     width: 95vw;
     margin: 0 auto;
 `;
