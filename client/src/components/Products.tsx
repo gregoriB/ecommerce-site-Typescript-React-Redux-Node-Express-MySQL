@@ -25,28 +25,29 @@ const Products = () => {
                     headers: { "Content-Type": "application/json" }
                 });
                 const productList: any = await response.json();
-                setProducts(
-                    productList.map((item: any, index: any) => {
-                        return (
-                            <Product
-                                key={index}
-                                index={index}
-                                image={item.imageURL}
-                                title={item.name}
-                                desc={item.shortDescription}
-                                price={item.price}
-                            />
-                        );
-                    })
-                );
+                productList &&
+                    setProducts(
+                        productList.map((item: any, index: any) => {
+                            return (
+                                <Product
+                                    key={index}
+                                    index={index}
+                                    image={item.imageURL}
+                                    title={item.name}
+                                    desc={item.shortDescription}
+                                    price={item.price}
+                                />
+                            );
+                        })
+                    );
             } catch (err) {
                 console.error(err);
             }
         };
         fetchProducts();
-    }, []);
+    }, [products]);
 
-    return <Display>{products}</Display>;
+    return <Display>{products || "please refresh page"}</Display>;
 };
 
 export default Products;

@@ -1,15 +1,15 @@
-import { Response, NextFunction } from "express";
-import { MysqlError } from "mysql";
+import express = require("express");
+import mysql = require("mysql");
+import path = require("path");
 
-const mysql = require("mysql");
-const express = require("express");
-const app = express();
-const path = require("path");
+import { Application, Response, NextFunction } from "express";
+
+const app: Application = express();
 
 require("dotenv").config();
 
 const nodeEnv = app.get("env");
-const isDevelopment = nodeEnv === "development";
+const isDevelopment = nodeEnv !== "production";
 
 app.use(
     express.static(
@@ -43,7 +43,7 @@ function fetchProductData() {
     connection.connect();
     connection.query(
         "SELECT * FROM items",
-        (error: MysqlError, results: any) => {
+        (error: mysql.MysqlError, results: any) => {
             if (error) throw error;
             products = results;
         }
@@ -51,7 +51,7 @@ function fetchProductData() {
     connection.end();
 }
 
-const listener = app.listen(34567, () => {
+const listener: any = app.listen(34567, () => {
     console.info("\x1b[33m", `${nodeEnv} server`);
     console.info(
         "\x1b[36m", //cyan font color
