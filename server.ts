@@ -2,7 +2,7 @@ import express = require("express");
 import mysql = require("mysql");
 import path = require("path");
 
-import { Application, Response, NextFunction } from "express";
+import { Application, Request, Response, NextFunction } from "express";
 
 const app: Application = express();
 
@@ -19,7 +19,7 @@ app.use(
 
 app.use(express.json({ type: "applications/json" }));
 
-app.use((_: null, res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     res.append("Access-Control-Allow-Origin", "*");
     res.append("Access-Control-Allow-Headers", "POST");
     res.append("Access-Control-Allow-Headers", "Content-Type");
@@ -28,7 +28,7 @@ app.use((_: null, res: Response, next: NextFunction) => {
 
 let products: any;
 
-app.post("/", (_: null, res: Response) => {
+app.post("/", (req: Request, res: Response) => {
     fetchProductData();
     res.json(products);
 });
