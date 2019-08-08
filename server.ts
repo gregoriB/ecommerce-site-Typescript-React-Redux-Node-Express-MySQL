@@ -1,54 +1,48 @@
 import express = require("express");
 import mysql = require("mysql");
 import path = require("path");
-
-import { Application, Request, Response, NextFunction } from "express";
-
-const app: Application = express();
+import cors = require("cors");
+import { Application, Request, Response } from "express";
 
 require("dotenv").config();
 
-const nodeEnv = app.get("env");
-const isDevelopment = nodeEnv !== "production";
+const app: Application = express(),
+    nodeEnv = app.get("env"),
+    isDevelopment = nodeEnv !== "production",
+    corsOptions = {
+        origin: "*",
+        optionsSuccessStatus: 200
+    };
 
 app.use(
     express.static(
         path.join(__dirname, `client/${isDevelopment ? "public" : "build"}`)
     )
 );
-
+app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-    res.append("Access-Control-Allow-Origin", "*");
-    res.append("Access-Control-Allow-Headers", "POST");
-    res.append("Access-Control-Allow-Headers", "Content-Type");
-    next();
-});
+let products: mysql.Query;
 
-let products: any;
-
-app.post("/", (req: Request, res: Response) => {
+app.get("/products", (req: Request, res: Response) => {
     fetchProductData();
     res.json(products);
 });
 
+const dbCredentials = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
+};
+
 function fetchProductData() {
-    const connection = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE
+    const connection = mysql.createConnection(dbCredentials);
+    const query = "SELECT * FROM items";
+    connection.query(query, (error: mysql.MysqlError, results: any) => {
+        if (error) throw error;
+        products = results;
     });
-    connection.connect();
-    connection.query(
-        "SELECT * FROM items",
-        (error: mysql.MysqlError, results: any) => {
-            if (error) throw error;
-            products = results;
-        }
-    );
-    connection.end();
 }
 
 const listener: any = app.listen(34567, () => {
