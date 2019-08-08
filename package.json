@@ -4,7 +4,9 @@
     "description": "Ecommerce site with shopping cart.  Uses React for the front-end and Node/Express for the back-end.",
     "main": "server.ts",
     "dependencies": {
+        "@types/cors": "^2.8.5",
         "bootstrap": "^4.3.1",
+        "cors": "^2.8.5",
         "dotenv": "^8.0.0",
         "ecommerce-react-redux": "file:client",
         "express": "^4.17.1",
@@ -37,7 +39,7 @@
         "client": "npm start --prefix client",
         "react-build": "cd ./client && react-scripts build",
         "build": "concurrently \"tsc -p .\" \"npm run react-build\"",
-        "start": "concurrently \"npm run server\" \"npm run client\""
+        "start": "concurrently \"npm run dev\" \"npm run client\""
     },
     "repository": {
         "type": "git",

@@ -19,11 +19,7 @@ const Products = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch("http://localhost:34567", {
-                    method: "POST",
-                    body: null,
-                    headers: { "Content-Type": "application/json" }
-                });
+                const response = await fetch("http://localhost:34567/products");
                 const productList: any = await response.json();
                 productList &&
                     setProducts(
@@ -45,7 +41,7 @@ const Products = () => {
             }
         };
         fetchProducts();
-    }, [products]);
+    }, []);
 
     return <Display>{products || "please refresh page"}</Display>;
 };
