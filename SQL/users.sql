@@ -6,7 +6,7 @@ CREATE TABLE users (
     userpass VARBINARY(255)
 );
 
-INSERT INTO users (email, joindate, username, userpass)
+INSERT INTO users (email, username, userpass)
 VALUES (
     'brandon.gregori@gmail.com',
     'gregorib',
