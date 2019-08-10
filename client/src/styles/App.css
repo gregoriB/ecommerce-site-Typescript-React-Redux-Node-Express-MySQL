@@ -1,0 +1,30 @@
+.modal-dialog {
+    margin-top: 0;
+}
+
+.card-img-top {
+    transition: transform 0.05s;
+}
+
+.card-img-top:hover {
+    transform: scale(1.05);
+    transition: transform 0.1s;
+}
+
+.magnifier {
+    margin: 0 auto;
+    /* position: relative; */
+}
+
+.image-modal {
+    background: rgba(0, 0, 0, 0.753);
+    width: 100vw;
+}
+
+.image-modal .modal-content {
+    background: none;
+}
+
+.mr-sm-2.search-input {
+    margin-right: 0 !important;
+}

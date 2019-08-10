@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Product from "../containers/Product";
 import styled from "styled-components";
-// import productList from "../data/products";
 
 const Display = styled.div`
     width: 80vw;
@@ -23,7 +22,7 @@ const Products = () => {
                 const productList: any = await response.json();
                 productList &&
                     setProducts(
-                        productList.map((item: any, index: any) => {
+                        productList.map((item: any, index: number) => {
                             return (
                                 <Product
                                     key={index}
@@ -31,6 +30,7 @@ const Products = () => {
                                     image={item.imageURL}
                                     title={item.name}
                                     desc={item.shortDescription}
+                                    descLong={item.longDescription}
                                     price={item.price}
                                 />
                             );

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ShoppingCartModal from "./ShoppingCartModal";
 import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NavContainer = styled.div`
     padding: 0 2rem;
@@ -11,6 +13,22 @@ const NavContainer = styled.div`
     z-index: 100;
     background-color: #f8f9fa;
     width: 100vw;
+`;
+
+const InputWrapper = styled.div`
+    position: relative;
+    background: white;
+    border: thin solid #dfdfdf;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+`;
+
+const SearchButton = styled.button`
+    background: none;
+    border: none;
+    position: absolute;
+    right: 0;
 `;
 
 interface IProps {
@@ -28,16 +46,25 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                 className="nav-bar"
                 style={{ justifyContent: "flex-start" }}
             >
-                <Navbar.Brand href="#home">My Web Store</Navbar.Brand>
+                <Link to="Main">
+                    <Navbar.Brand>My Web Store</Navbar.Brand>
+                </Link>
                 <Form inline>
-                    <FormControl
-                        type="text"
-                        placeholder="Search inventory"
-                        className="mr-sm-2"
-                    />
-                    <Button variant="outline-primary" href="#search-results">
-                        Search
-                    </Button>
+                    <InputWrapper>
+                        <FormControl
+                            type="text"
+                            placeholder="Search inventory"
+                            className="mr-sm-2 search-input"
+                            style={{
+                                background: "transparent",
+                                borderRadius: "15px",
+                                border: "none"
+                            }}
+                        />
+                        <SearchButton>
+                            <FontAwesomeIcon icon="search" />
+                        </SearchButton>
+                    </InputWrapper>
                 </Form>
                 <Nav
                     style={{
@@ -61,11 +88,16 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                             className="mr-sm-2 form-control-sm"
                         />
                         <Button
-                            variant="outline-primary"
+                            variant="outline-secondary"
                             href="#search-results"
                             className="btn-sm"
                         >
-                            Login
+                            Sign In
+                            <FontAwesomeIcon
+                                icon="sign-in-alt"
+                                size="lg"
+                                style={{ margin: "0 .5rem" }}
+                            />
                         </Button>
                     </Form>
                     <span
@@ -82,7 +114,11 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                     </span>
                 </Nav>
                 <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-                    Cart
+                    <FontAwesomeIcon
+                        icon="shopping-cart"
+                        style={{ margin: "0 .5rem" }}
+                        size="lg"
+                    />
                 </Button>
                 <ShoppingCartModal
                     cart={cart}

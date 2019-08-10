@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import products from "../data/products";
 
@@ -48,7 +49,7 @@ const ShoppingCartModal: React.FC<IProps> = props => {
         <Modal
             {...props}
             size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
+            aria-labelledby="contained-modal-title-right"
             centered
         >
             <Modal.Header closeButton>
@@ -72,7 +73,9 @@ const ShoppingCartModal: React.FC<IProps> = props => {
             </Modal.Body>
             <Modal.Footer>
                 {items.length > 0 && (
-                    <Button onClick={submitOrder}>Got to checkout</Button>
+                    <Link to="checkout" onClick={onHide}>
+                        Go to checkout
+                    </Link>
                 )}
                 <Button onClick={onHide}>Close</Button>
             </Modal.Footer>

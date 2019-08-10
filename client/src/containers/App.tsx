@@ -1,8 +1,11 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../styles//App.css";
 
 import Main from "../components/Main";
 import NavBar from "../components/NavBar";
+import Home from "../components/Home";
+import CheckoutPage from "../components/CheckoutPage";
 
 import { connect } from "react-redux";
 import { IState } from "../reducers/addToCart";
@@ -27,8 +30,18 @@ interface IProps {
 const App: React.FC<IProps> = ({ cart, productArr }) => {
     return (
         <AppContainer>
-            <NavBar cart={cart} />
-            <Main productArr={productArr} />
+            <Router>
+                <NavBar cart={cart} />
+                <Switch>
+                    {/* <Route exact path="/" component={Home} /> */}
+                    <Route
+                        exact
+                        path="/"
+                        render={() => <Main productArr={productArr} />}
+                    />
+                    <Route exact path="/checkout" component={CheckoutPage} />
+                </Switch>
+            </Router>
         </AppContainer>
     );
 };

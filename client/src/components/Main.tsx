@@ -20,6 +20,7 @@ const ToastContainer = styled.div`
     bottom: 1vh;
     right: 2vw;
     width: 25vw;
+    z-index: 100000;
 `;
 
 interface IProps {
