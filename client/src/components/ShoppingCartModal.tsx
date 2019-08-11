@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
-import products from "../data/products";
 
 interface IProps {
     cart: Object;
@@ -28,22 +27,22 @@ const ShoppingCartModal: React.FC<IProps> = props => {
         }
     };
 
-    useEffect(() => {
-        let total = 0;
-        setItems(
-            Object.entries(cart).map(([product, quantity], index) => {
-                const { title, price } = products[Number(product)];
-                total += price * Number(quantity);
-                return (
-                    <div key={index}>
-                        {title} x {quantity} @ ${price} each
-                    </div>
-                );
-            })
-        );
+    // useEffect(() => {
+    //     let total = 0;
+    //     setItems(
+    //         Object.entries(cart).map(([product, quantity], index) => {
+    //             const { title, price } = products[Number(product)];
+    //             total += price * Number(quantity);
+    //             return (
+    //                 <div key={index}>
+    //                     {title} x {quantity} @ ${price} each
+    //                 </div>
+    //             );
+    //         })
+    //     );
 
-        setTotal(total);
-    }, [cart]);
+    //     setTotal(total);
+    // }, [cart]);
 
     return (
         <Modal

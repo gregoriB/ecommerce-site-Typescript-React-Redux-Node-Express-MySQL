@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import ShoppingCartModal from "./ShoppingCartModal";
 import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NavContainer = styled.div`
@@ -25,9 +25,10 @@ const InputWrapper = styled.div`
 `;
 
 const SearchButton = styled.button`
-    background: none;
+    background: white;
     border: none;
     position: absolute;
+    margin-right: 0.3rem;
     right: 0;
 `;
 
@@ -35,8 +36,22 @@ interface IProps {
     cart: Object;
 }
 
-const NavBar: React.FC<IProps> = ({ cart }) => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+
+    const handleChange = (e: any) => {
+        setSearchValue(e.target.value);
+    };
+
+    type FormElem = React.ChangeEvent<HTMLFormElement>;
+
+    const handleSubmit = (e: FormElem) => {
+        e.preventDefault();
+        console.log(history);
+        setSearchValue("");
+        history.push("/search-results");
+    };
 
     return (
         <NavContainer>
@@ -47,13 +62,19 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                 style={{ justifyContent: "flex-start" }}
             >
                 <Link to="Main">
-                    <Navbar.Brand>My Web Store</Navbar.Brand>
+                    <Navbar.Brand
+                        style={{ fontFamily: "'Lexend Exa', sans-serif" }}
+                    >
+                        Super Meter Arcade
+                    </Navbar.Brand>
                 </Link>
-                <Form inline>
+                <Form inline onSubmit={handleSubmit} action="/search-results">
                     <InputWrapper>
                         <FormControl
                             type="text"
                             placeholder="Search inventory"
+                            value={searchValue}
+                            onChange={handleChange}
                             className="mr-sm-2 search-input"
                             style={{
                                 background: "transparent",
@@ -68,12 +89,8 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                 </Form>
                 <Nav
                     style={{
-                        // padding: ".5rem",
-                        // borderRadius: "5px",
-                        // margin: "0 !important",
                         marginLeft: "auto",
                         marginRight: "1rem"
-                        // background: "darkgray"
                     }}
                 >
                     <Form inline>
@@ -107,7 +124,6 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                             marginLeft: "1rem"
                         }}
                     >
-                        {"or "}
                         <Nav.Link href="#home-page">
                             register new account
                         </Nav.Link>
@@ -130,4 +146,4 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
     );
 };
 
-export default NavBar;
+export default withRouter(NavBar);

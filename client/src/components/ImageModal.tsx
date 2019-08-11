@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 import Magnifier from "react-magnifier";
@@ -40,7 +40,6 @@ const ImageModal: React.FC<IProps> = props => {
 
     return (
         <Modal
-            animation={false}
             className="image-modal"
             {...props}
             size="xl"

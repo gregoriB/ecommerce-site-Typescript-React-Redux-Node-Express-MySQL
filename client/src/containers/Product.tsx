@@ -90,7 +90,13 @@ const Product: React.FC<IProps> = props => {
                             See More...
                         </ShowMoreLink>
                     </Card.Text>
-                    <Card.Text style={{ fontSize: ".7rem" }}>
+                    <Card.Text
+                        style={{
+                            fontWeight: "bold",
+                            fontSize: ".9rem",
+                            marginLeft: "1rem"
+                        }}
+                    >
                         ${price}
                     </Card.Text>
                     <Button

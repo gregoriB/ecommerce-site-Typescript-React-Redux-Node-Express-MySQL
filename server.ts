@@ -3,6 +3,7 @@ import mysql = require("mysql");
 import path = require("path");
 import cors = require("cors");
 import { Application, Request, Response } from "express";
+import console = require("console");
 
 require("dotenv").config();
 
@@ -24,8 +25,16 @@ app.use(express.json({ type: "applications/json" }));
 
 let products: mysql.Query;
 
-app.get("/products", (req: Request, res: Response) => {
-    fetchProductData();
+app.get("/search", (req: Request, res: Response) => {
+    console.log("search");
+    fetchProductData("SELECT * FROM items");
+    res.json(products);
+});
+
+app.get("/featured", (req: Request, res: Response) => {
+    console.log("featured");
+
+    fetchProductData("SELECT * FROM fi");
     res.json(products);
 });
 
@@ -36,9 +45,8 @@ const dbCredentials = {
     database: process.env.DB_DATABASE
 };
 
-function fetchProductData() {
+function fetchProductData(query: string) {
     const connection = mysql.createConnection(dbCredentials);
-    const query = "SELECT * FROM items";
     connection.query(query, (error: mysql.MysqlError, results: any) => {
         if (error) throw error;
         products = results;

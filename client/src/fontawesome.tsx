@@ -5,7 +5,19 @@ import {
     faShoppingCart,
     faCartPlus,
     faSearch,
-    faSignInAlt
+    faSignInAlt,
+    faDollarSign,
+    faTags,
+    faStore
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faSearchPlus, faShoppingCart, faCartPlus, faSearch, faSignInAlt);
+library.add(
+    faSearchPlus,
+    faShoppingCart,
+    faCartPlus,
+    faSearch,
+    faSignInAlt,
+    faDollarSign,
+    faTags,
+    faStore
+);

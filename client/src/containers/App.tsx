@@ -29,17 +29,17 @@ interface IProps {
 
 const App: React.FC<IProps> = ({ cart, productArr }) => {
     return (
-        <AppContainer>
+        <AppContainer className="app">
             <Router>
                 <NavBar cart={cart} />
                 <Switch>
-                    {/* <Route exact path="/" component={Home} /> */}
+                    <Route exact path="/Main" component={Home} />
                     <Route
                         exact
-                        path="/"
+                        path="/search-results"
                         render={() => <Main productArr={productArr} />}
                     />
-                    <Route exact path="/checkout" component={CheckoutPage} />
+                    {/* <Route exact path="/checkout" component={CheckoutPage} /> */}
                 </Switch>
             </Router>
         </AppContainer>

@@ -1,0 +1,3 @@
+CREATE TABLE coupons (
+    coupon_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+)
