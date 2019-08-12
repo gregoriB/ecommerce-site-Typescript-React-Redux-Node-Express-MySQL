@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Product from "../containers/Product";
+import Product from "../containers/StoreItem";
 import styled from "styled-components";
 
 const Display = styled.div`

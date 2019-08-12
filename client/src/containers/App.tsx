@@ -4,7 +4,8 @@ import "../styles//App.css";
 
 import Main from "../components/Main";
 import NavBar from "../components/NavBar";
-import Home from "../components/Home";
+import Home from "./Home";
+import useMapToasts from "../hooks/useMapToasts";
 import CheckoutPage from "../components/CheckoutPage";
 
 import { connect } from "react-redux";
@@ -22,25 +23,35 @@ const AppContainer = styled.div`
     left: 0;
 `;
 
+const ToastContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    bottom: 1vh;
+    right: 2vw;
+    width: 25vw;
+    z-index: 100000;
+`;
+
 interface IProps {
     cart: {};
     productArr: number[];
 }
 
 const App: React.FC<IProps> = ({ cart, productArr }) => {
+    const toasts = useMapToasts(productArr);
+    console.log(toasts);
     return (
         <AppContainer className="app">
             <Router>
                 <NavBar cart={cart} />
                 <Switch>
                     <Route exact path="/Main" component={Home} />
-                    <Route
-                        exact
-                        path="/search-results"
-                        render={() => <Main productArr={productArr} />}
-                    />
+                    <Route exact path="/search-results" component={Main} />
                     {/* <Route exact path="/checkout" component={CheckoutPage} /> */}
                 </Switch>
+                <ToastContainer>{toasts}</ToastContainer>
             </Router>
         </AppContainer>
     );

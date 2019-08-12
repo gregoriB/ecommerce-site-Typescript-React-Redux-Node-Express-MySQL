@@ -26,14 +26,11 @@ app.use(express.json({ type: "applications/json" }));
 let products: mysql.Query;
 
 app.get("/search", (req: Request, res: Response) => {
-    console.log("search");
     fetchProductData("SELECT * FROM items");
     res.json(products);
 });
 
 app.get("/featured", (req: Request, res: Response) => {
-    console.log("featured");
-
     fetchProductData("SELECT * FROM fi");
     res.json(products);
 });

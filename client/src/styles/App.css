@@ -7,8 +7,8 @@
 }
 
 .card-img-top:hover {
-    transform: scale(1.05);
-    transition: transform 0.1s;
+    /* transform: scale(1.05);
+    transition: transform 0.1s; */
 }
 
 .magnifier {
@@ -38,7 +38,7 @@
     pointer-events: none;
     cursor: pointer;
     position: absolute;
-    width: 50px;
+    left: 46%;
     opacity: 0;
     height: 35px;
     width: 35px;
@@ -58,4 +58,13 @@
 .product-image:hover + .search-plus {
     opacity: 1;
     transition: opacity 1s;
+}
+
+.card {
+    transition: box-shadow 0.1s;
+    border-radius: 0;
+}
+
+.card:hover {
+    box-shadow: 0 3px 10px #6c757d55;
 }

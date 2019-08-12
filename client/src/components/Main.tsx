@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SidePanel from "./SidePanel";
-import Products from "./Products";
-import BSToast from "./Toast";
+import Products from "./Results";
 import styled from "styled-components";
 
 const MainDiv = styled.div`
@@ -12,36 +11,11 @@ const MainDiv = styled.div`
     margin: 0 auto;
 `;
 
-const ToastContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: fixed;
-    bottom: 1vh;
-    right: 2vw;
-    width: 25vw;
-    z-index: 100000;
-`;
-
-interface IProps {
-    productArr: number[];
-}
-
-const Main: React.FC<IProps> = ({ productArr }) => {
-    const [activeToasts, setActiveToasts] = useState<React.ReactChild[]>([]);
-
-    useEffect(() => {
-        setActiveToasts(
-            productArr.map((item, index) => (
-                <BSToast item={Number(item)} key={index} />
-            ))
-        );
-    }, [productArr]);
+const Main = () => {
     return (
         <MainDiv>
             <SidePanel />
             <Products />
-            <ToastContainer>{activeToasts}</ToastContainer>
         </MainDiv>
     );
 };

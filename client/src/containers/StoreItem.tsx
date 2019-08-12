@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
 import { addToCart, IActionAdd } from "../actions/addToCart";
-import ProductModal from "../components/ProductModal";
+import ProductModal from "../components/StoreItemModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ItemImage from "../components/ItemImage";
 
 const ProductContainer = styled.div`
     background: red;
@@ -32,7 +33,7 @@ interface IProps {
 
 const Product: React.FC<IProps> = props => {
     const { image, title, desc, price, addToCart, index } = props;
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isProductModalOpen, setIsProductModalOpen] = useState(false);
 
     const shortenDescription = () => {
         const maxLength = 150;
@@ -55,21 +56,27 @@ const Product: React.FC<IProps> = props => {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    border: "none",
                     borderRadius: "0"
                 }}
             >
-                <Card.Img
-                    style={{
-                        cursor: "pointer",
-                        width: "unset",
-                        maxHeight: "40%",
-                        margin: ".5rem"
+                {/* <ItemImage 
+                    render={() => {
+                        <Card.Img
+                        className="product-image"
+                        style={{
+                            cursor: "pointer",
+                            width: "unset",
+                            maxHeight: "40%",
+                            margin: ".5rem"
+                        }}
+                        variant="top"
+                        src={image}
+                        onClick={() => setIsImageModalOpen(true)}
+                    />
                     }}
-                    variant="top"
-                    src={image}
-                    onClick={() => setIsModalOpen(true)}
-                />
+
+                /> */}
+                <ItemImage image={image} />
                 <Card.Body
                     style={{
                         padding: ".5rem",
@@ -86,7 +93,9 @@ const Product: React.FC<IProps> = props => {
                         style={{ fontSize: ".7rem", textAlign: "justify" }}
                     >
                         {shortenDescription()}
-                        <ShowMoreLink onClick={() => setIsModalOpen(true)}>
+                        <ShowMoreLink
+                            onClick={() => setIsProductModalOpen(true)}
+                        >
                             See More...
                         </ShowMoreLink>
                     </Card.Text>
@@ -114,8 +123,8 @@ const Product: React.FC<IProps> = props => {
             </Card>
             <ProductModal
                 {...props}
-                show={isModalOpen}
-                onHide={() => setIsModalOpen(false)}
+                show={isProductModalOpen}
+                onHide={() => setIsProductModalOpen(false)}
             />
         </ProductContainer>
     );

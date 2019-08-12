@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { IActionAdd } from "../actions/addToCart";
 import styled from "styled-components";
-import ImageModal from "./ImageModal";
+import ImageModal from "./ItemImageModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ItemImage from "./ItemImage";
 
 interface IProps {
     show: boolean;
@@ -28,16 +29,20 @@ const FlexContainer = styled.div`
         margin: 5vh auto;
         div {
             display: flex;
-            justify-content: space-between;
-            div {
-                position: relative;
-                margin-left: 2rem;
-                text-align: center;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-            }
         }
+    `,
+    Content = styled.div`
+        justify-content: space-between;
+    `,
+    ImageAndCartButton = styled.div`
+        position: relative;
+        margin-left: 2rem;
+        text-align: center;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        max-height: 400px;
+        width: 100%;
     `,
     CloseModal = styled.div`
         cursor: pointer;
@@ -50,13 +55,6 @@ const FlexContainer = styled.div`
         text-align: justify;
         margin: 2rem auto;
         display: block;
-    `,
-    Image = styled.img`
-        cursor: pointer;
-        width: 100%;
-        height: auto;
-        transition: transform 0.2s;
-        outline: none;
     `,
     Desc = styled.p`
         white-space: pre-wrap;
@@ -105,21 +103,15 @@ const ProductModal: React.FC<IProps> = props => {
             </CloseModal>
             <FlexContainer>
                 <Title>{title}</Title>
-                <div>
+                <Content>
                     <Desc>{descLong}</Desc>
-                    <div>
-                        <Image
-                            className="product-image"
-                            ref={imageRef}
-                            src={image}
-                            tabIndex={1}
-                            onClick={toggleImageModal}
-                        />
+                    <ImageAndCartButton>
+                        <ItemImage image={image} />
                         <FontAwesomeIcon
                             className="search-plus"
                             icon="search-plus"
                             size="2x"
-                            style={{ top: imageHeight / 2 }}
+                            style={{ top: imageHeight / 2 - 17 }}
                         />
                         <ImageModal
                             image={image}
@@ -142,8 +134,8 @@ const ProductModal: React.FC<IProps> = props => {
                                 Add to cart
                             </Button>
                         </ButtonContainer>
-                    </div>
-                </div>
+                    </ImageAndCartButton>
+                </Content>
             </FlexContainer>
         </Modal>
     );

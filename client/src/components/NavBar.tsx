@@ -48,7 +48,6 @@ const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
 
     const handleSubmit = (e: FormElem) => {
         e.preventDefault();
-        console.log(history);
         setSearchValue("");
         history.push("/search-results");
     };
