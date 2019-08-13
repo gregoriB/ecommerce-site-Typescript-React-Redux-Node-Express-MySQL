@@ -48,6 +48,7 @@ function fetchProductData(query: string) {
         if (error) throw error;
         products = results;
     });
+    connection.end();
 }
 
 const listener: any = app.listen(34567, () => {

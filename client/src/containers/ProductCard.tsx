@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { addToCart, IActionAdd } from "../actions/addToCart";
-import ProductModal from "../components/StoreItemModal";
+import { addToCart, IActionAdd } from "../store/actions/addToCart";
+import ProductModal from "../components/ProductModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ItemImage from "../components/ItemImage";
+import ProductImage from "../components/ProductImage";
 
 const ProductContainer = styled.div`
     background: red;
@@ -31,7 +31,7 @@ interface IProps {
     addToCart(val: number): IActionAdd;
 }
 
-const Product: React.FC<IProps> = props => {
+const ProductCard: React.FC<IProps> = props => {
     const { image, title, desc, price, addToCart, index } = props;
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
 
@@ -59,24 +59,7 @@ const Product: React.FC<IProps> = props => {
                     borderRadius: "0"
                 }}
             >
-                {/* <ItemImage 
-                    render={() => {
-                        <Card.Img
-                        className="product-image"
-                        style={{
-                            cursor: "pointer",
-                            width: "unset",
-                            maxHeight: "40%",
-                            margin: ".5rem"
-                        }}
-                        variant="top"
-                        src={image}
-                        onClick={() => setIsImageModalOpen(true)}
-                    />
-                    }}
-
-                /> */}
-                <ItemImage image={image} />
+                <ProductImage allowModal={true} image={image} />
                 <Card.Body
                     style={{
                         padding: ".5rem",
@@ -137,4 +120,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 export default connect(
     null,
     mapDispatchToProps
-)(Product);
+)(ProductCard);

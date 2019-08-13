@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { IActionAdd } from "../actions/addToCart";
+import { IActionAdd } from "../store/actions/addToCart";
 import styled from "styled-components";
-import ImageModal from "./ItemImageModal";
+import ImageModal from "./ImageModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ItemImage from "./ItemImage";
+import ProductImage from "./ProductImage";
 
 interface IProps {
     show: boolean;
@@ -69,8 +69,16 @@ const FlexContainer = styled.div`
         margin-top: auto;
     `;
 
-const ProductModal: React.FC<IProps> = props => {
-    const { image, title, price, index, onHide, descLong, addToCart } = props;
+const ProductModal: React.FC<IProps> = ({
+    image,
+    title,
+    price,
+    index,
+    onHide,
+    descLong,
+    addToCart,
+    ...rest
+}) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [imageHeight, setImageHeight] = useState<number>(0);
 
@@ -88,17 +96,13 @@ const ProductModal: React.FC<IProps> = props => {
 
     return (
         <Modal
-            {...props}
+            {...rest}
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
             title=""
         >
-            <CloseModal
-                className="close"
-                style={{ userSelect: "none" }}
-                onClick={onHide}
-            >
+            <CloseModal className="close" onClick={onHide}>
                 x
             </CloseModal>
             <FlexContainer>
@@ -106,7 +110,7 @@ const ProductModal: React.FC<IProps> = props => {
                 <Content>
                     <Desc>{descLong}</Desc>
                     <ImageAndCartButton>
-                        <ItemImage image={image} />
+                        <ProductImage allowModal={true} image={image} />
                         <FontAwesomeIcon
                             className="search-plus"
                             icon="search-plus"

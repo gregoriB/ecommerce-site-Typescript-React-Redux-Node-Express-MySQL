@@ -1,6 +1,6 @@
 import React from "react";
 import SidePanel from "./SidePanel";
-import Products from "./Results";
+import SearchResults from "./SearchResults";
 import styled from "styled-components";
 
 const MainDiv = styled.div`
@@ -15,7 +15,7 @@ const Main = () => {
     return (
         <MainDiv>
             <SidePanel />
-            <Products />
+            <SearchResults />
         </MainDiv>
     );
 };

@@ -58,7 +58,11 @@ const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
                 bg="light"
                 variant="light"
                 className="nav-bar"
-                style={{ justifyContent: "flex-start" }}
+                style={{
+                    justifyContent: "flex-start",
+                    maxWidth: 2000,
+                    margin: "0 auto"
+                }}
             >
                 <Link to="Main">
                     <Navbar.Brand

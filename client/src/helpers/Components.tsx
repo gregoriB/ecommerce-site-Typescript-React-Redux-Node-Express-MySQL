@@ -1,5 +1,5 @@
-import Featured from "../components/FeaturedItems";
-import Product from "../containers/StoreItem";
+import Featured from "../components/FeaturedCard";
+import Product from "../containers/ProductCard";
 
 const components: any = {
     Featured,

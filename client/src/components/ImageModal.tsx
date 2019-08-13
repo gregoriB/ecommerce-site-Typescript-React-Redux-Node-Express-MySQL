@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 import Magnifier from "react-magnifier";
+import { NONAME } from "dns";
+import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 
 interface IProps {
     image: string;
@@ -32,10 +34,10 @@ const ImageModal: React.FC<IProps> = props => {
         src: props.image,
         width: "50%",
         height: "auto",
-        zoomFactor: 1,
-        mgWidth: 200,
-        mgHeight: 200,
-        position: "relative"
+        zoomFactor: 1.8,
+        mgWidth: 120,
+        mgHeight: 120,
+        mgBorderWidth: 1
     };
 
     return (
@@ -47,9 +49,7 @@ const ImageModal: React.FC<IProps> = props => {
             centered
             onClick={props.onHide}
         >
-            <CloseModal className="close" style={{ userSelect: "none" }}>
-                x
-            </CloseModal>
+            <CloseModal className="close">x</CloseModal>
             <Magnifier {...magnifierOptions} mgShape={undefined} />
         </Modal>
     );

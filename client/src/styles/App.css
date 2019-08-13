@@ -6,18 +6,12 @@
     transition: transform 0.05s;
 }
 
-.card-img-top:hover {
-    /* transform: scale(1.05);
-    transition: transform 0.1s; */
-}
-
 .magnifier {
     margin: 0 auto;
-    /* position: relative; */
 }
 
 .image-modal {
-    background: rgba(0, 0, 0, 0.753);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .image-modal .modal-content {
@@ -46,25 +40,112 @@
     transition: opacity 0.2s;
 }
 
+.image-modal-container {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
 .product-image {
     transition: opacity 0.2s;
 }
 
-.product-image:hover {
+.image-container .product-image:hover {
     opacity: 0.5;
     transition: opacity 0.2s;
 }
 
-.product-image:hover + .search-plus {
+.image-container .product-image:hover + .image-modal-container .search-plus {
     opacity: 1;
     transition: opacity 1s;
 }
 
+.carousel .image-container .product-image:hover {
+    opacity: 1;
+}
+
 .card {
-    transition: box-shadow 0.1s;
-    border-radius: 0;
+    margin: 0 1rem;
+    height: 100%;
 }
 
 .card:hover {
     box-shadow: 0 3px 10px #6c757d55;
+}
+
+.carousel {
+    display: flex;
+}
+
+.carousel-inner {
+    /* border: 4px solid red; */
+    display: flex;
+    height: 500px;
+    width: 100%;
+}
+
+.carousel-item {
+    width: 100%;
+    justify-content: center;
+}
+
+.carousel-item-left {
+    /* border: 4px solid blue; */
+    /* opacity: 0; */
+    display: inline-flex;
+    width: 100%;
+}
+
+.carousel-item-right {
+    /* border: 4px solid blue; */
+    /* opacity: 0; */
+    display: inline-flex;
+    width: 100%;
+}
+
+.carousel-item.active {
+    /* border: 4px solid blue; */
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    /* margin: 0 auto; */
+    /* opacity: 1; */
+    /* transition: 1s; */
+}
+
+.carousel-control-prev {
+    width: 12%;
+}
+
+.carousel-control-next {
+    width: 12%;
+}
+
+.carousel-control-prev-icon {
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-size: 50%;
+    background-position: 45%;
+    border-radius: 50%;
+}
+
+.carousel-control-next-icon {
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-size: 50%;
+    background-position: 55%;
+    border-radius: 50%;
+}
+
+.carousel-indicators li {
+    background: rgba(0, 0, 0, 0.4);
+    height: 10px;
+    border: none;
+}
+
+.close {
+    user-select: none;
 }

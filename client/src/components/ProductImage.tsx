@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled, { StyledFunction } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ImageModal from "../components/ItemImageModal";
+import ImageModal from "./ImageModal";
 
 interface IProps {
     image: string;
+    allowModal: boolean;
 }
 
 const imageDiv: StyledFunction<any> = styled.div;
@@ -18,18 +19,16 @@ const ImageContainer = styled.div`
 
 const ImageDiv = imageDiv`
     width: 100%;
-    // height: 100%;
     height: 100%;
     max-height: 500px;
     cursor: pointer;
-    // margin: 0.5rem;
     background-image: url(${(props: any) => props.image});
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 `;
 
-const ItemImage: React.FC<IProps> = props => {
+const ProductImage: React.FC<IProps> = ({ image, allowModal }) => {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     const [imageHeight, setImageHeight] = useState(0);
 
@@ -45,26 +44,31 @@ const ItemImage: React.FC<IProps> = props => {
         }
     });
     return (
-        <ImageContainer>
+        <ImageContainer className="image-container">
             <ImageDiv
                 ref={imageRef}
-                image={props.image}
+                image={image}
                 className="product-image"
                 onClick={handleClick}
             />
-            <FontAwesomeIcon
-                className="search-plus"
-                icon="search-plus"
-                size="2x"
-                style={{ top: "42%" }}
-            />
-            <ImageModal
-                {...props}
-                show={isImageModalOpen}
-                onHide={() => setIsImageModalOpen(false)}
-            />
+
+            {allowModal && (
+                <div className="image-modal-container">
+                    <FontAwesomeIcon
+                        className="search-plus"
+                        icon="search-plus"
+                        size="2x"
+                        style={{ top: "42%" }}
+                    />
+                    <ImageModal
+                        image={image}
+                        show={isImageModalOpen}
+                        onHide={() => setIsImageModalOpen(false)}
+                    />
+                </div>
+            )}
         </ImageContainer>
     );
 };
 
-export default ItemImage;
+export default ProductImage;

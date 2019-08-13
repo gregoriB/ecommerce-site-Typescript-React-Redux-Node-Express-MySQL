@@ -3,7 +3,7 @@ import Toast from "../components/Toast";
 
 const useMapToasts = (props: any) => {
     const [activeToasts, setActiveToasts] = useState<any>([]);
-
+    console.log(props);
     useEffect(() => {
         props.productArr &&
             setActiveToasts(

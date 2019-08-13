@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
-import ProductModal from "./StoreItemModal";
+import ProductModal from "./ProductModal";
+import ProductImage from "./ProductImage";
 
 interface IProps {
     index: number;
@@ -14,16 +15,12 @@ interface IProps {
 
 const FeaturedContainer = styled.div`
     cursor: pointer;
-    margin: 2%;
-    width: 30%;
-    max-width: 500px;
-    :nth-of-type(1) {
-        width: 60%;
-        max-width: 700px;
-    }
-    &:nth-of-type(4n) {
-        width: 60%;
-        max-width: 700px;
+    margin: 0 1rem;
+    /* height: 50%; */
+    width: 60%;
+    /* margin: 0; */
+    :nth-of-type(even) {
+        width: 30%;
     }
 `;
 
@@ -42,13 +39,15 @@ const Featured: React.FC<IProps> = props => {
                     <div>{title}</div>
                 </Card.Header>
                 <Card.Body style={{ textAlign: "center" }}>
-                    <Card.Img
+                    {/* <Card.Img
                         src={image}
                         style={{
-                            width: "80%",
+                            width: "100%",
+                            height: "100%",
                             marginBottom: "0"
                         }}
-                    />
+                    /> */}
+                    <ProductImage allowModal={false} image={image} />
                     {/* <Button
                         variant="outline-primary"
                         onClick={handleClick}

@@ -2,14 +2,14 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../styles//App.css";
 
-import Main from "../components/Main";
+import Main from "../components/SearchPage";
 import NavBar from "../components/NavBar";
-import Home from "./Home";
+import Home from "./HomePage";
 import useMapToasts from "../hooks/useMapToasts";
 import CheckoutPage from "../components/CheckoutPage";
 
 import { connect } from "react-redux";
-import { IState } from "../reducers/addToCart";
+import { IState } from "../store/reducers/addToCart";
 
 import styled from "styled-components";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Product from "../containers/StoreItem";
+import ProductCard from "../containers/ProductCard";
 import styled from "styled-components";
 
 const Display = styled.div`
@@ -12,7 +12,7 @@ const Display = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 `;
 
-const Products = () => {
+const SearchResults = () => {
     const [products, setProducts] = useState<any>(null);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const Products = () => {
                     setProducts(
                         productList.map((item: any, index: number) => {
                             return (
-                                <Product
+                                <ProductCard
                                     key={index}
                                     index={index}
                                     image={item.imageURL}
@@ -46,4 +46,4 @@ const Products = () => {
     return <Display>{products || "please refresh page"}</Display>;
 };
 
-export default Products;
+export default SearchResults;
