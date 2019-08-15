@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 import Magnifier from "react-magnifier";
-import { NONAME } from "dns";
-import { faWindowRestore } from "@fortawesome/free-solid-svg-icons";
 
 interface IProps {
     image: string;

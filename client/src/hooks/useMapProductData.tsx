@@ -2,27 +2,27 @@ import React, { useState, useEffect } from "react";
 import Components from "../helpers/Components";
 
 const useMapProductData = (props: any) => {
-    const [products, setProducts] = useState();
+    const [mapped, setMapped] = useState();
+    const { type, products } = props;
     useEffect(() => {
-        if (products || !props.products) return;
-        const Component = Components[props.type];
-        setProducts(
-            props.products.map((item: any, index: number) => {
-                return (
-                    <Component
-                        key={index}
-                        index={index}
-                        image={item.imageURL}
-                        title={item.name}
-                        desc={item.shortDescription}
-                        descLong={item.longDescription}
-                        price={item.price}
-                    />
-                );
-            })
+        if (mapped || !products || products.length < 1) return;
+        const Component = Components[type];
+        setMapped(
+            products.map((item: any, index: number) => (
+                <Component
+                    key={index}
+                    index={index}
+                    image={item.imageURL}
+                    title={item.name}
+                    desc={item.shortDescription}
+                    descLong={item.longDescription}
+                    price={item.price}
+                />
+            ))
         );
-    });
-    return products;
+    }, [mapped, setMapped, type, products, props]);
+
+    return mapped && mapped.length > 0 ? mapped : null;
 };
 
 export default useMapProductData;

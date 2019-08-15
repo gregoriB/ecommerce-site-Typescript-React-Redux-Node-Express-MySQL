@@ -5,11 +5,11 @@ import "../styles//App.css";
 import Main from "../components/SearchPage";
 import NavBar from "../components/NavBar";
 import Home from "./HomePage";
-import useMapToasts from "../hooks/useMapToasts";
-import CheckoutPage from "../components/CheckoutPage";
+// import useMapToasts from "../hooks/useMapToasts";
+// import CheckoutPage from "../components/CheckoutPage";
 
 import { connect } from "react-redux";
-import { IState } from "../store/reducers/addToCart";
+import { IState } from "../store/reducers/addToCart/addToCart";
 
 import styled from "styled-components";
 
@@ -23,16 +23,16 @@ const AppContainer = styled.div`
     left: 0;
 `;
 
-const ToastContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: fixed;
-    bottom: 1vh;
-    right: 2vw;
-    width: 25vw;
-    z-index: 100000;
-`;
+// const ToastContainer = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     position: fixed;
+//     bottom: 1vh;
+//     right: 2vw;
+//     width: 25vw;
+//     z-index: 100000;
+// `;
 
 interface IProps {
     cart: {};
@@ -40,8 +40,8 @@ interface IProps {
 }
 
 const App: React.FC<IProps> = ({ cart, productArr }) => {
-    const toasts = useMapToasts(productArr);
-    console.log(toasts);
+    // const toasts = useMapToasts(productArr);
+    // console.log(toasts);
     return (
         <AppContainer className="app">
             <Router>
@@ -51,7 +51,7 @@ const App: React.FC<IProps> = ({ cart, productArr }) => {
                     <Route exact path="/search-results" component={Main} />
                     {/* <Route exact path="/checkout" component={CheckoutPage} /> */}
                 </Switch>
-                <ToastContainer>{toasts}</ToastContainer>
+                {/* <ToastContainer>{toasts}</ToastContainer> */}
             </Router>
         </AppContainer>
     );

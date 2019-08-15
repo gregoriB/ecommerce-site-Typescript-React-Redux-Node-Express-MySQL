@@ -1,9 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import FeaturedCarousel from "../components/Carousel";
 import styled from "styled-components";
 import useDatabase from "../hooks/useDatabase";
-import useMapProductData from "../hooks/useMapProductData";
 import HomeJumbotron from "../components/HomeJumbotron";
+import { IState } from "../store/reducers/populateProducts/populateProducts";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import populateProducts, {
+    IActionPopulate
+} from "../store/actions/populateProducts";
+
+interface IProps {
+    featured: any;
+    populateProducts(data: any): IActionPopulate;
+}
 
 const HomeContainer = styled.div`
     width: 100%;
@@ -11,23 +21,28 @@ const HomeContainer = styled.div`
     margin: 0 auto;
 `;
 
-const Home = () => {
-    const [featuredProducts, setFeaturedProducts] = useState<any>(null);
-    const data: any = {
-        type: "Featured",
-        products: useDatabase("search")
-    };
-    const mapped = useMapProductData(data);
-
+const Home: React.FC<IProps> = ({ populateProducts, featured }) => {
+    const data: any = useDatabase("search");
     useEffect(() => {
-        setFeaturedProducts(mapped);
-    }, [data]);
+        populateProducts(data);
+    });
     return (
         <HomeContainer>
             <HomeJumbotron />
-            <FeaturedCarousel products={featuredProducts} />
+            <FeaturedCarousel products={featured} />
         </HomeContainer>
     );
 };
 
-export default Home;
+const mapStateToProps = (state: IState) => ({
+    featured: state.featured
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    populateProducts: (data: any) => dispatch(populateProducts(data))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Home);

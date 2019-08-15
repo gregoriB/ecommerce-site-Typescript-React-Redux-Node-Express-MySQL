@@ -82,9 +82,9 @@ const ProductModal: React.FC<IProps> = ({
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [imageHeight, setImageHeight] = useState<number>(0);
 
-    const toggleImageModal = () => {
-        setIsModalOpen(prevState => !prevState);
-    };
+    // const toggleImageModal = () => {
+    //     setIsModalOpen(prevState => !prevState);
+    // };
 
     const imageRef = useRef<HTMLImageElement | null>(null);
 
@@ -92,7 +92,7 @@ const ProductModal: React.FC<IProps> = ({
         if (imageRef.current) {
             setImageHeight(imageRef.current!.height);
         }
-    });
+    }, [imageRef, setImageHeight]);
 
     return (
         <Modal

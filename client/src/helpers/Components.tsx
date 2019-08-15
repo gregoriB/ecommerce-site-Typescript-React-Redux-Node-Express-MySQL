@@ -1,9 +1,9 @@
-import Featured from "../components/FeaturedCard";
-import Product from "../containers/ProductCard";
+import FeaturedCard from "../components/FeaturedCard";
+import ProductCard from "../containers/ProductCard";
 
 const components: any = {
-    Featured,
-    Product
+    FeaturedCard,
+    ProductCard
 };
 
 export default components;

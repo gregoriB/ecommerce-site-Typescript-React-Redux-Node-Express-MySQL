@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styled, { StyledFunction } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageModal from "./ImageModal";
@@ -30,23 +30,23 @@ const ImageDiv = imageDiv`
 
 const ProductImage: React.FC<IProps> = ({ image, allowModal }) => {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-    const [imageHeight, setImageHeight] = useState(0);
+    // const [imageHeight, setImageHeight] = useState(0);
 
     const handleClick = () => {
         !isImageModalOpen && setIsImageModalOpen(true);
     };
 
-    const imageRef = useRef<any>(null);
+    // const imageRef = useRef<any>(null);
 
-    useEffect(() => {
-        if (imageRef.current) {
-            setImageHeight(imageRef.current!.height);
-        }
-    });
+    // useEffect(() => {
+    //     if (imageRef.current) {
+    //         setImageHeight(imageRef.current!.height);
+    //     }
+    // });
     return (
         <ImageContainer className="image-container">
             <ImageDiv
-                ref={imageRef}
+                // ref={imageRef}
                 image={image}
                 className="product-image"
                 onClick={handleClick}

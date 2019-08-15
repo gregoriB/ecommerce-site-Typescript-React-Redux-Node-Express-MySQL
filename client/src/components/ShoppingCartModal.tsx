@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
+import React from "react";
+// import { Link } from "react-router-dom";
+import { Modal } from "react-bootstrap";
 
 interface IProps {
     cart: Object;
@@ -9,23 +9,23 @@ interface IProps {
 }
 
 const ShoppingCartModal: React.FC<IProps> = props => {
-    const { cart, onHide } = props;
-    const [items, setItems] = useState<React.ReactElement[]>([]);
-    const [total, setTotal] = useState();
+    // const { cart, onHide } = props;
+    // const [items, setItems] = useState<React.ReactElement[]>([]);
+    // const [total, setTotal] = useState();
 
-    const submitOrder = async () => {
-        try {
-            const response = await fetch("http://localhost:34567", {
-                method: "POST",
-                body: JSON.stringify({ cart }),
-                headers: { "Content-Type": "applications/json" }
-            });
-            const json = await response.json();
-            console.log(json);
-        } catch (err) {
-            console.error(err);
-        }
-    };
+    // const submitOrder = async () => {
+    //     try {
+    //         const response = await fetch("http://localhost:34567", {
+    //             method: "POST",
+    //             body: JSON.stringify({ cart }),
+    //             headers: { "Content-Type": "applications/json" }
+    //         });
+    //         const json = await response.json();
+    //         console.log(json);
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // };
 
     // useEffect(() => {
     //     let total = 0;
@@ -51,7 +51,7 @@ const ShoppingCartModal: React.FC<IProps> = props => {
             aria-labelledby="contained-modal-title-right"
             centered
         >
-            <Modal.Header closeButton>
+            {/* <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     Shopping Cart
                 </Modal.Title>
@@ -77,7 +77,7 @@ const ShoppingCartModal: React.FC<IProps> = props => {
                     </Link>
                 )}
                 <Button onClick={onHide}>Close</Button>
-            </Modal.Footer>
+            </Modal.Footer> */}
         </Modal>
     );
 };
