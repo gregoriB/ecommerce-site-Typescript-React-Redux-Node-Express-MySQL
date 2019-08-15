@@ -3,7 +3,6 @@ import mysql = require("mysql");
 import path = require("path");
 import cors = require("cors");
 import { Application, Request, Response } from "express";
-import console = require("console");
 
 require("dotenv").config();
 
@@ -15,11 +14,7 @@ const app: Application = express(),
         optionsSuccessStatus: 200
     };
 
-app.use(
-    express.static(
-        path.join(__dirname, `client/${isDevelopment ? "public" : "build"}`)
-    )
-);
+app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" : "build"}`)));
 app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
@@ -32,6 +27,16 @@ app.get("/search", (req: Request, res: Response) => {
 
 app.get("/featured", (req: Request, res: Response) => {
     fetchProductData("SELECT * FROM fi");
+    res.json(products);
+});
+
+app.get("/login", (req: Request, res: Response) => {
+    fetchProductData("SELECT * FROM users");
+    res.json(products);
+});
+
+app.post("/register", (req: Request, res: Response) => {
+    fetchProductData("SELECT * FROM users");
     res.json(products);
 });
 

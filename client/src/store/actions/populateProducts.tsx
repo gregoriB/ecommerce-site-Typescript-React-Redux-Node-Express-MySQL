@@ -1,10 +1,12 @@
+import { IData } from "../../types/types";
+
 export interface IActionPopulate {
     type: string;
-    payload: any;
+    payload: IData[];
 }
 
-const populateProducts = (data: any): IActionPopulate => {
-    return { type: "FEATURED", payload: data };
+const populateProducts = ({ type, payload }: any): IActionPopulate => {
+    return { type, payload };
 };
 
 export default populateProducts;

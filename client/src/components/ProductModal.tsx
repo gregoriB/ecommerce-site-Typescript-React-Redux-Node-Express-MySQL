@@ -1,22 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { IActionAdd } from "../store/actions/addToCart";
 import styled from "styled-components";
 import ImageModal from "./ImageModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductImage from "./ProductImage";
-
-interface IProps {
-    show: boolean;
-    index: number;
-    image: string;
-    title: string;
-    desc: string;
-    descLong: string;
-    price: number;
-    onHide(): void;
-    addToCart?(val: number): IActionAdd;
-}
+import { IData as IProps } from "../types/types";
 
 const FlexContainer = styled.div`
         position: relative;
@@ -70,13 +58,12 @@ const FlexContainer = styled.div`
     `;
 
 const ProductModal: React.FC<IProps> = ({
-    image,
-    title,
+    imageURL,
+    name,
     price,
     index,
     onHide,
-    descLong,
-    addToCart,
+    longDescription,
     ...rest
 }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -106,11 +93,11 @@ const ProductModal: React.FC<IProps> = ({
                 x
             </CloseModal>
             <FlexContainer>
-                <Title>{title}</Title>
+                <Title>{name}</Title>
                 <Content>
-                    <Desc>{descLong}</Desc>
+                    <Desc>{longDescription}</Desc>
                     <ImageAndCartButton>
-                        <ProductImage allowModal={true} image={image} />
+                        <ProductImage allowModal={true} image={imageURL} />
                         <FontAwesomeIcon
                             className="search-plus"
                             icon="search-plus"
@@ -118,7 +105,7 @@ const ProductModal: React.FC<IProps> = ({
                             style={{ top: imageHeight / 2 - 17 }}
                         />
                         <ImageModal
-                            image={image}
+                            image={imageURL}
                             show={isModalOpen}
                             onHide={() => setIsModalOpen(false)}
                         />
@@ -128,7 +115,6 @@ const ProductModal: React.FC<IProps> = ({
                                 variant="primary"
                                 style={{ width: "unset" }}
                                 size="lg"
-                                onClick={() => addToCart && addToCart(index)}
                             >
                                 <FontAwesomeIcon
                                     icon="cart-plus"

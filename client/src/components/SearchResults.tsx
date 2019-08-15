@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
-import ProductCard from "../containers/ProductCard";
 import styled from "styled-components";
+import useMapProductData from "../hooks/useMapProductData";
+import { IData } from "../types/types";
+
+interface IProps {
+    products: IData[];
+}
 
 const Display = styled.div`
     width: 80vw;
@@ -12,38 +17,17 @@ const Display = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
 `;
 
-const SearchResults = () => {
-    const [products, setProducts] = useState<any>(null);
-
+const SearchResults: React.FC<IProps> = ({ products }) => {
+    const [mappedResults, setMappedResults] = useState();
+    const mapped = useMapProductData({
+        type: "ProductCard",
+        products
+    });
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch("http://localhost:34567/search");
-                const productList: any = await response.json();
-                productList &&
-                    setProducts(
-                        productList.map((item: any, index: number) => {
-                            return (
-                                <ProductCard
-                                    key={index}
-                                    index={index}
-                                    image={item.imageURL}
-                                    title={item.name}
-                                    desc={item.shortDescription}
-                                    descLong={item.longDescription}
-                                    price={item.price}
-                                />
-                            );
-                        })
-                    );
-            } catch (err) {
-                console.error(err);
-            }
-        };
-        fetchProducts();
-    }, []);
+        setMappedResults(mapped);
+    });
 
-    return <Display>{products || "please refresh page"}</Display>;
+    return <Display>{mappedResults}</Display>;
 };
 
 export default SearchResults;

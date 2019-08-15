@@ -39,17 +39,29 @@ interface IProps {
 const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
+    const [loginValues, setLoginValues] = useState({ name: "", password: "" });
 
-    const handleChange = (e: any) => {
+    type keyboardEvent = React.ChangeEvent<any>;
+    const handleSearchChange = (e: keyboardEvent) => {
         setSearchValue(e.target.value);
     };
 
-    type FormElem = React.ChangeEvent<HTMLFormElement>;
+    const handleLoginChange = (e: keyboardEvent) => {
+        setLoginValues({
+            ...loginValues,
+            [e.currentTarget.name]: e.currentTarget.value
+        });
+    };
 
-    const handleSubmit = (e: FormElem) => {
+    type FormElem = React.ChangeEvent<HTMLFormElement>;
+    const handleSubmitSearch = (e: FormElem) => {
         e.preventDefault();
         setSearchValue("");
         history.push("/search-results");
+    };
+
+    const handleSubmitLogin = (e: FormElem) => {
+        e.preventDefault();
     };
 
     return (
@@ -65,19 +77,17 @@ const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
                 }}
             >
                 <Link to="Main">
-                    <Navbar.Brand
-                        style={{ fontFamily: "'Lexend Exa', sans-serif" }}
-                    >
+                    <Navbar.Brand style={{ fontFamily: "'Lexend Exa', sans-serif" }}>
                         Super Meter Arcade
                     </Navbar.Brand>
                 </Link>
-                <Form inline onSubmit={handleSubmit} action="/search-results">
+                <Form inline onSubmit={handleSubmitSearch} action="/search-results">
                     <InputWrapper>
                         <FormControl
                             type="text"
                             placeholder="Search inventory"
                             value={searchValue}
-                            onChange={handleChange}
+                            onChange={handleSearchChange}
                             className="mr-sm-2 search-input"
                             style={{
                                 background: "transparent",
@@ -96,22 +106,24 @@ const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
                         marginRight: "1rem"
                     }}
                 >
-                    <Form inline>
+                    <Form inline onSubmit={handleSubmitLogin}>
                         <FormControl
                             type="text"
+                            name="name"
+                            value={loginValues.name}
                             placeholder="username"
                             className="mr-sm-2 form-control-sm"
+                            onChange={handleLoginChange}
                         />
                         <FormControl
                             type="password"
+                            name="password"
+                            value={loginValues.password}
                             placeholder="password"
                             className="mr-sm-2 form-control-sm"
+                            onChange={handleLoginChange}
                         />
-                        <Button
-                            variant="outline-secondary"
-                            href="#search-results"
-                            className="btn-sm"
-                        >
+                        <Button variant="outline-secondary" href="#search-results" className="btn-sm">
                             Sign In
                             <FontAwesomeIcon
                                 icon="sign-in-alt"
@@ -127,23 +139,13 @@ const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
                             marginLeft: "1rem"
                         }}
                     >
-                        <Nav.Link href="#home-page">
-                            register new account
-                        </Nav.Link>
+                        <Nav.Link href="#home-page">register new account</Nav.Link>
                     </span>
                 </Nav>
                 <Button variant="primary" onClick={() => setIsModalOpen(true)}>
-                    <FontAwesomeIcon
-                        icon="shopping-cart"
-                        style={{ margin: "0 .5rem" }}
-                        size="lg"
-                    />
+                    <FontAwesomeIcon icon="shopping-cart" style={{ margin: "0 .5rem" }} size="lg" />
                 </Button>
-                <ShoppingCartModal
-                    cart={cart}
-                    show={isModalOpen}
-                    onHide={() => setIsModalOpen(false)}
-                />
+                <ShoppingCartModal cart={cart} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
             </Navbar>
         </NavContainer>
     );

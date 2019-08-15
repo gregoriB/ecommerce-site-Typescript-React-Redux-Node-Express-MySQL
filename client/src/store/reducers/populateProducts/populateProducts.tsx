@@ -1,11 +1,13 @@
 import { IActionPopulate } from "../../actions/populateProducts";
+import { IData } from "../../../types/types";
 
 export interface IState {
-    featured: any;
+    [key: string]: IData[];
 }
 
 const initialState: IState = {
-    featured: []
+    featured: [],
+    SearchResults: []
 };
 
 const populateProducts = (state = initialState, action: IActionPopulate) => {
@@ -14,6 +16,12 @@ const populateProducts = (state = initialState, action: IActionPopulate) => {
             state = {
                 ...state,
                 featured: action.payload
+            };
+            break;
+        case "SEARCH":
+            state = {
+                ...state,
+                searchResults: action.payload
             };
             break;
         default:

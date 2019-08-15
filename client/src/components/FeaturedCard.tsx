@@ -3,15 +3,7 @@ import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
-
-interface IProps {
-    index: number;
-    image: string;
-    title: string;
-    desc: string;
-    descLong: string;
-    price: number;
-}
+import { IData as IProps } from "../types/types";
 
 const FeaturedContainer = styled.div`
     cursor: pointer;
@@ -22,22 +14,24 @@ const FeaturedContainer = styled.div`
     }
 `;
 
+type mouseClick = React.MouseEvent<HTMLElement>;
+
 const FeaturedCard: React.FC<IProps> = props => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const handleClick = (e: any) => {
+    const handleClick = (e: mouseClick) => {
         isModalOpen && e.preventDefault();
         setIsModalOpen(true);
     };
-    const { image, title, price } = props;
+    const { imageURL, name, price } = props;
     return (
         <FeaturedContainer>
             <Card onClick={handleClick}>
                 <Card.Header style={{ borderRadius: 0 }}>
                     ${price}
-                    <div>{title}</div>
+                    <div>{name}</div>
                 </Card.Header>
                 <Card.Body style={{ textAlign: "center" }}>
-                    <ProductImage allowModal={false} image={image} />
+                    <ProductImage allowModal={false} image={imageURL} />
                 </Card.Body>
             </Card>
             <ProductModal

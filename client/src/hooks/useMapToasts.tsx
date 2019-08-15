@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import Toast from "../components/Toast";
 
 const useMapToasts = (props: any) => {
-    const [activeToasts, setActiveToasts] = useState<any>([]);
-    console.log(props);
+    const [activeToasts, setActiveToasts] = useState();
     useEffect(() => {
         props.productArr &&
             setActiveToasts(
@@ -12,7 +11,6 @@ const useMapToasts = (props: any) => {
                 ))
             );
     }, [props.productArr]);
-    console.log(props.productArr);
     return activeToasts;
 };
 

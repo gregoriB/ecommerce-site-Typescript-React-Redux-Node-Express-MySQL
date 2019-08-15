@@ -9,7 +9,6 @@ import Home from "./HomePage";
 // import CheckoutPage from "../components/CheckoutPage";
 
 import { connect } from "react-redux";
-import { IState } from "../store/reducers/addToCart/addToCart";
 
 import styled from "styled-components";
 
@@ -57,7 +56,7 @@ const App: React.FC<IProps> = ({ cart, productArr }) => {
     );
 };
 
-const mapStateToProps = (state: IState) => {
+const mapStateToProps = (state: IProps) => {
     return {
         cart: state.cart,
         productArr: state.productArr

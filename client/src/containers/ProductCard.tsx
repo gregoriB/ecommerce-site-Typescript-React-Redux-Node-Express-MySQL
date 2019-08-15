@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
-import { addToCart, IActionAdd } from "../store/actions/addToCart";
+// import { Dispatch } from "redux";
+// import { connect } from "react-redux";
 import ProductModal from "../components/ProductModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductImage from "../components/ProductImage";
@@ -21,27 +20,29 @@ const ShowMoreLink = styled.button`
     margin: 0 auto;
 `;
 
-interface IProps {
-    index: number;
-    image: string;
-    title: string;
-    desc: string;
-    descLong: string;
+interface IData {
+    imageURL: string;
+    name: string;
+    shortDescription: string;
+    longDescription: string;
     price: number;
-    addToCart(val: number): IActionAdd;
 }
 
-const ProductCard: React.FC<IProps> = props => {
-    const { image, title, desc, price, addToCart, index } = props;
+interface IData {
+    index: number;
+}
+
+const ProductCard: React.FC<IData> = props => {
+    const { imageURL, name, shortDescription, price } = props;
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
 
     const shortenDescription = () => {
         const maxLength = 150;
-        if (desc.length < maxLength) {
+        if (shortDescription.length < maxLength) {
             return;
         }
 
-        return desc.slice(0, 150).trim() + "...";
+        return shortDescription.slice(0, 150).trim() + "...";
     };
 
     return (
@@ -59,7 +60,7 @@ const ProductCard: React.FC<IProps> = props => {
                     borderRadius: "0"
                 }}
             >
-                <ProductImage allowModal={true} image={image} />
+                <ProductImage allowModal={true} image={imageURL} />
                 <Card.Body
                     style={{
                         padding: ".5rem",
@@ -69,9 +70,7 @@ const ProductCard: React.FC<IProps> = props => {
                         height: "60%"
                     }}
                 >
-                    <Card.Title style={{ fontSize: "1rem" }}>
-                        {title}
-                    </Card.Title>
+                    <Card.Title style={{ fontSize: "1rem" }}>{name}</Card.Title>
                     <Card.Text
                         style={{ fontSize: ".7rem", textAlign: "justify" }}
                     >
@@ -94,7 +93,6 @@ const ProductCard: React.FC<IProps> = props => {
                     <Button
                         variant="primary"
                         style={{ width: 200, margin: "0 auto" }}
-                        onClick={() => addToCart(index)}
                     >
                         <FontAwesomeIcon
                             icon="cart-plus"
@@ -113,11 +111,4 @@ const ProductCard: React.FC<IProps> = props => {
     );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return { addToCart: (val: number) => dispatch(addToCart(val)) };
-};
-
-export default connect(
-    null,
-    mapDispatchToProps
-)(ProductCard);
+export default ProductCard;

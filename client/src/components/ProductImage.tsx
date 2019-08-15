@@ -22,7 +22,7 @@ const ImageDiv = imageDiv`
     height: 100%;
     max-height: 500px;
     cursor: pointer;
-    background-image: url(${(props: any) => props.image});
+    background-image: url(${(props: IProps) => props.image});
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
