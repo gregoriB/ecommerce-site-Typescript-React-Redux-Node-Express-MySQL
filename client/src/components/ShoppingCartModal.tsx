@@ -45,12 +45,7 @@ const ShoppingCartModal: React.FC<IProps> = props => {
     // }, [cart]);
 
     return (
-        <Modal
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-right"
-            centered
-        >
+        <Modal {...props} size="lg" aria-labelledby="contained-modal-title-right" centered>
             {/* <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
                     Shopping Cart

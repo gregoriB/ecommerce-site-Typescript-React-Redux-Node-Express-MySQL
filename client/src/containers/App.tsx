@@ -1,14 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 import "../styles//App.css";
 
+// import useMapToasts from "../hooks/useMapToasts";
+// import CheckoutPage from "../components/CheckoutPage";
 import SearchPage from "./SearchPage";
 import NavBar from "../components/NavBar";
 import Home from "./HomePage";
-// import useMapToasts from "../hooks/useMapToasts";
-// import CheckoutPage from "../components/CheckoutPage";
-
-import { connect } from "react-redux";
 
 import styled from "styled-components";
 

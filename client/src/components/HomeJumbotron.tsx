@@ -22,8 +22,8 @@ const HomeJumbotron = () => {
             <BannerContainer>
                 <Banner>It's the end of the year sales event!</Banner>
                 <Description>
-                    Sales on quality arcade stick parts and accessories from
-                    manufactures like Hori and Brook.
+                    Sales on quality arcade stick parts and accessories from manufactures like Hori and
+                    Brook.
                 </Description>
             </BannerContainer>
             <Button
