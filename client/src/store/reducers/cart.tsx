@@ -1,4 +1,4 @@
-import { IActionAdd } from "../../actions/addToCart";
+import { IActionAdd } from "../actions/addToCart";
 
 export interface IState {
     cart: {

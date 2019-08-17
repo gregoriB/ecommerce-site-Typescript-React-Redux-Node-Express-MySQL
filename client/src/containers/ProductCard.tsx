@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { Dispatch } from "redux";
 // import { connect } from "react-redux";
 import ProductModal from "../components/ProductModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductImage from "../components/ProductImage";
 
 const ProductContainer = styled.div`
@@ -71,13 +71,9 @@ const ProductCard: React.FC<IData> = props => {
                     }}
                 >
                     <Card.Title style={{ fontSize: "1rem" }}>{name}</Card.Title>
-                    <Card.Text
-                        style={{ fontSize: ".7rem", textAlign: "justify" }}
-                    >
+                    <Card.Text style={{ fontSize: ".7rem", textAlign: "justify" }}>
                         {shortenDescription()}
-                        <ShowMoreLink
-                            onClick={() => setIsProductModalOpen(true)}
-                        >
+                        <ShowMoreLink onClick={() => setIsProductModalOpen(true)}>
                             See More...
                         </ShowMoreLink>
                     </Card.Text>
@@ -90,14 +86,8 @@ const ProductCard: React.FC<IData> = props => {
                     >
                         ${price}
                     </Card.Text>
-                    <Button
-                        variant="primary"
-                        style={{ width: 200, margin: "0 auto" }}
-                    >
-                        <FontAwesomeIcon
-                            icon="cart-plus"
-                            style={{ margin: "0 .5rem" }}
-                        />
+                    <Button variant="primary" style={{ width: 200, margin: "0 auto" }}>
+                        <FontAwesomeIcon icon="cart-plus" style={{ margin: "0 .5rem" }} />
                         add to cart
                     </Button>
                 </Card.Body>

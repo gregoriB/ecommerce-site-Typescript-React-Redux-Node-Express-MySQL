@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Components from "../helpers/Components";
 // import { IData } from "../types/types";
+import Components from "../helpers/Components";
 
 interface IData {
     imageURL: string;

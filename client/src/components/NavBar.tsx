@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import ShoppingCartModal from "./ShoppingCartModal";
-import { Nav, Navbar, Form, FormControl, Button } from "react-bootstrap";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { Navbar, Form, FormControl, Button } from "react-bootstrap";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ShoppingCartModal from "./ShoppingCartModal";
+import LoginForm from "./LoginForm";
 
 const NavContainer = styled.div`
     padding: 0 2rem;
@@ -39,18 +40,10 @@ interface IProps {
 const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchValue, setSearchValue] = useState("");
-    const [loginValues, setLoginValues] = useState({ name: "", password: "" });
 
     type keyboardEvent = React.ChangeEvent<any>;
     const handleSearchChange = (e: keyboardEvent) => {
         setSearchValue(e.target.value);
-    };
-
-    const handleLoginChange = (e: keyboardEvent) => {
-        setLoginValues({
-            ...loginValues,
-            [e.currentTarget.name]: e.currentTarget.value
-        });
     };
 
     type FormElem = React.ChangeEvent<HTMLFormElement>;
@@ -58,10 +51,6 @@ const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
         e.preventDefault();
         setSearchValue("");
         history.push("/search-results");
-    };
-
-    const handleSubmitLogin = (e: FormElem) => {
-        e.preventDefault();
     };
 
     return (
@@ -100,48 +89,7 @@ const NavBar: React.FC<RouteComponentProps & IProps> = ({ cart, history }) => {
                         </SearchButton>
                     </InputWrapper>
                 </Form>
-                <Nav
-                    style={{
-                        marginLeft: "auto",
-                        marginRight: "1rem"
-                    }}
-                >
-                    <Form inline onSubmit={handleSubmitLogin}>
-                        <FormControl
-                            type="text"
-                            name="name"
-                            value={loginValues.name}
-                            placeholder="username"
-                            className="mr-sm-2 form-control-sm"
-                            onChange={handleLoginChange}
-                        />
-                        <FormControl
-                            type="password"
-                            name="password"
-                            value={loginValues.password}
-                            placeholder="password"
-                            className="mr-sm-2 form-control-sm"
-                            onChange={handleLoginChange}
-                        />
-                        <Button variant="outline-secondary" href="#search-results" className="btn-sm">
-                            Sign In
-                            <FontAwesomeIcon
-                                icon="sign-in-alt"
-                                size="lg"
-                                style={{ margin: "0 .5rem" }}
-                            />
-                        </Button>
-                    </Form>
-                    <span
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            marginLeft: "1rem"
-                        }}
-                    >
-                        <Nav.Link href="#home-page">register new account</Nav.Link>
-                    </span>
-                </Nav>
+                <LoginForm />
                 <Button variant="primary" onClick={() => setIsModalOpen(true)}>
                     <FontAwesomeIcon icon="shopping-cart" style={{ margin: "0 .5rem" }} size="lg" />
                 </Button>

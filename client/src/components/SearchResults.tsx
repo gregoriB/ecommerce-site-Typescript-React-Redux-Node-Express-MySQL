@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import useMapProductData from "../hooks/useMapProductData";
 import { IData } from "../types/types";
+import useMapProductData from "../hooks/useMapProductData";
 
 interface IProps {
     products: IData[];

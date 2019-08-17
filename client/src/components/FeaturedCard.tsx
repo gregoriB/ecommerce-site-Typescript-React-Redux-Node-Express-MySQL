@@ -34,11 +34,7 @@ const FeaturedCard: React.FC<IProps> = props => {
                     <ProductImage allowModal={false} image={imageURL} />
                 </Card.Body>
             </Card>
-            <ProductModal
-                {...props}
-                show={isModalOpen}
-                onHide={() => setIsModalOpen(false)}
-            />
+            <ProductModal {...props} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
         </FeaturedContainer>
     );
 };

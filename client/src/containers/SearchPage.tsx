@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import SidePanel from "./SidePanel";
-import SearchResults from "./SearchResults";
-import styled from "styled-components";
-
-import useDatabase from "../hooks/useDatabase";
-import { IState } from "../store/reducers/populateProducts/populateProducts";
-import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import populateProducts from "../store/actions/populateProducts";
+import { connect } from "react-redux";
+import styled from "styled-components";
 import { IActionPopulate, IData } from "../types/types";
+import populateProducts from "../store/actions/populateProducts";
+import useDatabase from "../hooks/useDatabase";
+import SidePanel from "../components/SidePanel";
+import SearchResults from "../components/SearchResults";
 
 const MainDiv = styled.div`
     display: flex;
@@ -27,7 +25,7 @@ const Main: React.FC<IProps> = ({ results, populateProducts }) => {
     const data: IData[] = useDatabase("search");
     const actionProps: any = { type: "SEARCH", payload: data };
     useEffect(() => {
-        populateProducts(actionProps);
+        (!results || results.length < 0) && populateProducts(actionProps);
     });
     return (
         <MainDiv>
@@ -37,12 +35,18 @@ const Main: React.FC<IProps> = ({ results, populateProducts }) => {
     );
 };
 
-const mapStateToProps = (state: IState) => ({
-    results: state.searchResults
+interface IState {
+    products: {
+        [key: string]: IData[];
+    };
+}
+
+const mapStateToProps = ({ products }: IState) => ({
+    results: products.searchResults
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    populateProducts: (props: any) => dispatch(populateProducts(props))
+    populateProducts: (props: IData[]) => dispatch(populateProducts(props))
 });
 
 export default connect(

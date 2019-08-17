@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import FeaturedCarousel from "../components/Carousel";
-import styled from "styled-components";
-import useDatabase from "../hooks/useDatabase";
-import HomeJumbotron from "../components/HomeJumbotron";
-import populateProducts from "../store/actions/populateProducts";
-import { IState } from "../store/reducers/populateProducts/populateProducts";
-import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { connect } from "react-redux";
+import styled from "styled-components";
 import { IActionPopulate } from "../types/types";
+import useDatabase from "../hooks/useDatabase";
+import populateProducts from "../store/actions/populateProducts";
+import FeaturedCarousel from "../components/Carousel";
+import HomeJumbotron from "../components/HomeJumbotron";
 
 interface IData {
     imageURL: string;
@@ -32,7 +31,7 @@ const Home: React.FC<IProps> = ({ populateProducts, featured }) => {
     const data: IData[] = useDatabase("search");
     const actionProps: any = { type: "FEATURED", payload: data };
     useEffect(() => {
-        populateProducts(actionProps);
+        (!featured || featured.length < 1) && populateProducts(actionProps);
     });
     return (
         <HomeContainer>
@@ -42,12 +41,18 @@ const Home: React.FC<IProps> = ({ populateProducts, featured }) => {
     );
 };
 
-const mapStateToProps = (state: IState) => ({
-    featured: state.featured
+interface IState {
+    products: {
+        [key: string]: IData[];
+    };
+}
+
+const mapStateToProps = ({ products }: IState) => ({
+    featured: products.featured
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    populateProducts: (props: any) => dispatch(populateProducts(props))
+    populateProducts: (props: IData[]) => dispatch(populateProducts(props))
 });
 
 export default connect(

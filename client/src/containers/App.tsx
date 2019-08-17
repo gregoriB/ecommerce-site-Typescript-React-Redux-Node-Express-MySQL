@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../styles//App.css";
 
-import Main from "../components/SearchPage";
+import SearchPage from "./SearchPage";
 import NavBar from "../components/NavBar";
 import Home from "./HomePage";
 // import useMapToasts from "../hooks/useMapToasts";
@@ -47,7 +47,7 @@ const App: React.FC<IProps> = ({ cart, productArr }) => {
                 <NavBar cart={cart} />
                 <Switch>
                     <Route exact path="/Main" component={Home} />
-                    <Route exact path="/search-results" component={Main} />
+                    <Route exact path="/search-results" component={SearchPage} />
                     {/* <Route exact path="/checkout" component={CheckoutPage} /> */}
                 </Switch>
                 {/* <ToastContainer>{toasts}</ToastContainer> */}

@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
-import populateProducts from "./populateProducts/populateProducts";
+import products from "./products";
+import loginData from "./loginData";
 
-const rootReducer = combineReducers({ populateProducts });
-
-export default rootReducer;
+export default combineReducers({ products, loginData });

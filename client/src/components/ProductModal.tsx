@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styled from "styled-components";
-import ImageModal from "./ImageModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProductImage from "./ProductImage";
 import { IData as IProps } from "../types/types";
+import ImageModal from "./ImageModal";
+import ProductImage from "./ProductImage";
 
 const FlexContainer = styled.div`
         position: relative;
@@ -82,13 +82,7 @@ const ProductModal: React.FC<IProps> = ({
     }, [imageRef, setImageHeight]);
 
     return (
-        <Modal
-            {...rest}
-            size="xl"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            title=""
-        >
+        <Modal {...rest} size="xl" aria-labelledby="contained-modal-title-vcenter" centered title="">
             <CloseModal className="close" onClick={onHide}>
                 x
             </CloseModal>
@@ -111,11 +105,7 @@ const ProductModal: React.FC<IProps> = ({
                         />
                         <ButtonContainer>
                             <Price>${price}</Price>
-                            <Button
-                                variant="primary"
-                                style={{ width: "unset" }}
-                                size="lg"
-                            >
+                            <Button variant="primary" style={{ width: "unset" }} size="lg">
                                 <FontAwesomeIcon
                                     icon="cart-plus"
                                     style={{ margin: "0 .5rem" }}

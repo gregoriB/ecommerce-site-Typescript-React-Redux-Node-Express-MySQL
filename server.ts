@@ -30,8 +30,11 @@ app.get("/featured", (req: Request, res: Response) => {
     res.json(products);
 });
 
-app.get("/login", (req: Request, res: Response) => {
-    fetchProductData("SELECT * FROM users");
+app.post("/login", (req: Request, res: Response) => {
+    const name = req.body.name;
+    console.log(name);
+    name && fetchProductData(`SELECT * FROM users WHERE email LIKE '%${name}%'`);
+    // fetchProductData("SELECT * FROM users");
     res.json(products);
 });
 
@@ -39,6 +42,11 @@ app.post("/register", (req: Request, res: Response) => {
     fetchProductData("SELECT * FROM users");
     res.json(products);
 });
+
+// app.post("/", (req: Request, res: Response) => {
+
+//     res.json(products);
+// });
 
 const dbCredentials = {
     host: process.env.DB_HOST,

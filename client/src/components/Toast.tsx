@@ -36,11 +36,7 @@ const BSToast: React.FC<IProps> = ({ item }) => {
             style={{ display }}
         >
             <Toast.Header>
-                <img
-                    src="holder.js/20x20?text=%20"
-                    className="rounded mr-2"
-                    alt=""
-                />
+                <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
                 <strong className="mr-auto">Added to Cart</strong>
                 <small>Just Now</small>
             </Toast.Header>
