@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { Dispatch } from "redux";
-// import { connect } from "react-redux";
-import ProductModal from "../components/ProductModal";
-import ProductImage from "../components/ProductImage";
+import ProductModal from "./ProductModal";
+import ProductImage from "./ProductImage";
 
 const ProductContainer = styled.div`
     background: red;

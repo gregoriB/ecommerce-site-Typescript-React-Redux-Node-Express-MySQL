@@ -1,5 +1,5 @@
 import FeaturedCard from "../components/FeaturedCard";
-import ProductCard from "../containers/ProductCard";
+import ProductCard from "../components/ProductCard";
 
 const components: any = {
     FeaturedCard,
