@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { IActionPopulate, IData } from "../types/types";
 import useDatabase from "../hooks/useDatabase";
-import SidePanel from "../components/SidePanel";
+import SearchPanel from "../components/SearchPanel";
 import SearchResults from "../components/SearchResults";
 
 const MainDiv = styled.div`
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     background-color: #f8f9fa;
     width: 95vw;
     margin: 0 auto;
@@ -35,7 +36,7 @@ const Main: React.FC<IProps> = () => {
     });
     return (
         <MainDiv>
-            <SidePanel />
+            <SearchPanel />
             <SearchResults products={results} />
         </MainDiv>
     );
