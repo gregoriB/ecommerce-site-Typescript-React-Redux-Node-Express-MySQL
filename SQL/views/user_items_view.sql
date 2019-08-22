@@ -1,9 +1,10 @@
 DROP VIEW IF EXISTS ui;
+
 CREATE VIEW ui AS
   SELECT
     user_id,
-    username,
-    CAST(CONCAT('[', GROUP_CONCAT(json_quote(name) ORDER BY name SEPARATOR ','), ']') as json) AS shopping_cart
+    user_name,
+    JSON_ARRAYAGG(item_name) AS 'Shopping Cart'
   FROM
     users
     INNER JOIN user_items
@@ -13,4 +14,4 @@ CREATE VIEW ui AS
   GROUP BY
     user_id;
 
-SELECT * FROM ui;
+SELECT * FROM ui \G

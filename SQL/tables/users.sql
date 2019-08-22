@@ -1,12 +1,12 @@
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255),
-    joindate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    username VARBINARY(255),
-    userpass VARBINARY(255)
+    user_joindate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    user_email VARCHAR(255),
+    user_name VARBINARY(255),
+    user_password VARBINARY(255)
 );
 
-INSERT INTO users (email, username, userpass)
+INSERT INTO users (user_email, user_name, user_password)
 VALUES (
     'brandon.gregori@gmail.com',
     'gregorib',

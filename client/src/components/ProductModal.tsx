@@ -63,7 +63,7 @@ const ProductModal: React.FC<IProps> = ({
     price,
     index,
     onHide,
-    longDescription,
+    descLong,
     ...rest
 }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -89,7 +89,7 @@ const ProductModal: React.FC<IProps> = ({
             <FlexContainer>
                 <Title>{name}</Title>
                 <Content>
-                    <Desc>{longDescription}</Desc>
+                    <Desc>{descLong}</Desc>
                     <ImageAndCartButton>
                         <ProductImage allowModal={true} image={imageURL} />
                         <FontAwesomeIcon

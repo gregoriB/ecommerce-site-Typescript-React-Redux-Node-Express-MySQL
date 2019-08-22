@@ -21,8 +21,8 @@ const ShowMoreLink = styled.button`
 interface IData {
     imageURL: string;
     name: string;
-    shortDescription: string;
-    longDescription: string;
+    descShort: string;
+    descLong: string;
     price: number;
 }
 
@@ -31,16 +31,16 @@ interface IData {
 }
 
 const ProductCard: React.FC<IData> = props => {
-    const { imageURL, name, shortDescription, price } = props;
+    const { imageURL, name, descShort, price } = props;
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
 
     const shortenDescription = () => {
         const maxLength = 150;
-        if (shortDescription.length < maxLength) {
+        if (descShort.length < maxLength) {
             return;
         }
 
-        return shortDescription.slice(0, 150).trim() + "...";
+        return descShort.slice(0, 150).trim() + "...";
     };
 
     return (

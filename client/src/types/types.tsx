@@ -11,8 +11,8 @@ export interface IActionPopulate {
 export interface IData {
     imageURL: string;
     name: string;
-    shortDescription: string;
-    longDescription: string;
+    descShort: string;
+    descLong: string;
     price: number;
     length?: number;
     index?: number;

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-// import { IData } from "../types/types";
 import Components from "../helpers/Components";
 
 interface IData {
     imageURL: string;
     name: string;
-    shortDescription: string;
-    longDescription: string;
+    descShort: string;
+    descLong: string;
     price: number;
 }
 
@@ -29,12 +28,12 @@ const useMapProductData = ({ type, products }: IProps) => {
                     index={index}
                     imageURL={item.imageURL}
                     name={item.name}
-                    shortDescription={item.shortDescription}
-                    longDescription={item.longDescription}
+                    descShort={item.descShort}
+                    descLong={item.descLong}
                     price={item.price}
                 />
             ))
-        );
+        )
     }, [mapped, setMapped, type, products]);
 
     return mapped;

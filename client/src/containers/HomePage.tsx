@@ -9,8 +9,8 @@ import HomeJumbotron from "../components/HomeJumbotron";
 interface IData {
     imageURL: string;
     name: string;
-    shortDescription: string;
-    longDescription: string;
+    descShort: string;
+    descLong: string;
     price: number;
 }
 

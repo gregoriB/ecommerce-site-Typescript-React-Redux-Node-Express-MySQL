@@ -21,32 +21,27 @@ app.use(express.json({ type: "applications/json" }));
 let products: mysql.Query;
 
 app.get("/search", (req: Request, res: Response) => {
-    fetchProductData("SELECT * FROM items");
+    fetchProductData("SELECT * FROM item_search_all_view");
     res.json(products);
 });
 
 app.get("/featured", (req: Request, res: Response) => {
-    fetchProductData("SELECT * FROM fi");
+    fetchProductData("SELECT * FROM featured_items_view");
     res.json(products);
 });
 
 app.post("/login", (req: Request, res: Response) => {
     const name = req.body.name;
-    console.log(name);
-    name && fetchProductData(`SELECT * FROM users WHERE email LIKE '%${name}%'`);
-    // fetchProductData("SELECT * FROM users");
-    res.json(products);
+    if (name) {
+        fetchProductData(`SELECT user_email AS 'email' FROM users WHERE user_email LIKE '%${name}%'`);
+        res.json(products);
+    }
 });
 
 app.post("/register", (req: Request, res: Response) => {
     fetchProductData("SELECT * FROM users");
     res.json(products);
 });
-
-// app.post("/", (req: Request, res: Response) => {
-
-//     res.json(products);
-// });
 
 const dbCredentials = {
     host: process.env.DB_HOST,

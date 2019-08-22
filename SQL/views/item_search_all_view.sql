@@ -1,6 +1,6 @@
-DROP VIEW IF EXISTS featured_items_view;
+DROP VIEW IF EXISTS item_search_all_view;
 
-CREATE VIEW featured_items_view AS
+CREATE VIEW item_search_all_view AS
   SELECT
     item_id AS 'id',
     item_name AS 'name',
@@ -11,10 +11,6 @@ CREATE VIEW featured_items_view AS
     item_price AS 'price',
     item_stock AS 'stock'
   FROM
-    items
-    INNER JOIN featured_items
-      ON items.item_id = featured_items.fi_item
-  GROUP BY
-    item_id;
+    items;
 
-SELECT * FROM featured_items_view \G
+SELECT * FROM item_search_all_view \G

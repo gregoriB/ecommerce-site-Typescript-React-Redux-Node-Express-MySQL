@@ -1,15 +1,15 @@
 CREATE TABLE items (
-  item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name TEXT,
-  imageURL TEXT,
-  shortDescription TEXT,
-  longDescription TEXT,
-  sku VARCHAR(50),
-  price INT,
-  stock INT
+    item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    item_name TEXT,
+    item_img_url TEXT,
+    item_desc_short TEXT,
+    item_desc_long TEXT,
+    item_sku VARCHAR(50),
+    item_price INT,
+    item_stock INT
 );
 
-INSERT INTO items (name, imageURL, shortDescription, longDescription, sku, price, stock)
+INSERT INTO items (item_name, item_img_url, item_desc_short, item_desc_long, item_sku, item_price, item_stock)
 VALUES (
             "Brook Universal Fighting Board (PS3, PS4, Xbox 360, Xbox One, PC, WiiU, Switch)",
             "https://cdn.shopify.com/s/files/1/0748/3745/products/BROOK_UFB_CLEAN.png?v=1479969193",

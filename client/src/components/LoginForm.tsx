@@ -32,17 +32,14 @@ const LoginForm = () => {
             body: JSON.stringify({ name: loginValues.name, password: loginValues.password }),
             headers: { "Content-Type": "applications/json" }
         };
-        try {
-            const response = await fetch(`http://localhost:34567/login`, options);
-            const results: any[] = await response.json();
-            if (results[0].email === loginValues.name) {
-                console.log(results);
-                setUserData(<UserName results={results[0]} />);
-            }
-        } catch (err) {
-            console.error(err);
+        const response = await fetch(`http://localhost:34567/login`, options);
+        const results: any[] = await response.json();
+        if (results[0].email === loginValues.name) {
+            console.log(results);
+            setUserData(<UserName results={results[0]} />);
         }
     };
+    
     return (
         <LoginContainer>
             {userData || (
