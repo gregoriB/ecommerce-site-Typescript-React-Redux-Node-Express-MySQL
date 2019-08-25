@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
 import { IActionPopulate, IData } from "../types/types";
 import SearchPanel from "../components/search/searchPanel/SearchPanel";
 import SearchResults from "../components/search/SearchResults";
+import queryDatabase from "../helpers/queryDatabase";
+import populateProducts from "../store/actions/populateProducts";
 
 const MainDiv = styled.div`
     display: flex;
@@ -14,17 +18,44 @@ const MainDiv = styled.div`
 `;
 
 interface IProps {
+    query: string;
     results: IData[];
     populateProducts(data: IData[]): IActionPopulate;
 }
 
-const Main: React.FC<IProps> = () => {
+const SearchPage: React.FC<IProps> = ({ query, populateProducts, results }) => {
+    useEffect(() => {
+        (async () => {
+            const dbQuery = { path: "search", query };
+            const data: IData[] = await queryDatabase(dbQuery);
+            const actionProps: any = { type: "SEARCH RESULTS", payload: data };
+            populateProducts(actionProps);
+        })();
+    }, [query]);
+
     return (
         <MainDiv>
             <SearchPanel />
-            <SearchResults />
+            <SearchResults products={results} />
         </MainDiv>
     );
 };
 
-export default Main;
+interface IState {
+    searchRequest: { query: string };
+    products: { searchResults: IData[] };
+}
+
+const mapStateToProps = (state: IState) => ({
+    query: state.searchRequest.query,
+    results: state.products.searchResults
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    populateProducts: (val: any) => dispatch(populateProducts(val))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SearchPage);

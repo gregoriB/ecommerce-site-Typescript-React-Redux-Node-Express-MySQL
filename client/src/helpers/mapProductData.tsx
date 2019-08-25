@@ -15,7 +15,7 @@ interface IArgs {
 }
 
 const mapProductData = ({ type, products }: IArgs) => {
-    // console.log(products);
+    console.log(products);
     if (!products || products.length < 1 || !Array.isArray(products)) {
         return;
     }

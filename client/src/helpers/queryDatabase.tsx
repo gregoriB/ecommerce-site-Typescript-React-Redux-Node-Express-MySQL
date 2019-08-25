@@ -11,7 +11,6 @@ const queryDatabase = async ({ path, query }: IArgs) => {
     };
     const response = await fetch(`http://localhost:34567/${path}`, options);
     const results = await response.json();
-    console.log(results);
     return results;
 };
 
