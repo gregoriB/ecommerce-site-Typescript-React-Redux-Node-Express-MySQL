@@ -21,6 +21,7 @@ const useMapProductData = ({ type, products }: IProps) => {
             return;
         }
         const Component = Components[type];
+        console.log("mapped");
         setMapped(
             products.map((item: IData, index: number) => (
                 <Component
@@ -33,7 +34,7 @@ const useMapProductData = ({ type, products }: IProps) => {
                     price={item.price}
                 />
             ))
-        )
+        );
     }, [mapped, setMapped, type, products]);
 
     return mapped;

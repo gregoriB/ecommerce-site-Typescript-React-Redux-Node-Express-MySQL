@@ -26,7 +26,9 @@ const LoginForm = () => {
 
     const handleSubmitLogin = async (e: FormElem) => {
         e.preventDefault();
-        if (!loginValues.name) return;
+        if (!loginValues.name) {
+            return;
+        }
         const options = {
             method: "POST",
             body: JSON.stringify({ name: loginValues.name, password: loginValues.password }),
@@ -39,7 +41,7 @@ const LoginForm = () => {
             setUserData(<UserName results={results[0]} />);
         }
     };
-    
+
     return (
         <LoginContainer>
             {userData || (

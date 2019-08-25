@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProductModal from "./ProductModal";
+import ProductModal from "./modals/ProductModal";
 import ProductImage from "./ProductImage";
 
 const ProductContainer = styled.div`

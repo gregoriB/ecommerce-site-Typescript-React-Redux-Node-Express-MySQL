@@ -1,4 +1,4 @@
-import FeaturedCard from "../components/FeaturedCard";
+import FeaturedCard from "../components/homePage/FeaturedCard";
 import ProductCard from "../components/ProductCard";
 
 const components: any = {

@@ -12,12 +12,12 @@ const initialState: IState = {
 
 export default function products(state = initialState, action: IActionPopulate) {
     switch (action.type) {
-        case "FEATURED":
+        case "FEATURED RESULTS":
             return (state = {
                 ...state,
                 featured: action.payload
             });
-        case "SEARCH":
+        case "SEARCH RESULTS":
             return (state = {
                 ...state,
                 searchResults: action.payload

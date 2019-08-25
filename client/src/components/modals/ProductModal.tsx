@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IData as IProps } from "../types/types";
+import { IData as IProps } from "../../types/types";
 import ImageModal from "./ImageModal";
-import ProductImage from "./ProductImage";
+import ProductImage from "../ProductImage";
 
 const FlexContainer = styled.div`
         position: relative;
@@ -57,15 +57,7 @@ const FlexContainer = styled.div`
         margin-top: auto;
     `;
 
-const ProductModal: React.FC<IProps> = ({
-    imageURL,
-    name,
-    price,
-    index,
-    onHide,
-    descLong,
-    ...rest
-}) => {
+const ProductModal: React.FC<IProps> = ({ imageURL, name, price, index, onHide, descLong, ...rest }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [imageHeight, setImageHeight] = useState<number>(0);
 

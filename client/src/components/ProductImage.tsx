@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled, { StyledFunction } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ImageModal from "./ImageModal";
+import ImageModal from "./modals/ImageModal";
 
 interface IProps {
     image: string;

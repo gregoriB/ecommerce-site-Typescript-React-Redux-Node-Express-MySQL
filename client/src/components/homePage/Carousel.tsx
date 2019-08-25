@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import useMapProductData from "../hooks/useMapProductData";
-import { IData } from "../types/types";
+import useMapProductData from "../../hooks/useMapProductData";
+import { IData } from "../../types/types";
 
 interface IProps {
     products: IData[];

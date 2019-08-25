@@ -20,12 +20,13 @@ app.use(express.json({ type: "applications/json" }));
 
 let products: mysql.Query;
 
-app.get("/search", (req: Request, res: Response) => {
-    fetchProductData("SELECT * FROM item_search_all_view");
+app.post("/search", (req: Request, res: Response) => {
+    const body = req.body.query;
+    fetchProductData(`SELECT * FROM item_search_all_view WHERE name LIKE '%${body}%'`);
     res.json(products);
 });
 
-app.get("/featured", (req: Request, res: Response) => {
+app.post("/featured", (req: Request, res: Response) => {
     fetchProductData("SELECT * FROM featured_items_view");
     res.json(products);
 });

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
-import ProductModal from "./ProductModal";
-import ProductImage from "./ProductImage";
-import { IData as IProps } from "../types/types";
+import ProductModal from "../modals/ProductModal";
+import ProductImage from "../ProductImage";
+import { IData as IProps } from "../../types/types";
 
 const FeaturedContainer = styled.div`
     cursor: pointer;

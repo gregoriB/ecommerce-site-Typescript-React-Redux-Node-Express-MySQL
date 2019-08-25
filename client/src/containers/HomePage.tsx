@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { IActionPopulate } from "../types/types";
 import useDatabase from "../hooks/useDatabase";
-import FeaturedCarousel from "../components/Carousel";
-import HomeJumbotron from "../components/HomeJumbotron";
+import queryDatabase from "../helpers/queryDatabase";
+import FeaturedCarousel from "../components/homePage/Carousel";
+import HomeJumbotron from "../components/homePage/HomeJumbotron";
 
 interface IData {
     imageURL: string;
@@ -32,12 +33,13 @@ const HomeContainer = styled.div`
 `;
 
 const Home: React.FC<IProps> = () => {
-    const featured = useSelector((state: IState) => state.products.featured)
+    const featured = useSelector((state: IState) => state.products.featured);
     const dispatch = useDispatch();
-    const data: IData[] = useDatabase("search");
-    const actionProps: any = { type: "FEATURED", payload: data };
+    const dbQuery = { path: "featured", query: "*" };
+    const data: IData[] = useDatabase(dbQuery);
+    const actionArgs: any = { type: "FEATURED RESULTS", payload: data };
     useEffect(() => {
-        (!featured || featured.length < 1) && dispatch(actionProps);
+        (!featured || featured.length < 1) && dispatch(actionArgs);
     });
     return (
         <HomeContainer>

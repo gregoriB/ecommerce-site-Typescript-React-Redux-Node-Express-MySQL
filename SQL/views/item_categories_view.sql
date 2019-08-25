@@ -2,8 +2,8 @@ DROP VIEW IF EXISTS ic;
 
 CREATE VIEW ic AS
   SELECT
-    JSON_ARRAYAGG(item_name) AS 'ITEM',
-    JSON_ARRAYAGG(cat_name) AS 'CATEGORY'
+    JSON_ARRAYAGG(item_id) AS 'Item IDs',
+    JSON_ARRAYAGG(cat_name) AS 'Categories'
     FROM
       items i
     JOIN

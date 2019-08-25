@@ -6,7 +6,7 @@ import "../styles//App.css";
 // import useMapToasts from "../hooks/useMapToasts";
 // import CheckoutPage from "../components/CheckoutPage";
 import SearchPage from "./SearchPage";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/navBar/NavBar";
 import Home from "./HomePage";
 
 import styled from "styled-components";
@@ -46,7 +46,7 @@ const App: React.FC<IProps> = ({ cart, productArr }) => {
                 <NavBar cart={cart} />
                 <Switch>
                     <Route exact path="/Main" component={Home} />
-                    <Route exact path="/search-results" component={SearchPage} />
+                    <Route path="/search" component={SearchPage} />
                     {/* <Route exact path="/checkout" component={CheckoutPage} /> */}
                 </Switch>
                 {/* <ToastContainer>{toasts}</ToastContainer> */}
