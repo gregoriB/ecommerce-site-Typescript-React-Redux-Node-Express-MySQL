@@ -1,19 +1,21 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import styled from "styled-components";
-import { IActionPopulate } from "../types/types";
-import useDatabase from "../hooks/useDatabase";
+import { IActionPopulate, IData } from "../types/types";
+// import useDatabase from "../hooks/useDatabase";
 import queryDatabase from "../helpers/queryDatabase";
 import FeaturedCarousel from "../components/homePage/Carousel";
 import HomeJumbotron from "../components/homePage/HomeJumbotron";
+import populateProducts from "../store/actions/populateProducts";
 
-interface IData {
-    imageURL: string;
-    name: string;
-    descShort: string;
-    descLong: string;
-    price: number;
-}
+// interface IData {
+//     imageURL: string;
+//     name: string;
+//     descShort: string;
+//     descLong: string;
+//     price: number;
+// }
 
 interface IState {
     products: {
@@ -22,7 +24,7 @@ interface IState {
 }
 
 interface IProps {
-    featured: IData[];
+    results: IData[];
     populateProducts(data: IData[]): IActionPopulate;
 }
 
@@ -32,21 +34,36 @@ const HomeContainer = styled.div`
     margin: 0 auto;
 `;
 
-const Home: React.FC<IProps> = () => {
-    const featured = useSelector((state: IState) => state.products.featured);
-    const dispatch = useDispatch();
-    const dbQuery = { path: "featured", query: "*" };
-    const data: IData[] = useDatabase(dbQuery);
-    const actionArgs: any = { type: "FEATURED RESULTS", payload: data };
+const Home: React.FC<IProps> = ({ populateProducts, results }) => {
     useEffect(() => {
-        (!featured || featured.length < 1) && dispatch(actionArgs);
-    });
+        (async () => {
+            const dbQuery = { path: "featured", query: "*" };
+            const data: IData[] = await queryDatabase(dbQuery);
+            const actionProps: any = { type: "FEATURED RESULTS", payload: data };
+            populateProducts(actionProps);
+        })();
+    }, []);
     return (
         <HomeContainer>
             <HomeJumbotron />
-            <FeaturedCarousel products={featured} />
+            <FeaturedCarousel products={results} />
         </HomeContainer>
     );
 };
 
-export default Home;
+interface IState {
+    products: { [key: string]: IData[] };
+}
+
+const mapStateToProps = (state: IState) => ({
+    results: state.products.featured
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    populateProducts: (val: IData[]) => dispatch(populateProducts(val))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Home);

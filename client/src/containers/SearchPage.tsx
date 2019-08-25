@@ -43,7 +43,7 @@ const SearchPage: React.FC<IProps> = ({ query, populateProducts, results }) => {
 
 interface IState {
     searchRequest: { query: string };
-    products: { searchResults: IData[] };
+    products: { [key: string]: IData[] };
 }
 
 const mapStateToProps = (state: IState) => ({
@@ -52,7 +52,7 @@ const mapStateToProps = (state: IState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    populateProducts: (val: any) => dispatch(populateProducts(val))
+    populateProducts: (val: IData[]) => dispatch(populateProducts(val))
 });
 
 export default connect(

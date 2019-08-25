@@ -18,30 +18,37 @@ app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" :
 app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
-let products: mysql.Query;
-
 app.post("/search", (req: Request, res: Response) => {
     const body = req.body.query;
-    fetchProductData(`SELECT * FROM item_search_all_view WHERE name LIKE '%${body}%'`);
-    res.json(products);
+    fetchProductData(
+        `SELECT * FROM item_search_all_view WHERE name LIKE '%${body}%'`,
+        (results: mysql.Query) => {
+            res.json(results);
+        }
+    );
 });
 
 app.post("/featured", (req: Request, res: Response) => {
-    fetchProductData("SELECT * FROM featured_items_view");
-    res.json(products);
+    fetchProductData("SELECT * FROM featured_items_view", (results: mysql.Query) => {
+        res.json(results);
+    });
 });
 
 app.post("/login", (req: Request, res: Response) => {
     const name = req.body.name;
     if (name) {
-        fetchProductData(`SELECT user_email AS 'email' FROM users WHERE user_email LIKE '%${name}%'`);
-        res.json(products);
+        fetchProductData(
+            `SELECT user_email AS 'email' FROM users WHERE user_email LIKE '%${name}%'`,
+            (results: mysql.Query) => {
+                res.json(results);
+            }
+        );
     }
 });
 
 app.post("/register", (req: Request, res: Response) => {
-    fetchProductData("SELECT * FROM users");
-    res.json(products);
+    // fetchProductData("SELECT * FROM users");
+    res.json("register");
 });
 
 const dbCredentials = {
@@ -51,11 +58,11 @@ const dbCredentials = {
     database: process.env.DB_DATABASE
 };
 
-function fetchProductData(query: string) {
+function fetchProductData(query: string, callback: Function) {
     const connection = mysql.createConnection(dbCredentials);
-    connection.query(query, (error: mysql.MysqlError, results: any) => {
+    connection.query(query, (error: mysql.MysqlError, results: mysql.Query) => {
         if (error) throw error;
-        products = results;
+        callback(results);
     });
     connection.end();
 }

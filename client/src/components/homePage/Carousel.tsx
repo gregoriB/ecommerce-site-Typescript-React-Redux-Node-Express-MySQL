@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import useMapProductData from "../../hooks/useMapProductData";
 import { IData } from "../../types/types";
+import mapProductData from "../../helpers/mapProductData";
 
 interface IProps {
     products: IData[];
@@ -12,11 +12,8 @@ const CarouselContainer = styled.div``;
 
 const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
     const [items, setItems] = useState();
-    const featured = useMapProductData({
-        type: "FeaturedCard",
-        products
-    });
     useEffect(() => {
+        const featured = mapProductData({ type: "FeaturedCard", products });
         featured &&
             setItems(
                 featured.map((product: React.ReactChild, index: number) => {
@@ -29,7 +26,7 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
                     );
                 })
             );
-    }, [featured, setItems, products]);
+    }, [setItems, products]);
 
     return (
         <Carousel interval={3000} as={CarouselContainer}>
