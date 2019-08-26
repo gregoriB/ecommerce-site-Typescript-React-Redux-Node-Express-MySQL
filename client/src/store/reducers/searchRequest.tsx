@@ -1,15 +1,14 @@
-import { IActionPopulate } from "../actions/populateProducts";
-import { IData } from "../../types/types";
+import { IActionUpdateSearch } from "../actions/updateSearch";
 
 export interface IState {
-    [key: string]: IData[];
+    query: string;
 }
 
-const initialState: any = {
+const initialState: IState = {
     query: ""
 };
 
-export default function searchRequest(state = initialState, action: IActionPopulate) {
+export default function searchRequest(state = initialState, action: IActionUpdateSearch) {
     switch (action.type) {
         case "SEARCH REQUEST":
             return (state = {

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import { InputGroup } from "react-bootstrap";
 import styled from "styled-components";
-import { IActionChangeCategories } from "../../../store/actions/changeCategories";
+import { IActionchangeFilter } from "../../../store/actions/changeFilter";
 
 const Category = styled.div`
     display: flex;
@@ -22,10 +21,10 @@ const CategoryLabel = styled.label`
 interface IProps {
     name: string;
     selectedCategories: string[];
-    changeCategories(categories: any): IActionChangeCategories;
+    changeFilter(filter: any): IActionchangeFilter;
 }
 
-const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeCategories }) => {
+const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter }) => {
     const [isChecked, setIsChecked] = useState(false);
     const handleCheckbox = () => {
         setIsChecked(prevState => !prevState);
@@ -42,7 +41,7 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeCatego
         } else {
             categories = categories.filter(category => name !== category);
         }
-        changeCategories({ type: "SELECTED CATEGORIES", payload: categories });
+        changeFilter({ type: "SELECTED CATEGORIES", payload: categories });
     }, [isChecked]);
 
     return (
@@ -63,12 +62,4 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeCatego
     );
 };
 
-interface IState {
-    categories: { [key: string]: string[] };
-}
-
-const mapStateToProps = (state: IState) => ({
-    selectedCategories: state.categories.selectedCategories
-});
-
-export default connect(mapStateToProps)(CategoryItem);
+export default CategoryItem;

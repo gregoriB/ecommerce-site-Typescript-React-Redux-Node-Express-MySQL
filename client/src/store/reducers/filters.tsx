@@ -1,11 +1,13 @@
 interface IState {
     allCategories: string[];
     selectedCategories: string[];
+    priceRange: any;
 }
 
 const initialState: IState = {
     allCategories: [],
-    selectedCategories: []
+    selectedCategories: [],
+    priceRange: [undefined, undefined]
 };
 
 export default function loginData(state = initialState, action: any) {
@@ -19,6 +21,11 @@ export default function loginData(state = initialState, action: any) {
             return (state = {
                 ...state,
                 selectedCategories: action.payload
+            });
+        case "PRICE RANGE":
+            return (state = {
+                ...state,
+                priceRange: action.payload
             });
         default:
             return state;

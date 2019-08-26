@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { withRouter, RouteComponentProps, Router } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Form, FormControl } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
+import updateSearch, { IActionUpdateSearch } from "../store/actions/updateSearch";
 
 const InputWrapper = styled.div`
     position: relative;
@@ -22,26 +24,25 @@ const SearchButton = styled.button`
     right: 0;
 `;
 
-const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
-    const [searchValue, setSearchValue] = useState("");
+interface IProps {
+    query: any;
+    updateSearch(val: string): IActionUpdateSearch;
+}
 
+const SearchForm: React.FC<RouteComponentProps & IProps> = ({ history, query, updateSearch }) => {
     const updateReducer = (value: string) => {
-        const actionArgs: any = { type: "SEARCH REQUEST", payload: value };
-        dispatch(actionArgs);
+        updateSearch(value);
     };
 
     type keyboardEvent = React.ChangeEvent<any>;
     const handleSearchChange = (e: keyboardEvent) => {
-        setSearchValue(e.target.value);
-        updateReducer(e.target.value);
+        updateReducer(e.currentTarget.value);
     };
-
-    const dispatch = useDispatch();
 
     type FormElem = React.ChangeEvent<HTMLFormElement>;
     const handleSubmitSearch = (e: FormElem) => {
         e.preventDefault();
-        updateReducer(searchValue);
+        updateReducer(query);
         history.push(`/search`);
     };
 
@@ -51,7 +52,7 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
                 <FormControl
                     type="text"
                     placeholder="Search inventory"
-                    value={searchValue}
+                    value={query}
                     onChange={handleSearchChange}
                     className="mr-sm-2 search-input"
                     style={{
@@ -68,4 +69,19 @@ const SearchForm: React.FC<RouteComponentProps> = ({ history }) => {
     );
 };
 
-export default withRouter(SearchForm);
+interface IState {
+    searchRequest: any;
+}
+
+const mapStateToProps = (state: IState) => ({
+    query: state.searchRequest.query
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    updateSearch: (val: string) => dispatch(updateSearch(val))
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(SearchForm));

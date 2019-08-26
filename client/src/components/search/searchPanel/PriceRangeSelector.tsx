@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IActionchangeFilter } from "../../../store/actions/changeFilter";
 
-const PriceRangeContainer = styled.div`
+const PriceRangeContainer = styled.form`
     display: flex;
     align-items: center;
 `;
@@ -40,13 +41,43 @@ const NumberInput = styled.input.attrs({ type: "number" })`
     }
 `;
 
-const PriceRangeSelector = () => {
+interface IProps {
+    priceRange: any;
+    changeFilter(filter: any): IActionchangeFilter;
+}
+
+const PriceRangeSelector: React.FC<IProps> = ({ changeFilter }) => {
+    const [inputValue, setInputValue] = useState([0, 0]);
+    type keyboardEvent = React.ChangeEvent<any>;
+    const handleChange = (e: keyboardEvent) => {
+        const inputValueClone = [...inputValue];
+        const { dataset, value } = e.currentTarget;
+        inputValueClone.splice(dataset.input, 1, Number(value));
+        setInputValue(inputValueClone);
+    };
+
+    type FormElem = React.ChangeEvent<HTMLFormElement>;
+    const handleSubmit = (e: FormElem) => {
+        e.preventDefault();
+        changeFilter({ type: "PRICE RANGE", payload: [...inputValue] });
+    };
+
     return (
-        <PriceRangeContainer>
+        <PriceRangeContainer onSubmit={handleSubmit}>
             <RangeLabel>$</RangeLabel>
-            <NumberInput placeholder="from" />
+            <NumberInput
+                placeholder="from"
+                value={inputValue[0] || ""}
+                onChange={handleChange}
+                data-input={0}
+            />
             <RangeLabel> - $</RangeLabel>
-            <NumberInput placeholder="to" />
+            <NumberInput
+                placeholder="to"
+                value={inputValue[1] || ""}
+                onChange={handleChange}
+                data-input={1}
+            />
             <RangeButton>
                 <FontAwesomeIcon icon="angle-right"></FontAwesomeIcon>
             </RangeButton>

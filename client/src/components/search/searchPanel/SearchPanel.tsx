@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { Form } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
-import { IActionChangeCategories } from "../../../store/actions/changeCategories";
+import { IActionchangeFilter } from "../../../store/actions/changeFilter";
 
 const Panel = styled.div`
     padding: 1rem;
@@ -22,19 +22,31 @@ const SectionName = styled.div``;
 
 interface IProps {
     allCategories: string[];
-    changeCategories(categories: any): IActionChangeCategories;
+    selectedCategories: string[];
+    priceRange: any;
+    changeFilter(filter: any): IActionchangeFilter;
 }
 
-const SearchPanel: React.FC<IProps> = ({ allCategories, changeCategories }) => {
+const SearchPanel: React.FC<IProps> = ({
+    allCategories,
+    changeFilter,
+    selectedCategories,
+    priceRange
+}) => {
     const [mappedCategories, setMappedCategories] = useState();
 
     useEffect(() => {
         setMappedCategories(
             allCategories.map(category => (
-                <CategoryItem key={category} name={category} changeCategories={changeCategories} />
+                <CategoryItem
+                    selectedCategories={selectedCategories}
+                    key={category}
+                    name={category}
+                    changeFilter={changeFilter}
+                />
             ))
         );
-    }, [allCategories]);
+    }, [allCategories, selectedCategories]);
     return (
         <Panel>
             <PanelHeader>Filter by:</PanelHeader>
@@ -44,9 +56,7 @@ const SearchPanel: React.FC<IProps> = ({ allCategories, changeCategories }) => {
             </Section>
             <Section>
                 <SectionName>Price</SectionName>
-                <Form>
-                    <PriceRangeSelector />
-                </Form>
+                <PriceRangeSelector priceRange={priceRange} changeFilter={changeFilter} />
             </Section>
         </Panel>
     );

@@ -5,9 +5,10 @@ import React from "react";
 interface IArgs {
     type: string;
     products: IData[];
+    miscProps?: any;
 }
 
-const mapProductData = ({ type, products }: IArgs) => {
+const mapProductData = ({ type, products, miscProps }: IArgs) => {
     if (!products || products.length < 1 || !Array.isArray(products)) {
         return;
     }
@@ -22,6 +23,7 @@ const mapProductData = ({ type, products }: IArgs) => {
             descLong={item.descLong}
             price={item.price}
             categories={item.category}
+            miscProps={miscProps}
         />
     ));
 };

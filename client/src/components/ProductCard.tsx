@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductModal from "./modals/ProductModal";
 import ProductImage from "./ProductImage";
 import { IData } from "../types/types";
-import { connect } from "react-redux";
 
 const ProductContainer = styled.div`
     background: red;
@@ -22,21 +21,14 @@ const ShowMoreLink = styled.button`
 
 interface IProps {
     categories: string;
-    selectedCategories: string[];
+    miscProps: any;
 }
 
 const ProductCard: React.FC<IData & IProps> = props => {
-    const { imageURL, name, descShort, price, categories, selectedCategories } = props;
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
-
-    if (categories && selectedCategories.length > 0) {
-        const categoryArray = JSON.parse(categories);
-        let categoryMatches = 0;
-        categoryArray.forEach((category: string) => {
-            selectedCategories.includes(category) && categoryMatches++;
-        });
-        if (!categoryMatches) return null;
-    }
+    const [isHidden, setIsHidden] = useState(false);
+    const { imageURL, name, descShort, price, categories, miscProps } = props;
+    const { selectedCategories, priceRange } = miscProps;
 
     const shortenDescription = () => {
         const maxLength = 150;
@@ -46,6 +38,37 @@ const ProductCard: React.FC<IData & IProps> = props => {
 
         return descShort.slice(0, 150).trim() + "...";
     };
+
+    useEffect(() => {
+        if (categories && selectedCategories.length) {
+            const categoryArray = JSON.parse(categories);
+            let categoryMatches = 0;
+            categoryArray.forEach((category: string) => {
+                selectedCategories.includes(category) && categoryMatches++;
+            });
+            setIsHidden(categoryMatches ? false : true);
+        }
+        if (!selectedCategories.length) {
+            setIsHidden(false);
+        }
+
+        const minPrice = priceRange[0] || 0;
+        const maxPrice = priceRange[1] || Number.MAX_SAFE_INTEGER;
+
+        if (price < minPrice || price > maxPrice) {
+            setIsHidden(true);
+        }
+    }, [categories, selectedCategories, price, priceRange, setIsHidden]);
+
+    // useEffect(() => {
+    //     const minPrice = priceRange[0] || 0,
+    //         maxPrice = priceRange[1] || Number.MAX_SAFE_INTEGER;
+    //     setIsHidden(price < minPrice || price > maxPrice ? true : false);
+    // }, [price, priceRange, setIsHidden]);
+
+    if (isHidden) {
+        return null;
+    }
 
     return (
         <ProductContainer>
@@ -103,12 +126,4 @@ const ProductCard: React.FC<IData & IProps> = props => {
     );
 };
 
-interface IState {
-    categories: { [key: string]: string[] };
-}
-
-const mapStateToProps = (state: IState) => ({
-    selectedCategories: state.categories.selectedCategories
-});
-
-export default connect(mapStateToProps)(ProductCard);
+export default ProductCard;

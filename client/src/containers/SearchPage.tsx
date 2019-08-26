@@ -7,7 +7,7 @@ import SearchPanel from "../components/search/searchPanel/SearchPanel";
 import SearchResults from "../components/search/SearchResults";
 import queryDatabase from "../helpers/queryDatabase";
 import populateProducts from "../store/actions/populateProducts";
-import changeCategories, { IActionChangeCategories } from "../store/actions/changeCategories";
+import changeFilter, { IActionchangeFilter } from "../store/actions/changeFilter";
 
 const MainDiv = styled.div`
     display: flex;
@@ -25,16 +25,19 @@ interface IProps {
     selectedCategories: string[];
     query: string;
     results: IData[];
+    priceRange: any;
     populateProducts(data: IData[]): IActionPopulate;
-    changeCategories(categories: any): IActionChangeCategories;
+    changeFilter(filter: any): IActionchangeFilter;
 }
 
 const SearchPage: React.FC<IProps> = ({
     query,
     populateProducts,
     results,
-    changeCategories,
-    allCategories
+    changeFilter,
+    allCategories,
+    selectedCategories,
+    priceRange
 }) => {
     useEffect(() => {
         (async () => {
@@ -59,13 +62,22 @@ const SearchPage: React.FC<IProps> = ({
         const categoriesFiltered = Object.keys(resultsCategories).sort((a: any, b: any) =>
             a > b ? 1 : -1
         );
-        changeCategories({ type: "NEW CATEGORIES", payload: categoriesFiltered });
+        changeFilter({ type: "NEW CATEGORIES", payload: categoriesFiltered });
     }, [results]);
 
     return (
         <MainDiv>
-            <SearchPanel changeCategories={changeCategories} allCategories={allCategories} />
-            <SearchResults products={results} />
+            <SearchPanel
+                selectedCategories={selectedCategories}
+                priceRange={priceRange}
+                allCategories={allCategories}
+                changeFilter={changeFilter}
+            />
+            <SearchResults
+                products={results}
+                selectedCategories={selectedCategories}
+                priceRange={priceRange}
+            />
         </MainDiv>
     );
 };
@@ -73,19 +85,20 @@ const SearchPage: React.FC<IProps> = ({
 interface IState {
     searchRequest: { query: string };
     products: { [key: string]: IData[] };
-    categories: { [key: string]: string[] };
+    filters: { [key: string]: any };
 }
 
 const mapStateToProps = (state: IState) => ({
     query: state.searchRequest.query,
     results: state.products.searchResults,
-    allCategories: state.categories.allCategories,
-    selectedCategories: state.categories.selectedCategories
+    allCategories: state.filters.allCategories,
+    selectedCategories: state.filters.selectedCategories,
+    priceRange: state.filters.priceRange
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     populateProducts: (optionsObj: IData[]) => dispatch(populateProducts(optionsObj)),
-    changeCategories: (categories: any) => dispatch(changeCategories(categories))
+    changeFilter: (filter: any) => dispatch(changeFilter(filter))
 });
 
 export default connect(
