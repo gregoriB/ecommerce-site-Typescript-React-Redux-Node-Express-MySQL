@@ -37,7 +37,6 @@ const LoginForm = () => {
         const response = await fetch(`http://localhost:34567/login`, options);
         const results: any[] = await response.json();
         if (results[0].email === loginValues.name) {
-            console.log(results);
             setUserData(<UserName results={results[0]} />);
         }
     };

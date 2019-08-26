@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS coupons;
+
 CREATE TABLE coupons (
     coupon_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
-)
+);
+
+SELECT * FROM coupons;

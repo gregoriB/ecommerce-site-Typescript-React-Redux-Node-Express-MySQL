@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS item_categories;
+
 CREATE TABLE item_categories (
     ic_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ic_item INT NOT NULL,
@@ -14,3 +16,5 @@ INSERT INTO item_categories (ic_item, ic_category) VALUES
     (4, 2), 
     (5, 3), 
     (6, 4);
+
+SELECT * FROM item_categories;

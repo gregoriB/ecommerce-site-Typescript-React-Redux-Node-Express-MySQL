@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { Form } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
+import { IActionChangeCategories } from "../../../store/actions/changeCategories";
 
 const Panel = styled.div`
     padding: 1rem;
@@ -19,18 +20,27 @@ const Section = styled.section``;
 
 const SectionName = styled.div``;
 
-const SearchPanel = () => {
+interface IProps {
+    allCategories: string[];
+    changeCategories(categories: any): IActionChangeCategories;
+}
+
+const SearchPanel: React.FC<IProps> = ({ allCategories, changeCategories }) => {
+    const [mappedCategories, setMappedCategories] = useState();
+
+    useEffect(() => {
+        setMappedCategories(
+            allCategories.map(category => (
+                <CategoryItem key={category} name={category} changeCategories={changeCategories} />
+            ))
+        );
+    }, [allCategories]);
     return (
         <Panel>
             <PanelHeader>Filter by:</PanelHeader>
             <Section>
                 <SectionName>Category</SectionName>
-                <Form>
-                    <CategoryItem name="Arcade Stick" />
-                    <CategoryItem name="Stick Parts" />
-                    <CategoryItem name="Adapters" />
-                    <CategoryItem name="Accessories" />
-                </Form>
+                <Form>{mappedCategories}</Form>
             </Section>
             <Section>
                 <SectionName>Price</SectionName>

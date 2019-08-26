@@ -5,7 +5,7 @@ export interface IActionPopulate {
     payload: IData[];
 }
 
-const populateProducts = ({ type, payload }: any): IActionPopulate => {
+const populateProducts = ({ type, payload }: any) => {
     return { type, payload };
 };
 

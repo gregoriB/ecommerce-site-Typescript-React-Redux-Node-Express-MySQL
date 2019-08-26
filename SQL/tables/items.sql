@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS items;
+
 CREATE TABLE items (
     item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     item_name TEXT,
@@ -141,3 +143,5 @@ True last and next generation support is achievable with basic know how with lit
             89.98, 
             150
         );
+
+SELECT * FROM items;

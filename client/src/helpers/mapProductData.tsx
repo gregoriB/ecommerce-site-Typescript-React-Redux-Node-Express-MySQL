@@ -1,13 +1,6 @@
 import Components from "../helpers/Components";
+import { IData } from "../types/types";
 import React from "react";
-
-interface IData {
-    imageURL: string;
-    name: string;
-    descShort: string;
-    descLong: string;
-    price: number;
-}
 
 interface IArgs {
     type: string;
@@ -28,6 +21,7 @@ const mapProductData = ({ type, products }: IArgs) => {
             descShort={item.descShort}
             descLong={item.descLong}
             price={item.price}
+            categories={item.category}
         />
     ));
 };

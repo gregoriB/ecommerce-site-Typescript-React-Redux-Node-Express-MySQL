@@ -21,7 +21,7 @@ app.use(express.json({ type: "applications/json" }));
 app.post("/search", (req: Request, res: Response) => {
     const body = req.body.query;
     fetchProductData(
-        `SELECT * FROM item_search_all_view WHERE name LIKE '%${body}%'`,
+        `SELECT * FROM item_categories_view WHERE name LIKE '%${body}%'`,
         (results: mysql.Query) => {
             res.json(results);
         }

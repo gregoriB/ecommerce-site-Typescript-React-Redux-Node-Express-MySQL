@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductModal from "./modals/ProductModal";
 import ProductImage from "./ProductImage";
+import { IData } from "../types/types";
+import { connect } from "react-redux";
 
 const ProductContainer = styled.div`
     background: red;
@@ -18,21 +20,23 @@ const ShowMoreLink = styled.button`
     margin: 0 auto;
 `;
 
-interface IData {
-    imageURL: string;
-    name: string;
-    descShort: string;
-    descLong: string;
-    price: number;
+interface IProps {
+    categories: string;
+    selectedCategories: string[];
 }
 
-interface IData {
-    index: number;
-}
-
-const ProductCard: React.FC<IData> = props => {
-    const { imageURL, name, descShort, price } = props;
+const ProductCard: React.FC<IData & IProps> = props => {
+    const { imageURL, name, descShort, price, categories, selectedCategories } = props;
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+
+    if (categories && selectedCategories.length > 0) {
+        const categoryArray = JSON.parse(categories);
+        let categoryMatches = 0;
+        categoryArray.forEach((category: string) => {
+            selectedCategories.includes(category) && categoryMatches++;
+        });
+        if (!categoryMatches) return null;
+    }
 
     const shortenDescription = () => {
         const maxLength = 150;
@@ -99,4 +103,12 @@ const ProductCard: React.FC<IData> = props => {
     );
 };
 
-export default ProductCard;
+interface IState {
+    categories: { [key: string]: string[] };
+}
+
+const mapStateToProps = (state: IState) => ({
+    selectedCategories: state.categories.selectedCategories
+});
+
+export default connect(mapStateToProps)(ProductCard);

@@ -3,25 +3,10 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import styled from "styled-components";
 import { IActionPopulate, IData } from "../types/types";
-// import useDatabase from "../hooks/useDatabase";
 import queryDatabase from "../helpers/queryDatabase";
 import FeaturedCarousel from "../components/homePage/Carousel";
 import HomeJumbotron from "../components/homePage/HomeJumbotron";
 import populateProducts from "../store/actions/populateProducts";
-
-// interface IData {
-//     imageURL: string;
-//     name: string;
-//     descShort: string;
-//     descLong: string;
-//     price: number;
-// }
-
-interface IState {
-    products: {
-        [key: string]: IData[];
-    };
-}
 
 interface IProps {
     results: IData[];

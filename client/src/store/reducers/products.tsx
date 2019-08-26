@@ -23,7 +23,6 @@ export default function products(state = initialState, action: IActionPopulate) 
                 searchResults: action.payload
             });
         default:
-            console.log(state.searchResults);
             return state;
     }
 }

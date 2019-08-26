@@ -17,5 +17,6 @@ export interface IData {
     length?: number;
     index?: number;
     show?: boolean;
+    category?: any;
     onHide?(): void;
 }
