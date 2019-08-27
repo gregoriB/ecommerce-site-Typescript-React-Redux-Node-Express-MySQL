@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IActionchangeFilter } from "../../../store/actions/changeFilter";
+import { IAChangeFilter } from "../../../types/types";
 
 const PriceRangeContainer = styled.form`
     display: flex;
@@ -43,7 +43,7 @@ const NumberInput = styled.input.attrs({ type: "number" })`
 
 interface IProps {
     priceRange: any;
-    changeFilter(filter: any): IActionchangeFilter;
+    changeFilter(filter: any): IAChangeFilter;
 }
 
 const PriceRangeSelector: React.FC<IProps> = ({ changeFilter }) => {

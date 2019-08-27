@@ -1,5 +1,4 @@
-import { IActionPopulate } from "../actions/populateProducts";
-import { IData } from "../../types/types";
+import { IData, IAPopulate } from "../../types/types";
 
 export interface IState {
     [key: string]: IData[];
@@ -10,7 +9,7 @@ const initialState: IState = {
     SearchResults: []
 };
 
-export default function products(state = initialState, action: IActionPopulate) {
+export default function products(state = initialState, action: IAPopulate) {
     switch (action.type) {
         case "FEATURED RESULTS":
             return (state = {

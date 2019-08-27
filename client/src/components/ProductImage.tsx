@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import styled, { StyledFunction } from "styled-components";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ImageModal from "./modals/ImageModal";
 
-interface IProps {
-    image: string;
-    allowModal: boolean;
-}
-
-const imageDiv: StyledFunction<any> = styled.div;
+type image = { image: string };
+type allowModal = { allowModal: boolean };
 
 const ImageContainer = styled.div`
     padding: 0.5rem;
@@ -17,18 +13,18 @@ const ImageContainer = styled.div`
     height: 100%;
 `;
 
-const ImageDiv = imageDiv`
+const ImageDiv = styled.div<image>`
     width: 100%;
     height: 100%;
     max-height: 500px;
     cursor: pointer;
-    background-image: url(${(props: IProps) => props.image});
+    background-image: url(${props => props.image});
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
 `;
 
-const ProductImage: React.FC<IProps> = ({ image, allowModal }) => {
+const ProductImage: React.FC<allowModal & image> = ({ image, allowModal }) => {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
     // const [imageHeight, setImageHeight] = useState(0);
 
@@ -47,6 +43,7 @@ const ProductImage: React.FC<IProps> = ({ image, allowModal }) => {
         <ImageContainer className="image-container">
             <ImageDiv
                 // ref={imageRef}
+                // allowModal={allowModal}
                 image={image}
                 className="product-image"
                 onClick={handleClick}

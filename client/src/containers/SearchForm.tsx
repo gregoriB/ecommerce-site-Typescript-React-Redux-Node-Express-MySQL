@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Form, FormControl } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import updateSearch, { IActionUpdateSearch } from "../store/actions/updateSearch";
+import { updateSearch } from "../store/actions/actionCreators";
+import { IAUpdateSearch } from "../types/types";
 
 const InputWrapper = styled.div`
     position: relative;
@@ -25,8 +25,8 @@ const SearchButton = styled.button`
 `;
 
 interface IProps {
-    query: any;
-    updateSearch(val: string): IActionUpdateSearch;
+    query: string;
+    updateSearch(val: string): IAUpdateSearch;
 }
 
 const SearchForm: React.FC<RouteComponentProps & IProps> = ({ history, query, updateSearch }) => {
@@ -70,18 +70,20 @@ const SearchForm: React.FC<RouteComponentProps & IProps> = ({ history, query, up
 };
 
 interface IState {
-    searchRequest: any;
+    searchRequest: {
+        [key: string]: string;
+    };
 }
 
 const mapStateToProps = (state: IState) => ({
     query: state.searchRequest.query
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    updateSearch: (val: string) => dispatch(updateSearch(val))
-});
+const actionCreators = {
+    updateSearch
+};
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    actionCreators
 )(withRouter(SearchForm));

@@ -1,6 +1,6 @@
-import { IActionAdd } from "../actions/addToCart";
+import { IAAdd } from "../../types/types";
 
-export interface IState {
+interface IState {
     cart: {
         [key: number]: number;
     };
@@ -12,7 +12,7 @@ const initialState: IState = {
     productArr: []
 };
 
-const addToCart = (state = initialState, action: IActionAdd) => {
+const addToCart = (state = initialState, action: IAAdd) => {
     switch (action.type) {
         case "ADD":
             state = {

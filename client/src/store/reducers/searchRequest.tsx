@@ -1,6 +1,6 @@
-import { IActionUpdateSearch } from "../actions/updateSearch";
+import { IAUpdateSearch } from "../../types/types";
 
-export interface IState {
+interface IState {
     query: string;
 }
 
@@ -8,7 +8,7 @@ const initialState: IState = {
     query: ""
 };
 
-export default function searchRequest(state = initialState, action: IActionUpdateSearch) {
+export default function searchRequest(state = initialState, action: IAUpdateSearch) {
     switch (action.type) {
         case "SEARCH REQUEST":
             return (state = {

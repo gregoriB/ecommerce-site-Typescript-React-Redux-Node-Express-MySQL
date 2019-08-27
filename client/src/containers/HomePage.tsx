@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import styled from "styled-components";
-import { IActionPopulate, IData } from "../types/types";
+import { IAPopulate, IData } from "../types/types";
 import queryDatabase from "../helpers/queryDatabase";
 import FeaturedCarousel from "../components/homePage/Carousel";
 import HomeJumbotron from "../components/homePage/HomeJumbotron";
-import populateProducts from "../store/actions/populateProducts";
+import { populateProducts } from "../store/actions/actionCreators";
 
 interface IProps {
     results: IData[];
-    populateProducts(data: IData[]): IActionPopulate;
+    populateProducts(data: IAPopulate): IAPopulate;
 }
 
 const HomeContainer = styled.div`
@@ -19,12 +18,12 @@ const HomeContainer = styled.div`
     margin: 0 auto;
 `;
 
-const Home: React.FC<IProps> = ({ populateProducts, results }) => {
+const HomePage: React.FC<IProps> = ({ populateProducts, results }) => {
     useEffect(() => {
         (async () => {
             const dbQuery = { path: "featured", query: "*" };
-            const data: IData[] = await queryDatabase(dbQuery);
-            const actionProps: any = { type: "FEATURED RESULTS", payload: data };
+            const data = await queryDatabase(dbQuery);
+            const actionProps = { type: "FEATURED RESULTS", payload: data };
             populateProducts(actionProps);
         })();
     }, []);
@@ -44,11 +43,11 @@ const mapStateToProps = (state: IState) => ({
     results: state.products.featured
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    populateProducts: (val: IData[]) => dispatch(populateProducts(val))
-});
+const actionCreators = {
+    populateProducts
+};
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
-)(Home);
+    actionCreators
+)(HomePage);

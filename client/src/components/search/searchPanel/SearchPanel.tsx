@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { Form } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
-import { IActionchangeFilter } from "../../../store/actions/changeFilter";
+import { IAChangeFilter } from "../../../types/types";
 
 const Panel = styled.div`
     padding: 1rem;
@@ -24,7 +24,7 @@ interface IProps {
     allCategories: string[];
     selectedCategories: string[];
     priceRange: any;
-    changeFilter(filter: any): IActionchangeFilter;
+    changeFilter(filter: any): IAChangeFilter;
 }
 
 const SearchPanel: React.FC<IProps> = ({

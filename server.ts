@@ -67,12 +67,12 @@ function fetchProductData(query: string, callback: Function) {
     connection.end();
 }
 
-const listener: any = app.listen(34567, () => {
+const listener = app.listen(34567, () => {
     console.info("\x1b[33m", `${nodeEnv} server`);
     console.info(
         "\x1b[36m", //cyan font color
-        "SERVER LISTENING ON PORT:",
+        "SERVER LISTENING:",
         "\x1b[33m", //yellow font color
-        listener.address().port
+        listener.address()
     );
 });

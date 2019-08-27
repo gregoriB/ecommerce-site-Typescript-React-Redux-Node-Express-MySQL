@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import styled from "styled-components";
-import { IActionPopulate, IData } from "../types/types";
+import { IAChangeFilter, IAPopulate, IData } from "../types/types";
 import SearchPanel from "../components/search/searchPanel/SearchPanel";
 import SearchResults from "../components/search/SearchResults";
 import queryDatabase from "../helpers/queryDatabase";
-import populateProducts from "../store/actions/populateProducts";
-import changeFilter, { IActionchangeFilter } from "../store/actions/changeFilter";
+import { changeFilter, populateProducts } from "../store/actions/actionCreators";
 
 const MainDiv = styled.div`
     display: flex;
@@ -26,8 +24,8 @@ interface IProps {
     query: string;
     results: IData[];
     priceRange: any;
-    populateProducts(data: IData[]): IActionPopulate;
-    changeFilter(filter: any): IActionchangeFilter;
+    populateProducts(data: IAPopulate): IAPopulate;
+    changeFilter(filter: IAChangeFilter): IAChangeFilter;
 }
 
 const SearchPage: React.FC<IProps> = ({
@@ -43,26 +41,30 @@ const SearchPage: React.FC<IProps> = ({
         (async () => {
             const dbQuery = { path: "search", query };
             const data: IData[] = await queryDatabase(dbQuery);
-            const actionProps: any = { type: "SEARCH RESULTS", payload: data };
-            populateProducts(actionProps);
+            const action = { type: "SEARCH RESULTS", payload: data };
+            populateProducts(action);
         })();
     }, [query]);
 
     useEffect(() => {
-        const resultsCategories: any = {};
+        interface IResultsCategory {
+            [key: string]: number;
+        }
+        const resultsCategories: IResultsCategory = {};
         results &&
             results
-                .map(result => JSON.parse(result.category))
+                .map(result => result.category && JSON.parse(result.category))
                 .forEach((categoryArray: string[]) =>
                     categoryArray.forEach(
                         (category: string) =>
                             (resultsCategories[category] = resultsCategories[category] + 1 || 1)
                     )
                 );
-        const categoriesFiltered = Object.keys(resultsCategories).sort((a: any, b: any) =>
+        const categoriesFiltered = Object.keys(resultsCategories).sort((a: string, b: string) =>
             a > b ? 1 : -1
         );
-        changeFilter({ type: "NEW CATEGORIES", payload: categoriesFiltered });
+        const action = { type: "NEW CATEGORIES", payload: categoriesFiltered };
+        changeFilter(action);
     }, [results]);
 
     return (
@@ -85,7 +87,7 @@ const SearchPage: React.FC<IProps> = ({
 interface IState {
     searchRequest: { query: string };
     products: { [key: string]: IData[] };
-    filters: { [key: string]: any };
+    filters: { [key: string]: string[] };
 }
 
 const mapStateToProps = (state: IState) => ({
@@ -96,12 +98,12 @@ const mapStateToProps = (state: IState) => ({
     priceRange: state.filters.priceRange
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    populateProducts: (optionsObj: IData[]) => dispatch(populateProducts(optionsObj)),
-    changeFilter: (filter: any) => dispatch(changeFilter(filter))
-});
+const actionCreators = {
+    populateProducts,
+    changeFilter
+};
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    actionCreators
 )(SearchPage);

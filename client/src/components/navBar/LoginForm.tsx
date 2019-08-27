@@ -9,20 +9,22 @@ const LoginContainer = styled.div`
     margin-left: auto;
 `;
 
+// userdata needs to go into redux
 const LoginForm = () => {
     const [loginValues, setLoginValues] = useState({ name: "", password: "" });
     const [userData, setUserData] = useState();
 
-    type keyboardEvent = React.ChangeEvent<any>;
+    type keyboardEvent = React.ChangeEvent<EventTarget>;
 
     const handleLoginChange = (e: keyboardEvent) => {
+        const target = e.currentTarget as HTMLInputElement;
         setLoginValues({
             ...loginValues,
-            [e.currentTarget.name]: e.currentTarget.value
+            [target.name]: target.value
         });
     };
 
-    type FormElem = React.ChangeEvent<HTMLFormElement>;
+    type FormElem = React.FormEvent<HTMLFormElement>;
 
     const handleSubmitLogin = async (e: FormElem) => {
         e.preventDefault();
@@ -35,7 +37,8 @@ const LoginForm = () => {
             headers: { "Content-Type": "applications/json" }
         };
         const response = await fetch(`http://localhost:34567/login`, options);
-        const results: any[] = await response.json();
+        const results: any = await response.json();
+        console.log(results);
         if (results[0].email === loginValues.name) {
             setUserData(<UserName results={results[0]} />);
         }

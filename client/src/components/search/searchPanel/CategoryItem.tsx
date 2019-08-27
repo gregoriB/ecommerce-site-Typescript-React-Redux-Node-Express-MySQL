@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { InputGroup } from "react-bootstrap";
 import styled from "styled-components";
-import { IActionchangeFilter } from "../../../store/actions/changeFilter";
+import { IAChangeFilter } from "../../../types/types";
 
 const Category = styled.div`
     display: flex;
@@ -21,7 +21,7 @@ const CategoryLabel = styled.label`
 interface IProps {
     name: string;
     selectedCategories: string[];
-    changeFilter(filter: any): IActionchangeFilter;
+    changeFilter(filter: IAChangeFilter): IAChangeFilter;
 }
 
 const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter }) => {

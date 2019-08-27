@@ -19,9 +19,14 @@ const ShowMoreLink = styled.button`
     margin: 0 auto;
 `;
 
+interface IMiscProps {
+    selectedCategories: string[];
+    priceRange: number[];
+}
+
 interface IProps {
     categories: string;
-    miscProps: any;
+    miscProps: IMiscProps;
 }
 
 const ProductCard: React.FC<IData & IProps> = props => {
@@ -59,12 +64,6 @@ const ProductCard: React.FC<IData & IProps> = props => {
             setIsHidden(true);
         }
     }, [categories, selectedCategories, price, priceRange, setIsHidden]);
-
-    // useEffect(() => {
-    //     const minPrice = priceRange[0] || 0,
-    //         maxPrice = priceRange[1] || Number.MAX_SAFE_INTEGER;
-    //     setIsHidden(price < minPrice || price > maxPrice ? true : false);
-    // }, [price, priceRange, setIsHidden]);
 
     if (isHidden) {
         return null;

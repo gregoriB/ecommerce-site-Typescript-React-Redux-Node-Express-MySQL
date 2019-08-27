@@ -1,9 +1,9 @@
-export interface IActionAdd {
+export interface IAAdd {
     type: string;
     payload: number;
 }
 
-export interface IActionPopulate {
+export interface IAPopulate {
     type: string;
     payload: IData[];
 }
@@ -17,6 +17,16 @@ export interface IData {
     length?: number;
     index?: number;
     show?: boolean;
-    category?: any;
+    category?: string;
     onHide?(): void;
+}
+
+export interface IAChangeFilter {
+    type: string;
+    payload: string[];
+}
+
+export interface IAUpdateSearch {
+    type: string;
+    payload: string;
 }
