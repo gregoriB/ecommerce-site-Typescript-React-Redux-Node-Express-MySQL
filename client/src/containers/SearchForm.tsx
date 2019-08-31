@@ -4,8 +4,8 @@ import { Form, FormControl } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
-import { updateSearch } from "../store/actions/actionCreators";
-import { IAUpdateSearch } from "../types/types";
+import { updateSearch, changeFilter } from "../store/actions/actionCreators";
+import { IAUpdateSearch, IAChangeFilter } from "../types/types";
 
 const InputWrapper = styled.div`
     position: relative;
@@ -27,22 +27,30 @@ const SearchButton = styled.button`
 interface IProps {
     query: string;
     updateSearch(val: string): IAUpdateSearch;
+    changeFilter(filter: IAChangeFilter): IAChangeFilter;
 }
 
-const SearchForm: React.FC<RouteComponentProps & IProps> = ({ history, query, updateSearch }) => {
-    const updateReducer = (value: string) => {
+const SearchForm: React.FC<RouteComponentProps & IProps> = ({
+    history,
+    query,
+    updateSearch,
+    changeFilter
+}) => {
+    const updateReducers = (value: string) => {
         updateSearch(value);
+        changeFilter({ type: "SELECTED_CATEGORIES", payload: [] });
+        changeFilter({ type: "PRICE_RANGE", payload: [undefined, undefined] });
     };
 
     type keyboardEvent = React.ChangeEvent<any>;
     const handleSearchChange = (e: keyboardEvent) => {
-        updateReducer(e.currentTarget.value);
+        updateReducers(e.currentTarget.value);
     };
 
     type FormElem = React.ChangeEvent<HTMLFormElement>;
     const handleSubmitSearch = (e: FormElem) => {
         e.preventDefault();
-        updateReducer(query);
+        updateReducers(query);
         history.push(`/search`);
     };
 
@@ -80,7 +88,8 @@ const mapStateToProps = (state: IState) => ({
 });
 
 const actionCreators = {
-    updateSearch
+    updateSearch,
+    changeFilter
 };
 
 export default connect(

@@ -12,17 +12,17 @@ const initialState: IState = {
 
 export default function loginData(state = initialState, action: any) {
     switch (action.type) {
-        case "NEW CATEGORIES":
+        case "NEW_CATEGORIES":
             return (state = {
                 ...state,
                 allCategories: action.payload
             });
-        case "SELECTED CATEGORIES":
+        case "SELECTED_CATEGORIES":
             return (state = {
                 ...state,
                 selectedCategories: action.payload
             });
-        case "PRICE RANGE":
+        case "PRICE_RANGE":
             return (state = {
                 ...state,
                 priceRange: action.payload

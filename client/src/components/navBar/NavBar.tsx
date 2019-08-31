@@ -17,11 +17,25 @@ const NavContainer = styled.div`
     width: 100vw;
 `;
 
+const ShoppingCartButton = styled.button`
+    background: none;
+    color: #545b62;
+    border: none;
+    transition: 0.2s;
+    padding: 0;
+    font-size: 1.5rem;
+    :hover {
+        color: #181819;
+    }
+`;
+
 interface IProps {
     cart: Object;
+    userData: any;
+    updateUserData(val: any): any;
 }
 
-const NavBar: React.FC<IProps> = ({ cart }) => {
+const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
@@ -42,10 +56,10 @@ const NavBar: React.FC<IProps> = ({ cart }) => {
                     </Navbar.Brand>
                 </Link>
                 <SearchForm />
-                <LoginForm />
-                <Button variant="primary" onClick={() => setIsModalOpen(true)}>
+                <LoginForm userData={userData} updateUserData={updateUserData} />
+                <ShoppingCartButton onClick={() => setIsModalOpen(true)}>
                     <FontAwesomeIcon icon="shopping-cart" style={{ margin: "0 .5rem" }} size="lg" />
-                </Button>
+                </ShoppingCartButton>
                 <ShoppingCartModal cart={cart} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
             </Navbar>
         </NavContainer>

@@ -38,7 +38,7 @@ app.post("/login", (req: Request, res: Response) => {
     const name = req.body.name;
     if (name) {
         fetchProductData(
-            `SELECT user_email AS 'email' FROM users WHERE user_email LIKE '%${name}%'`,
+            `SELECT user_name AS 'name', user_email AS 'email' FROM users WHERE user_name='${name}'`,
             (results: mysql.Query) => {
                 res.json(results);
             }

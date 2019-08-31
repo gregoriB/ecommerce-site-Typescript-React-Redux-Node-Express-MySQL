@@ -4,7 +4,7 @@ CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_joindate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     user_email VARCHAR(255),
-    user_name VARBINARY(255),
+    user_name VARCHAR(255),
     user_password VARBINARY(255)
 );
 

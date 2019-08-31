@@ -63,7 +63,7 @@ const SearchPage: React.FC<IProps> = ({
         const categoriesFiltered = Object.keys(resultsCategories).sort((a: string, b: string) =>
             a > b ? 1 : -1
         );
-        const action = { type: "NEW CATEGORIES", payload: categoriesFiltered };
+        const action = { type: "NEW_CATEGORIES", payload: categoriesFiltered };
         changeFilter(action);
     }, [results]);
 

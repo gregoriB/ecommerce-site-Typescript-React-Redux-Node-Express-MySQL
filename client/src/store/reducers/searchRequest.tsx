@@ -8,7 +8,7 @@ const initialState: IState = {
     query: ""
 };
 
-export default function searchRequest(state = initialState, action: IAUpdateSearch) {
+export default function searchRequest(state = initialState, action: any) {
     switch (action.type) {
         case "SEARCH REQUEST":
             return (state = {

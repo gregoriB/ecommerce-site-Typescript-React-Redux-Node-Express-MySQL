@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IAChangeFilter } from "../../../types/types";
@@ -46,8 +46,9 @@ interface IProps {
     changeFilter(filter: any): IAChangeFilter;
 }
 
-const PriceRangeSelector: React.FC<IProps> = ({ changeFilter }) => {
+const PriceRangeSelector: React.FC<IProps> = ({ changeFilter, priceRange }) => {
     const [inputValue, setInputValue] = useState([0, 0]);
+
     type keyboardEvent = React.ChangeEvent<any>;
     const handleChange = (e: keyboardEvent) => {
         const inputValueClone = [...inputValue];
@@ -59,8 +60,16 @@ const PriceRangeSelector: React.FC<IProps> = ({ changeFilter }) => {
     type FormElem = React.ChangeEvent<HTMLFormElement>;
     const handleSubmit = (e: FormElem) => {
         e.preventDefault();
-        changeFilter({ type: "PRICE RANGE", payload: [...inputValue] });
+        changeFilter({ type: "PRICE_RANGE", payload: [...inputValue] });
     };
+
+    useEffect(() => {
+        const min = priceRange[0],
+            max = priceRange[1];
+        if (!min && !max) {
+            setInputValue([0, 0]);
+        }
+    }, [priceRange, setInputValue]);
 
     return (
         <PriceRangeContainer onSubmit={handleSubmit}>

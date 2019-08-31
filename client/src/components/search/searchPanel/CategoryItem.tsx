@@ -31,8 +31,8 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter
     };
 
     useEffect(() => {
-        selectedCategories.includes(name) && setIsChecked(true);
-    }, []);
+        !selectedCategories.length && setIsChecked(false);
+    }, [selectedCategories, setIsChecked]);
 
     useEffect(() => {
         let categories = [...selectedCategories];
@@ -41,7 +41,7 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter
         } else {
             categories = categories.filter(category => name !== category);
         }
-        changeFilter({ type: "SELECTED CATEGORIES", payload: categories });
+        changeFilter({ type: "SELECTED_CATEGORIES", payload: categories });
     }, [isChecked]);
 
     return (

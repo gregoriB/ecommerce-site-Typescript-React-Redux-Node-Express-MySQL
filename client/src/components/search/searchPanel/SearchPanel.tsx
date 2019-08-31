@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
 import { IAChangeFilter } from "../../../types/types";
 
@@ -35,6 +35,11 @@ const SearchPanel: React.FC<IProps> = ({
 }) => {
     const [mappedCategories, setMappedCategories] = useState();
 
+    const clearFilters = () => {
+        changeFilter({ type: "SELECTED_CATEGORIES", payload: [] });
+        changeFilter({ type: "PRICE_RANGE", payload: [undefined, undefined] });
+    };
+
     useEffect(() => {
         setMappedCategories(
             allCategories.map(category => (
@@ -57,6 +62,17 @@ const SearchPanel: React.FC<IProps> = ({
             <Section>
                 <SectionName>Price</SectionName>
                 <PriceRangeSelector priceRange={priceRange} changeFilter={changeFilter} />
+            </Section>
+            <Section>
+                <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={clearFilters}
+                    block
+                    style={{ marginTop: "1rem" }}
+                >
+                    Clear All Filters
+                </Button>
             </Section>
         </Panel>
     );

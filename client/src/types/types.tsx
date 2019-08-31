@@ -23,10 +23,15 @@ export interface IData {
 
 export interface IAChangeFilter {
     type: string;
-    payload: string[];
+    payload: string[] | undefined[];
 }
 
 export interface IAUpdateSearch {
     type: string;
     payload: string;
+}
+
+export interface IUpdateUserData {
+    type: string;
+    payload: any;
 }

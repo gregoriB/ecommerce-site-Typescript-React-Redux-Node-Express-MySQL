@@ -1,18 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FormControl, Form, Button, Nav } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UserName from "./UserName";
+import User from "./User";
+import LoginAlert from "./LoginAlert";
 
 const LoginContainer = styled.div`
     display: flex;
     margin-left: auto;
+    span {
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
+    }
 `;
 
-// userdata needs to go into redux
-const LoginForm = () => {
-    const [loginValues, setLoginValues] = useState({ name: "", password: "" });
-    const [userData, setUserData] = useState();
+const loginIntialValues = {
+    name: "",
+    password: ""
+};
+
+interface IProps {
+    userData: any;
+    updateUserData(val: any): any;
+}
+
+const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
+    const [loginValues, setLoginValues] = useState(loginIntialValues);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     type keyboardEvent = React.ChangeEvent<EventTarget>;
 
@@ -38,15 +54,24 @@ const LoginForm = () => {
         };
         const response = await fetch(`http://localhost:34567/login`, options);
         const results: any = await response.json();
-        console.log(results);
-        if (results[0].email === loginValues.name) {
-            setUserData(<UserName results={results[0]} />);
+        console.log(results[0]);
+        if (results[0] && results[0].name === loginValues.name) {
+            updateUserData({ type: "UPDATE_USER_DATA", payload: results[0] });
+        } else {
+            setIsError(true);
         }
+        setLoginValues(loginIntialValues);
     };
+
+    useEffect(() => {
+        const { name, email } = userData;
+        setIsLoggedIn(name || email ? true : false);
+    }, [userData]);
 
     return (
         <LoginContainer>
-            {userData || (
+            {isError && <LoginAlert show={isError} setShow={setIsError} />}
+            {(isLoggedIn && <User userData={userData} updateUserData={updateUserData} />) || (
                 <LoginContainer>
                     <Form inline onSubmit={handleSubmitLogin}>
                         <FormControl
@@ -74,13 +99,7 @@ const LoginForm = () => {
                             />
                         </Button>
                     </Form>
-                    <span
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            margin: "0 1rem"
-                        }}
-                    >
+                    <span>
                         <Nav.Link href="#home-page">register new account</Nav.Link>
                     </span>
                 </LoginContainer>

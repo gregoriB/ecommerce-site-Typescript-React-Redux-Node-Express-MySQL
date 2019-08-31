@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { updateUserData } from "../store/actions/actionCreators";
 import "../styles//App.css";
 
 // import useMapToasts from "../hooks/useMapToasts";
@@ -35,15 +36,17 @@ const AppContainer = styled.div`
 interface IProps {
     cart: {};
     productArr: number[];
+    userData: any;
+    updateUserData(val: any): any;
 }
 
-const App: React.FC<IProps> = ({ cart, productArr }) => {
+const App: React.FC<IProps> = ({ cart, productArr, userData, updateUserData }) => {
     // const toasts = useMapToasts(productArr);
     // console.log(toasts);
     return (
         <AppContainer className="app">
             <Router>
-                <NavBar cart={cart} />
+                <NavBar cart={cart} userData={userData} updateUserData={updateUserData} />
                 <Switch>
                     <Route exact path="/Main" component={Home} />
                     <Route path="/search" component={SearchPage} />
@@ -55,11 +58,17 @@ const App: React.FC<IProps> = ({ cart, productArr }) => {
     );
 };
 
-const mapStateToProps = (state: IProps) => {
-    return {
-        cart: state.cart,
-        productArr: state.productArr
-    };
+const mapStateToProps = (state: IProps) => ({
+    cart: state.cart,
+    productArr: state.productArr,
+    userData: state.userData
+});
+
+const actionCreators = {
+    updateUserData
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(App);

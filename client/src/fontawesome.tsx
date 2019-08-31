@@ -9,7 +9,9 @@ import {
     faDollarSign,
     faTags,
     faStore,
-    faAngleRight
+    faAngleRight,
+    faUser,
+    faSignOutAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -21,5 +23,7 @@ library.add(
     faDollarSign,
     faTags,
     faStore,
-    faAngleRight
+    faAngleRight,
+    faUser,
+    faSignOutAlt
 );
