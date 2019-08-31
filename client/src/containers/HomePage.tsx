@@ -21,7 +21,7 @@ const HomeContainer = styled.div`
 const HomePage: React.FC<IProps> = ({ populateProducts, results }) => {
     useEffect(() => {
         (async () => {
-            const dbQuery = { path: "featured", query: "*" };
+            const dbQuery = { path: "featured" };
             const data = await queryDatabase(dbQuery);
             const actionProps = { type: "FEATURED RESULTS", payload: data };
             populateProducts(actionProps);

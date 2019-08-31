@@ -6,9 +6,10 @@ interface IProps {
     show: boolean;
     onHide(): void;
     userData: any;
+    updateUserData(val: any): void;
 }
 
-const UserSettingsModal: React.FC<IProps> = ({ userData, onHide, ...rest }) => {
+const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide, ...rest }) => {
     const [isDeleteOpen, setIsDeleteOpen] = useState(true);
     const { name, email } = userData;
     const handleDeleteClick = () => {
@@ -34,7 +35,7 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, onHide, ...rest }) => {
             <Modal.Body>
                 <strong>EMAIL:</strong> <em>{email}</em>
             </Modal.Body>
-            {isDeleteOpen && <AccountDelete />}
+            {isDeleteOpen && <AccountDelete userData={userData} updateUserData={updateUserData} />}
             <Modal.Footer style={{ display: "flex", justifyContent: "space-between" }}>
                 <Button variant="outline-danger" onClick={handleDeleteClick}>
                     {isDeleteOpen ? "Cancel" : "Delete this account"}

@@ -39,8 +39,8 @@ const SearchPage: React.FC<IProps> = ({
 }) => {
     useEffect(() => {
         (async () => {
-            const dbQuery = { path: "search", query };
-            const data: IData[] = await queryDatabase(dbQuery);
+            const path = query ? `search/${query}` : "search";
+            const data: IData[] = await queryDatabase({ path });
             const action = { type: "SEARCH RESULTS", payload: data };
             populateProducts(action);
         })();

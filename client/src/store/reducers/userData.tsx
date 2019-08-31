@@ -18,6 +18,8 @@ export default function userData(state = initialState, action: IUpdateUserData) 
                 name,
                 email
             });
+        case "DELETE_USER_DATA":
+            return (state = initialState);
         default:
             return state;
     }

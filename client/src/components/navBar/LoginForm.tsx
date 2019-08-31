@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import User from "./User";
 import LoginAlert from "./LoginAlert";
+import queryDatabase from "../../helpers/queryDatabase";
 
 const LoginContainer = styled.div`
     display: flex;
@@ -47,16 +48,10 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
         if (!loginValues.name) {
             return;
         }
-        const options = {
-            method: "POST",
-            body: JSON.stringify({ name: loginValues.name, password: loginValues.password }),
-            headers: { "Content-Type": "applications/json" }
-        };
-        const response = await fetch(`http://localhost:34567/login`, options);
-        const results: any = await response.json();
-        console.log(results[0]);
-        if (results[0] && results[0].name === loginValues.name) {
-            updateUserData({ type: "UPDATE_USER_DATA", payload: results[0] });
+        const path = `login/${loginValues.name}`;
+        const data = await queryDatabase({ path });
+        if (data[0] && data[0].name === loginValues.name) {
+            updateUserData({ type: "UPDATE_USER_DATA", payload: data[0] });
         } else {
             setIsError(true);
         }

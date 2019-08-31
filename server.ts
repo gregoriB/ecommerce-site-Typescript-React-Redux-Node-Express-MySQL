@@ -18,27 +18,34 @@ app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" :
 app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
-app.post("/search", (req: Request, res: Response) => {
-    const body = req.body.query;
-    fetchProductData(
-        `SELECT * FROM item_categories_view WHERE name LIKE '%${body}%'`,
+app.get("/search", (req: Request, res: Response) => {
+    queryDatabase(`SELECT * FROM item_categories_view`, (results: mysql.Query) => {
+        res.json(results);
+    });
+});
+
+app.get("/search/:search", (req: Request, res: Response) => {
+    const { search } = req.params;
+    const params = search === "null" ? "" : search;
+    queryDatabase(
+        `SELECT * FROM item_categories_view WHERE name LIKE '%${params}%'`,
         (results: mysql.Query) => {
             res.json(results);
         }
     );
 });
 
-app.post("/featured", (req: Request, res: Response) => {
-    fetchProductData("SELECT * FROM featured_items_view", (results: mysql.Query) => {
+app.get("/featured", (req: Request, res: Response) => {
+    queryDatabase("SELECT * FROM featured_items_view", (results: mysql.Query) => {
         res.json(results);
     });
 });
 
-app.post("/login", (req: Request, res: Response) => {
-    const name = req.body.name;
-    if (name) {
-        fetchProductData(
-            `SELECT user_name AS 'name', user_email AS 'email' FROM users WHERE user_name='${name}'`,
+app.get("/login/:username", (req: Request, res: Response) => {
+    const username = req.params.username;
+    if (username) {
+        queryDatabase(
+            `SELECT user_name AS 'name', user_email AS 'email' FROM users WHERE user_name='${username}'`,
             (results: mysql.Query) => {
                 res.json(results);
             }
@@ -47,8 +54,20 @@ app.post("/login", (req: Request, res: Response) => {
 });
 
 app.post("/register", (req: Request, res: Response) => {
-    // fetchProductData("SELECT * FROM users");
+    // queryDatabase("SELECT * FROM users");
     res.json("register");
+});
+
+app.delete("/delete/:email", (req: Request, res: Response) => {
+    console.log("delete");
+    const email = req.params.email;
+    if (email) {
+        queryDatabase(`DELETE FROM users WHERE user_email='${email}'`, (results: mysql.Query) => {
+            console.log(`user ${email} removed from database`);
+            console.log(results);
+            res.json(results);
+        });
+    }
 });
 
 const dbCredentials = {
@@ -58,7 +77,7 @@ const dbCredentials = {
     database: process.env.DB_DATABASE
 };
 
-function fetchProductData(query: string, callback: Function) {
+function queryDatabase(query: string, callback: Function) {
     const connection = mysql.createConnection(dbCredentials);
     connection.query(query, (error: mysql.MysqlError, results: mysql.Query) => {
         if (error) throw error;

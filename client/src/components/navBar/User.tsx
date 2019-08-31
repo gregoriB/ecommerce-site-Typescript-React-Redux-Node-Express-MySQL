@@ -28,7 +28,7 @@ interface IProps {
 const User: React.FC<IProps> = ({ userData, updateUserData }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(true);
     const handleLogout = () => {
-        updateUserData({ type: "UPDATE_USER_DATA", payload: { name: "", email: "" } });
+        updateUserData({ type: "DELETE_USER_DATA", payload: null });
     };
 
     const handleSettingsClick = () => {
@@ -40,6 +40,7 @@ const User: React.FC<IProps> = ({ userData, updateUserData }) => {
                 show={isSettingsOpen}
                 onHide={() => setIsSettingsOpen(false)}
                 userData={userData}
+                updateUserData={updateUserData}
             />
             <UserName>{userData.name}</UserName>
             <DropdownButton

@@ -55,7 +55,7 @@ const SearchForm: React.FC<RouteComponentProps & IProps> = ({
     };
 
     return (
-        <Form inline onSubmit={handleSubmitSearch} action="/search">
+        <Form inline onSubmit={handleSubmitSearch}>
             <InputWrapper>
                 <FormControl
                     type="text"
