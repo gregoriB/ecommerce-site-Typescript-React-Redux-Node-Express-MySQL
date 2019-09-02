@@ -1,6 +1,6 @@
 interface IArgs {
     path: string;
-    query?: string;
+    query?: any;
     method?: string;
 }
 

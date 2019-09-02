@@ -39,6 +39,7 @@ const SearchPage: React.FC<IProps> = ({
 }) => {
     useEffect(() => {
         (async () => {
+            // if no search query, instead use default route query.  See server.ts to change the default query.
             const path = query ? `search/${query}` : "search";
             const data: IData[] = await queryDatabase({ path });
             const action = { type: "SEARCH RESULTS", payload: data };
@@ -47,25 +48,40 @@ const SearchPage: React.FC<IProps> = ({
     }, [query]);
 
     useEffect(() => {
-        interface IResultsCategory {
-            [key: string]: number;
+        // map categories for filters IF the `results` item is within the designated price range
+        const mapResults = () => {
+            const min = priceRange[0];
+            const max = priceRange[1];
+            return results
+                .map(result => {
+                    // min or max could be `undefined`
+                    if ((min && result.price < min) || (max && result.price > max)) {
+                        return null;
+                    }
+                    return result.category && JSON.parse(result.category); //array from DB is a string so it needs to be parsed
+                })
+                .filter(Boolean); //get rid of those null array items
+        };
+        const filterDuplicateCategories = (matrix: string[][]) => {
+            type tempObj = { [key: string]: number };
+            const tempObj: tempObj = {};
+            matrix.forEach((categoryArray: string[]) => {
+                categoryArray.forEach((category: string) => {
+                    tempObj[category] = tempObj[category];
+                });
+            });
+            return tempObj;
+        };
+        if (results) {
+            const resultsMapped = mapResults();
+            const filterdCategoriesObj = filterDuplicateCategories(resultsMapped);
+            const filteredCategoriesArr = Object.keys(filterdCategoriesObj).sort(
+                (a: string, b: string) => (a > b ? 1 : -1)
+            );
+            const action = { type: "NEW_CATEGORIES", payload: filteredCategoriesArr };
+            changeFilter(action);
         }
-        const resultsCategories: IResultsCategory = {};
-        results &&
-            results
-                .map(result => result.category && JSON.parse(result.category))
-                .forEach((categoryArray: string[]) =>
-                    categoryArray.forEach(
-                        (category: string) =>
-                            (resultsCategories[category] = resultsCategories[category] + 1 || 1)
-                    )
-                );
-        const categoriesFiltered = Object.keys(resultsCategories).sort((a: string, b: string) =>
-            a > b ? 1 : -1
-        );
-        const action = { type: "NEW_CATEGORIES", payload: categoriesFiltered };
-        changeFilter(action);
-    }, [results]);
+    }, [results, priceRange, changeFilter]);
 
     return (
         <MainDiv>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Button } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ShoppingCartModal from "./ShoppingCartModal";
@@ -50,7 +50,7 @@ const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData }) => {
                     margin: "0 auto"
                 }}
             >
-                <Link to="Main">
+                <Link to="/">
                     <Navbar.Brand style={{ fontFamily: "'Lexend Exa', sans-serif" }}>
                         Super Meter Arcade
                     </Navbar.Brand>

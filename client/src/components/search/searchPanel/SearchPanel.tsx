@@ -11,7 +11,7 @@ const Panel = styled.div`
     margin: 1rem;
     margin-right: 0;
     background: white;
-    border: 1px solid rgba(0, 0, 0, 0.125);
+    border: 1px solid #dfdfdf;
 `;
 
 const PanelHeader = styled.h4``;
@@ -42,14 +42,16 @@ const SearchPanel: React.FC<IProps> = ({
 
     useEffect(() => {
         setMappedCategories(
-            allCategories.map(category => (
-                <CategoryItem
-                    selectedCategories={selectedCategories}
-                    key={category}
-                    name={category}
-                    changeFilter={changeFilter}
-                />
-            ))
+            allCategories.map(category => {
+                return (
+                    <CategoryItem
+                        selectedCategories={selectedCategories}
+                        key={category}
+                        name={category}
+                        changeFilter={changeFilter}
+                    />
+                );
+            })
         );
     }, [allCategories, selectedCategories]);
     return (

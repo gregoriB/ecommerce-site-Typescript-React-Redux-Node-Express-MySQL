@@ -184,3 +184,7 @@
     color: white;
     background: #007bff;
 }
+
+.form-group {
+    position: relative;
+}

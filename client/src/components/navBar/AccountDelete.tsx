@@ -28,7 +28,7 @@ interface IProps {
 }
 
 const AccountDelete: React.FC<IProps> = ({ userData, updateUserData }) => {
-    const [input, setInput] = useState(userData.email);
+    const [input, setInput] = useState("");
     const [isMatchingError, setIsMatchingError] = useState(false);
     type keyboardEvent = React.ChangeEvent<any>;
     const handleInputChange = (e: keyboardEvent) => {

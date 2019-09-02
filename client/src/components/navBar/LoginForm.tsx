@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FormControl, Form, Button, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import User from "./User";
 import LoginAlert from "./LoginAlert";
 import queryDatabase from "../../helpers/queryDatabase";
+import RegistrationModal from "../modals/RegistrationModal";
 
 const LoginContainer = styled.div`
     display: flex;
@@ -21,6 +23,12 @@ const loginIntialValues = {
     password: ""
 };
 
+const RegistrationButton = styled.button`
+    background: none;
+    border: none;
+    text-decoration: underline;
+`;
+
 interface IProps {
     userData: any;
     updateUserData(val: any): any;
@@ -28,6 +36,7 @@ interface IProps {
 
 const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
     const [loginValues, setLoginValues] = useState(loginIntialValues);
+    const [isRegModalOpen, setIsRegModalOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isError, setIsError] = useState(false);
 
@@ -95,7 +104,14 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
                         </Button>
                     </Form>
                     <span>
-                        <Nav.Link href="#home-page">register new account</Nav.Link>
+                        <RegistrationButton onClick={() => setIsRegModalOpen(true)}>
+                            register new account
+                        </RegistrationButton>
+                        <RegistrationModal
+                            show={isRegModalOpen}
+                            onHide={() => setIsRegModalOpen(false)}
+                            updateUserData={updateUserData}
+                        />
                     </span>
                 </LoginContainer>
             )}

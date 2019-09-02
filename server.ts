@@ -54,8 +54,15 @@ app.get("/login/:username", (req: Request, res: Response) => {
 });
 
 app.post("/register", (req: Request, res: Response) => {
-    // queryDatabase("SELECT * FROM users");
-    res.json("register");
+    const user = req.body.query;
+    console.log(user);
+    const values = `('${user.email}', '${user.username}', '${user.password}')`;
+    queryDatabase(
+        `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
+        (results: mysql.Query) => {
+            res.json(results);
+        }
+    );
 });
 
 app.delete("/delete/:email", (req: Request, res: Response) => {

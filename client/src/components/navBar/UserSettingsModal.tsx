@@ -10,7 +10,7 @@ interface IProps {
 }
 
 const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide, ...rest }) => {
-    const [isDeleteOpen, setIsDeleteOpen] = useState(true);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
     const { name, email } = userData;
     const handleDeleteClick = () => {
         setIsDeleteOpen(prevState => !prevState);

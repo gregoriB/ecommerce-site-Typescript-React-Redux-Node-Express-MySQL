@@ -11,6 +11,7 @@ import NavBar from "../components/navBar/NavBar";
 import Home from "./HomePage";
 
 import styled from "styled-components";
+import RegistrationPage from "../components/navBar/RegistrationForm";
 
 const AppContainer = styled.div`
     overflow-x: hidden;
@@ -48,9 +49,13 @@ const App: React.FC<IProps> = ({ cart, productArr, userData, updateUserData }) =
             <Router>
                 <NavBar cart={cart} userData={userData} updateUserData={updateUserData} />
                 <Switch>
-                    <Route exact path="/Main" component={Home} />
-                    <Route path="/search" component={SearchPage} />
-                    {/* <Route exact path="/checkout" component={CheckoutPage} /> */}
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/search" component={SearchPage} />
+                    <Route
+                        exact
+                        path="/registration"
+                        render={() => <RegistrationPage updateUserData={updateUserData} />}
+                    />
                 </Switch>
                 {/* <ToastContainer>{toasts}</ToastContainer> */}
             </Router>
