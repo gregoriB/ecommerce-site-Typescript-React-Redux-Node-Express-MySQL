@@ -2,22 +2,25 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { validateEmail } from "../../helpers/formValidation";
 import { Button, FormControl } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
     show?: boolean;
-    userData: any;
     email: string;
     isEditingEmail: boolean;
+    isDeleteOpen: boolean;
     setIsEditingEmail(val: boolean): void;
     onHide?(): void;
     updateUserData?(val: any): void;
     setEmail(val: string): void;
 }
 
-const EmailSettingsContainer = styled.div`
+const EmailSettingsForm = styled.form`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    align-self: center;
+    width: 100%;
     .email-settings-group {
         display: flex;
         align-items: center;
@@ -43,6 +46,7 @@ const EditingGroup = styled.div`
     position: relative;
     width: 80%;
     margin-left: calc(-1rem - 1px);
+    height: 2rem;
 `;
 
 const ToolTip = styled.div`
@@ -61,9 +65,9 @@ const ToolTip = styled.div`
 `;
 
 const EmailSettings: React.FC<IProps> = ({
-    userData,
     email,
     setEmail,
+    isDeleteOpen,
     isEditingEmail,
     setIsEditingEmail
 }) => {
@@ -77,6 +81,13 @@ const EmailSettings: React.FC<IProps> = ({
         setEmailInput(target.value);
         const validated = validateEmail(target.value);
         setIsValidEmail(validated);
+    };
+
+    type FormElem = React.FormEvent<HTMLFormElement>;
+
+    const handleSubmit = (e: FormElem) => {
+        e.preventDefault();
+        handleToggleEditClick();
     };
 
     const handleToggleEditClick = () => {
@@ -95,36 +106,51 @@ const EmailSettings: React.FC<IProps> = ({
         setIsValidEmail(null);
     };
 
+    const determineVariant = () => {
+        if (!isEditingEmail) {
+            return "outline-secondary";
+        } else if (isValidEmail) {
+            return "info";
+        } else if (isValidEmail === null) {
+            return "secondary";
+        } else {
+            return "danger";
+        }
+    };
     return (
-        <EmailSettingsContainer>
+        <EmailSettingsForm onSubmit={handleSubmit}>
             <div className="email-settings-group">
                 <span>EMAIL:</span>
-                {isEditingEmail ? (
-                    <EditingGroup>
-                        <FormControl
-                            type="email"
-                            onChange={handleInputChange}
-                            value={emailInput}
-                            required
-                            style={{
-                                border: "1px solid transparent",
-                                borderColor: isValidEmail
-                                    ? "green"
-                                    : isValidEmail === null
-                                    ? "#dfdfdf"
-                                    : "red"
-                            }}
-                        />
-                        {isValidEmail === false && <ToolTip>please enter a valid email address</ToolTip>}
-                    </EditingGroup>
-                ) : (
-                    <p>{email}</p>
-                )}
+                <EditingGroup>
+                    <FormControl
+                        className="email-edit"
+                        type="email"
+                        onChange={handleInputChange}
+                        value={emailInput}
+                        required
+                        style={{
+                            borderColor: isValidEmail
+                                ? "green"
+                                : isValidEmail === null
+                                ? "#dfdfdf"
+                                : "red"
+                        }}
+                        disabled={!isEditingEmail}
+                    />
+                    {isValidEmail === false && <ToolTip>please enter a valid email address</ToolTip>}
+                </EditingGroup>
             </div>
-            <Button variant="secondary" onClick={handleToggleEditClick}>
-                {isEditingEmail ? "finish" : "edit"}
-            </Button>
-        </EmailSettingsContainer>
+            {!isDeleteOpen && (
+                <Button
+                    variant={determineVariant()}
+                    style={{ border: "none" }}
+                    onClick={handleToggleEditClick}
+                    title="toggle edit mode for changing your email address"
+                >
+                    <FontAwesomeIcon icon={isEditingEmail ? "times" : "pen"} />
+                </Button>
+            )}
+        </EmailSettingsForm>
     );
 };
 

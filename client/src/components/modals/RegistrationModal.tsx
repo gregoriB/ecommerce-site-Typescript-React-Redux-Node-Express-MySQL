@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import RegistrationForm from "./RegistrationForm";
 import styled from "styled-components";
 import NewAccountWarning from "./NewAccountWarning";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
     show: boolean;
@@ -35,7 +36,8 @@ const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, ...rest }
 
     return (
         <Modal {...rest} aria-labelledby="contained-modal-title-vcenter" centered onHide={handleHide}>
-            <Modal.Header closeButton style={{ position: "relative" }}>
+            <Modal.Header closeButton style={{ position: "relative", color: "#6c757d" }}>
+                <FontAwesomeIcon icon="edit" />
                 <Header isWarning={isWarning}>{isWarning ? "WARNING" : "Register New Account"}</Header>
             </Modal.Header>
 

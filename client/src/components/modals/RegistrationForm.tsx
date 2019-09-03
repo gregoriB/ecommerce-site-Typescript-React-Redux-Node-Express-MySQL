@@ -13,6 +13,7 @@ const FormContainer = styled.div`
     }
     button {
         margin: 3rem 0;
+        margin-bottom: 1rem;
     }
     input {
         margin-top: 2rem;
@@ -102,8 +103,10 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
                         type="text"
                         placeholder="username"
                         data-name="username"
+                        name="username"
                         value={username.text}
                         onChange={handleChange}
+                        autoComplete="username"
                         style={{
                             borderBottomColor: username.borderColor
                         }}
@@ -120,8 +123,10 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
                         type="email"
                         placeholder="email"
                         data-name="email"
+                        name="email"
                         value={fields.email.text}
                         onChange={handleChange}
+                        autoComplete="email"
                         style={{
                             borderBottomColor: email.borderColor
                         }}
@@ -135,10 +140,12 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
                 <Form.Group controlId="formBasicPassword">
                     <Form.Control
                         type="password"
+                        name="new-password"
                         placeholder="password"
                         data-name="password"
                         value={fields.password.text}
                         onChange={handleChange}
+                        autoComplete="new-password"
                         style={{
                             borderBottomColor: password.borderColor
                         }}

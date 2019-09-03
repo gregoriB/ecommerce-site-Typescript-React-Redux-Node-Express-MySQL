@@ -52,32 +52,30 @@ const AccountDelete: React.FC<IProps> = ({ userData, updateUserData }) => {
     };
 
     return (
-        <>
-            <Alert variant="danger">
-                <DeleteContainer>
-                    <span>Are you sure? There is no reversing this account deletion.</span>
-                    <Form onSubmit={deleteAccount}>
-                        <FormControl
-                            placeholder="Enter the account email address to delete it"
-                            aria-label="delete email address"
-                            aria-describedby="basic-addon1"
-                            style={{
-                                width: "100%",
-                                color: "red",
-                                marginRight: ".5rem",
-                                border: "2px solid transparent",
-                                borderBottomColor: isMatchingError ? "red" : undefined
-                            }}
-                            onChange={handleInputChange}
-                            value={input}
-                        />
-                        <Button variant="danger" type="submit">
-                            delete
-                        </Button>
-                    </Form>
-                </DeleteContainer>
-            </Alert>
-        </>
+        <Alert variant="danger" style={{ margin: "0" }}>
+            <DeleteContainer>
+                <span>Are you sure? There is no reversing this account deletion.</span>
+                <Form onSubmit={deleteAccount}>
+                    <FormControl
+                        placeholder="Enter the account email address to delete it"
+                        aria-label="delete email address"
+                        aria-describedby="basic-addon1"
+                        style={{
+                            width: "100%",
+                            color: "red",
+                            marginRight: ".5rem",
+                            border: "2px solid transparent",
+                            borderBottomColor: isMatchingError ? "red" : undefined
+                        }}
+                        onChange={handleInputChange}
+                        value={input}
+                    />
+                    <Button variant="danger" type="submit">
+                        delete
+                    </Button>
+                </Form>
+            </DeleteContainer>
+        </Alert>
     );
 };
 

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Modal, Button } from "react-bootstrap";
 import AccountDelete from "./AccountDelete";
 import EmailSettings from "./EmailSettings";
 import queryDatabase from "../../helpers/queryDatabase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
     show: boolean;
@@ -12,9 +13,9 @@ interface IProps {
 }
 
 const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide, ...rest }) => {
-    const emailInitialState = userData.email;
+    const initialEmailState = userData.email;
     const { name } = userData;
-    const [email, setEmail] = useState(emailInitialState);
+    const [email, setEmail] = useState(initialEmailState);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -26,11 +27,11 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
         onHide();
         setIsDeleteOpen(false);
         setIsEditingEmail(false);
-        setEmail(userData.email);
+        setEmail(initialEmailState);
     };
 
     const checkHasEmailChanged = () => {
-        return !(userData.email === email);
+        return !(initialEmailState === email);
     };
 
     const determineSaveEmailOrCloseModal = () => {
@@ -41,7 +42,7 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
     };
 
     const updateUserEmailInDB = async () => {
-        const query = { oldEmail: userData.email, newEmail: email };
+        const query = { oldEmail: initialEmailState, newEmail: email };
         const dbQuery = { path: "user/update", query, method: "PUT" };
         const data = await queryDatabase(dbQuery);
         if (data && data.affectedRows) {
@@ -56,6 +57,13 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
         const action = { type: "UPDATE_USER_DATA", payload };
         updateUserData(action);
     };
+    const closeBtnRef = useRef<any>(null);
+    useEffect(() => {
+        // focus save button if changes were made
+        if (!isEditingEmail && email !== initialEmailState) {
+            closeBtnRef && closeBtnRef.current.focus();
+        }
+    }, [isEditingEmail]);
 
     return (
         <Modal
@@ -66,15 +74,25 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
             dialogClassName="modal-60w"
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">{name} Settings</Modal.Title>
+                <Modal.Title
+                    id="contained-modal-title-vcenter"
+                    style={{
+                        color: "#6c757d",
+                        width: "100%",
+                        textAlign: "center"
+                    }}
+                >
+                    <FontAwesomeIcon icon="cog" style={{ float: "left" }} />
+                    {name}
+                </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{ minHeight: "15vh", display: "flex" }}>
                 <EmailSettings
                     setIsEditingEmail={setIsEditingEmail}
                     isEditingEmail={isEditingEmail}
-                    userData={userData}
                     email={email}
                     setEmail={setEmail}
+                    isDeleteOpen={isDeleteOpen}
                 />
             </Modal.Body>
             {isDeleteOpen && <AccountDelete userData={userData} updateUserData={updateUserData} />}
@@ -83,9 +101,10 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
                     {isDeleteOpen ? "Cancel" : "Delete this account"}
                 </Button>
                 <Button
-                    variant={!checkHasEmailChanged() ? "primary" : "success"}
+                    variant={!checkHasEmailChanged() ? "outline-primary" : "success"}
                     onClick={determineSaveEmailOrCloseModal}
                     disabled={isEditingEmail}
+                    ref={closeBtnRef}
                 >
                     {checkHasEmailChanged() ? "Save & Close" : "Close Settings"}
                 </Button>

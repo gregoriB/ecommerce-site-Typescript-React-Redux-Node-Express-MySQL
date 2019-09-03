@@ -192,3 +192,12 @@
 .modal-60w {
     max-width: 40%;
 }
+
+.email-edit {
+    border: "1px solid transparent";
+}
+
+.email-edit:disabled {
+    background: unset;
+    border-color: transparent !important;
+}

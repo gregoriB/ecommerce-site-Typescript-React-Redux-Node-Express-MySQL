@@ -11,7 +11,13 @@ import {
     faStore,
     faAngleRight,
     faUser,
-    faSignOutAlt
+    faSignOutAlt,
+    faEdit,
+    faPen,
+    faCheck,
+    faTimes,
+    faUserCog,
+    faCog
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -25,5 +31,11 @@ library.add(
     faStore,
     faAngleRight,
     faUser,
-    faSignOutAlt
+    faSignOutAlt,
+    faEdit,
+    faPen,
+    faCheck,
+    faTimes,
+    faUserCog,
+    faCog
 );

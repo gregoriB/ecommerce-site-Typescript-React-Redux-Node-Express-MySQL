@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { FormControl, Form, Button, Nav } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { FormControl, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import User from "./User";
@@ -18,8 +18,8 @@ const LoginContainer = styled.div`
 `;
 
 const loginIntialValues = {
-    username: "gregorib",
-    password: "Brandon12!!"
+    username: "",
+    password: ""
 };
 
 const RegistrationLink = styled.button`
@@ -71,12 +71,6 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
         setIsLoggedIn(userData.name ? true : false);
     }, [userData]);
 
-    const formRef = useRef<any>(null);
-
-    useEffect(() => {
-        formRef.current.click();
-    }, []);
-
     return (
         <LoginContainer>
             {isError && <LoginAlert show={isError} setShow={setIsError} />}
@@ -99,7 +93,7 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
                             className="mr-sm-2 form-control-sm"
                             onChange={handleLoginChange}
                         />
-                        <Button type="submit" className="btn-sm" ref={formRef}>
+                        <Button type="submit" className="btn-sm">
                             Sign In
                             <FontAwesomeIcon
                                 icon="sign-in-alt"
