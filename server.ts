@@ -18,13 +18,13 @@ app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" :
 app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
-app.get("/search", (req: Request, res: Response) => {
+app.get("/products/all", (req: Request, res: Response) => {
     queryDatabase(`SELECT * FROM item_categories_view`, (results: mysql.Query) => {
         res.json(results);
     });
 });
 
-app.get("/search/:search", (req: Request, res: Response) => {
+app.get("/products/:search", (req: Request, res: Response) => {
     const { search } = req.params;
     const params = search === "null" ? "" : search;
     queryDatabase(
@@ -35,17 +35,18 @@ app.get("/search/:search", (req: Request, res: Response) => {
     );
 });
 
-app.get("/featured", (req: Request, res: Response) => {
+app.get("/home/featured", (req: Request, res: Response) => {
     queryDatabase("SELECT * FROM featured_items_view", (results: mysql.Query) => {
         res.json(results);
     });
 });
 
-app.get("/login/:username", (req: Request, res: Response) => {
-    const username = req.params.username;
-    if (username) {
+app.post("/user/login", (req: Request, res: Response) => {
+    const { username, password } = req.body;
+    if (!username || !password) return;
+    if (req.body) {
         queryDatabase(
-            `SELECT user_name AS 'name', user_email AS 'email' FROM users WHERE user_name='${username}'`,
+            `SELECT user_name AS 'name', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password='${password}'`,
             (results: mysql.Query) => {
                 res.json(results);
             }
@@ -53,10 +54,9 @@ app.get("/login/:username", (req: Request, res: Response) => {
     }
 });
 
-app.post("/register", (req: Request, res: Response) => {
-    const user = req.body.query;
-    console.log(user);
-    const values = `('${user.email}', '${user.username}', '${user.password}')`;
+app.post("/user/create", (req: Request, res: Response) => {
+    const { username, email, password } = req.body;
+    const values = `('${email}', '${username}', '${password}')`;
     queryDatabase(
         `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
         (results: mysql.Query) => {
@@ -65,13 +65,18 @@ app.post("/register", (req: Request, res: Response) => {
     );
 });
 
-app.delete("/delete/:email", (req: Request, res: Response) => {
-    console.log("delete");
+app.put("/user/update", (req: Request, res: Response) => {
+    const { oldEmail, newEmail } = req.body;
+    const query = `UPDATE users SET user_email='${newEmail}' WHERE user_email='${oldEmail}'`;
+    queryDatabase(query, (results: mysql.Query) => {
+        res.json(results);
+    });
+});
+
+app.delete("/user/remove/:email", (req: Request, res: Response) => {
     const email = req.params.email;
     if (email) {
         queryDatabase(`DELETE FROM users WHERE user_email='${email}'`, (results: mysql.Query) => {
-            console.log(`user ${email} removed from database`);
-            console.log(results);
             res.json(results);
         });
     }

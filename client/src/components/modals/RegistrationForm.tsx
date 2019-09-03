@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import * as validate from "../../helpers/formValidation";
-import queryDatabase from "../../helpers/queryDatabase";
 
 const FormContainer = styled.div`
     margin: 0 auto;
@@ -41,7 +40,10 @@ const ToolTip = styled.div<visibility>`
 `;
 
 interface IProps {
+    onHide(): void;
     updateUserData(val: any): any;
+    showWarning(): void;
+    setUserData(val: any): void;
 }
 
 const initialFieldsState = {
@@ -50,31 +52,15 @@ const initialFieldsState = {
     password: { text: "", isValid: null, borderColor: "#dfdfdf" }
 };
 
-const RegistrationPage: React.FC<IProps> = ({ updateUserData }) => {
+const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarning, setUserData }) => {
     const [fields, setFields] = useState(initialFieldsState);
     const { username, email, password } = fields;
     type FormElem = React.ChangeEvent<HTMLFormElement>;
     const handleSubmit = (e: FormElem) => {
         e.preventDefault();
         if (username.isValid && email.isValid && password.isValid) {
-            sendRegistrationForm();
-        }
-    };
-
-    const sendRegistrationForm = async () => {
-        const query = { username: username.text, email: email.text, password: password.text };
-        const dbQuery = { path: "register", query, method: "POST" };
-        const results = await queryDatabase(dbQuery);
-        console.log(results);
-        if (results.insertId && results.affectedRows) {
-            const userData = {
-                type: "UPDATE_USER_DATA",
-                payload: {
-                    name: username.text,
-                    email: email.text
-                }
-            };
-            updateUserData(userData);
+            setUserData(fields);
+            showWarning();
             setFields(initialFieldsState);
         }
     };
@@ -165,7 +151,7 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData }) => {
                     </ToolTip>
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                    Submit
+                    Create new account
                 </Button>
             </Form>
         </FormContainer>

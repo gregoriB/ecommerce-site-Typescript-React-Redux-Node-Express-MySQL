@@ -188,3 +188,7 @@
 .form-group {
     position: relative;
 }
+
+.modal-60w {
+    max-width: 40%;
+}

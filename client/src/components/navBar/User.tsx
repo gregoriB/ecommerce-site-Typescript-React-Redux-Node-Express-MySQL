@@ -26,7 +26,7 @@ interface IProps {
 }
 
 const User: React.FC<IProps> = ({ userData, updateUserData }) => {
-    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(true);
     const handleLogout = () => {
         updateUserData({ type: "DELETE_USER_DATA", payload: null });
     };

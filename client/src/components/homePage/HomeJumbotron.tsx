@@ -1,10 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Jumbotron, Button } from "react-bootstrap";
 import styled from "styled-components";
 
 const BannerContainer = styled.div`
-    width: 60%;
+    max-width: 70%;
 `;
+
+const LinkContainer = styled.div`
+    align-self: center;
+`;
+
 const Banner = styled.h1``;
 const Description = styled.div``;
 
@@ -14,29 +20,22 @@ const HomeJumbotron = () => {
             style={{
                 background: "white",
                 padding: "5vh 10vw",
-                marginBottom: "1rem",
                 display: "flex",
                 justifyContent: "space-around"
             }}
         >
             <BannerContainer>
-                <Banner>It's the annual sale event!</Banner>
+                <Banner>The best place for fighting game supplies.</Banner>
                 <Description>
-                    Discounts on quality arcade stick parts and accessories from manufactures like Hori
-                    and Brook.
+                    Competitive prices on arcade sticks, parts, and accessories from top-rated
+                    manufacturers.
                 </Description>
             </BannerContainer>
-            <Button
-                variant="outline-secondary"
-                style={{
-                    width: "25%",
-                    maxHeight: "3.5rem",
-                    alignSelf: "center",
-                    marginLeft: "2rem"
-                }}
-            >
-                Check out more sale items
-            </Button>
+            <LinkContainer>
+                <Link to="search">
+                    <Button variant="outline-secondary">Start Shopping!</Button>
+                </Link>
+            </LinkContainer>
         </Jumbotron>
     );
 };

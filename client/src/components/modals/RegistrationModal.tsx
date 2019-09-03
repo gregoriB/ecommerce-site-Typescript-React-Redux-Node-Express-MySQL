@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import RegistrationForm from "../navBar/RegistrationForm";
+import RegistrationForm from "./RegistrationForm";
 import styled from "styled-components";
+import NewAccountWarning from "./NewAccountWarning";
 
-const Header = styled.h4`
+interface IProps {
+    show: boolean;
+    onHide(): void;
+    updateUserData(val: any): any;
+}
+
+type warning = { isWarning: boolean };
+
+const Header = styled.h4<warning>`
     position: absolute;
     width: 100%;
     height: 100%;
@@ -12,22 +21,39 @@ const Header = styled.h4`
     display: flex;
     justify-content: center;
     align-items: center;
+    color: ${props => (props.isWarning ? "#856404" : undefined)};
+    background: ${props => (props.isWarning ? "#fff3cd" : undefined)};
 `;
 
-interface IProps {
-    show: boolean;
-    onHide(): void;
-    updateUserData(val: any): any;
-}
-
 const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, ...rest }) => {
+    const [isWarning, setIsWarning] = useState(false);
+    const [userData, setUserData] = useState();
+    const handleHide = () => {
+        onHide();
+        setIsWarning(false);
+    };
+
     return (
-        <Modal {...rest} aria-labelledby="contained-modal-title-vcenter" centered>
-            <Modal.Header closeButton onClick={onHide} style={{ position: "relative" }}>
-                <Header>Register New Account</Header>
+        <Modal {...rest} aria-labelledby="contained-modal-title-vcenter" centered onHide={handleHide}>
+            <Modal.Header closeButton style={{ position: "relative" }}>
+                <Header isWarning={isWarning}>{isWarning ? "WARNING" : "Register New Account"}</Header>
             </Modal.Header>
 
-            <RegistrationForm updateUserData={updateUserData} />
+            {isWarning ? (
+                <NewAccountWarning
+                    userData={userData}
+                    onHide={onHide}
+                    hideWarning={() => setIsWarning(false)}
+                    updateUserData={updateUserData}
+                />
+            ) : (
+                <RegistrationForm
+                    onHide={onHide}
+                    updateUserData={updateUserData}
+                    showWarning={() => setIsWarning(true)}
+                    setUserData={setUserData}
+                />
+            )}
         </Modal>
     );
 };

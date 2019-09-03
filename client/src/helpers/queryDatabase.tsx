@@ -9,7 +9,7 @@ const queryDatabase = async ({ path, query, method }: IArgs) => {
     if (method) {
         options = {
             method,
-            body: JSON.stringify({ query }),
+            body: JSON.stringify(query),
             headers: { "Content-Type": "applications/json" }
         };
     }

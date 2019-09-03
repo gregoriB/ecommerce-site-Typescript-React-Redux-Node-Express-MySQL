@@ -40,7 +40,7 @@ const SearchPage: React.FC<IProps> = ({
     useEffect(() => {
         (async () => {
             // if no search query, instead use default route query.  See server.ts to change the default query.
-            const path = query ? `search/${query}` : "search";
+            const path = query ? `products/${query}` : "products/all";
             const data: IData[] = await queryDatabase({ path });
             const action = { type: "SEARCH RESULTS", payload: data };
             populateProducts(action);

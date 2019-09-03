@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateUserData } from "../store/actions/actionCreators";
@@ -11,7 +11,6 @@ import NavBar from "../components/navBar/NavBar";
 import Home from "./HomePage";
 
 import styled from "styled-components";
-import RegistrationPage from "../components/navBar/RegistrationForm";
 
 const AppContainer = styled.div`
     overflow-x: hidden;
@@ -44,6 +43,7 @@ interface IProps {
 const App: React.FC<IProps> = ({ cart, productArr, userData, updateUserData }) => {
     // const toasts = useMapToasts(productArr);
     // console.log(toasts);
+
     return (
         <AppContainer className="app">
             <Router>
@@ -51,11 +51,6 @@ const App: React.FC<IProps> = ({ cart, productArr, userData, updateUserData }) =
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/search" component={SearchPage} />
-                    <Route
-                        exact
-                        path="/registration"
-                        render={() => <RegistrationPage updateUserData={updateUserData} />}
-                    />
                 </Switch>
                 {/* <ToastContainer>{toasts}</ToastContainer> */}
             </Router>

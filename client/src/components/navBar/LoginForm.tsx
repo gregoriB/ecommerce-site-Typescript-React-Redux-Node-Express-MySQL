@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FormControl, Form, Button, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import User from "./User";
@@ -19,14 +18,15 @@ const LoginContainer = styled.div`
 `;
 
 const loginIntialValues = {
-    name: "",
-    password: ""
+    username: "gregorib",
+    password: "Brandon12!!"
 };
 
-const RegistrationButton = styled.button`
+const RegistrationLink = styled.button`
     background: none;
     border: none;
     text-decoration: underline;
+    color: #007bff;
 `;
 
 interface IProps {
@@ -54,12 +54,12 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
 
     const handleSubmitLogin = async (e: FormElem) => {
         e.preventDefault();
-        if (!loginValues.name) {
+        if (!loginValues.username) {
             return;
         }
-        const path = `login/${loginValues.name}`;
-        const data = await queryDatabase({ path });
-        if (data[0] && data[0].name === loginValues.name) {
+        const dbQuery = { path: "user/login", query: loginValues, method: "POST" };
+        const data = await queryDatabase(dbQuery);
+        if (data[0] && data[0].name === loginValues.username) {
             updateUserData({ type: "UPDATE_USER_DATA", payload: data[0] });
         } else {
             setIsError(true);
@@ -68,9 +68,14 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
     };
 
     useEffect(() => {
-        const { name, email } = userData;
-        setIsLoggedIn(name || email ? true : false);
+        setIsLoggedIn(userData.name ? true : false);
     }, [userData]);
+
+    const formRef = useRef<any>(null);
+
+    useEffect(() => {
+        formRef.current.click();
+    }, []);
 
     return (
         <LoginContainer>
@@ -80,8 +85,8 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
                     <Form inline onSubmit={handleSubmitLogin}>
                         <FormControl
                             type="text"
-                            name="name"
-                            value={loginValues.name}
+                            name="username"
+                            value={loginValues.username}
                             placeholder="username"
                             className="mr-sm-2 form-control-sm"
                             onChange={handleLoginChange}
@@ -94,7 +99,7 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
                             className="mr-sm-2 form-control-sm"
                             onChange={handleLoginChange}
                         />
-                        <Button type="submit" className="btn-sm">
+                        <Button type="submit" className="btn-sm" ref={formRef}>
                             Sign In
                             <FontAwesomeIcon
                                 icon="sign-in-alt"
@@ -104,9 +109,9 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
                         </Button>
                     </Form>
                     <span>
-                        <RegistrationButton onClick={() => setIsRegModalOpen(true)}>
+                        <RegistrationLink onClick={() => setIsRegModalOpen(true)}>
                             register new account
-                        </RegistrationButton>
+                        </RegistrationLink>
                         <RegistrationModal
                             show={isRegModalOpen}
                             onHide={() => setIsRegModalOpen(false)}
