@@ -6,19 +6,6 @@ import ProductModal from "./modals/ProductModal";
 import ProductImage from "./ProductImage";
 import { IData } from "../types/types";
 
-const ProductContainer = styled.div`
-    background: red;
-    height: 25rem;
-`;
-
-const ShowMoreLink = styled.button`
-    border: none;
-    background: none;
-    text-decoration: underline;
-    display: block;
-    margin: 0 auto;
-`;
-
 interface IMiscProps {
     selectedCategories: string[];
     priceRange: number[];
@@ -71,51 +58,23 @@ const ProductCard: React.FC<IData & IProps> = props => {
 
     return (
         <ProductContainer>
-            <Card
-                style={{
-                    boxSizing: "border-box",
-                    width: "20rem",
-                    height: "100%",
-                    margin: "0",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: "0"
-                }}
-            >
+            <StyledCard>
                 <ProductImage allowModal={true} image={imageURL} />
-                <Card.Body
-                    style={{
-                        padding: ".5rem",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "flex-end",
-                        height: "60%"
-                    }}
-                >
-                    <Card.Title style={{ fontSize: "1rem" }}>{name}</Card.Title>
-                    <Card.Text style={{ fontSize: ".7rem", textAlign: "justify" }}>
+                <StyledCardBody>
+                    <StyledCardTitle>{name}</StyledCardTitle>
+                    <StyledDescriptionText>
                         {shortenDescription()}
                         <ShowMoreLink onClick={() => setIsProductModalOpen(true)}>
                             See More...
                         </ShowMoreLink>
-                    </Card.Text>
-                    <Card.Text
-                        style={{
-                            fontWeight: "bold",
-                            fontSize: ".9rem",
-                            marginLeft: "1rem"
-                        }}
-                    >
-                        ${price}
-                    </Card.Text>
-                    <Button variant="primary" style={{ width: 200, margin: "0 auto" }}>
-                        <FontAwesomeIcon icon="cart-plus" style={{ margin: "0 .5rem" }} />
+                    </StyledDescriptionText>
+                    <StyledPriceText>${price}</StyledPriceText>
+                    <StyledButton variant="primary">
+                        <StyledCartPlusIcon icon="cart-plus" />
                         add to cart
-                    </Button>
-                </Card.Body>
-            </Card>
+                    </StyledButton>
+                </StyledCardBody>
+            </StyledCard>
             <ProductModal
                 {...props}
                 show={isProductModalOpen}
@@ -126,3 +85,63 @@ const ProductCard: React.FC<IData & IProps> = props => {
 };
 
 export default ProductCard;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const ProductContainer = styled.div`
+    background: red;
+    height: 25rem;
+`;
+
+const ShowMoreLink = styled.button`
+    border: none;
+    background: none;
+    text-decoration: underline;
+    display: block;
+    margin: 0 auto;
+`;
+
+const StyledCard = styled(Card)`
+    box-sizing: border-box;
+    width: 20rem;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+    :hover {
+        box-shadow: 0 3px 10px #6c757d55;
+    }
+`;
+
+const StyledCardBody = styled(Card.Body)`
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 60%;
+`;
+
+const StyledCardTitle = styled(Card.Title)`
+    font-size: 1rem;
+`;
+const StyledDescriptionText = styled(Card.Text)`
+    font-size: 0.7rem;
+    text-align: justify;
+`;
+
+const StyledPriceText = styled(Card.Text)`
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-left: 1rem;
+`;
+
+const StyledButton = styled(Button)`
+    width: 200;
+    margin: 0 auto;
+`;
+
+const StyledCartPlusIcon = styled(FontAwesomeIcon)`
+    margin: 0 0.5rem;
+`;

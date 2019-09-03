@@ -7,23 +7,6 @@ import { connect } from "react-redux";
 import { updateSearch, changeFilter } from "../store/actions/actionCreators";
 import { IAUpdateSearch, IAChangeFilter } from "../types/types";
 
-const InputWrapper = styled.div`
-    position: relative;
-    background: white;
-    border: thin solid #dfdfdf;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-`;
-
-const SearchButton = styled.button`
-    background: white;
-    border: none;
-    position: absolute;
-    margin-right: 0.3rem;
-    right: 0;
-`;
-
 interface IProps {
     query: string;
     updateSearch(val: string): IAUpdateSearch;
@@ -57,17 +40,11 @@ const SearchForm: React.FC<RouteComponentProps & IProps> = ({
     return (
         <Form inline onSubmit={handleSubmitSearch}>
             <InputWrapper>
-                <FormControl
+                <StyledFormControl
                     type="text"
                     placeholder="Search inventory"
                     value={query}
                     onChange={handleSearchChange}
-                    className="mr-sm-2 search-input"
-                    style={{
-                        background: "transparent",
-                        borderRadius: "15px",
-                        border: "none"
-                    }}
                 />
                 <SearchButton>
                     <FontAwesomeIcon icon="search" />
@@ -96,3 +73,28 @@ export default connect(
     mapStateToProps,
     actionCreators
 )(withRouter(SearchForm));
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const InputWrapper = styled.div`
+    position: relative;
+    background: white;
+    border: thin solid #dfdfdf;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+`;
+
+const SearchButton = styled.button`
+    background: white;
+    border: none;
+    position: absolute;
+    margin-right: 0.3rem;
+    right: 0;
+`;
+
+const StyledFormControl = styled(FormControl)`
+    background: transparent;
+    border-radius: 15px;
+    border: none;
+    margin-right: 0 !important;
+`;

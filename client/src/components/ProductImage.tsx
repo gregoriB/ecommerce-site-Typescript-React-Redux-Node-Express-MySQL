@@ -6,11 +6,60 @@ import ImageModal from "./modals/ImageModal";
 type image = { image: string };
 type allowModal = { allowModal: boolean };
 
+const ProductImage: React.FC<allowModal & image> = ({ image, allowModal }) => {
+    const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+
+    const handleClick = () => {
+        !isImageModalOpen && setIsImageModalOpen(true);
+    };
+    return (
+        <ImageContainer className="image-container">
+            <ImageDiv image={image} onClick={handleClick} />
+
+            {allowModal && (
+                <ImageModalContainer className="image-modal-container">
+                    <StyleSearchPlusIcon icon="search-plus" size="2x" />
+                    <ImageModal
+                        image={image}
+                        show={isImageModalOpen}
+                        onHide={() => setIsImageModalOpen(false)}
+                    />
+                </ImageModalContainer>
+            )}
+        </ImageContainer>
+    );
+};
+
+export default ProductImage;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
 const ImageContainer = styled.div`
     padding: 0.5rem;
     position: relative;
     width: 100%;
     height: 100%;
+`;
+
+const ImageModalContainer = styled.div`
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+`;
+
+const StyleSearchPlusIcon = styled(FontAwesomeIcon)`
+    pointer-events: none;
+    cursor: pointer;
+    position: absolute;
+    top: 42%;
+    left: 46%;
+    opacity: 0;
+    height: 35px;
+    width: 35px;
+    color: #363636;
+    transition: opacity 0.2s;
 `;
 
 const ImageDiv = styled.div<image>`
@@ -22,50 +71,13 @@ const ImageDiv = styled.div<image>`
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    transition: opacity 0.2s;
+    :hover {
+        opacity: 0.5;
+        transition: opacity 0.2s;
+    }
+    &:hover + ${ImageModalContainer} ${StyleSearchPlusIcon} {
+        opacity: 1;
+        transition: opacity 1s;
+    }
 `;
-
-const ProductImage: React.FC<allowModal & image> = ({ image, allowModal }) => {
-    const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-    // const [imageHeight, setImageHeight] = useState(0);
-
-    const handleClick = () => {
-        !isImageModalOpen && setIsImageModalOpen(true);
-    };
-
-    // const imageRef = useRef<any>(null);
-
-    // useEffect(() => {
-    //     if (imageRef.current) {
-    //         setImageHeight(imageRef.current!.height);
-    //     }
-    // });
-    return (
-        <ImageContainer className="image-container">
-            <ImageDiv
-                // ref={imageRef}
-                // allowModal={allowModal}
-                image={image}
-                className="product-image"
-                onClick={handleClick}
-            />
-
-            {allowModal && (
-                <div className="image-modal-container">
-                    <FontAwesomeIcon
-                        className="search-plus"
-                        icon="search-plus"
-                        size="2x"
-                        style={{ top: "42%" }}
-                    />
-                    <ImageModal
-                        image={image}
-                        show={isImageModalOpen}
-                        onHide={() => setIsImageModalOpen(false)}
-                    />
-                </div>
-            )}
-        </ImageContainer>
-    );
-};
-
-export default ProductImage;

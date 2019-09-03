@@ -7,9 +7,6 @@ import mapProductData from "../../helpers/mapProductData";
 interface IProps {
     products: IData[];
 }
-
-const CarouselContainer = styled.div``;
-
 const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
     const [items, setItems] = useState();
     useEffect(() => {
@@ -28,11 +25,62 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
             );
     }, [setItems, products]);
 
-    return (
-        <Carousel interval={3000} as={CarouselContainer}>
-            {items}
-        </Carousel>
-    );
+    return <StyledCarousel interval={3000}>{items}</StyledCarousel>;
 };
 
 export default FeaturedCarousel;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const StyledCarousel = styled(Carousel)`
+    display: flex;
+    .carousel {
+        display: flex;
+    }
+    .carousel-inner {
+        display: flex;
+        height: 500px;
+        width: 100%;
+    }
+    .carousel-item {
+        width: 100%;
+        justify-content: center;
+    }
+    .carousel-item-left {
+        display: inline-flex;
+        width: 100%;
+    }
+    .carousel-item-right {
+        display: inline-flex;
+        width: 100%;
+    }
+    .carousel-item.active {
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+    }
+    .carousel-control-prev {
+        width: 12%;
+    }
+    .carousel-control-next {
+        width: 12%;
+    }
+    .carousel-control-prev-icon {
+        padding: 2rem;
+        background-color: rgba(0, 0, 0, 0.2);
+        background-size: 50%;
+        background-position: 45%;
+        border-radius: 50%;
+    }
+    .carousel-control-next-icon {
+        padding: 2rem;
+        background-color: rgba(0, 0, 0, 0.2);
+        background-size: 50%;
+        background-position: 55%;
+        border-radius: 50%;
+    }
+    .carousel-indicators li {
+        background: rgba(0, 0, 0, 0.4);
+        height: 10px;
+        border: none;
+    }
+`;

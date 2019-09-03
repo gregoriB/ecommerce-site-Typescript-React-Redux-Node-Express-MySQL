@@ -9,17 +9,6 @@ interface IProps {
     priceRange: any;
 }
 
-const Display = styled.div`
-    width: 80vw;
-    margin: 1rem;
-    padding-left: calc(100% - 100vw);
-    display: grid;
-    grid-gap: 10px;
-    justify-items: center;
-    align-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 0fr));
-`;
-
 const SearchResults: React.FC<IProps> = ({ products, selectedCategories, priceRange }) => {
     const [mappedChildren, setMappedChildren] = useState();
 
@@ -36,3 +25,15 @@ const SearchResults: React.FC<IProps> = ({ products, selectedCategories, priceRa
 };
 
 export default SearchResults;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const Display = styled.div`
+    width: 80vw;
+    margin: 1rem;
+    padding-left: calc(100% - 100vw);
+    display: grid;
+    grid-gap: 10px;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 0fr));
+`;

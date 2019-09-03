@@ -7,6 +7,37 @@ import ShoppingCartModal from "./ShoppingCartModal";
 import LoginForm from "./LoginForm";
 import SearchForm from "../../containers/SearchForm";
 
+interface IProps {
+    cart: Object;
+    userData: any;
+    updateUserData(val: any): any;
+}
+
+const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    return (
+        <NavContainer>
+            <StyledNavbar bg="light" variant="light" className="nav-bar">
+                <Link to="/">
+                    <Navbar.Brand style={{ fontFamily: "'Lexend Exa', sans-serif" }}>
+                        Super Meter Arcade
+                    </Navbar.Brand>
+                </Link>
+                <SearchForm />
+                <LoginForm userData={userData} updateUserData={updateUserData} />
+                <ShoppingCartButton onClick={() => setIsModalOpen(true)}>
+                    <StyledShoppingCartIcon icon="shopping-cart" size="lg" />
+                </ShoppingCartButton>
+                <ShoppingCartModal cart={cart} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
+            </StyledNavbar>
+        </NavContainer>
+    );
+};
+
+export default NavBar;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
 const NavContainer = styled.div`
     padding: 0 2rem;
     position: sticky;
@@ -15,6 +46,12 @@ const NavContainer = styled.div`
     z-index: 100;
     background-color: #f8f9fa;
     width: 100vw;
+`;
+
+const StyledNavbar = styled(Navbar)`
+    justify-content: flex-start;
+    max-width: 2000px;
+    margin: 0 auto;
 `;
 
 const ShoppingCartButton = styled.button`
@@ -29,41 +66,6 @@ const ShoppingCartButton = styled.button`
     }
 `;
 
-interface IProps {
-    cart: Object;
-    userData: any;
-    updateUserData(val: any): any;
-}
-
-const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    return (
-        <NavContainer>
-            <Navbar
-                bg="light"
-                variant="light"
-                className="nav-bar"
-                style={{
-                    justifyContent: "flex-start",
-                    maxWidth: 2000,
-                    margin: "0 auto"
-                }}
-            >
-                <Link to="/">
-                    <Navbar.Brand style={{ fontFamily: "'Lexend Exa', sans-serif" }}>
-                        Super Meter Arcade
-                    </Navbar.Brand>
-                </Link>
-                <SearchForm />
-                <LoginForm userData={userData} updateUserData={updateUserData} />
-                <ShoppingCartButton onClick={() => setIsModalOpen(true)}>
-                    <FontAwesomeIcon icon="shopping-cart" style={{ margin: "0 .5rem" }} size="lg" />
-                </ShoppingCartButton>
-                <ShoppingCartModal cart={cart} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
-            </Navbar>
-        </NavContainer>
-    );
-};
-
-export default NavBar;
+const StyledShoppingCartIcon = styled(FontAwesomeIcon)`
+    margin: 0 0.5rem;
+`;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
 import { Modal, Button } from "react-bootstrap";
 import AccountDelete from "./AccountDelete";
 import EmailSettings from "./EmailSettings";
@@ -12,7 +13,7 @@ interface IProps {
     updateUserData(val: any): void;
 }
 
-const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide, ...rest }) => {
+const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide, show }) => {
     const initialEmailState = userData.email;
     const { name } = userData;
     const [email, setEmail] = useState(initialEmailState);
@@ -66,27 +67,20 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
     }, [isEditingEmail]);
 
     return (
-        <Modal
-            {...rest}
+        <StyledModal
+            show={show}
             aria-labelledby="contained-modal-title-vcenter"
             centered
             onHide={handleCloseModal}
-            dialogClassName="modal-60w"
+            dialogClassName="modal-40w"
         >
             <Modal.Header closeButton>
-                <Modal.Title
-                    id="contained-modal-title-vcenter"
-                    style={{
-                        color: "#6c757d",
-                        width: "100%",
-                        textAlign: "center"
-                    }}
-                >
-                    <FontAwesomeIcon icon="cog" style={{ float: "left" }} />
+                <StyledModalTitle id="contained-modal-title-vcenter">
+                    <StyledCogIcon icon="cog" />
                     {name}
-                </Modal.Title>
+                </StyledModalTitle>
             </Modal.Header>
-            <Modal.Body style={{ minHeight: "15vh", display: "flex" }}>
+            <StyledModalBody>
                 <EmailSettings
                     setIsEditingEmail={setIsEditingEmail}
                     isEditingEmail={isEditingEmail}
@@ -94,9 +88,9 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
                     setEmail={setEmail}
                     isDeleteOpen={isDeleteOpen}
                 />
-            </Modal.Body>
+            </StyledModalBody>
             {isDeleteOpen && <AccountDelete userData={userData} updateUserData={updateUserData} />}
-            <Modal.Footer style={{ display: "flex", justifyContent: "space-between" }}>
+            <StyledModalFooter>
                 <Button variant="outline-danger" onClick={handleDeleteClick} disabled={isEditingEmail}>
                     {isDeleteOpen ? "Cancel" : "Delete this account"}
                 </Button>
@@ -108,9 +102,36 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
                 >
                     {checkHasEmailChanged() ? "Save & Close" : "Close Settings"}
                 </Button>
-            </Modal.Footer>
-        </Modal>
+            </StyledModalFooter>
+        </StyledModal>
     );
 };
 
 export default UserSettingsModal;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const StyledModal = styled(Modal)`
+    &.modal-40w {
+        max-width: 40%;
+    }
+`;
+
+const StyledModalTitle = styled(Modal.Title)`
+    color: #6c757d;
+    width: 100%;
+    text-align: center;
+`;
+
+const StyledCogIcon = styled(FontAwesomeIcon)`
+    float: left;
+`;
+
+const StyledModalBody = styled(Modal.Body)`
+    min-height: 15vh;
+    display: flex;
+`;
+
+const StyledModalFooter = styled(Modal.Footer)`
+    display: flex;
+    justify-content: space-between;
+`;

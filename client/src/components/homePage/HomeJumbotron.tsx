@@ -3,27 +3,9 @@ import { Link } from "react-router-dom";
 import { Jumbotron, Button } from "react-bootstrap";
 import styled from "styled-components";
 
-const BannerContainer = styled.div`
-    max-width: 70%;
-`;
-
-const LinkContainer = styled.div`
-    align-self: center;
-`;
-
-const Banner = styled.h1``;
-const Description = styled.div``;
-
 const HomeJumbotron = () => {
     return (
-        <Jumbotron
-            style={{
-                background: "white",
-                padding: "5vh 10vw",
-                display: "flex",
-                justifyContent: "space-around"
-            }}
-        >
+        <StyledJumbotron>
             <BannerContainer>
                 <Banner>The best place for fighting game supplies.</Banner>
                 <Description>
@@ -36,8 +18,27 @@ const HomeJumbotron = () => {
                     <Button variant="outline-secondary">Start Shopping!</Button>
                 </Link>
             </LinkContainer>
-        </Jumbotron>
+        </StyledJumbotron>
     );
 };
 
 export default HomeJumbotron;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const StyledJumbotron = styled(Jumbotron)`
+    background: white;
+    padding: 5vh 10vw;
+    display: flex;
+    justify-content: space-around;
+`;
+
+const BannerContainer = styled.div`
+    max-width: 70%;
+`;
+
+const LinkContainer = styled.div`
+    align-self: center;
+`;
+
+const Banner = styled.h1``;
+const Description = styled.div``;

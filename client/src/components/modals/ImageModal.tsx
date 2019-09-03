@@ -9,7 +9,38 @@ interface IProps {
     onHide(): void;
 }
 
+const ImageModal: React.FC<IProps> = props => {
+    const magnifierOptions = {
+        alt: "",
+        title: "",
+        src: props.image,
+        width: "50%",
+        height: "auto",
+        zoomFactor: 1.8,
+        mgWidth: 120,
+        mgHeight: 120,
+        mgBorderWidth: 1
+    };
+
+    return (
+        <StyledImageModal
+            {...props}
+            size="xl"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            onClick={props.onHide}
+        >
+            <CloseModal className="close">x</CloseModal>
+            <StyledMagnifier {...magnifierOptions} mgShape={undefined} />
+        </StyledImageModal>
+    );
+};
+
+export default ImageModal;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
 const CloseModal = styled.div`
+    user-select: none;
     cursor: pointer;
     padding: 0;
     position: absolute;
@@ -25,32 +56,14 @@ const CloseModal = styled.div`
     }
 `;
 
-const ImageModal: React.FC<IProps> = props => {
-    const magnifierOptions = {
-        alt: "",
-        title: "",
-        src: props.image,
-        width: "50%",
-        height: "auto",
-        zoomFactor: 1.8,
-        mgWidth: 120,
-        mgHeight: 120,
-        mgBorderWidth: 1
-    };
+const StyledMagnifier = styled(Magnifier)`
+    margin: 0 auto;
+`;
 
-    return (
-        <Modal
-            className="image-modal"
-            {...props}
-            size="xl"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            onClick={props.onHide}
-        >
-            <CloseModal className="close">x</CloseModal>
-            <Magnifier {...magnifierOptions} mgShape={undefined} />
-        </Modal>
-    );
-};
-
-export default ImageModal;
+const StyledImageModal = styled(Modal)`
+    background: rgba(0, 0, 0, 0.5);
+    .modal-content {
+        background: none;
+        border: none;
+    }
+`;

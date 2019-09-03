@@ -15,55 +15,6 @@ interface IProps {
     setEmail(val: string): void;
 }
 
-const EmailSettingsForm = styled.form`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    align-self: center;
-    width: 100%;
-    .email-settings-group {
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
-    p {
-        margin: 0;
-        cursor: default;
-    }
-    input {
-        width: 100%;
-        padding-left: 1rem;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    span {
-        display: inline-block;
-        margin-right: 2rem;
-    }
-`;
-
-const EditingGroup = styled.div`
-    position: relative;
-    width: 80%;
-    margin-left: calc(-1rem - 1px);
-    height: 2rem;
-`;
-
-const ToolTip = styled.div`
-    position: absolute;
-    text-align: justify;
-    padding: 0.2rem;
-    width: 100%;
-    color: #41688a;
-    background: #fff3cd;
-    border-radius: 5px;
-    font-family: monospace;
-    font-size: 12px;
-    letter-spacing: 1px;
-    z-index: 1000;
-    border: 1px solid #f8d7da;
-`;
-
 const EmailSettings: React.FC<IProps> = ({
     email,
     setEmail,
@@ -119,11 +70,10 @@ const EmailSettings: React.FC<IProps> = ({
     };
     return (
         <EmailSettingsForm onSubmit={handleSubmit}>
-            <div className="email-settings-group">
+            <EmailSettingsGroup>
                 <span>EMAIL:</span>
                 <EditingGroup>
-                    <FormControl
-                        className="email-edit"
+                    <StyledFormControl
                         type="email"
                         onChange={handleInputChange}
                         value={emailInput}
@@ -139,7 +89,7 @@ const EmailSettings: React.FC<IProps> = ({
                     />
                     {isValidEmail === false && <ToolTip>please enter a valid email address</ToolTip>}
                 </EditingGroup>
-            </div>
+            </EmailSettingsGroup>
             {!isDeleteOpen && (
                 <Button
                     variant={determineVariant()}
@@ -155,3 +105,62 @@ const EmailSettings: React.FC<IProps> = ({
 };
 
 export default EmailSettings;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const EmailSettingsForm = styled.form`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    width: 100%;
+    p {
+        margin: 0;
+        cursor: default;
+    }
+    input {
+        width: 100%;
+        padding-left: 1rem;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    span {
+        display: inline-block;
+        margin-right: 2rem;
+    }
+`;
+
+const EmailSettingsGroup = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+`;
+
+const EditingGroup = styled.div`
+    position: relative;
+    width: 80%;
+    margin-left: calc(-1rem - 1px);
+    height: 2rem;
+`;
+
+const ToolTip = styled.div`
+    position: absolute;
+    text-align: justify;
+    padding: 0.2rem;
+    width: 100%;
+    color: #41688a;
+    background: #fff3cd;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    z-index: 1000;
+    border: 1px solid #f8d7da;
+`;
+
+const StyledFormControl = styled(FormControl)`
+    border: "1px solid transparent";
+    :disabled {
+        background: unset;
+        border-color: transparent !important;
+    }
+`;

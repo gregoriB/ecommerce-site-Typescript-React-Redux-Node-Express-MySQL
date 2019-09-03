@@ -7,17 +7,6 @@ import SearchResults from "../components/search/SearchResults";
 import queryDatabase from "../helpers/queryDatabase";
 import { changeFilter, populateProducts } from "../store/actions/actionCreators";
 
-const MainDiv = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: #f8f9fa;
-    width: 100vw;
-    margin: 0 auto;
-    padding-left: 2vw;
-    padding-right: calc(100vw - 100%);
-`;
-
 interface IProps {
     allCategories: string[];
     selectedCategories: string[];
@@ -123,3 +112,15 @@ export default connect(
     mapStateToProps,
     actionCreators
 )(SearchPage);
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const MainDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #f8f9fa;
+    width: 100vw;
+    margin: 0 auto;
+    padding-left: 2vw;
+    padding-right: calc(100vw - 100%);
+`;

@@ -3,43 +3,6 @@ import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import * as validate from "../../helpers/formValidation";
 
-const FormContainer = styled.div`
-    margin: 0 auto;
-    width: 100%;
-    background: white;
-    padding: 2rem;
-    div {
-        margin: 0;
-    }
-    button {
-        margin: 3rem 0;
-        margin-bottom: 1rem;
-    }
-    input {
-        margin-top: 2rem;
-        border: 1px solid #dfdfdf;
-        background: #f8f9fa;
-    }
-`;
-
-type visibility = { visibility?: string };
-
-const ToolTip = styled.div<visibility>`
-    position: absolute;
-    text-align: justify;
-    padding: 0.2rem;
-    width: 100%;
-    color: #41688a;
-    background: #fff3cd;
-    border-radius: 5px;
-    font-family: monospace;
-    font-size: 12px;
-    letter-spacing: 1px;
-    visibility: ${props => props.visibility};
-    z-index: 1000;
-    border: 1px solid #f8d7da;
-`;
-
 interface IProps {
     onHide(): void;
     updateUserData(val: any): any;
@@ -107,10 +70,7 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
                         value={username.text}
                         onChange={handleChange}
                         autoComplete="username"
-                        style={{
-                            borderBottomColor: username.borderColor
-                        }}
-                        required
+                        style={{ borderBottomColor: username.borderColor }}
                     />
                     <ToolTip
                         visibility={username.isValid === null || username.isValid ? "hidden" : "visible"}
@@ -127,10 +87,7 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
                         value={fields.email.text}
                         onChange={handleChange}
                         autoComplete="email"
-                        style={{
-                            borderBottomColor: email.borderColor
-                        }}
-                        required
+                        style={{ borderBottomColor: email.borderColor }}
                     />
                     <ToolTip visibility={email.isValid === null || email.isValid ? "hidden" : "visible"}>
                         please enter a valid email address
@@ -146,10 +103,7 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
                         value={fields.password.text}
                         onChange={handleChange}
                         autoComplete="new-password"
-                        style={{
-                            borderBottomColor: password.borderColor
-                        }}
-                        required
+                        style={{ borderBottomColor: password.borderColor }}
                     />
                     <ToolTip
                         visibility={password.isValid === null || password.isValid ? "hidden" : "visible"}
@@ -166,3 +120,41 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
 };
 
 export default RegistrationPage;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const FormContainer = styled.div`
+    margin: 0 auto;
+    width: 100%;
+    background: white;
+    padding: 2rem;
+    div {
+        margin: 0;
+    }
+    button {
+        margin: 3rem 0;
+        margin-bottom: 1rem;
+    }
+    input {
+        margin-top: 2rem;
+        border: 1px solid #dfdfdf;
+        background: #f8f9fa;
+    }
+`;
+
+type visibility = { visibility?: string };
+
+const ToolTip = styled.div<visibility>`
+    position: absolute;
+    text-align: justify;
+    padding: 0.2rem;
+    width: 100%;
+    color: #41688a;
+    background: #fff3cd;
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    visibility: ${props => props.visibility};
+    z-index: 1000;
+    border: 1px solid #f8d7da;
+`;

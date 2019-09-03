@@ -7,32 +7,15 @@ import LoginAlert from "./LoginAlert";
 import queryDatabase from "../../helpers/queryDatabase";
 import RegistrationModal from "../modals/RegistrationModal";
 
-const LoginContainer = styled.div`
-    display: flex;
-    margin-left: auto;
-    span {
-        display: flex;
-        align-items: center;
-        margin: 0 1rem;
-    }
-`;
-
-const loginIntialValues = {
-    username: "",
-    password: ""
-};
-
-const RegistrationLink = styled.button`
-    background: none;
-    border: none;
-    text-decoration: underline;
-    color: #007bff;
-`;
-
 interface IProps {
     userData: any;
     updateUserData(val: any): any;
 }
+
+const loginIntialValues = {
+    username: "gregorib",
+    password: "Brandon12!!"
+};
 
 const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
     const [loginValues, setLoginValues] = useState(loginIntialValues);
@@ -95,11 +78,7 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
                         />
                         <Button type="submit" className="btn-sm">
                             Sign In
-                            <FontAwesomeIcon
-                                icon="sign-in-alt"
-                                size="lg"
-                                style={{ margin: "0 .5rem" }}
-                            />
+                            <StyledSignInIcon icon="sign-in-alt" size="lg" />
                         </Button>
                     </Form>
                     <span>
@@ -119,3 +98,25 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
 };
 
 export default LoginForm;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const LoginContainer = styled.div`
+    display: flex;
+    margin-left: auto;
+    span {
+        display: flex;
+        align-items: center;
+        margin: 0 1rem;
+    }
+`;
+
+const RegistrationLink = styled.button`
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: #007bff;
+`;
+
+const StyledSignInIcon = styled(FontAwesomeIcon)`
+    margin: 0 0.5rem;
+`;

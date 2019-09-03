@@ -3,8 +3,36 @@ import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ProductModal from "../modals/ProductModal";
 import ProductImage from "../ProductImage";
-import { IData as IProps } from "../../types/types";
+import { IData } from "../../types/types";
 
+type mouseClick = React.MouseEvent<HTMLElement>;
+
+const FeaturedCard: React.FC<IData> = props => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleClick = (e: mouseClick) => {
+        isModalOpen && e.preventDefault();
+        setIsModalOpen(true);
+    };
+    const { imageURL, name, price } = props;
+    return (
+        <FeaturedContainer>
+            <StyledCard onClick={handleClick}>
+                <StyledCardHeader>
+                    ${price}
+                    <div>{name}</div>
+                </StyledCardHeader>
+                <StyledCardBody>
+                    <ProductImage allowModal={false} image={imageURL} />
+                </StyledCardBody>
+            </StyledCard>
+            <ProductModal {...props} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
+        </FeaturedContainer>
+    );
+};
+
+export default FeaturedCard;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
 const FeaturedContainer = styled.div`
     cursor: pointer;
     margin: 0 1rem;
@@ -14,29 +42,18 @@ const FeaturedContainer = styled.div`
     }
 `;
 
-type mouseClick = React.MouseEvent<HTMLElement>;
+const StyledCard = styled(Card)`
+    margin: 0 1rem;
+    height: 100%;
+    :hover {
+        box-shadow: 0 3px 10px #6c757d55;
+    }
+`;
 
-const FeaturedCard: React.FC<IProps> = props => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const handleClick = (e: mouseClick) => {
-        isModalOpen && e.preventDefault();
-        setIsModalOpen(true);
-    };
-    const { imageURL, name, price } = props;
-    return (
-        <FeaturedContainer>
-            <Card onClick={handleClick}>
-                <Card.Header style={{ borderRadius: 0 }}>
-                    ${price}
-                    <div>{name}</div>
-                </Card.Header>
-                <Card.Body style={{ textAlign: "center" }}>
-                    <ProductImage allowModal={false} image={imageURL} />
-                </Card.Body>
-            </Card>
-            <ProductModal {...props} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
-        </FeaturedContainer>
-    );
-};
+const StyledCardHeader = styled(Card.Header)`
+    border-radius: 0;
+`;
 
-export default FeaturedCard;
+const StyledCardBody = styled(Card.Body)`
+    text-align: center;
+`;

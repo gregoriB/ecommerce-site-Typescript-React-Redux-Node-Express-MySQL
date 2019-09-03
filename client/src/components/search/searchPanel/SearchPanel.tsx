@@ -5,21 +5,6 @@ import { Form, Button } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
 import { IAChangeFilter } from "../../../types/types";
 
-const Panel = styled.div`
-    padding: 1rem;
-    width: 20vw;
-    margin: 1rem;
-    margin-right: 0;
-    background: white;
-    border: 1px solid #dfdfdf;
-`;
-
-const PanelHeader = styled.h4``;
-
-const Section = styled.section``;
-
-const SectionName = styled.div``;
-
 interface IProps {
     allCategories: string[];
     selectedCategories: string[];
@@ -66,18 +51,32 @@ const SearchPanel: React.FC<IProps> = ({
                 <PriceRangeSelector priceRange={priceRange} changeFilter={changeFilter} />
             </Section>
             <Section>
-                <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={clearFilters}
-                    block
-                    style={{ marginTop: "1rem" }}
-                >
+                <StyledButton variant="secondary" size="sm" onClick={clearFilters} block>
                     Clear All Filters
-                </Button>
+                </StyledButton>
             </Section>
         </Panel>
     );
 };
 
 export default SearchPanel;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const Panel = styled.div`
+    padding: 1rem;
+    width: 20vw;
+    margin: 1rem;
+    margin-right: 0;
+    background: white;
+    border: 1px solid #dfdfdf;
+`;
+
+const PanelHeader = styled.h4``;
+
+const Section = styled.section``;
+
+const SectionName = styled.div``;
+
+const StyledButton = styled(Button)`
+    margin-top: 1rem;
+`;

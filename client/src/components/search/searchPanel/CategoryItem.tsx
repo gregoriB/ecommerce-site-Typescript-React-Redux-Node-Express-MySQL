@@ -3,21 +3,6 @@ import { InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import { IAChangeFilter } from "../../../types/types";
 
-const Category = styled.div`
-    display: flex;
-    align-items: center;
-    width: 100%;
-    border-radius: 0.25rem;
-`;
-
-const CategoryLabel = styled.label`
-    cursor: pointer;
-    margin: 0;
-    box-sizing: border-box;
-    line-height: 1.5;
-    height: 100%;
-`;
-
 interface IProps {
     name: string;
     selectedCategories: string[];
@@ -45,21 +30,51 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter
     }, [isChecked]);
 
     return (
-        <InputGroup className="mb-3">
+        <StyledInputGroup>
             <Category>
-                <InputGroup.Checkbox
+                <StyledInputGroupCheckbox
                     onChange={handleCheckbox}
                     checked={isChecked}
                     id={name}
                     aria-label="Checkbox for following text input"
-                    style={{ border: "none" }}
                 />
-                <CategoryLabel htmlFor={name} style={{ opacity: isChecked ? 1 : 0.5 }}>
+                <CategoryLabel htmlFor={name} isChecked={isChecked}>
                     {name}
                 </CategoryLabel>
             </Category>
-        </InputGroup>
+        </StyledInputGroup>
     );
 };
 
 export default CategoryItem;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const Category = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-radius: 0.25rem;
+`;
+
+type isChecked = { isChecked: boolean };
+
+const CategoryLabel = styled.label<isChecked>`
+    cursor: pointer;
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 1.5;
+    height: 100%;
+    opacity: ${props => (props.isChecked ? 1 : 0.5)};
+`;
+
+const StyledInputGroup = styled(InputGroup)`
+    margin-bottom: 0 !important;
+    span {
+        border: none;
+        background: none;
+    }
+`;
+
+const StyledInputGroupCheckbox = styled(InputGroup.Checkbox)`
+    cursor: pointer;
+`;

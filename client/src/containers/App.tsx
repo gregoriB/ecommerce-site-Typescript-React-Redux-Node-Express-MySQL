@@ -9,29 +9,7 @@ import "../styles//App.css";
 import SearchPage from "./SearchPage";
 import NavBar from "../components/navBar/NavBar";
 import Home from "./HomePage";
-
 import styled from "styled-components";
-
-const AppContainer = styled.div`
-    overflow-x: hidden;
-    width: 100vw;
-    height: 100vh;
-    margin: 0 auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-`;
-
-// const ToastContainer = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     position: fixed;
-//     bottom: 1vh;
-//     right: 2vw;
-//     width: 25vw;
-//     z-index: 100000;
-// `;
 
 interface IProps {
     cart: {};
@@ -45,7 +23,7 @@ const App: React.FC<IProps> = ({ cart, productArr, userData, updateUserData }) =
     // console.log(toasts);
 
     return (
-        <AppContainer className="app">
+        <AppContainer>
             <Router>
                 <NavBar cart={cart} userData={userData} updateUserData={updateUserData} />
                 <Switch>
@@ -72,3 +50,27 @@ export default connect(
     mapStateToProps,
     actionCreators
 )(App);
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const AppContainer = styled.div`
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+`;
+
+// const ToastContainer = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     position: fixed;
+//     bottom: 1vh;
+//     right: 2vw;
+//     width: 25vw;
+//     z-index: 100000;
+// `;

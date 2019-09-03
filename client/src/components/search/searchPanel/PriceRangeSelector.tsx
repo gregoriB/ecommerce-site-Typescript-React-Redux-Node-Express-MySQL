@@ -3,44 +3,6 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IAChangeFilter } from "../../../types/types";
 
-const PriceRangeContainer = styled.form`
-    display: flex;
-    align-items: center;
-`;
-
-const RangeLabel = styled.label`
-    margin: 0;
-    font-size: 0.8rem;
-`;
-
-const RangeButton = styled.button`
-    border: none;
-    border-radius: 3px;
-    background: #f8f9fa;
-    margin: 0;
-    padding: 0 1rem;
-    font-weight: bold;
-    transition: 0.1s;
-    :hover {
-        background: #dedede;
-    }
-`;
-
-const NumberInput = styled.input.attrs({ type: "number" })`
-    border: none;
-    background: #f8f9fa;
-    width: 4rem;
-    height: 1.5rem;
-    font-size: 0.8rem;
-    margin-right: 0.5rem;
-    padding: 0 0.5rem;
-    ::-webkit-inner-spin-button,
-    ::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-`;
-
 interface IProps {
     priceRange: any;
     changeFilter(filter: any): IAChangeFilter;
@@ -95,3 +57,42 @@ const PriceRangeSelector: React.FC<IProps> = ({ changeFilter, priceRange }) => {
 };
 
 export default PriceRangeSelector;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const PriceRangeContainer = styled.form`
+    display: flex;
+    align-items: center;
+`;
+
+const RangeLabel = styled.label`
+    margin: 0;
+    font-size: 0.8rem;
+`;
+
+const RangeButton = styled.button`
+    border: none;
+    border-radius: 3px;
+    background: #f8f9fa;
+    margin: 0;
+    padding: 0 1rem;
+    font-weight: bold;
+    transition: 0.1s;
+    :hover {
+        background: #dedede;
+    }
+`;
+
+const NumberInput = styled.input.attrs({ type: "number" })`
+    border: none;
+    background: #f8f9fa;
+    width: 4rem;
+    height: 1.5rem;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    padding: 0 0.5rem;
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+`;

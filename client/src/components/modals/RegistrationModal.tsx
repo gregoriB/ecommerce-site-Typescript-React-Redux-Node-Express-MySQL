@@ -13,20 +13,7 @@ interface IProps {
 
 type warning = { isWarning: boolean };
 
-const Header = styled.h4<warning>`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: ${props => (props.isWarning ? "#856404" : undefined)};
-    background: ${props => (props.isWarning ? "#fff3cd" : undefined)};
-`;
-
-const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, ...rest }) => {
+const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [userData, setUserData] = useState();
     const handleHide = () => {
@@ -35,11 +22,11 @@ const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, ...rest }
     };
 
     return (
-        <Modal {...rest} aria-labelledby="contained-modal-title-vcenter" centered onHide={handleHide}>
-            <Modal.Header closeButton style={{ position: "relative", color: "#6c757d" }}>
+        <Modal show={show} aria-labelledby="contained-modal-title-vcenter" centered onHide={handleHide}>
+            <StyledModalHeader closeButton>
                 <FontAwesomeIcon icon="edit" />
                 <Header isWarning={isWarning}>{isWarning ? "WARNING" : "Register New Account"}</Header>
-            </Modal.Header>
+            </StyledModalHeader>
 
             {isWarning ? (
                 <NewAccountWarning
@@ -61,3 +48,22 @@ const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, ...rest }
 };
 
 export default RegistrationModal;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const Header = styled.h4<warning>`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${props => (props.isWarning ? "#856404" : undefined)};
+    background: ${props => (props.isWarning ? "#fff3cd" : undefined)};
+`;
+
+const StyledModalHeader = styled(Modal.Header)`
+    position: relative;
+    color: #6c757d;
+`;

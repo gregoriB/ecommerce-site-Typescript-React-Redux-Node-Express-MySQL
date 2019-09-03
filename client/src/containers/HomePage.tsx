@@ -12,12 +12,6 @@ interface IProps {
     populateProducts(data: IAPopulate): IAPopulate;
 }
 
-const HomeContainer = styled.div`
-    width: 100%;
-    max-width: 2000px;
-    margin: 0 auto;
-`;
-
 const HomePage: React.FC<IProps> = ({ populateProducts, results }) => {
     useEffect(() => {
         (async () => {
@@ -51,3 +45,10 @@ export default connect(
     mapStateToProps,
     actionCreators
 )(HomePage);
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const HomeContainer = styled.div`
+    width: 100%;
+    max-width: 2000px;
+    margin: 0 auto;
+`;

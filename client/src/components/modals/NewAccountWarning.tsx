@@ -10,15 +10,6 @@ interface IProps {
     updateUserData(val: any): any;
 }
 
-const WarningText = styled.p`
-    text-align: justify;
-`;
-
-const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
-
 const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, updateUserData }) => {
     const sendRegistrationForm = async () => {
         const { username, email, password } = userData;
@@ -53,13 +44,9 @@ const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, up
                     <p>Are you sure you want to create an account?</p>
                 </WarningText>
                 <ButtonContainer>
-                    <Button
-                        variant="outline-warning"
-                        onClick={cancelRegistration}
-                        style={{ color: "#856404", borderColor: "#856404" }}
-                    >
+                    <StyledCancelButton variant="outline-warning" onClick={cancelRegistration}>
                         cancel
-                    </Button>
+                    </StyledCancelButton>
                     <Button variant="warning" onClick={sendRegistrationForm}>
                         Yes, create a new account
                     </Button>
@@ -70,3 +57,18 @@ const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, up
 };
 
 export default NewAccountWarning;
+
+/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+const WarningText = styled.p`
+    text-align: justify;
+`;
+
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const StyledCancelButton = styled(Button)`
+    color: #856404;
+    border-color: #856404;
+`;
