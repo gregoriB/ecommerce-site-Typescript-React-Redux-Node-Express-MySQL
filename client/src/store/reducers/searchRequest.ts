@@ -1,4 +1,4 @@
-import { IAUpdateSearch } from "../../types/types";
+// import { IAUpdateSearch } from "../../types/types";
 
 interface IState {
     query: string;

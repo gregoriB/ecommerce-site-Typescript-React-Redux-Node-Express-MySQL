@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ShoppingCartModal from "./ShoppingCartModal";
-import LoginForm from "./LoginForm";
+import ShoppingCartModal from "./cart/ShoppingCartModal";
+import LoginForm from "./login/LoginForm";
 import SearchForm from "../../containers/SearchForm";
 
 interface IProps {

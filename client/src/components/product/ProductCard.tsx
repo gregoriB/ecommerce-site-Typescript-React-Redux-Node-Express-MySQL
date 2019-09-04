@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProductModal from "./modals/ProductModal";
+import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
-import { IData } from "../types/types";
+import { IData } from "../../types/types";
 
 interface IMiscProps {
     selectedCategories: string[];

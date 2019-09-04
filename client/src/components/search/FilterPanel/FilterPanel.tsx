@@ -12,7 +12,7 @@ interface IProps {
     changeFilter(filter: any): IAChangeFilter;
 }
 
-const SearchPanel: React.FC<IProps> = ({
+const FilterPanel: React.FC<IProps> = ({
     allCategories,
     changeFilter,
     selectedCategories,
@@ -38,7 +38,7 @@ const SearchPanel: React.FC<IProps> = ({
                 );
             })
         );
-    }, [allCategories, selectedCategories]);
+    }, [allCategories, selectedCategories, changeFilter]);
     return (
         <Panel>
             <h4>Filter by:</h4>
@@ -59,7 +59,7 @@ const SearchPanel: React.FC<IProps> = ({
     );
 };
 
-export default SearchPanel;
+export default FilterPanel;
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

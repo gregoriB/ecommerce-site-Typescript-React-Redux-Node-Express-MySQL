@@ -20,7 +20,7 @@ const HomePage: React.FC<IProps> = ({ populateProducts, results }) => {
             const actionProps = { type: "FEATURED RESULTS", payload: data };
             populateProducts(actionProps);
         })();
-    }, []);
+    }, [populateProducts]);
     return (
         <HomeContainer>
             <HomeJumbotron />

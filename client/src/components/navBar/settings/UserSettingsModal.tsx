@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Modal, Button } from "react-bootstrap";
 import AccountDelete from "./AccountDelete";
 import EmailSettings from "./EmailSettings";
-import queryDatabase from "../../helpers/queryDatabase";
+import queryDatabase from "../../../helpers/queryDatabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
@@ -64,7 +64,7 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
         if (!isEditingEmail && email !== initialEmailState) {
             closeBtnRef && closeBtnRef.current.focus();
         }
-    }, [isEditingEmail]);
+    }, [isEditingEmail, email, initialEmailState, closeBtnRef]);
 
     return (
         <StyledModal

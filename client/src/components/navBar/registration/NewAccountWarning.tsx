@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, Button } from "react-bootstrap";
 import styled from "styled-components";
-import queryDatabase from "../../helpers/queryDatabase";
+import queryDatabase from "../../../helpers/queryDatabase";
 
 interface IProps {
     hideWarning(): void;

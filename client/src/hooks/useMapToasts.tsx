@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Toast from "../components/Toast";
+import Toast from "../components/navBar/cart/Toast";
 
 const useMapToasts = (props: any) => {
     const [activeToasts, setActiveToasts] = useState();

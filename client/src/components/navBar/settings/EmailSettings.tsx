@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { validateEmail } from "../../helpers/formValidation";
+import { validateEmail } from "../../../helpers/formValidation";
 import { Button, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

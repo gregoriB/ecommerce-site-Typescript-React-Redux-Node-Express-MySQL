@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FormControl, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import User from "./User";
+import User from "../settings/User";
 import LoginAlert from "./LoginAlert";
-import queryDatabase from "../../helpers/queryDatabase";
-import RegistrationModal from "../modals/RegistrationModal";
+import queryDatabase from "../../../helpers/queryDatabase";
+import RegistrationModal from "../registration/RegistrationModal";
 
 interface IProps {
     userData: any;

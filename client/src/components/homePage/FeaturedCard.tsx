@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
-import ProductModal from "../modals/ProductModal";
-import ProductImage from "../ProductImage";
+import ProductModal from "../product/ProductModal";
+import ProductImage from "../product/ProductImage";
 import { IData } from "../../types/types";
 
 type mouseClick = React.MouseEvent<HTMLElement>;

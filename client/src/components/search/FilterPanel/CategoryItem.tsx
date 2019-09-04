@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import usePrevious from "../../../hooks/usePrevious";
 import { InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import { IAChangeFilter } from "../../../types/types";
@@ -15,11 +16,14 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter
         setIsChecked(prevState => !prevState);
     };
 
+    const checkboxPrevState = usePrevious(isChecked);
+
     useEffect(() => {
         !selectedCategories.length && setIsChecked(false);
     }, [selectedCategories, setIsChecked]);
 
     useEffect(() => {
+        if (checkboxPrevState === isChecked) return;
         let categories = [...selectedCategories];
         if (isChecked) {
             categories.push(name);
@@ -27,7 +31,7 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter
             categories = categories.filter(category => name !== category);
         }
         changeFilter({ type: "SELECTED_CATEGORIES", payload: categories });
-    }, [isChecked]);
+    }, [isChecked, changeFilter, name, selectedCategories, checkboxPrevState]);
 
     return (
         <StyledInputGroup>

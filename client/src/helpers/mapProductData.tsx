@@ -1,4 +1,4 @@
-import Components from "../helpers/Components";
+import Components from "./Components";
 import { IData } from "../types/types";
 import React from "react";
 

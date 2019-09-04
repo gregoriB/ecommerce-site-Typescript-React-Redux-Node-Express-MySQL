@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Alert, FormControl, Button } from "react-bootstrap";
-import queryDatabase from "../../helpers/queryDatabase";
+import queryDatabase from "../../../helpers/queryDatabase";
 
 interface IProps {
     userData: any;

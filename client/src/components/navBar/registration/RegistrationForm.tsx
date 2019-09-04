@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
-import * as validate from "../../helpers/formValidation";
+import * as validate from "../../../helpers/formValidation";
 
 interface IProps {
     showWarning(): void;

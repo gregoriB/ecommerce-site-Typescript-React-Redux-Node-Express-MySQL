@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IData } from "../../types/types";
 import ImageModal from "./ImageModal";
-import ProductImage from "../ProductImage";
+import ProductImage from "./ProductImage";
 
 const ProductModal: React.FC<IData> = ({ imageURL, name, price, onHide, descLong, show }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { IAChangeFilter, IAPopulate, IData } from "../types/types";
-import SearchPanel from "../components/search/searchPanel/SearchPanel";
+import FilterPanel from "../components/search/FilterPanel/FilterPanel";
 import SearchResults from "../components/search/SearchResults";
 import queryDatabase from "../helpers/queryDatabase";
 import { changeFilter, populateProducts } from "../store/actions/actionCreators";
@@ -34,7 +34,7 @@ const SearchPage: React.FC<IProps> = ({
             const action = { type: "SEARCH RESULTS", payload: data };
             populateProducts(action);
         })();
-    }, [query]);
+    }, [query, populateProducts]);
 
     useEffect(() => {
         // map categories for filters IF the `results` item is within the designated price range
@@ -56,7 +56,7 @@ const SearchPage: React.FC<IProps> = ({
             const tempObj: tempObj = {};
             matrix.forEach((categoryArray: string[]) => {
                 categoryArray.forEach((category: string) => {
-                    tempObj[category] = tempObj[category];
+                    tempObj[category] = tempObj[category] + 1 || 1;
                 });
             });
             return tempObj;
@@ -74,7 +74,7 @@ const SearchPage: React.FC<IProps> = ({
 
     return (
         <MainDiv>
-            <SearchPanel
+            <FilterPanel
                 selectedCategories={selectedCategories}
                 priceRange={priceRange}
                 allCategories={allCategories}

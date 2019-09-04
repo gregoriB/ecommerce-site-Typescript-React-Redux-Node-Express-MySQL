@@ -6,6 +6,6 @@ CREATE TABLE featured_items (
     FOREIGN KEY (fi_item) REFERENCES items (item_id)
 );
 
-INSERT INTO featured_items (fi_item) VALUES (1), (3), (5);
+INSERT INTO featured_items (fi_item) VALUES (1), (2), (5), (6);
 
 SELECT * FROM featured_items;
