@@ -29,7 +29,7 @@ const SearchPage: React.FC<IProps> = ({
     useEffect(() => {
         (async () => {
             // if no search query, instead use default route query.  See server.ts to change the default query.
-            const path = query ? `products/${query}` : "products/all";
+            const path = query ? `products/${query}` : "products";
             const data: IData[] = await queryDatabase({ path });
             const action = { type: "SEARCH RESULTS", payload: data };
             populateProducts(action);
@@ -113,7 +113,8 @@ export default connect(
     actionCreators
 )(SearchPage);
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const MainDiv = styled.div`
     display: flex;
     justify-content: center;

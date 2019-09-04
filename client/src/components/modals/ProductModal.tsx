@@ -47,7 +47,8 @@ const ProductModal: React.FC<IData> = ({ imageURL, name, price, onHide, descLong
 
 export default ProductModal;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const StyledModal = styled(Modal)`
     .modal-dialog {
         margin-top: 0;

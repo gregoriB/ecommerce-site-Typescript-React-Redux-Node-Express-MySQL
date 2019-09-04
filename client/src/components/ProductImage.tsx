@@ -32,7 +32,8 @@ const ProductImage: React.FC<allowModal & image> = ({ image, allowModal }) => {
 
 export default ProductImage;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const ImageContainer = styled.div`
     padding: 0.5rem;
     position: relative;

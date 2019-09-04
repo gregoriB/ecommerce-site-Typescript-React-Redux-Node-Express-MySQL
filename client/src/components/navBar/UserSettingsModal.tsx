@@ -44,7 +44,7 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
 
     const updateUserEmailInDB = async () => {
         const query = { oldEmail: initialEmailState, newEmail: email };
-        const dbQuery = { path: "user/update", query, method: "PUT" };
+        const dbQuery = { path: `user/${initialEmailState}`, query, method: "PUT" };
         const data = await queryDatabase(dbQuery);
         if (data && data.affectedRows) {
             updateUserEmailInStore();
@@ -109,7 +109,8 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
 
 export default UserSettingsModal;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const StyledModal = styled(Modal)`
     &.modal-40w {
         max-width: 40%;
@@ -127,11 +128,15 @@ const StyledCogIcon = styled(FontAwesomeIcon)`
 `;
 
 const StyledModalBody = styled(Modal.Body)`
-    min-height: 15vh;
-    display: flex;
+    &.modal-body {
+        min-height: 10vh;
+        display: flex;
+    }
 `;
 
 const StyledModalFooter = styled(Modal.Footer)`
-    display: flex;
-    justify-content: space-between;
+    &.modal-footer {
+        display: flex;
+        justify-content: space-between;
+    }
 `;

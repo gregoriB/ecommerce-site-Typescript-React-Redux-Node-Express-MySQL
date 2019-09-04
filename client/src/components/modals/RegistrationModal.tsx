@@ -11,8 +11,6 @@ interface IProps {
     updateUserData(val: any): any;
 }
 
-type warning = { isWarning: boolean };
-
 const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [userData, setUserData] = useState();
@@ -36,12 +34,7 @@ const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, show }) =
                     updateUserData={updateUserData}
                 />
             ) : (
-                <RegistrationForm
-                    onHide={onHide}
-                    updateUserData={updateUserData}
-                    showWarning={() => setIsWarning(true)}
-                    setUserData={setUserData}
-                />
+                <RegistrationForm showWarning={() => setIsWarning(true)} setUserData={setUserData} />
             )}
         </Modal>
     );
@@ -49,7 +42,9 @@ const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, show }) =
 
 export default RegistrationModal;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
+type warning = { isWarning: boolean };
 const Header = styled.h4<warning>`
     position: absolute;
     width: 100%;

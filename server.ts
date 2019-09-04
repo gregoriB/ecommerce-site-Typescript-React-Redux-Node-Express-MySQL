@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" :
 app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
-app.get("/products/all", (req: Request, res: Response) => {
+app.get("/products", (req: Request, res: Response) => {
     queryDatabase(`SELECT * FROM item_categories_view`, (results: mysql.Query) => {
         res.json(results);
     });
@@ -35,13 +35,13 @@ app.get("/products/:search", (req: Request, res: Response) => {
     );
 });
 
-app.get("/home/featured", (req: Request, res: Response) => {
+app.get("/home", (req: Request, res: Response) => {
     queryDatabase("SELECT * FROM featured_items_view", (results: mysql.Query) => {
         res.json(results);
     });
 });
 
-app.post("/user/login", (req: Request, res: Response) => {
+app.post("/login", (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) return;
     if (req.body) {
@@ -54,7 +54,7 @@ app.post("/user/login", (req: Request, res: Response) => {
     }
 });
 
-app.post("/user/create", (req: Request, res: Response) => {
+app.post("/user", (req: Request, res: Response) => {
     const { username, email, password } = req.body;
     const values = `('${email}', '${username}', '${password}')`;
     queryDatabase(
@@ -65,7 +65,7 @@ app.post("/user/create", (req: Request, res: Response) => {
     );
 });
 
-app.put("/user/update", (req: Request, res: Response) => {
+app.put("/user/:email", (req: Request, res: Response) => {
     const { oldEmail, newEmail } = req.body;
     const query = `UPDATE users SET user_email='${newEmail}' WHERE user_email='${oldEmail}'`;
     queryDatabase(query, (results: mysql.Query) => {
@@ -73,7 +73,7 @@ app.put("/user/update", (req: Request, res: Response) => {
     });
 });
 
-app.delete("/user/remove/:email", (req: Request, res: Response) => {
+app.delete("/user/:email", (req: Request, res: Response) => {
     const email = req.params.email;
     if (email) {
         queryDatabase(`DELETE FROM users WHERE user_email='${email}'`, (results: mysql.Query) => {

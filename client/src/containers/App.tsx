@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateUserData } from "../store/actions/actionCreators";
-import "../styles//App.css";
 
 // import useMapToasts from "../hooks/useMapToasts";
 // import CheckoutPage from "../components/CheckoutPage";
@@ -51,7 +50,8 @@ export default connect(
     actionCreators
 )(App);
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const AppContainer = styled.div`
     overflow-x: hidden;
     width: 100vw;

@@ -14,7 +14,7 @@ const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, up
     const sendRegistrationForm = async () => {
         const { username, email, password } = userData;
         const query = { username: username.text, email: email.text, password: password.text };
-        const dbQuery = { path: "user/create", query, method: "POST" };
+        const dbQuery = { path: "user", query, method: "POST" };
         const results = await queryDatabase(dbQuery);
         if (results.insertId && results.affectedRows) {
             updateUserData({
@@ -33,32 +33,31 @@ const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, up
         hideWarning();
     };
     return (
-        <>
-            <Alert variant="warning" style={{ marginBottom: 0, paddingBottom: "2rem" }}>
-                <WarningText>
-                    <p>
-                        This is not a real store. I made this site for my web development portfolio. Any
-                        accounts created should be done so FOR TESTING PURPOSES ONLY.
-                    </p>
+        <Alert variant="warning" style={{ marginBottom: 0, paddingBottom: "2rem" }}>
+            <WarningText>
+                <p>
+                    This is not a real store. I made this site for my web development portfolio. Any
+                    accounts created should be done so FOR TESTING PURPOSES ONLY.
+                </p>
 
-                    <p>Are you sure you want to create an account?</p>
-                </WarningText>
-                <ButtonContainer>
-                    <StyledCancelButton variant="outline-warning" onClick={cancelRegistration}>
-                        cancel
-                    </StyledCancelButton>
-                    <Button variant="warning" onClick={sendRegistrationForm}>
-                        Yes, create a new account
-                    </Button>
-                </ButtonContainer>
-            </Alert>
-        </>
+                <p>Are you sure you want to create an account?</p>
+            </WarningText>
+            <ButtonContainer>
+                <StyledCancelButton variant="outline-warning" onClick={cancelRegistration}>
+                    cancel
+                </StyledCancelButton>
+                <Button variant="warning" onClick={sendRegistrationForm}>
+                    Yes, create a new account
+                </Button>
+            </ButtonContainer>
+        </Alert>
     );
 };
 
 export default NewAccountWarning;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const WarningText = styled.p`
     text-align: justify;
 `;

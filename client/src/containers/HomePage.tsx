@@ -15,7 +15,7 @@ interface IProps {
 const HomePage: React.FC<IProps> = ({ populateProducts, results }) => {
     useEffect(() => {
         (async () => {
-            const dbQuery = { path: "home/featured" };
+            const dbQuery = { path: "home" };
             const data = await queryDatabase(dbQuery);
             const actionProps = { type: "FEATURED RESULTS", payload: data };
             populateProducts(actionProps);
@@ -46,7 +46,8 @@ export default connect(
     actionCreators
 )(HomePage);
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const HomeContainer = styled.div`
     width: 100%;
     max-width: 2000px;

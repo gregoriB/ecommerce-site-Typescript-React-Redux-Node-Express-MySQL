@@ -37,7 +37,8 @@ const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData }) => {
 
 export default NavBar;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const NavContainer = styled.div`
     padding: 0 2rem;
     position: sticky;

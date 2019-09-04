@@ -41,27 +41,28 @@ const SearchPanel: React.FC<IProps> = ({
     }, [allCategories, selectedCategories]);
     return (
         <Panel>
-            <PanelHeader>Filter by:</PanelHeader>
-            <Section>
-                <SectionName>Category</SectionName>
+            <h4>Filter by:</h4>
+            <section>
+                <div>Category</div>
                 <Form>{mappedCategories}</Form>
-            </Section>
-            <Section>
-                <SectionName>Price</SectionName>
+            </section>
+            <section>
+                <div>Price</div>
                 <PriceRangeSelector priceRange={priceRange} changeFilter={changeFilter} />
-            </Section>
-            <Section>
+            </section>
+            <section>
                 <StyledButton variant="secondary" size="sm" onClick={clearFilters} block>
                     Clear All Filters
                 </StyledButton>
-            </Section>
+            </section>
         </Panel>
     );
 };
 
 export default SearchPanel;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const Panel = styled.div`
     padding: 1rem;
     width: 20vw;
@@ -70,12 +71,6 @@ const Panel = styled.div`
     background: white;
     border: 1px solid #dfdfdf;
 `;
-
-const PanelHeader = styled.h4``;
-
-const Section = styled.section``;
-
-const SectionName = styled.div``;
 
 const StyledButton = styled(Button)`
     margin-top: 1rem;

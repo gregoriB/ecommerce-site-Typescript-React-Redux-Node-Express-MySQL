@@ -48,7 +48,8 @@ const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter
 
 export default CategoryItem;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const Category = styled.div`
     display: flex;
     align-items: center;

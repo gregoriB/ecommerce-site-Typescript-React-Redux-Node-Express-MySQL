@@ -13,8 +13,8 @@ interface IProps {
 }
 
 const loginIntialValues = {
-    username: "gregorib",
-    password: "Brandon12!!"
+    username: "",
+    password: ""
 };
 
 const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
@@ -40,7 +40,7 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
         if (!loginValues.username) {
             return;
         }
-        const dbQuery = { path: "user/login", query: loginValues, method: "POST" };
+        const dbQuery = { path: "login", query: loginValues, method: "POST" };
         const data = await queryDatabase(dbQuery);
         if (data[0] && data[0].name === loginValues.username) {
             updateUserData({ type: "UPDATE_USER_DATA", payload: data[0] });
@@ -99,7 +99,8 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
 
 export default LoginForm;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const LoginContainer = styled.div`
     display: flex;
     margin-left: auto;

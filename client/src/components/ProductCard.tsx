@@ -86,9 +86,9 @@ const ProductCard: React.FC<IData & IProps> = props => {
 
 export default ProductCard;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const ProductContainer = styled.div`
-    background: red;
     height: 25rem;
 `;
 
@@ -124,7 +124,9 @@ const StyledCardBody = styled(Card.Body)`
 `;
 
 const StyledCardTitle = styled(Card.Title)`
-    font-size: 1rem;
+    &.card-title {
+        font-size: 1rem;
+    }
 `;
 const StyledDescriptionText = styled(Card.Text)`
     font-size: 0.7rem;

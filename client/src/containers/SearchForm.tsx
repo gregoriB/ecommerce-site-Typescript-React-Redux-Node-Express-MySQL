@@ -74,7 +74,8 @@ export default connect(
     actionCreators
 )(withRouter(SearchForm));
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const InputWrapper = styled.div`
     position: relative;
     background: white;
@@ -93,8 +94,10 @@ const SearchButton = styled.button`
 `;
 
 const StyledFormControl = styled(FormControl)`
-    background: transparent;
-    border-radius: 15px;
-    border: none;
-    margin-right: 0 !important;
+    &.form-control {
+        background: transparent;
+        border-radius: 15px;
+        border: none;
+        margin-right: 0 !important;
+    }
 `;

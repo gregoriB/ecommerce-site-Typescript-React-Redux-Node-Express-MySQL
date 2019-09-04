@@ -30,7 +30,8 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
 
 export default FeaturedCarousel;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const StyledCarousel = styled(Carousel)`
     display: flex;
     .carousel {

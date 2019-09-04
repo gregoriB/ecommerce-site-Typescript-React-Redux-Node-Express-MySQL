@@ -7,11 +7,11 @@ const HomeJumbotron = () => {
     return (
         <StyledJumbotron>
             <BannerContainer>
-                <Banner>The best place for fighting game supplies.</Banner>
-                <Description>
+                <h1>The best place for fighting game supplies.</h1>
+                <div>
                     Competitive prices on arcade sticks, parts, and accessories from top-rated
                     manufacturers.
-                </Description>
+                </div>
             </BannerContainer>
             <LinkContainer>
                 <Link to="search">
@@ -24,12 +24,15 @@ const HomeJumbotron = () => {
 
 export default HomeJumbotron;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const StyledJumbotron = styled(Jumbotron)`
-    background: white;
-    padding: 5vh 10vw;
-    display: flex;
-    justify-content: space-around;
+    &.jumbotron {
+        background: white;
+        padding: 7vh 10vw;
+        display: flex;
+        justify-content: space-around;
+    }
 `;
 
 const BannerContainer = styled.div`
@@ -39,6 +42,3 @@ const BannerContainer = styled.div`
 const LinkContainer = styled.div`
     align-self: center;
 `;
-
-const Banner = styled.h1``;
-const Description = styled.div``;

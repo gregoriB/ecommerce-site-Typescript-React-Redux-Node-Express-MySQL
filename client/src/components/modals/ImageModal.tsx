@@ -2,6 +2,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 import Magnifier from "react-magnifier";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
     image: string;
@@ -30,7 +31,7 @@ const ImageModal: React.FC<IProps> = props => {
             centered
             onClick={props.onHide}
         >
-            <CloseModal className="close">x</CloseModal>
+            <CloseModal icon="times" />
             <StyledMagnifier {...magnifierOptions} mgShape={undefined} />
         </StyledImageModal>
     );
@@ -38,8 +39,10 @@ const ImageModal: React.FC<IProps> = props => {
 
 export default ImageModal;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
-const CloseModal = styled.div`
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
+const CloseModal = styled(FontAwesomeIcon)`
+    font-size: 1.3rem;
     user-select: none;
     cursor: pointer;
     padding: 0;

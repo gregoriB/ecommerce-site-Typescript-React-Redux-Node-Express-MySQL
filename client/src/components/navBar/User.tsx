@@ -51,7 +51,8 @@ const User: React.FC<IProps> = ({ userData, updateUserData }) => {
 
 export default User;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const UserName = styled.div`
     display: flex;
     align-items: center;
@@ -69,6 +70,7 @@ const LogoutContainer = styled.div`
 `;
 
 const StyledDropdownButton = styled(DropdownButton)`
+    margin-right: 2rem;
     button {
         background: none;
         border: none;

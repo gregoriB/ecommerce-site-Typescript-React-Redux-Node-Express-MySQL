@@ -106,7 +106,8 @@ const EmailSettings: React.FC<IProps> = ({
 
 export default EmailSettings;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const EmailSettingsForm = styled.form`
     display: flex;
     justify-content: space-between;
@@ -158,9 +159,11 @@ const ToolTip = styled.div`
 `;
 
 const StyledFormControl = styled(FormControl)`
-    border: "1px solid transparent";
-    :disabled {
-        background: unset;
-        border-color: transparent !important;
+    &.form-control {
+        border: "1px solid transparent";
+        :disabled {
+            background: unset;
+            border-color: transparent !important;
+        }
     }
 `;

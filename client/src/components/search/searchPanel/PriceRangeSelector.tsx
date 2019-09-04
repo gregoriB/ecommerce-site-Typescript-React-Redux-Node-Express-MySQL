@@ -58,7 +58,8 @@ const PriceRangeSelector: React.FC<IProps> = ({ changeFilter, priceRange }) => {
 
 export default PriceRangeSelector;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const PriceRangeContainer = styled.form`
     display: flex;
     align-items: center;

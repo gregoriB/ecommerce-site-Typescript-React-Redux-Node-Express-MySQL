@@ -26,7 +26,8 @@ const SearchResults: React.FC<IProps> = ({ products, selectedCategories, priceRa
 
 export default SearchResults;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const Display = styled.div`
     width: 80vw;
     margin: 1rem;

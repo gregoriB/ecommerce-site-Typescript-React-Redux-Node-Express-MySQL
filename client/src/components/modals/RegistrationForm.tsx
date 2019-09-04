@@ -4,8 +4,6 @@ import styled from "styled-components";
 import * as validate from "../../helpers/formValidation";
 
 interface IProps {
-    onHide(): void;
-    updateUserData(val: any): any;
     showWarning(): void;
     setUserData(val: any): void;
 }
@@ -16,7 +14,7 @@ const initialFieldsState = {
     password: { text: "", isValid: null, borderColor: "#dfdfdf" }
 };
 
-const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarning, setUserData }) => {
+const RegistrationPage: React.FC<IProps> = ({ showWarning, setUserData }) => {
     const [fields, setFields] = useState(initialFieldsState);
     const { username, email, password } = fields;
     type FormElem = React.ChangeEvent<HTMLFormElement>;
@@ -121,7 +119,8 @@ const RegistrationPage: React.FC<IProps> = ({ updateUserData, onHide, showWarnin
 
 export default RegistrationPage;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const FormContainer = styled.div`
     margin: 0 auto;
     width: 100%;

@@ -32,7 +32,8 @@ const FeaturedCard: React.FC<IData> = props => {
 
 export default FeaturedCard;
 
-/* ~~~~~~~~~~~ -- styling -- ~~~~~~~~~~~ */
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const FeaturedContainer = styled.div`
     cursor: pointer;
     margin: 0 1rem;
