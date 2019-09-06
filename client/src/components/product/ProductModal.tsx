@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IData } from "../../types/types";
 import ImageModal from "./ImageModal";
 import ProductImage from "./ProductImage";
+import ButtonChangeCart from "../../containers/ButtonChangeCart";
 
 const ProductModal: React.FC<IData> = ({ imageURL, name, price, onHide, descLong, show }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -31,12 +31,9 @@ const ProductModal: React.FC<IData> = ({ imageURL, name, price, onHide, descLong
                             show={isModalOpen}
                             onHide={() => setIsModalOpen(false)}
                         />
+                        <Price>${price}</Price>
                         <ButtonContainer>
-                            <Price>${price}</Price>
-                            <StyledButton variant="primary" size="lg">
-                                <StyleCartPlusIcon icon="cart-plus" size="sm" />
-                                Add to cart
-                            </StyledButton>
+                            <ButtonChangeCart add={true} itemName={name} text={"add to cart"} />
                         </ButtonContainer>
                     </ImageAndCartButton>
                 </Content>
@@ -105,10 +102,4 @@ const ButtonContainer = styled.span`
     display: flex;
     margin: 2rem auto;
     margin-top: auto;
-`;
-const StyledButton = styled(Button)`
-    width: unset;
-`;
-const StyleCartPlusIcon = styled(FontAwesomeIcon)`
-    margin: 0 0.5rem;
 `;

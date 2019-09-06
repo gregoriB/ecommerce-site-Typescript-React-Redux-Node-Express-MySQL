@@ -1,11 +1,13 @@
-import { IAAdd, IAChangeFilter, IAPopulate, IAUpdateSearch, IUpdateUserData } from "../../types/types";
+import { IAChangeFilter, IAPopulate, IAUpdateSearch, IUpdateUserData } from "../../types/types";
 
 export const addLoginData = (data: any) => ({
     type: "ADD",
     payload: data
 });
 
-export const addToCart = (item: number): IAAdd => ({ type: "ADD", payload: item });
+export const addOneToCart = (payload: number): any => ({ type: "ADD_ONE_TO_CART", payload });
+export const removeAllFromCart = (payload: number): any => ({ type: "REMOVE_FROM_CART", payload });
+export const updateQuantity = (payload: any): any => ({ type: "UPDATE_QUANTITY", payload });
 
 export const changeFilter = ({ type, payload }: IAChangeFilter): IAChangeFilter => ({ type, payload });
 

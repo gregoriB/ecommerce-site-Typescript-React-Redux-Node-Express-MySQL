@@ -8,14 +8,14 @@ import LoginForm from "./login/LoginForm";
 import SearchForm from "../../containers/SearchForm";
 
 interface IProps {
-    cart: Object;
+    cart: any;
     userData: any;
     updateUserData(val: any): any;
+    updateQuantity(val: any): any;
 }
 
-const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData }) => {
+const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData, updateQuantity }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     return (
         <NavContainer>
             <StyledNavbar bg="light" variant="light" className="nav-bar">
@@ -29,7 +29,12 @@ const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData }) => {
                 <ShoppingCartButton onClick={() => setIsModalOpen(true)}>
                     <StyledShoppingCartIcon icon="shopping-cart" size="lg" />
                 </ShoppingCartButton>
-                <ShoppingCartModal cart={cart} show={isModalOpen} onHide={() => setIsModalOpen(false)} />
+                <ShoppingCartModal
+                    cart={cart}
+                    show={isModalOpen}
+                    onHide={() => setIsModalOpen(false)}
+                    updateQuantity={updateQuantity}
+                />
             </StyledNavbar>
         </NavContainer>
     );

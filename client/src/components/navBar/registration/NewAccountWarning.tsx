@@ -58,7 +58,7 @@ export default NewAccountWarning;
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
-const WarningText = styled.p`
+const WarningText = styled.div`
     text-align: justify;
 `;
 

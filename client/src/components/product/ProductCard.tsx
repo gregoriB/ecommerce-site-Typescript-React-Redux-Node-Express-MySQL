@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
 import { IData } from "../../types/types";
+import ButtonChangeCart from "../../containers/ButtonChangeCart";
 
 interface IMiscProps {
     selectedCategories: string[];
@@ -69,10 +69,9 @@ const ProductCard: React.FC<IData & IProps> = props => {
                         </ShowMoreLink>
                     </StyledDescriptionText>
                     <StyledPriceText>${price}</StyledPriceText>
-                    <StyledButton variant="primary">
-                        <StyledCartPlusIcon icon="cart-plus" />
-                        add to cart
-                    </StyledButton>
+                    <ButtonContainer>
+                        <ButtonChangeCart add={true} itemName={name} text={"add to cart"} />
+                    </ButtonContainer>
                 </StyledCardBody>
             </StyledCard>
             <ProductModal
@@ -139,11 +138,8 @@ const StyledPriceText = styled(Card.Text)`
     margin-left: 1rem;
 `;
 
-const StyledButton = styled(Button)`
-    width: 200;
+const ButtonContainer = styled.div`
+    width: 70%;
+    /* height: 50px; */
     margin: 0 auto;
-`;
-
-const StyledCartPlusIcon = styled(FontAwesomeIcon)`
-    margin: 0 0.5rem;
 `;

@@ -62,7 +62,7 @@ const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide,
     useEffect(() => {
         // focus save button if changes were made
         if (!isEditingEmail && email !== initialEmailState) {
-            closeBtnRef && closeBtnRef.current.focus();
+            closeBtnRef && closeBtnRef.current && closeBtnRef.current.focus();
         }
     }, [isEditingEmail, email, initialEmailState, closeBtnRef]);
 
