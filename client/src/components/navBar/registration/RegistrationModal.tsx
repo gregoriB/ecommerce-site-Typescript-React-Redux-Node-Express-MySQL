@@ -11,7 +11,7 @@ interface IProps {
     updateUserData(val: any): any;
 }
 
-const RegistrationModal: React.FC<IProps> = ({ updateUserData, onHide, show }) => {
+const RegistrationModal: React.FC<any> = ({ updateUserData, onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [userData, setUserData] = useState();
     const handleHide = () => {

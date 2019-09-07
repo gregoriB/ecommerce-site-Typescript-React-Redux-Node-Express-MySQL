@@ -12,12 +12,7 @@ interface IProps {
     changeFilter(filter: any): IAChangeFilter;
 }
 
-const FilterPanel: React.FC<IProps> = ({
-    allCategories,
-    changeFilter,
-    selectedCategories,
-    priceRange
-}) => {
+const FilterPanel: React.FC<any> = ({ allCategories, changeFilter, selectedCategories, priceRange }) => {
     const [mappedCategories, setMappedCategories] = useState();
 
     const clearFilters = () => {
@@ -27,7 +22,7 @@ const FilterPanel: React.FC<IProps> = ({
 
     useEffect(() => {
         setMappedCategories(
-            allCategories.map(category => {
+            allCategories.map((category: any) => {
                 return (
                     <CategoryItem
                         selectedCategories={selectedCategories}

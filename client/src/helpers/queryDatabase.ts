@@ -4,7 +4,7 @@ interface IArgs {
     method?: string;
 }
 
-const queryDatabase = async ({ path, query, method }: IArgs) => {
+const queryDatabase = async ({ path, query, method }: any) => {
     let options;
     if (method) {
         options = {

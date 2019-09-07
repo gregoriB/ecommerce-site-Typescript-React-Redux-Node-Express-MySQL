@@ -6,7 +6,7 @@ import ImageModal from "./ImageModal";
 type image = { image: string };
 type allowModal = { allowModal: boolean };
 
-const ProductImage: React.FC<allowModal & image> = ({ image, allowModal }) => {
+const ProductImage: React.FC<any> = ({ image, allowModal }) => {
     const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
     const handleClick = () => {

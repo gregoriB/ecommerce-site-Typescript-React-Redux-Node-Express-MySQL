@@ -5,12 +5,12 @@ import Magnifier from "react-magnifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
-    image: string;
+    image: string | undefined;
     show: boolean;
     onHide(): void;
 }
 
-const ImageModal: React.FC<IProps> = props => {
+const ImageModal: React.FC<any> = props => {
     const magnifierOptions = {
         alt: "",
         title: "",

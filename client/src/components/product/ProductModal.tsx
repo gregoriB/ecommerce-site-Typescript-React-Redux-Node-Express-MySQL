@@ -4,9 +4,9 @@ import styled from "styled-components";
 import { IData } from "../../types/types";
 import ImageModal from "./ImageModal";
 import ProductImage from "./ProductImage";
-import ButtonChangeCart from "../../containers/ButtonChangeCart";
+import BtnAddToCart from "../../containers/BtnAddToCart";
 
-const ProductModal: React.FC<IData> = ({ imageURL, name, price, onHide, descLong, show }) => {
+const ProductModal: React.FC<any> = ({ imageURL, name, price, onHide, descLong, show, stock }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
@@ -33,7 +33,12 @@ const ProductModal: React.FC<IData> = ({ imageURL, name, price, onHide, descLong
                         />
                         <Price>${price}</Price>
                         <ButtonContainer>
-                            <ButtonChangeCart add={true} itemName={name} text={"add to cart"} />
+                            <BtnAddToCart
+                                stock={stock}
+                                price={price}
+                                itemName={name}
+                                text="add to cart"
+                            />
                         </ButtonContainer>
                     </ImageAndCartButton>
                 </Content>

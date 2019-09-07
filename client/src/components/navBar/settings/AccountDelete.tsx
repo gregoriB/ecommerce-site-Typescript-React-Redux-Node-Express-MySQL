@@ -8,7 +8,7 @@ interface IProps {
     updateUserData(val: any): any;
 }
 
-const AccountDelete: React.FC<IProps> = ({ userData, updateUserData }) => {
+const AccountDelete: React.FC<any> = ({ userData, updateUserData }) => {
     const [input, setInput] = useState("");
     const [isMatchingError, setIsMatchingError] = useState(false);
     type keyboardEvent = React.ChangeEvent<any>;

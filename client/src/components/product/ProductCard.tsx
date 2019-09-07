@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
 import { IData } from "../../types/types";
-import ButtonChangeCart from "../../containers/ButtonChangeCart";
+import BtnAddToCart from "../../containers/BtnAddToCart";
 
 interface IMiscProps {
     selectedCategories: string[];
@@ -16,10 +16,10 @@ interface IProps {
     miscProps: IMiscProps;
 }
 
-const ProductCard: React.FC<IData & IProps> = props => {
+const ProductCard: React.FC<any> = props => {
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(false);
-    const { imageURL, name, descShort, price, categories, miscProps } = props;
+    const { imageURL, name, descShort, price, categories, miscProps, stock } = props;
     const { selectedCategories, priceRange } = miscProps;
 
     const shortenDescription = () => {
@@ -70,7 +70,13 @@ const ProductCard: React.FC<IData & IProps> = props => {
                     </StyledDescriptionText>
                     <StyledPriceText>${price}</StyledPriceText>
                     <ButtonContainer>
-                        <ButtonChangeCart add={true} itemName={name} text={"add to cart"} />
+                        <BtnAddToCart
+                            itemName={name}
+                            price={price}
+                            stock={stock}
+                            add={true}
+                            text={"add to cart"}
+                        />
                     </ButtonContainer>
                 </StyledCardBody>
             </StyledCard>

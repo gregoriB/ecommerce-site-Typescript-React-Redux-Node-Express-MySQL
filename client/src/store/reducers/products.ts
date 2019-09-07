@@ -9,7 +9,7 @@ const initialState: IState = {
     SearchResults: []
 };
 
-export default function products(state = initialState, action: IAPopulate) {
+export default function products(state = initialState, action: any) {
     switch (action.type) {
         case "FEATURED RESULTS":
             return (state = {

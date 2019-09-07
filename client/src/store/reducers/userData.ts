@@ -9,7 +9,7 @@ const initialState: IState = {
     email: ""
 };
 
-export default function userData(state = initialState, action: IUpdateUserData) {
+export default function userData(state = initialState, action: any) {
     switch (action.type) {
         case "UPDATE_USER_DATA":
             const { name, email } = action.payload;

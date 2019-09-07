@@ -9,14 +9,15 @@ export interface IAPopulate {
 }
 
 export interface IData {
-    imageURL: string;
-    name: string;
-    descShort: string;
-    descLong: string;
-    price: number;
-    length?: number;
-    index?: number;
-    show?: boolean;
+    imageURL?: string | undefined;
+    name?: string | undefined;
+    descShort?: string | undefined;
+    descLong?: string | undefined;
+    price?: number | undefined;
+    stock?: number | undefined;
+    length?: number | undefined;
+    index?: number | undefined;
+    show?: boolean | undefined;
     category?: string;
     onHide?(): void;
 }

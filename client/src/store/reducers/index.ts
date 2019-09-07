@@ -5,5 +5,14 @@ import searchRequest from "./searchRequest";
 import filters from "./filters";
 import userData from "./userData";
 import shoppingCart from "./shoppingCart";
+import toasts from "./toasts";
 
-export default combineReducers({ products, loginData, searchRequest, filters, userData, shoppingCart });
+export default combineReducers({
+    products,
+    loginData,
+    searchRequest,
+    filters,
+    userData,
+    shoppingCart,
+    toasts
+});

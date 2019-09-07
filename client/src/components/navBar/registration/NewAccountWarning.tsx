@@ -10,7 +10,7 @@ interface IProps {
     updateUserData(val: any): any;
 }
 
-const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, updateUserData }) => {
+const NewAccountWarning: React.FC<any> = ({ hideWarning, onHide, userData, updateUserData }) => {
     const sendRegistrationForm = async () => {
         const { username, email, password } = userData;
         const query = { username: username.text, email: email.text, password: password.text };

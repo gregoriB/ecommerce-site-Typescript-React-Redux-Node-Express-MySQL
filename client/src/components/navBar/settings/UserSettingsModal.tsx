@@ -13,7 +13,7 @@ interface IProps {
     updateUserData(val: any): void;
 }
 
-const UserSettingsModal: React.FC<IProps> = ({ userData, updateUserData, onHide, show }) => {
+const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, show }) => {
     const initialEmailState = userData.email;
     const { name } = userData;
     const [email, setEmail] = useState(initialEmailState);

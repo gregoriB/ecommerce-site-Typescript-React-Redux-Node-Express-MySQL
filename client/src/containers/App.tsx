@@ -1,26 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateUserData, removeAllFromCart, updateQuantity } from "../store/actions/actionCreators";
+import { updateUserData, removeFromCart, updateQuantity } from "../store/actions/actionCreators";
 
-// import useMapToasts from "../hooks/useMapToasts";
-// import CheckoutPage from "../components/CheckoutPage";
 import SearchPage from "./SearchPage";
 import NavBar from "../components/navBar/NavBar";
 import Home from "./HomePage";
+import CheckoutPage from "../components/navBar/cart/CheckoutPage";
+
 import styled from "styled-components";
 
 interface IProps {
     cart: {};
     userData: any;
     updateUserData(val: any): any;
-    removeAllFromCart(val: any): any;
+    removeFromCart(val: any): any;
     updateQuantity(val: any): any;
 }
 
-const App: React.FC<IProps> = ({ cart, userData, updateUserData, updateQuantity }) => {
-    // const toasts = useMapToasts(productArr);
-    // console.log(toasts);
+const App: React.FC<any> = ({
+    cart,
+    userData,
+    updateUserData,
+    updateQuantity,
+    removeFromCart,
+    toasts
+}) => {
+    const [mappedToasts, setMappedToasts] = useState<any>([]);
+    useEffect(() => {
+        toasts.length && setMappedToasts(toasts.map((product: any) => product));
+    }, [toasts]);
     return (
         <AppContainer>
             <Router>
@@ -29,12 +38,14 @@ const App: React.FC<IProps> = ({ cart, userData, updateUserData, updateQuantity 
                     userData={userData}
                     updateUserData={updateUserData}
                     updateQuantity={updateQuantity}
+                    removeFromCart={removeFromCart}
                 />
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/search" component={SearchPage} />
+                    <Route exact path="/checkout" component={CheckoutPage} />
                 </Switch>
-                {/* <ToastContainer>{toasts}</ToastContainer> */}
+                <ToastContainer>{mappedToasts}</ToastContainer>
             </Router>
         </AppContainer>
     );
@@ -43,16 +54,18 @@ const App: React.FC<IProps> = ({ cart, userData, updateUserData, updateQuantity 
 interface IState {
     shoppingCart: any;
     userData: any;
+    toasts: any;
 }
 
 const mapStateToProps = (state: IState) => ({
     cart: state.shoppingCart.cart,
-    userData: state.userData
+    userData: state.userData,
+    toasts: state.toasts.toastArr
 });
 
 const actionCreators = {
     updateUserData,
-    removeAllFromCart,
+    removeFromCart,
     updateQuantity
 };
 
@@ -75,13 +88,13 @@ const AppContainer = styled.div`
     font-weight: 400;
 `;
 
-// const ToastContainer = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: center;
-//     position: fixed;
-//     bottom: 1vh;
-//     right: 2vw;
-//     width: 25vw;
-//     z-index: 100000;
-// `;
+const ToastContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    bottom: 1vh;
+    right: 2vw;
+    width: 25vw;
+    z-index: 100000;
+`;

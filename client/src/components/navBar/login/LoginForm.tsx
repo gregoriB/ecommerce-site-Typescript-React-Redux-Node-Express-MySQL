@@ -17,7 +17,7 @@ const loginIntialValues = {
     password: ""
 };
 
-const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
+const LoginForm: React.FC<any> = ({ userData, updateUserData }) => {
     const [loginValues, setLoginValues] = useState(loginIntialValues);
     const [isRegModalOpen, setIsRegModalOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -76,8 +76,7 @@ const LoginForm: React.FC<IProps> = ({ userData, updateUserData }) => {
                             className="mr-sm-2 form-control-sm"
                             onChange={handleLoginChange}
                         />
-                        <Button type="submit" className="btn-sm">
-                            Sign In
+                        <Button type="submit" className="btn-sm" variant="outline-primary">
                             <StyledSignInIcon icon="sign-in-alt" size="lg" />
                         </Button>
                     </Form>

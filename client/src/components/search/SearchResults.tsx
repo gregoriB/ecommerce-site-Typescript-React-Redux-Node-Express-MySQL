@@ -9,9 +9,8 @@ interface IProps {
     priceRange: any;
 }
 
-const SearchResults: React.FC<IProps> = ({ products, selectedCategories, priceRange }) => {
+const SearchResults: React.FC<any> = ({ products, selectedCategories, priceRange }) => {
     const [mappedChildren, setMappedChildren] = useState();
-
     useEffect(() => {
         const miscProps = {
             selectedCategories,

@@ -6,7 +6,7 @@ interface IProps {
     setShow(val: boolean): void;
 }
 
-const LoginAlert: React.FC<IProps> = ({ show, setShow }) => {
+const LoginAlert: React.FC<any> = ({ show, setShow }) => {
     const handleClose = () => setShow(false);
 
     return (

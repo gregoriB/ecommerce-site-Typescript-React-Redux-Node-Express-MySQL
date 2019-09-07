@@ -12,7 +12,7 @@ interface IProps {
     populateProducts(data: IAPopulate): IAPopulate;
 }
 
-const HomePage: React.FC<IProps> = ({ populateProducts, results }) => {
+const HomePage: React.FC<any> = ({ populateProducts, results }) => {
     useEffect(() => {
         (async () => {
             const dbQuery = { path: "home" };

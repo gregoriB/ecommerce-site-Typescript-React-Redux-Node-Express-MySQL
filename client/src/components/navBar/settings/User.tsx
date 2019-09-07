@@ -9,7 +9,7 @@ interface IProps {
     updateUserData(val: any): any;
 }
 
-const User: React.FC<IProps> = ({ userData, updateUserData }) => {
+const User: React.FC<any> = ({ userData, updateUserData }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const handleLogout = () => {
         updateUserData({ type: "DELETE_USER_DATA", payload: null });

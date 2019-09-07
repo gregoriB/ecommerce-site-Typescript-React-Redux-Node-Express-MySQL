@@ -5,10 +5,9 @@ import ProductModal from "../product/ProductModal";
 import ProductImage from "../product/ProductImage";
 import { IData } from "../../types/types";
 
-type mouseClick = React.MouseEvent<HTMLElement>;
-
-const FeaturedCard: React.FC<IData> = props => {
+const FeaturedCard: React.FC<any> = props => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    type mouseClick = React.MouseEvent<HTMLElement>;
     const handleClick = (e: mouseClick) => {
         isModalOpen && e.preventDefault();
         setIsModalOpen(true);

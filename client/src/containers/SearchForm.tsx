@@ -13,7 +13,7 @@ interface IProps {
     changeFilter(filter: IAChangeFilter): IAChangeFilter;
 }
 
-const SearchForm: React.FC<RouteComponentProps & IProps> = ({
+const SearchForm: React.FC<any & RouteComponentProps> = ({
     history,
     query,
     updateSearch,

@@ -2,8 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import { addOneToCart, removeAllFromCart } from "../store/actions/actionCreators";
+import { addOneToCart, removeFromCart, addToast, removeToast } from "../store/actions/actionCreators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Toast from "../components/navBar/cart/Toast";
+import uuid from "uuid";
 
 interface IProps {
     add?: boolean;
@@ -12,35 +14,27 @@ interface IProps {
     subtract?: boolean;
     cart: any;
     itemName: string;
+    price: number;
+    stock: number;
     results: any;
     isDisabled?: boolean;
     addOneToCart(val: any): any;
-    removeAllFromCart(val: any): any;
+    removeFromCart(val: any): any;
 }
 
-const ButtonChangeCart: React.FC<IProps> = ({
-    add,
-    addOneToCart,
-    removeAllFromCart,
-    text,
-    itemName,
-    isDisabled,
-    title
-}) => {
+const BtnRemoveFromCart: React.FC<any> = ({ removeFromCart, itemName }) => {
     const handleButtonClick = () => {
-        add ? addOneToCart(itemName) : removeAllFromCart(itemName);
+        removeFromCart(itemName);
     };
 
     return (
         <StyledButton
-            disabled={isDisabled}
             onClick={handleButtonClick}
-            variant={add ? "primary" : "outline-danger"}
-            title={title}
-            style={{ borderColor: !text && "transparent" }}
+            variant="outline-danger"
+            title="Click to remove this item for your shopping cart"
+            style={{ borderColor: "transparent" }}
         >
-            {text}
-            <StyledCartIcon icon={add ? "cart-plus" : "times"} />
+            <StyledCartIcon icon="times" />
         </StyledButton>
     );
 };
@@ -57,18 +51,19 @@ const mapStateToProps = (state: IState) => ({
 
 const actionCreators = {
     addOneToCart,
-    removeAllFromCart
+    removeFromCart,
+    addToast,
+    removeToast
 };
 
 export default connect(
     mapStateToProps,
     actionCreators
-)(ButtonChangeCart);
+)(BtnRemoveFromCart);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 const StyledButton = styled(Button)`
     width: 100%;
-    /* height: 100%; */
 `;
 
 const StyledCartIcon = styled(FontAwesomeIcon)`

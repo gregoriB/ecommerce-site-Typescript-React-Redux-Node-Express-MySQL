@@ -10,7 +10,7 @@ interface IProps {
     changeFilter(filter: IAChangeFilter): IAChangeFilter;
 }
 
-const CategoryItem: React.FC<IProps> = ({ name, selectedCategories, changeFilter }) => {
+const CategoryItem: React.FC<any> = ({ name, selectedCategories, changeFilter }) => {
     const [isChecked, setIsChecked] = useState(false);
     const handleCheckbox = () => {
         setIsChecked(prevState => !prevState);

@@ -6,18 +6,22 @@ interface IState {
     };
 }
 
-const initialState: IState = {
+const initialState: any = {
     cart: {}
 };
 
 const shoppingCart = (state = initialState, action: any) => {
     switch (action.type) {
         case "ADD_ONE_TO_CART":
+            const product = state.cart[action.payload.name];
             return (state = {
                 ...state,
                 cart: {
                     ...state.cart,
-                    [action.payload]: state.cart[action.payload] + 1 || 1
+                    [action.payload.name]: {
+                        ...action.payload.attributes,
+                        qty: (product && product.qty + 1) || 1
+                    }
                 }
             });
         case "REMOVE_FROM_CART":
@@ -37,7 +41,10 @@ const shoppingCart = (state = initialState, action: any) => {
                 ...state,
                 cart: {
                     ...state.cart,
-                    [action.payload.item]: action.payload.quantity
+                    [action.payload.name]: {
+                        ...state.cart[action.payload.name],
+                        qty: action.payload.qty
+                    }
                 }
             });
         default:

@@ -8,7 +8,7 @@ interface IArgs {
     miscProps?: any;
 }
 
-const mapProductData = ({ type, products, miscProps }: IArgs) => {
+const mapProductData = ({ type, products, miscProps }: any) => {
     if (!products || products.length < 1 || !Array.isArray(products)) {
         return;
     }
@@ -24,6 +24,7 @@ const mapProductData = ({ type, products, miscProps }: IArgs) => {
             price={item.price}
             categories={item.category}
             miscProps={miscProps}
+            stock={item.stock}
         />
     ));
 };

@@ -8,7 +8,7 @@ interface IProps {
     changeFilter(filter: any): IAChangeFilter;
 }
 
-const PriceRangeSelector: React.FC<IProps> = ({ changeFilter, priceRange }) => {
+const PriceRangeSelector: React.FC<any> = ({ changeFilter, priceRange }) => {
     const [inputValue, setInputValue] = useState([0, 0]);
 
     type keyboardEvent = React.ChangeEvent<any>;

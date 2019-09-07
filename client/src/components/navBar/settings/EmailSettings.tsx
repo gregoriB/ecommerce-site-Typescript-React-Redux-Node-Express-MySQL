@@ -15,7 +15,7 @@ interface IProps {
     setEmail(val: string): void;
 }
 
-const EmailSettings: React.FC<IProps> = ({
+const EmailSettings: React.FC<any> = ({
     email,
     setEmail,
     isDeleteOpen,

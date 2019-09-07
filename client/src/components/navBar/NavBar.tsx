@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Navbar } from "react-bootstrap";
+import { Navbar, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ShoppingCartModal from "./cart/ShoppingCartModal";
@@ -14,26 +14,26 @@ interface IProps {
     updateQuantity(val: any): any;
 }
 
-const NavBar: React.FC<IProps> = ({ cart, userData, updateUserData, updateQuantity }) => {
+const NavBar: React.FC<any> = ({ cart, userData, updateUserData, updateQuantity, removeFromCart }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <NavContainer>
             <StyledNavbar bg="light" variant="light" className="nav-bar">
                 <Link to="/">
-                    <Navbar.Brand style={{ fontFamily: "'Lexend Exa', sans-serif" }}>
-                        Super Meter Arcade
-                    </Navbar.Brand>
+                    <StyledNavbarBrand>Super Meter Arcade</StyledNavbarBrand>
                 </Link>
                 <SearchForm />
                 <LoginForm userData={userData} updateUserData={updateUserData} />
-                <ShoppingCartButton onClick={() => setIsModalOpen(true)}>
-                    <StyledShoppingCartIcon icon="shopping-cart" size="lg" />
+                <ShoppingCartButton onClick={() => setIsModalOpen(true)} variant="outline-secondary">
+                    <StyledShoppingCartIcon icon="shopping-cart" size="1x" />
                 </ShoppingCartButton>
                 <ShoppingCartModal
                     cart={cart}
                     show={isModalOpen}
                     onHide={() => setIsModalOpen(false)}
                     updateQuantity={updateQuantity}
+                    removeFromCart={removeFromCart}
                 />
             </StyledNavbar>
         </NavContainer>
@@ -60,18 +60,14 @@ const StyledNavbar = styled(Navbar)`
     margin: 0 auto;
 `;
 
-const ShoppingCartButton = styled.button`
-    background: none;
-    color: #545b62;
-    border: none;
-    transition: 0.2s;
-    padding: 0;
-    font-size: 1.5rem;
-    :hover {
-        color: #181819;
+const StyledNavbarBrand = styled(Navbar.Brand)`
+    font-family: "Lexend Exa", sans-serif;
+`;
+
+const ShoppingCartButton = styled(Button)`
+    &.btn {
+        border: none;
     }
 `;
 
-const StyledShoppingCartIcon = styled(FontAwesomeIcon)`
-    margin: 0 0.5rem;
-`;
+const StyledShoppingCartIcon = styled(FontAwesomeIcon)``;

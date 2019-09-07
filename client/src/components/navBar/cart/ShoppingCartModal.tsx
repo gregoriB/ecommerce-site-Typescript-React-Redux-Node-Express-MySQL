@@ -4,61 +4,53 @@ import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import QuantitySettings from "./QuantitySettings";
+import { IData } from "../../../types/types";
+import TotalPrice from "./TotalPrice";
 
 interface IProps {
     cart: Object;
-    show: boolean;
-    onHide(): void;
+    // show: boolean;
+    // onHide(): void;
     updateQuantity(val: any): any;
 }
 
-const ShoppingCartModal: React.FC<IProps> = ({ cart, onHide, updateQuantity, show }) => {
+const ShoppingCartModal: React.FC<any> = ({ cart, onHide, updateQuantity, show, removeFromCart }) => {
     const [items, setItems] = useState<(React.ReactElement)[]>([]);
-    // const [total, setTotal] = useState();
 
     useEffect(() => {
-        // let total = 0;
-        // setItems(
-        //     Object.entries(cart).map(([product, quantity], index) => {
-        //         const { title, price } = products[Number(product)];
-        //         total += price * Number(quantity);
-        //         return (
-        //             <div key={index}>
-        //                 {title} x {quantity} @ ${price} each
-        //             </div>
-        //         );
-        //     })
-        // );
-
         cart &&
             setItems(
-                Object.entries(cart).map(([product, quantity]) => {
+                Object.entries(cart).map(([product, { price, qty, stock }]: any) => {
                     return (
-                        quantity && (
-                            <ProductContainer key={product}>
-                                <ProductName>{product}</ProductName>
-                                <InputsContainer>
-                                    <span>qty: </span>
-                                    <QuantitySettings
-                                        product={product}
-                                        quantity={quantity}
-                                        updateQuantity={updateQuantity}
-                                    />
-                                </InputsContainer>
-                            </ProductContainer>
-                        )
+                        <ProductContainer key={product}>
+                            <ProductName>{product}</ProductName>
+                            <InputsContainer>
+                                <PriceAndQty>
+                                    <PriceContainer>
+                                        price: <span>${price}</span>
+                                    </PriceContainer>
+                                    qty:
+                                </PriceAndQty>
+                                <QuantitySettings
+                                    product={product}
+                                    quantity={qty}
+                                    updateQuantity={updateQuantity}
+                                    price={price}
+                                    stock={stock}
+                                    removeFromCart={removeFromCart}
+                                />
+                            </InputsContainer>
+                        </ProductContainer>
                     );
                 })
             );
-
-        // setTotal(total);
     }, [cart, updateQuantity]);
 
     return (
         <Modal
             show={show}
             onHide={onHide}
-            size="lg"
+            size={Object.values(cart).length ? "xl" : "lg"}
             aria-labelledby="contained-modal-title-right"
             centered
         >
@@ -68,9 +60,8 @@ const ShoppingCartModal: React.FC<IProps> = ({ cart, onHide, updateQuantity, sho
             <Modal.Body>
                 {items.length > 0 ? (
                     <div>
-                        <h4>Your Items:</h4>
                         <div>{items}</div>
-                        <div>Total: $100</div>
+                        <TotalPrice cart={cart} />
                     </div>
                 ) : (
                     <div>
@@ -79,12 +70,15 @@ const ShoppingCartModal: React.FC<IProps> = ({ cart, onHide, updateQuantity, sho
                 )}
             </Modal.Body>
             <Modal.Footer>
-                {items.length > 0 && (
+                {items.length > 0 ? (
                     <Link to="checkout" onClick={onHide}>
                         Go to checkout
                     </Link>
+                ) : (
+                    <Button variant="outline-secondary" onClick={onHide}>
+                        Close
+                    </Button>
                 )}
-                <Button onClick={onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
     );
@@ -100,6 +94,7 @@ const ProductContainer = styled.div`
     border-bottom-color: #dee2e6;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
+    width: 100%;
 `;
 
 const InputsContainer = styled.div`
@@ -110,10 +105,6 @@ const InputsContainer = styled.div`
     width: 30%;
     form .form-control {
         width: 100%;
-        /* max-width: 30%; */
-    }
-    span {
-        /* width: 30%; */
     }
     div {
         width: 15%;
@@ -123,6 +114,21 @@ const InputsContainer = styled.div`
     }
 `;
 
+const PriceAndQty = styled.span`
+    display: flex;
+    justify-content: space-between;
+    word-wrap: none;
+    white-space: nowrap;
+    width: 100%;
+`;
+
 const ProductName = styled.div`
-    width: 65%;
+    width: 55%;
+`;
+
+const PriceContainer = styled.div`
+    display: flex;
+    span {
+        margin-left: 1rem;
+    }
 `;

@@ -17,7 +17,7 @@ interface IProps {
     changeFilter(filter: IAChangeFilter): IAChangeFilter;
 }
 
-const SearchPage: React.FC<IProps> = ({
+const SearchPage: React.FC<any> = ({
     query,
     populateProducts,
     results,
@@ -42,7 +42,7 @@ const SearchPage: React.FC<IProps> = ({
             const min = priceRange[0];
             const max = priceRange[1];
             return results
-                .map(result => {
+                .map((result: any) => {
                     // min or max could be `undefined`
                     if ((min && result.price < min) || (max && result.price > max)) {
                         return null;

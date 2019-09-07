@@ -7,7 +7,7 @@ import mapProductData from "../../helpers/mapProductData";
 interface IProps {
     products: IData[];
 }
-const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
+const FeaturedCarousel: React.FC<any> = ({ products }) => {
     const [items, setItems] = useState();
     useEffect(() => {
         const featured = mapProductData({ type: "FeaturedCard", products });

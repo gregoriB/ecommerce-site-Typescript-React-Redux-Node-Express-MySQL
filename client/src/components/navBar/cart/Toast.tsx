@@ -5,25 +5,29 @@ interface IProps {
     item: number;
 }
 
-const BSToast: React.FC<IProps> = ({ item }) => {
+const BSToast: React.FC<any> = ({ name, removeToast }) => {
     const [showToast, setShowToast] = useState(true);
     const [display, setDisplay] = useState("block");
     const timer = 3000;
 
     const handleOnClose = () => {
         setShowToast(false);
+    };
+
+    const cleanupToast = () => {
         setDisplay("none");
+        removeToast();
     };
 
     useEffect(() => {
         let timeout = window.setTimeout(() => {
-            setDisplay("none");
-        }, timer + 700);
+            cleanupToast();
+        }, timer);
 
         return () => {
             clearTimeout(timeout);
         };
-    });
+    }, []);
 
     return (
         <Toast
@@ -40,7 +44,7 @@ const BSToast: React.FC<IProps> = ({ item }) => {
                 <strong className="mr-auto">Added to Cart</strong>
                 <small>Just Now</small>
             </Toast.Header>
-            <Toast.Body>item name added to your shopping cart</Toast.Body>
+            <Toast.Body>{name}</Toast.Body>
         </Toast>
     );
 };
