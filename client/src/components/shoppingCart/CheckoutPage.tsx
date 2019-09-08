@@ -4,9 +4,7 @@ import styled from "styled-components";
 const CheckoutPage = () => {
     return (
         <BannerContainer>
-            <ConstructionBanner
-                src={require("../../../images/underconstruction.png")}
-            ></ConstructionBanner>
+            <ConstructionBanner src={require("../../images/underconstruction.png")}></ConstructionBanner>
         </BannerContainer>
     );
 };

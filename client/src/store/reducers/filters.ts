@@ -1,16 +1,10 @@
-interface IState {
-    allCategories: string[];
-    selectedCategories: string[];
-    priceRange: any;
-}
-
-const initialState: IState = {
+const initialState: any = {
     allCategories: [],
     selectedCategories: [],
     priceRange: [undefined, undefined]
 };
 
-export default function loginData(state = initialState, action: any) {
+export default function filters(state = initialState, action: any) {
     switch (action.type) {
         case "NEW_CATEGORIES":
             return (state = {

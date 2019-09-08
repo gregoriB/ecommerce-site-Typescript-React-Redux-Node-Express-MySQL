@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
-import { IData } from "../../types/types";
 import ImageModal from "./ImageModal";
 import ProductImage from "./ProductImage";
-import BtnAddToCart from "../../containers/BtnAddToCart";
+import BtnAddToCart from "../shoppingCart/BtnAddToCart";
 
-const ProductModal: React.FC<any> = ({ imageURL, name, price, onHide, descLong, show, stock }) => {
+const ProductModal: React.FC<any> = ({ imageURL, itemName, price, onHide, descLong, show, stock }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
@@ -21,7 +20,7 @@ const ProductModal: React.FC<any> = ({ imageURL, name, price, onHide, descLong, 
                 x
             </CloseModal>
             <FlexContainer>
-                <Title>{name}</Title>
+                <Title>{itemName}</Title>
                 <Content>
                     <Desc>{descLong}</Desc>
                     <ImageAndCartButton>
@@ -36,8 +35,8 @@ const ProductModal: React.FC<any> = ({ imageURL, name, price, onHide, descLong, 
                             <BtnAddToCart
                                 stock={stock}
                                 price={price}
-                                itemName={name}
-                                text="add to cart"
+                                itemName={itemName}
+                                text="add to shoppingCart"
                             />
                         </ButtonContainer>
                     </ImageAndCartButton>

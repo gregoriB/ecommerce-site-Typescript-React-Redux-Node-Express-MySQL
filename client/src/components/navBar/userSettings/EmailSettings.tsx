@@ -4,17 +4,6 @@ import { validateEmail } from "../../../helpers/formValidation";
 import { Button, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface IProps {
-    show?: boolean;
-    email: string;
-    isEditingEmail: boolean;
-    isDeleteOpen: boolean;
-    setIsEditingEmail(val: boolean): void;
-    onHide?(): void;
-    updateUserData?(val: any): void;
-    setEmail(val: string): void;
-}
-
 const EmailSettings: React.FC<any> = ({
     email,
     setEmail,

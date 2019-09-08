@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import QuantitySettings from "./QuantitySettings";
-import { IData } from "../../../types/types";
 import TotalPrice from "./TotalPrice";
 
-interface IProps {
-    cart: Object;
-    // show: boolean;
-    // onHide(): void;
-    updateQuantity(val: any): any;
-}
-
-const ShoppingCartModal: React.FC<any> = ({ cart, onHide, updateQuantity, show, removeFromCart }) => {
+const ShoppingCartModal: React.FC<any> = ({ shoppingCart, onHide, show }) => {
     const [items, setItems] = useState<(React.ReactElement)[]>([]);
 
     useEffect(() => {
-        cart &&
+        shoppingCart &&
             setItems(
-                Object.entries(cart).map(([product, { price, qty, stock }]: any) => {
+                Object.entries(shoppingCart).map(([product, { price, qty, stock }]: any) => {
                     return (
                         <ProductContainer key={product}>
                             <ProductName>{product}</ProductName>
@@ -34,23 +27,21 @@ const ShoppingCartModal: React.FC<any> = ({ cart, onHide, updateQuantity, show, 
                                 <QuantitySettings
                                     product={product}
                                     quantity={qty}
-                                    updateQuantity={updateQuantity}
                                     price={price}
                                     stock={stock}
-                                    removeFromCart={removeFromCart}
                                 />
                             </InputsContainer>
                         </ProductContainer>
                     );
                 })
             );
-    }, [cart, updateQuantity]);
+    }, [shoppingCart]);
 
     return (
         <Modal
             show={show}
             onHide={onHide}
-            size={Object.values(cart).length ? "xl" : "lg"}
+            size={Object.values(shoppingCart).length ? "xl" : "lg"}
             aria-labelledby="contained-modal-title-right"
             centered
         >
@@ -61,7 +52,7 @@ const ShoppingCartModal: React.FC<any> = ({ cart, onHide, updateQuantity, show, 
                 {items.length > 0 ? (
                     <div>
                         <div>{items}</div>
-                        <TotalPrice cart={cart} />
+                        <TotalPrice />
                     </div>
                 ) : (
                     <div>
@@ -84,7 +75,15 @@ const ShoppingCartModal: React.FC<any> = ({ cart, onHide, updateQuantity, show, 
     );
 };
 
-export default ShoppingCartModal;
+interface IState {
+    shoppingCart: any;
+}
+
+const mapStateToProps = (state: IState) => ({
+    shoppingCart: state.shoppingCart.cart
+});
+
+export default connect(mapStateToProps)(ShoppingCartModal);
 
 const ProductContainer = styled.div`
     display: flex;

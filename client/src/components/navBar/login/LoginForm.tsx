@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { FormControl, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import User from "../settings/User";
+import User from "../userSettings/User";
 import LoginAlert from "./LoginAlert";
 import queryDatabase from "../../../helpers/queryDatabase";
 import RegistrationModal from "../registration/RegistrationModal";
-
-interface IProps {
-    userData: any;
-    updateUserData(val: any): any;
-}
+import { updateUserData } from "../../../store/actions/actionCreators";
 
 const loginIntialValues = {
     username: "",
     password: ""
 };
 
-const LoginForm: React.FC<any> = ({ userData, updateUserData }) => {
+const LoginForm: React.FC<any> = ({ userName, updateUserData }) => {
     const [loginValues, setLoginValues] = useState(loginIntialValues);
     const [isRegModalOpen, setIsRegModalOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -42,8 +39,8 @@ const LoginForm: React.FC<any> = ({ userData, updateUserData }) => {
         }
         const dbQuery = { path: "login", query: loginValues, method: "POST" };
         const data = await queryDatabase(dbQuery);
-        if (data[0] && data[0].name === loginValues.username) {
-            updateUserData({ type: "UPDATE_USER_DATA", payload: data[0] });
+        if (data[0] && data[0].userName === loginValues.username) {
+            updateUserData(data[0]);
         } else {
             setIsError(true);
         }
@@ -51,13 +48,13 @@ const LoginForm: React.FC<any> = ({ userData, updateUserData }) => {
     };
 
     useEffect(() => {
-        setIsLoggedIn(userData.name ? true : false);
-    }, [userData]);
+        setIsLoggedIn(userName ? true : false);
+    }, [userName]);
 
     return (
         <LoginContainer>
             {isError && <LoginAlert show={isError} setShow={setIsError} />}
-            {(isLoggedIn && <User userData={userData} updateUserData={updateUserData} />) || (
+            {(isLoggedIn && <User />) || (
                 <LoginContainer>
                     <Form inline onSubmit={handleSubmitLogin}>
                         <FormControl
@@ -87,7 +84,6 @@ const LoginForm: React.FC<any> = ({ userData, updateUserData }) => {
                         <RegistrationModal
                             show={isRegModalOpen}
                             onHide={() => setIsRegModalOpen(false)}
-                            updateUserData={updateUserData}
                         />
                     </span>
                 </LoginContainer>
@@ -96,7 +92,22 @@ const LoginForm: React.FC<any> = ({ userData, updateUserData }) => {
     );
 };
 
-export default LoginForm;
+interface IState {
+    userData: any;
+}
+
+const mapStateToProps = (state: IState) => ({
+    userName: state.userData.name
+});
+
+const actionCreators = {
+    updateUserData
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(LoginForm);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

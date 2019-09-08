@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
+import { updateUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Modal, Button } from "react-bootstrap";
 import AccountDelete from "./AccountDelete";
@@ -6,17 +8,8 @@ import EmailSettings from "./EmailSettings";
 import queryDatabase from "../../../helpers/queryDatabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface IProps {
-    show: boolean;
-    userData: any;
-    onHide(): void;
-    updateUserData(val: any): void;
-}
-
-const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, show }) => {
-    const initialEmailState = userData.email;
-    const { name } = userData;
-    const [email, setEmail] = useState(initialEmailState);
+const UserSettingsModal: React.FC<any> = ({ userName, userEmail, updateUserData, onHide, show }) => {
+    const [email, setEmail] = useState(userEmail);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -28,11 +21,11 @@ const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, sh
         onHide();
         setIsDeleteOpen(false);
         setIsEditingEmail(false);
-        setEmail(initialEmailState);
+        setEmail(userEmail);
     };
 
     const checkHasEmailChanged = () => {
-        return !(initialEmailState === email);
+        return !(userEmail === email);
     };
 
     const determineSaveEmailOrCloseModal = () => {
@@ -43,8 +36,8 @@ const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, sh
     };
 
     const updateUserEmailInDB = async () => {
-        const query = { oldEmail: initialEmailState, newEmail: email };
-        const dbQuery = { path: `user/${initialEmailState}`, query, method: "PUT" };
+        const query = { oldEmail: userEmail, newEmail: email };
+        const dbQuery = { path: `user/${userEmail}`, query, method: "PUT" };
         const data = await queryDatabase(dbQuery);
         if (data && data.affectedRows) {
             updateUserEmailInStore();
@@ -54,17 +47,16 @@ const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, sh
     };
 
     const updateUserEmailInStore = () => {
-        const payload = { ...userData, email };
-        const action = { type: "UPDATE_USER_DATA", payload };
-        updateUserData(action);
+        const payload = { userName, email };
+        updateUserData(payload);
     };
     const closeBtnRef = useRef<any>(null);
     useEffect(() => {
         // focus save button if changes were made
-        if (!isEditingEmail && email !== initialEmailState) {
+        if (!isEditingEmail && email !== userEmail) {
             closeBtnRef && closeBtnRef.current && closeBtnRef.current.focus();
         }
-    }, [isEditingEmail, email, initialEmailState, closeBtnRef]);
+    }, [isEditingEmail, email, userEmail, closeBtnRef]);
 
     return (
         <StyledModal
@@ -77,7 +69,7 @@ const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, sh
             <Modal.Header closeButton>
                 <StyledModalTitle id="contained-modal-title-vcenter">
                     <StyledCogIcon icon="cog" />
-                    {name}
+                    {userName}
                 </StyledModalTitle>
             </Modal.Header>
             <StyledModalBody>
@@ -89,7 +81,7 @@ const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, sh
                     isDeleteOpen={isDeleteOpen}
                 />
             </StyledModalBody>
-            {isDeleteOpen && <AccountDelete userData={userData} updateUserData={updateUserData} />}
+            {isDeleteOpen && <AccountDelete />}
             <StyledModalFooter>
                 <Button variant="outline-danger" onClick={handleDeleteClick} disabled={isEditingEmail}>
                     {isDeleteOpen ? "Cancel" : "Delete this account"}
@@ -107,7 +99,23 @@ const UserSettingsModal: React.FC<any> = ({ userData, updateUserData, onHide, sh
     );
 };
 
-export default UserSettingsModal;
+interface IState {
+    userData: any;
+}
+
+const mapStateToProps = (state: IState) => ({
+    userName: state.userData.name,
+    userEmail: state.userData.email
+});
+
+const actionCreators = {
+    updateUserData
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(UserSettingsModal);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

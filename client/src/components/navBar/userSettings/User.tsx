@@ -1,18 +1,15 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { deleteUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserSettingsModal from "./UserSettingsModal";
 
-interface IProps {
-    userData: any;
-    updateUserData(val: any): any;
-}
-
-const User: React.FC<any> = ({ userData, updateUserData }) => {
+const User: React.FC<any> = ({ userName, deleteUserData }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const handleLogout = () => {
-        updateUserData({ type: "DELETE_USER_DATA", payload: null });
+        deleteUserData();
     };
 
     const handleSettingsClick = () => {
@@ -20,13 +17,8 @@ const User: React.FC<any> = ({ userData, updateUserData }) => {
     };
     return (
         <>
-            <UserSettingsModal
-                show={isSettingsOpen}
-                onHide={() => setIsSettingsOpen(false)}
-                userData={userData}
-                updateUserData={updateUserData}
-            />
-            <UserName>{userData.name}</UserName>
+            <UserSettingsModal show={isSettingsOpen} onHide={() => setIsSettingsOpen(false)} />
+            <UserName>{userName}</UserName>
             <StyledDropdownButton
                 alignRight
                 variant="primary"
@@ -49,7 +41,22 @@ const User: React.FC<any> = ({ userData, updateUserData }) => {
     );
 };
 
-export default User;
+interface IState {
+    userData: any;
+}
+
+const mapStateToProps = (state: IState) => ({
+    userName: state.userData.name
+});
+
+const actionCreators = {
+    deleteUserData
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(User);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

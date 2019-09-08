@@ -3,23 +3,12 @@ import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
-import { IData } from "../../types/types";
-import BtnAddToCart from "../../containers/BtnAddToCart";
-
-interface IMiscProps {
-    selectedCategories: string[];
-    priceRange: number[];
-}
-
-interface IProps {
-    categories: string;
-    miscProps: IMiscProps;
-}
+import BtnAddToCart from "../shoppingCart/BtnAddToCart";
 
 const ProductCard: React.FC<any> = props => {
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(false);
-    const { imageURL, name, descShort, price, categories, miscProps, stock } = props;
+    const { imageURL, itemName, descShort, price, categories, miscProps, stock } = props;
     const { selectedCategories, priceRange } = miscProps;
 
     const shortenDescription = () => {
@@ -61,7 +50,7 @@ const ProductCard: React.FC<any> = props => {
             <StyledCard>
                 <ProductImage allowModal={true} image={imageURL} />
                 <StyledCardBody>
-                    <StyledCardTitle>{name}</StyledCardTitle>
+                    <StyledCardTitle>{itemName}</StyledCardTitle>
                     <StyledDescriptionText>
                         {shortenDescription()}
                         <ShowMoreLink onClick={() => setIsProductModalOpen(true)}>
@@ -71,11 +60,11 @@ const ProductCard: React.FC<any> = props => {
                     <StyledPriceText>${price}</StyledPriceText>
                     <ButtonContainer>
                         <BtnAddToCart
-                            itemName={name}
+                            itemName={itemName}
                             price={price}
                             stock={stock}
                             add={true}
-                            text={"add to cart"}
+                            text={"add to shoppingCart"}
                         />
                     </ButtonContainer>
                 </StyledCardBody>

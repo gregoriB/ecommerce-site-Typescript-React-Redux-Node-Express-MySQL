@@ -1,14 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { deleteUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Alert, FormControl, Button } from "react-bootstrap";
 import queryDatabase from "../../../helpers/queryDatabase";
 
-interface IProps {
-    userData: any;
-    updateUserData(val: any): any;
-}
-
-const AccountDelete: React.FC<any> = ({ userData, updateUserData }) => {
+const AccountDelete: React.FC<any> = ({ userData, deleteUserData }) => {
     const [input, setInput] = useState("");
     const [isMatchingError, setIsMatchingError] = useState(false);
     type keyboardEvent = React.ChangeEvent<any>;
@@ -20,7 +17,7 @@ const AccountDelete: React.FC<any> = ({ userData, updateUserData }) => {
         const dbQuery = { path: `user/${userData.email}`, method: "DELETE" };
         const results = await queryDatabase(dbQuery);
         if (results.affectedRows) {
-            updateUserData({ type: "DELETE_USER_DATA", payload: null });
+            deleteUserData();
         }
     };
 
@@ -54,7 +51,22 @@ const AccountDelete: React.FC<any> = ({ userData, updateUserData }) => {
     );
 };
 
-export default AccountDelete;
+interface IState {
+    userData: any;
+}
+
+const mapStateToProps = (state: IState) => ({
+    userData: state.userData
+});
+
+const actionCreators = {
+    deleteUserData
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(AccountDelete);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

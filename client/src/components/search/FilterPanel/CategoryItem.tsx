@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { changeCategoriesInFilter } from "../../../store/actions/actionCreators";
 import usePrevious from "../../../hooks/usePrevious";
 import { InputGroup } from "react-bootstrap";
 import styled from "styled-components";
-import { IAChangeFilter } from "../../../types/types";
 
-interface IProps {
-    name: string;
-    selectedCategories: string[];
-    changeFilter(filter: IAChangeFilter): IAChangeFilter;
-}
-
-const CategoryItem: React.FC<any> = ({ name, selectedCategories, changeFilter }) => {
+const CategoryItem: React.FC<any> = ({ categoryName, selectedCategories, changeCategoriesInFilter }) => {
     const [isChecked, setIsChecked] = useState(false);
     const handleCheckbox = () => {
         setIsChecked(prevState => !prevState);
@@ -26,12 +21,12 @@ const CategoryItem: React.FC<any> = ({ name, selectedCategories, changeFilter })
         if (checkboxPrevState === isChecked) return;
         let categories = [...selectedCategories];
         if (isChecked) {
-            categories.push(name);
+            categories.push(categoryName);
         } else {
-            categories = categories.filter(category => name !== category);
+            categories = categories.filter(category => categoryName !== category);
         }
-        changeFilter({ type: "SELECTED_CATEGORIES", payload: categories });
-    }, [isChecked, changeFilter, name, selectedCategories, checkboxPrevState]);
+        changeCategoriesInFilter(categories);
+    }, [isChecked, changeCategoriesInFilter, categoryName, selectedCategories, checkboxPrevState]);
 
     return (
         <StyledInputGroup>
@@ -39,18 +34,33 @@ const CategoryItem: React.FC<any> = ({ name, selectedCategories, changeFilter })
                 <StyledInputGroupCheckbox
                     onChange={handleCheckbox}
                     checked={isChecked}
-                    id={name}
+                    id={categoryName}
                     aria-label="Checkbox for following text input"
                 />
-                <CategoryLabel htmlFor={name} isChecked={isChecked}>
-                    {name}
+                <CategoryLabel htmlFor={categoryName} isChecked={isChecked}>
+                    {categoryName}
                 </CategoryLabel>
             </Category>
         </StyledInputGroup>
     );
 };
 
-export default CategoryItem;
+interface IState {
+    filters: { [key: string]: string[] };
+}
+
+const mapStateToProps = (state: IState) => ({
+    selectedCategories: state.filters.selectedCategories
+});
+
+const actionCreators = {
+    changeCategoriesInFilter
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(CategoryItem);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

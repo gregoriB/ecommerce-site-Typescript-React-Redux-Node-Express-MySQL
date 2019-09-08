@@ -1,9 +1,3 @@
-interface IArgs {
-    path: string;
-    query?: any;
-    method?: string;
-}
-
 const queryDatabase = async ({ path, query, method }: any) => {
     let options;
     if (method) {

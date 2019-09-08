@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
-import { IData } from "../../types/types";
 import mapProductData from "../../helpers/mapProductData";
 
-interface IProps {
-    products: IData[];
-}
 const FeaturedCarousel: React.FC<any> = ({ products }) => {
     const [items, setItems] = useState();
     useEffect(() => {
@@ -28,7 +25,15 @@ const FeaturedCarousel: React.FC<any> = ({ products }) => {
     return <StyledCarousel interval={3000}>{items}</StyledCarousel>;
 };
 
-export default FeaturedCarousel;
+interface IState {
+    products: { [key: string]: any };
+}
+
+const mapStateToProps = (state: IState) => ({
+    products: state.products.featured
+});
+
+export default connect(mapStateToProps)(FeaturedCarousel);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

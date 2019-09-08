@@ -1,22 +1,16 @@
-import { IData, IAPopulate } from "../../types/types";
-
-export interface IState {
-    [key: string]: IData[];
-}
-
-const initialState: IState = {
+const initialState: any = {
     featured: [],
     SearchResults: []
 };
 
 export default function products(state = initialState, action: any) {
     switch (action.type) {
-        case "FEATURED RESULTS":
+        case "FEATURED_RESULTS":
             return (state = {
                 ...state,
                 featured: action.payload
             });
-        case "SEARCH RESULTS":
+        case "SEARCH_RESULTS":
             return (state = {
                 ...state,
                 searchResults: action.payload

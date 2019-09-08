@@ -1,21 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { removeFromCart, updateQuantityInCart } from "../../store/actions/actionCreators";
 import { FormControl } from "react-bootstrap";
 import styled from "styled-components";
-import BtnRemoveFromCart from "../../../containers/BtnRemoveFromCart";
-
-interface IProps {
-    quantity: number;
-    product: string;
-    updateQuantity(val: any): any;
-}
+import BtnRemoveFromCart from "./BtnRemoveFromCart";
 
 const QuantityInput: React.FC<any> = ({
     quantity,
     product,
-    updateQuantity,
-    price,
     stock,
-    removeFromCart
+    removeFromCart,
+    updateQuantityInCart
 }) => {
     const [inputValue, setInputValue] = useState(quantity);
     type keyboardEvent = React.ChangeEvent<EventTarget>;
@@ -31,8 +26,8 @@ const QuantityInput: React.FC<any> = ({
         removeFromCart(product);
     };
     useEffect(() => {
-        updateQuantity({ name: product, qty: Number(inputValue) });
-    }, [inputValue]);
+        updateQuantityInCart({ itemName: product, qty: Number(inputValue) });
+    }, [inputValue, updateQuantityInCart, product]);
     return (
         <>
             <StyleFormControl
@@ -44,19 +39,21 @@ const QuantityInput: React.FC<any> = ({
                 max={stock}
             />
             <ButtonContainer>
-                <BtnRemoveFromCart
-                    price={price}
-                    stock={stock}
-                    itemName={product}
-                    text={""}
-                    title="click to remove this item from your shopping cart"
-                />
+                <BtnRemoveFromCart itemName={product} />
             </ButtonContainer>
         </>
     );
 };
 
-export default QuantityInput;
+const actionCreators = {
+    removeFromCart,
+    updateQuantityInCart
+};
+
+export default connect(
+    null,
+    actionCreators
+)(QuantityInput);
 
 const StyleFormControl = styled(FormControl)`
     &.form-control {

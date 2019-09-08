@@ -3,18 +3,11 @@ import { Link } from "react-router-dom";
 import { Navbar, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ShoppingCartModal from "./cart/ShoppingCartModal";
+import ShoppingCartModal from "../shoppingCart/ShoppingCartModal";
 import LoginForm from "./login/LoginForm";
-import SearchForm from "../../containers/SearchForm";
+import SearchForm from "./SearchForm";
 
-interface IProps {
-    cart: any;
-    userData: any;
-    updateUserData(val: any): any;
-    updateQuantity(val: any): any;
-}
-
-const NavBar: React.FC<any> = ({ cart, userData, updateUserData, updateQuantity, removeFromCart }) => {
+const NavBar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
@@ -24,17 +17,11 @@ const NavBar: React.FC<any> = ({ cart, userData, updateUserData, updateQuantity,
                     <StyledNavbarBrand>Super Meter Arcade</StyledNavbarBrand>
                 </Link>
                 <SearchForm />
-                <LoginForm userData={userData} updateUserData={updateUserData} />
+                <LoginForm />
                 <ShoppingCartButton onClick={() => setIsModalOpen(true)} variant="outline-secondary">
                     <StyledShoppingCartIcon icon="shopping-cart" size="1x" />
                 </ShoppingCartButton>
-                <ShoppingCartModal
-                    cart={cart}
-                    show={isModalOpen}
-                    onHide={() => setIsModalOpen(false)}
-                    updateQuantity={updateQuantity}
-                    removeFromCart={removeFromCart}
-                />
+                <ShoppingCartModal show={isModalOpen} onHide={() => setIsModalOpen(false)} />
             </StyledNavbar>
         </NavContainer>
     );

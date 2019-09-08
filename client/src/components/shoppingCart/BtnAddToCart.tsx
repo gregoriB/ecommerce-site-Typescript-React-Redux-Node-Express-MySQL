@@ -1,61 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
+import { addOneToCart, addToast } from "../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import { addOneToCart, removeFromCart, addToast, removeToast } from "../store/actions/actionCreators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Toast from "../components/navBar/cart/Toast";
+import Toast from "../toasts/Toast";
 import uuid from "uuid";
 
-interface IProps {
-    add?: boolean;
-    title?: string;
-    text: string;
-    subtract?: boolean;
-    cart: any;
-    itemName: string;
-    price: number;
-    stock: number;
-    results: any;
-    isDisabled?: boolean;
-    addOneToCart(val: any): any;
-    removeFromCart(val: any): any;
-}
-
 const BtnAddToCart: React.FC<any> = ({
-    cart,
+    shoppingCart,
     addOneToCart,
     itemName,
     stock,
     price,
-    addToast,
-    removeToast
+    addToast
 }) => {
-    const checkIfOutOfStock = () => {
-        return cart[itemName] && cart[itemName].qty >= stock;
-    };
-    const [isDisabled, setIsDisabled] = useState(checkIfOutOfStock());
+    const checkIfOutOfStock = useCallback(() => {
+        return shoppingCart[itemName] && shoppingCart[itemName].qty >= stock;
+    }, [shoppingCart, itemName, stock]);
 
+    const [isDisabled, setIsDisabled] = useState(checkIfOutOfStock());
     const handleButtonClick = () => {
-        const product = { name: itemName, attributes: { price, stock } };
+        const product = { itemName, attributes: { price, stock } };
         if (checkIfOutOfStock()) {
             setIsDisabled(true);
             return;
         }
         addOneToCart(product);
-        addToast(<Toast key={uuid()} name={itemName} removeToast={removeToast} />);
+        addToast(<Toast key={uuid()} itemName={itemName} />);
     };
 
     useEffect(() => {
         setIsDisabled(checkIfOutOfStock());
-    }, [cart]);
+    }, [checkIfOutOfStock]);
 
     return (
         <StyledButton
             disabled={isDisabled}
             onClick={handleButtonClick}
             variant="outline-primary"
-            title="Add item to your shopping cart"
+            title="Add item to your shopping shoppingCart"
         >
             {isDisabled ? (
                 "Out of Stock"
@@ -70,19 +54,15 @@ const BtnAddToCart: React.FC<any> = ({
 
 interface IState {
     shoppingCart: any;
-    products: any;
 }
 
 const mapStateToProps = (state: IState) => ({
-    cart: state.shoppingCart.cart,
-    results: state.products.searchResults
+    shoppingCart: state.shoppingCart.cart
 });
 
 const actionCreators = {
     addOneToCart,
-    removeFromCart,
-    addToast,
-    removeToast
+    addToast
 };
 
 export default connect(

@@ -7,7 +7,7 @@ const HomeJumbotron = () => {
     return (
         <StyledJumbotron>
             <BannerContainer>
-                <h1>The best place for fighting game supplies.</h1>
+                <h1>The best place for fighting game supplies</h1>
                 <div>
                     Competitive prices on arcade sticks, parts, and accessories from top-rated
                     manufacturers.

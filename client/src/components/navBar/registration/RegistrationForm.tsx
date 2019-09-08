@@ -3,18 +3,13 @@ import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import * as validate from "../../../helpers/formValidation";
 
-interface IProps {
-    showWarning(): void;
-    setUserData(val: any): void;
-}
-
 const initialFieldsState = {
     username: { text: "", isValid: null, borderColor: "#dfdfdf" },
     email: { text: "", isValid: null, borderColor: "#dfdfdf" },
     password: { text: "", isValid: null, borderColor: "#dfdfdf" }
 };
 
-const RegistrationPage: React.FC<IProps> = ({ showWarning, setUserData }) => {
+const RegistrationPage: React.FC<any> = ({ showWarning, setUserData }) => {
     const [fields, setFields] = useState(initialFieldsState);
     const { username, email, password } = fields;
     type FormElem = React.ChangeEvent<HTMLFormElement>;

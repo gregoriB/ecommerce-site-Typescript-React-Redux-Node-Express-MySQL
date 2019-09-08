@@ -5,13 +5,7 @@ import styled from "styled-components";
 import NewAccountWarning from "./NewAccountWarning";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface IProps {
-    show: boolean;
-    onHide(): void;
-    updateUserData(val: any): any;
-}
-
-const RegistrationModal: React.FC<any> = ({ updateUserData, onHide, show }) => {
+const RegistrationModal: React.FC<any> = ({ onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [userData, setUserData] = useState();
     const handleHide = () => {
@@ -31,7 +25,6 @@ const RegistrationModal: React.FC<any> = ({ updateUserData, onHide, show }) => {
                     userData={userData}
                     onHide={onHide}
                     hideWarning={() => setIsWarning(false)}
-                    updateUserData={updateUserData}
                 />
             ) : (
                 <RegistrationForm showWarning={() => setIsWarning(true)} setUserData={setUserData} />

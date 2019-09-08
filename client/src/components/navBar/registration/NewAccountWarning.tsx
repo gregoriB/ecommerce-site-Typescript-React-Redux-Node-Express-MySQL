@@ -1,14 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
+import { updateUserData } from "../../../store/actions/actionCreators";
 import { Alert, Button } from "react-bootstrap";
 import styled from "styled-components";
 import queryDatabase from "../../../helpers/queryDatabase";
-
-interface IProps {
-    hideWarning(): void;
-    onHide(): void;
-    userData: any;
-    updateUserData(val: any): any;
-}
 
 const NewAccountWarning: React.FC<any> = ({ hideWarning, onHide, userData, updateUserData }) => {
     const sendRegistrationForm = async () => {
@@ -18,11 +13,8 @@ const NewAccountWarning: React.FC<any> = ({ hideWarning, onHide, userData, updat
         const results = await queryDatabase(dbQuery);
         if (results.insertId && results.affectedRows) {
             updateUserData({
-                type: "UPDATE_USER_DATA",
-                payload: {
-                    name: username.text,
-                    email: email.text
-                }
+                userName: username.text,
+                email: email.text
             });
             onHide();
         }
@@ -54,7 +46,14 @@ const NewAccountWarning: React.FC<any> = ({ hideWarning, onHide, userData, updat
     );
 };
 
-export default NewAccountWarning;
+const actionCreators = {
+    updateUserData
+};
+
+export default connect(
+    null,
+    actionCreators
+)(NewAccountWarning);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

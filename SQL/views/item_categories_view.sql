@@ -3,7 +3,7 @@ DROP VIEW IF EXISTS item_categories_view;
 CREATE VIEW item_categories_view AS
   SELECT
     item_id AS 'id',
-    item_name AS 'name',
+    item_name AS 'itemName',
     item_img_url AS 'imageURL',
     item_desc_short AS 'descShort',
     item_desc_long AS 'descLong',

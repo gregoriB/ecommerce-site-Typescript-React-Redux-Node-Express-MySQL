@@ -4,17 +4,11 @@ import styled from "styled-components";
 import Magnifier from "react-magnifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface IProps {
-    image: string | undefined;
-    show: boolean;
-    onHide(): void;
-}
-
-const ImageModal: React.FC<any> = props => {
+const ImageModal: React.FC<any> = ({ show, onHide, image }) => {
     const magnifierOptions = {
         alt: "",
         title: "",
-        src: props.image,
+        src: image,
         width: "50%",
         height: "auto",
         zoomFactor: 1.8,
@@ -25,11 +19,11 @@ const ImageModal: React.FC<any> = props => {
 
     return (
         <StyledImageModal
-            {...props}
+            show={show}
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            onClick={props.onHide}
+            onClick={onHide}
         >
             <CloseModal icon="times" />
             <StyledMagnifier {...magnifierOptions} mgShape={undefined} />

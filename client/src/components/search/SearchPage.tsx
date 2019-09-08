@@ -1,47 +1,33 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { addCategoriesToFilter, populateSearchProducts } from "../../store/actions/actionCreators";
 import styled from "styled-components";
-import { IAChangeFilter, IAPopulate, IData } from "../types/types";
-import FilterPanel from "../components/search/FilterPanel/FilterPanel";
-import SearchResults from "../components/search/SearchResults";
-import queryDatabase from "../helpers/queryDatabase";
-import { changeFilter, populateProducts } from "../store/actions/actionCreators";
-
-interface IProps {
-    allCategories: string[];
-    selectedCategories: string[];
-    query: string;
-    results: IData[];
-    priceRange: any;
-    populateProducts(data: IAPopulate): IAPopulate;
-    changeFilter(filter: IAChangeFilter): IAChangeFilter;
-}
+import FilterPanel from "./FilterPanel/FilterPanel";
+import SearchResults from "./SearchResults";
+import queryDatabase from "../../helpers/queryDatabase";
 
 const SearchPage: React.FC<any> = ({
     query,
-    populateProducts,
-    results,
-    changeFilter,
-    allCategories,
-    selectedCategories,
+    populateSearchProducts,
+    products,
+    addCategoriesToFilter,
     priceRange
 }) => {
     useEffect(() => {
         (async () => {
             // if no search query, instead use default route query.  See server.ts to change the default query.
             const path = query ? `products/${query}` : "products";
-            const data: IData[] = await queryDatabase({ path });
-            const action = { type: "SEARCH RESULTS", payload: data };
-            populateProducts(action);
+            const data: any = await queryDatabase({ path });
+            populateSearchProducts(data);
         })();
-    }, [query, populateProducts]);
+    }, [query, populateSearchProducts]);
 
     useEffect(() => {
         // map categories for filters IF the `results` item is within the designated price range
         const mapResults = () => {
             const min = priceRange[0];
             const max = priceRange[1];
-            return results
+            return products
                 .map((result: any) => {
                     // min or max could be `undefined`
                     if ((min && result.price < min) || (max && result.price > max)) {
@@ -61,51 +47,39 @@ const SearchPage: React.FC<any> = ({
             });
             return tempObj;
         };
-        if (results) {
+        if (products) {
             const resultsMapped = mapResults();
             const filterdCategoriesObj = filterDuplicateCategories(resultsMapped);
             const filteredCategoriesArr = Object.keys(filterdCategoriesObj).sort(
                 (a: string, b: string) => (a > b ? 1 : -1)
             );
-            const action = { type: "NEW_CATEGORIES", payload: filteredCategoriesArr };
-            changeFilter(action);
+            addCategoriesToFilter(filteredCategoriesArr);
         }
-    }, [results, priceRange, changeFilter]);
+    }, [products, priceRange, addCategoriesToFilter]);
 
     return (
         <MainDiv>
-            <FilterPanel
-                selectedCategories={selectedCategories}
-                priceRange={priceRange}
-                allCategories={allCategories}
-                changeFilter={changeFilter}
-            />
-            <SearchResults
-                products={results}
-                selectedCategories={selectedCategories}
-                priceRange={priceRange}
-            />
+            <FilterPanel />
+            <SearchResults />
         </MainDiv>
     );
 };
 
 interface IState {
     searchRequest: { query: string };
-    products: { [key: string]: IData[] };
+    products: { [key: string]: any };
     filters: { [key: string]: string[] };
 }
 
 const mapStateToProps = (state: IState) => ({
     query: state.searchRequest.query,
-    results: state.products.searchResults,
-    allCategories: state.filters.allCategories,
-    selectedCategories: state.filters.selectedCategories,
+    products: state.products.searchResults,
     priceRange: state.filters.priceRange
 });
 
 const actionCreators = {
-    populateProducts,
-    changeFilter
+    populateSearchProducts,
+    addCategoriesToFilter
 };
 
 export default connect(

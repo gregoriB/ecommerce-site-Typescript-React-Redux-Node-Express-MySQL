@@ -28,7 +28,7 @@ app.get("/products/:search", (req: Request, res: Response) => {
     const { search } = req.params;
     const params = search === "null" ? "" : search;
     queryDatabase(
-        `SELECT * FROM item_categories_view WHERE name LIKE '%${params}%'`,
+        `SELECT * FROM item_categories_view WHERE itemName LIKE '%${params}%'`,
         (results: mysql.Query) => {
             res.json(results);
         }
@@ -46,7 +46,7 @@ app.post("/login", (req: Request, res: Response) => {
     if (!username || !password) return;
     if (req.body) {
         queryDatabase(
-            `SELECT user_name AS 'name', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password='${password}'`,
+            `SELECT user_name AS 'userName', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password='${password}'`,
             (results: mysql.Query) => {
                 res.json(results);
             }

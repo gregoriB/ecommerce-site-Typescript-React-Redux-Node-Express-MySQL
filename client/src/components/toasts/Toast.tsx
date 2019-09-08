@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { removeToast } from "../../store/actions/actionCreators";
 import Toast from "react-bootstrap/Toast";
 
-interface IProps {
-    item: number;
-}
-
-const BSToast: React.FC<any> = ({ name, removeToast }) => {
+const BSToast: React.FC<any> = ({ itemName, removeToast }) => {
     const [showToast, setShowToast] = useState(true);
     const [display, setDisplay] = useState("block");
     const timer = 3000;
 
     const handleOnClose = () => {
-        setShowToast(false);
+        cleanupToast();
     };
 
     const cleanupToast = () => {
+        setShowToast(false);
         setDisplay("none");
         removeToast();
     };
@@ -27,7 +26,7 @@ const BSToast: React.FC<any> = ({ name, removeToast }) => {
         return () => {
             clearTimeout(timeout);
         };
-    }, []);
+    });
 
     return (
         <Toast
@@ -42,11 +41,17 @@ const BSToast: React.FC<any> = ({ name, removeToast }) => {
             <Toast.Header>
                 <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
                 <strong className="mr-auto">Added to Cart</strong>
-                <small>Just Now</small>
             </Toast.Header>
-            <Toast.Body>{name}</Toast.Body>
+            <Toast.Body>{itemName}</Toast.Body>
         </Toast>
     );
 };
 
-export default BSToast;
+const actionCreators = {
+    removeToast
+};
+
+export default connect(
+    null,
+    actionCreators
+)(BSToast);

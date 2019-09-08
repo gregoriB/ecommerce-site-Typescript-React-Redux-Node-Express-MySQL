@@ -4,25 +4,23 @@ import { Form, FormControl } from "react-bootstrap";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
-import { updateSearch, changeFilter } from "../store/actions/actionCreators";
-import { IAUpdateSearch, IAChangeFilter } from "../types/types";
-
-interface IProps {
-    query: string;
-    updateSearch(val: string): IAUpdateSearch;
-    changeFilter(filter: IAChangeFilter): IAChangeFilter;
-}
+import {
+    updateSearch,
+    changeCategoriesInFilter,
+    changePriceRangeInFilter
+} from "../../store/actions/actionCreators";
 
 const SearchForm: React.FC<any & RouteComponentProps> = ({
     history,
     query,
     updateSearch,
-    changeFilter
+    changeCategoriesInFilter,
+    changePriceRangeInFilter
 }) => {
     const updateReducers = (value: string) => {
         updateSearch(value);
-        changeFilter({ type: "SELECTED_CATEGORIES", payload: [] });
-        changeFilter({ type: "PRICE_RANGE", payload: [undefined, undefined] });
+        changeCategoriesInFilter([]);
+        changePriceRangeInFilter([undefined, undefined]);
     };
 
     type keyboardEvent = React.ChangeEvent<any>;
@@ -66,7 +64,8 @@ const mapStateToProps = (state: IState) => ({
 
 const actionCreators = {
     updateSearch,
-    changeFilter
+    changeCategoriesInFilter,
+    changePriceRangeInFilter
 };
 
 export default connect(

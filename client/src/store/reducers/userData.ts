@@ -1,10 +1,4 @@
-import { IUpdateUserData } from "../../types/types";
-
-interface IState {
-    [key: string]: string;
-}
-
-const initialState: IState = {
+const initialState: any = {
     name: "",
     email: ""
 };
@@ -12,10 +6,10 @@ const initialState: IState = {
 export default function userData(state = initialState, action: any) {
     switch (action.type) {
         case "UPDATE_USER_DATA":
-            const { name, email } = action.payload;
+            const { userName, email } = action.payload;
             return (state = {
                 ...state,
-                name,
+                name: userName,
                 email
             });
         case "DELETE_USER_DATA":

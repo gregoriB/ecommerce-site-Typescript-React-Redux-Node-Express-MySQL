@@ -1,11 +1,3 @@
-// import { IAAdd } from "../../types/types";
-
-interface IState {
-    cart: {
-        [key: string]: number;
-    };
-}
-
 const initialState: any = {
     cart: {}
 };
@@ -13,12 +5,12 @@ const initialState: any = {
 const shoppingCart = (state = initialState, action: any) => {
     switch (action.type) {
         case "ADD_ONE_TO_CART":
-            const product = state.cart[action.payload.name];
+            const product = state.cart[action.payload.itemName];
             return (state = {
                 ...state,
                 cart: {
                     ...state.cart,
-                    [action.payload.name]: {
+                    [action.payload.itemName]: {
                         ...action.payload.attributes,
                         qty: (product && product.qty + 1) || 1
                     }
@@ -41,8 +33,8 @@ const shoppingCart = (state = initialState, action: any) => {
                 ...state,
                 cart: {
                     ...state.cart,
-                    [action.payload.name]: {
-                        ...state.cart[action.payload.name],
+                    [action.payload.itemName]: {
+                        ...state.cart[action.payload.itemName],
                         qty: action.payload.qty
                     }
                 }

@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import {
+    changeCategoriesInFilter,
+    changePriceRangeInFilter
+} from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { Form, Button } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
-import { IAChangeFilter } from "../../../types/types";
 
-interface IProps {
-    allCategories: string[];
-    selectedCategories: string[];
-    priceRange: any;
-    changeFilter(filter: any): IAChangeFilter;
-}
-
-const FilterPanel: React.FC<any> = ({ allCategories, changeFilter, selectedCategories, priceRange }) => {
+const FilterPanel: React.FC<any> = ({
+    allCategories,
+    changeCategoriesInFilter,
+    changePriceRangeInFilter,
+    selectedCategories
+}) => {
     const [mappedCategories, setMappedCategories] = useState();
 
     const clearFilters = () => {
-        changeFilter({ type: "SELECTED_CATEGORIES", payload: [] });
-        changeFilter({ type: "PRICE_RANGE", payload: [undefined, undefined] });
+        changeCategoriesInFilter([]);
+        changePriceRangeInFilter([undefined, undefined]);
     };
 
     useEffect(() => {
         setMappedCategories(
             allCategories.map((category: any) => {
-                return (
-                    <CategoryItem
-                        selectedCategories={selectedCategories}
-                        key={category}
-                        name={category}
-                        changeFilter={changeFilter}
-                    />
-                );
+                return <CategoryItem key={category} categoryName={category} />;
             })
         );
-    }, [allCategories, selectedCategories, changeFilter]);
+    }, [allCategories, selectedCategories]);
     return (
         <Panel>
             <h4>Filter by:</h4>
@@ -43,7 +38,7 @@ const FilterPanel: React.FC<any> = ({ allCategories, changeFilter, selectedCateg
             </section>
             <section>
                 <div>Price</div>
-                <PriceRangeSelector priceRange={priceRange} changeFilter={changeFilter} />
+                <PriceRangeSelector />
             </section>
             <section>
                 <StyledButton variant="secondary" size="sm" onClick={clearFilters} block>
@@ -54,7 +49,24 @@ const FilterPanel: React.FC<any> = ({ allCategories, changeFilter, selectedCateg
     );
 };
 
-export default FilterPanel;
+interface IState {
+    filters: { [key: string]: string[] };
+}
+
+const mapStateToProps = (state: IState) => ({
+    allCategories: state.filters.allCategories,
+    selectedCategories: state.filters.selectedCategories
+});
+
+const actionCreators = {
+    changeCategoriesInFilter,
+    changePriceRangeInFilter
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(FilterPanel);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

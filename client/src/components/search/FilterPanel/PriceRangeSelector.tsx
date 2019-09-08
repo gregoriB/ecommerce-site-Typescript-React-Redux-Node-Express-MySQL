@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { changePriceRangeInFilter } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IAChangeFilter } from "../../../types/types";
 
-interface IProps {
-    priceRange: any;
-    changeFilter(filter: any): IAChangeFilter;
-}
-
-const PriceRangeSelector: React.FC<any> = ({ changeFilter, priceRange }) => {
+const PriceRangeSelector: React.FC<any> = ({ changePriceRangeInFilter, priceRange }) => {
     const [inputValue, setInputValue] = useState([0, 0]);
 
     type keyboardEvent = React.ChangeEvent<any>;
@@ -22,7 +18,7 @@ const PriceRangeSelector: React.FC<any> = ({ changeFilter, priceRange }) => {
     type FormElem = React.ChangeEvent<HTMLFormElement>;
     const handleSubmit = (e: FormElem) => {
         e.preventDefault();
-        changeFilter({ type: "PRICE_RANGE", payload: [...inputValue] });
+        changePriceRangeInFilter([...inputValue]);
     };
 
     useEffect(() => {
@@ -56,7 +52,22 @@ const PriceRangeSelector: React.FC<any> = ({ changeFilter, priceRange }) => {
     );
 };
 
-export default PriceRangeSelector;
+interface IState {
+    filters: { [key: string]: string[] };
+}
+
+const mapStateToProps = (state: IState) => ({
+    priceRange: state.filters.priceRange
+});
+
+const actionCreators = {
+    changePriceRangeInFilter
+};
+
+export default connect(
+    mapStateToProps,
+    actionCreators
+)(PriceRangeSelector);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

@@ -1,6 +1,4 @@
-interface IState {
-    toastArr: string[];
-}
+
 
 const initialState: any = {
     toastArr: []
