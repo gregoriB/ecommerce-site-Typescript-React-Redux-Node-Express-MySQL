@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { changePriceRangeInFilter } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IFilters } from "../../../types/types";
+import { IFilters } from "../../../types/generalTypes";
 
 interface IProps {
     changePriceRangeInFilter(arr: number[] | undefined[]): void;

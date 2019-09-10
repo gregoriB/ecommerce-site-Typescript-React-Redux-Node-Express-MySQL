@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
 import mapProductData from "../../helpers/mapProductData";
-import { IProduct } from "../../types/types";
+import { IProduct } from "../../types/generalTypes";
 
 interface IProps {
     products: IProduct[];

@@ -1,4 +1,4 @@
-import { IQueryDBArgs } from "../types/types";
+import { IQueryDBArgs } from "../types/generalTypes";
 
 const queryDatabase = async ({ path, query, method }: IQueryDBArgs): Promise<any> => {
     let options;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, RefObject } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { updateUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
@@ -7,17 +7,21 @@ import AccountDelete from "./AccountDelete";
 import EmailSettings from "./EmailSettings";
 import queryDatabase from "../../../helpers/queryDatabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IQueryDBArgs, IUserData } from "../../../types/types";
+import { IQueryDBArgs, IUserData, IModalToggle } from "../../../types/generalTypes";
 
 interface IProps {
     username: string;
     userEmail: string;
     updateUserData(val: IUserData): void;
-    onHide(): void;
-    show: boolean;
 }
 
-const UserSettingsModal: React.FC<IProps> = ({ username, userEmail, updateUserData, onHide, show }) => {
+const UserSettingsModal: React.FC<IProps & IModalToggle> = ({
+    username,
+    userEmail,
+    updateUserData,
+    onHide,
+    show
+}) => {
     const [email, setEmail] = useState(userEmail);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -60,7 +64,7 @@ const UserSettingsModal: React.FC<IProps> = ({ username, userEmail, updateUserDa
         updateUserData(payload);
     };
 
-    const closeBtnRef = useRef<any>();
+    const closeBtnRef = useRef<HTMLButtonElement & Button<"button"> | null>(null);
     useEffect(() => {
         // focus save button if changes were made
         if (!isEditingEmail && email !== userEmail) {

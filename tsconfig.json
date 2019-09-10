@@ -1,5 +1,5 @@
 {
-    "include": ["./client/src/*"],
+    "include": ["server.ts", "client/src"],
     "compilerOptions": {
         "target": "es5",
         "lib": ["es2017", "dom", "dom.iterable"],

@@ -4,13 +4,9 @@ import RegistrationForm from "./RegistrationForm";
 import styled from "styled-components";
 import NewAccountWarning from "./NewAccountWarning";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IModalToggle } from "../../../types/generalTypes";
 
-interface IProps {
-    onHide(): void;
-    show: boolean;
-}
-
-const RegistrationModal: React.FC<IProps> = ({ onHide, show }) => {
+const RegistrationModal: React.FC<IModalToggle> = ({ onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [userData, setUserData] = useState();
     const handleHide = () => {

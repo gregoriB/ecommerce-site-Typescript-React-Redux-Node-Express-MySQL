@@ -4,7 +4,7 @@ import { deleteUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Alert, FormControl, Button } from "react-bootstrap";
 import queryDatabase from "../../../helpers/queryDatabase";
-import { IUserData } from "../../../types/types";
+import { IUserData } from "../../../types/generalTypes";
 
 interface IProps {
     userEmail: string;

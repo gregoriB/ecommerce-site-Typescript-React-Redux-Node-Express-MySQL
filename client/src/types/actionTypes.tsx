@@ -1,4 +1,4 @@
-import { IProduct, IUserData } from "./types";
+import { IProduct, IUserData } from "./generalTypes";
 
 export interface IShoppingCartPayload {
     itemName: string;

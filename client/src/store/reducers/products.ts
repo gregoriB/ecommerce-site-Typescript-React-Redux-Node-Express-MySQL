@@ -1,4 +1,4 @@
-import { IProduct } from "../../types/types";
+import { IProduct } from "../../types/generalTypes";
 import { IPopulateProductsRtn } from "../../types/actionTypes";
 
 interface initialState {

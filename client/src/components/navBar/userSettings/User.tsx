@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserSettingsModal from "./UserSettingsModal";
-import { IUserData } from "../../../types/types";
+import { IUserData } from "../../../types/generalTypes";
 
 interface IProps {
     username: string;

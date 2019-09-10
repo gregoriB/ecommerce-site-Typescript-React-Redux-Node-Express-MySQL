@@ -12,8 +12,8 @@ interface INewQty {
 
 interface IProps {
     itemName: string;
-    quantity: number | undefined;
-    stock: number | undefined;
+    quantity: number;
+    stock: number;
     removeFromCart(val: { itemName: string }): void;
     updateQuantityInCart(val: INewQty): void;
 }
@@ -25,7 +25,7 @@ const QuantityInput: React.FC<IProps> = ({
     removeFromCart,
     updateQuantityInCart
 }) => {
-    const [inputValue, setInputValue] = useState(quantity);
+    const [inputValue, setInputValue] = useState(quantity!);
     type keyboardEvent = React.ChangeEvent<EventTarget>;
     const handleChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;

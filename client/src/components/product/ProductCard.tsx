@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
-import { IProduct, IFilters } from "../../types/types";
+import { IProduct, IFilters } from "../../types/generalTypes";
 
 interface IProps {
     categories: string;

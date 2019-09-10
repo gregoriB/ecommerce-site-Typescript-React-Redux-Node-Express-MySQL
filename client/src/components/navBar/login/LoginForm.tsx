@@ -8,7 +8,7 @@ import LoginAlert from "./LoginAlert";
 import queryDatabase from "../../../helpers/queryDatabase";
 import RegistrationModal from "../registration/RegistrationModal";
 import { updateUserData } from "../../../store/actions/actionCreators";
-import { IQueryDBArgs, IUserData } from "../../../types/types";
+import { IQueryDBArgs, IUserData } from "../../../types/generalTypes";
 
 const loginIntialValues = {
     username: "",

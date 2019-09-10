@@ -4,14 +4,9 @@ import styled from "styled-components";
 import ImageModal from "./ImageModal";
 import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
-import { IProduct } from "../../types/types";
+import { IProduct, IModalToggle } from "../../types/generalTypes";
 
-interface IProps {
-    onHide(): void;
-    show: boolean;
-}
-
-const ProductModal: React.FC<IProduct & IProps> = ({
+const ProductModal: React.FC<IProduct & IModalToggle> = ({
     imageURL,
     itemName,
     price,

@@ -1,4 +1,4 @@
-import { IShoppingCart } from "../../types/types";
+import { IShoppingCart } from "../../types/generalTypes";
 import { IShoppingCartRtn } from "../../types/actionTypes";
 
 const initialState: IShoppingCart = {};

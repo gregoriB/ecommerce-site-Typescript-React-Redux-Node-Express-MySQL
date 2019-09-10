@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { IShoppingCart, IShoppingCartItems } from "../../types/types";
+import { IShoppingCart, IShoppingCartItems } from "../../types/generalTypes";
 
 interface IProps {
     shoppingCart: IShoppingCart;

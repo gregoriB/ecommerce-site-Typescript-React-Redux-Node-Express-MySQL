@@ -5,7 +5,7 @@ import queryDatabase from "../../helpers/queryDatabase";
 import FeaturedCarousel from "./Carousel";
 import HomeJumbotron from "./HomeJumbotron";
 import { populateFeaturedProducts, updateSearch } from "../../store/actions/actionCreators";
-import { IQueryDBArgs, IProduct } from "../../types/types";
+import { IQueryDBArgs, IProduct } from "../../types/generalTypes";
 
 interface IProps {
     populateFeaturedProducts(val: IProduct[]): void;

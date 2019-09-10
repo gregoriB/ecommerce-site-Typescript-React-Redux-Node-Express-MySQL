@@ -3,14 +3,13 @@ import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 import Magnifier from "react-magnifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IModalToggle } from "../../types/generalTypes";
 
 interface IProps {
-    show: boolean;
-    onHide(): void;
     image: string;
 }
 
-const ImageModal: React.FC<IProps> = ({ show, onHide, image }) => {
+const ImageModal: React.FC<IProps & IModalToggle> = ({ show, onHide, image }) => {
     const magnifierOptions = {
         alt: "",
         title: "",

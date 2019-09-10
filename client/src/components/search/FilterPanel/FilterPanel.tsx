@@ -8,7 +8,7 @@ import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { Form, Button } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
-import { IFilters } from "../../../types/types";
+import { IFilters } from "../../../types/generalTypes";
 import { IFiltersRtn } from "../../../types/actionTypes";
 
 interface IProps {

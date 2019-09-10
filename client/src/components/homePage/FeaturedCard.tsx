@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ProductModal from "../product/ProductModal";
 import ProductImage from "../product/ProductImage";
-import { IProduct } from "../../types/types";
+import { IProduct } from "../../types/generalTypes";
 
 const FeaturedCard: React.FC<IProduct> = props => {
     const [isModalOpen, setIsModalOpen] = useState(false);

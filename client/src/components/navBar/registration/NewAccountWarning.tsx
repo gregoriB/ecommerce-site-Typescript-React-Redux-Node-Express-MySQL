@@ -4,7 +4,7 @@ import { updateUserData } from "../../../store/actions/actionCreators";
 import { Alert, Button } from "react-bootstrap";
 import styled from "styled-components";
 import queryDatabase from "../../../helpers/queryDatabase";
-import { IUserData } from "../../../types/types";
+import { IUserData } from "../../../types/generalTypes";
 
 interface ILocalUserData {
     [key: string]: {

@@ -41,3 +41,8 @@ export interface IShoppingCartItems {
 export interface IShoppingCart {
     [key: string]: IShoppingCartItems;
 }
+
+export interface IModalToggle {
+    show: boolean;
+    onHide(): void;
+}

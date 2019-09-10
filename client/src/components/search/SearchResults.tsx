@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import mapProductData from "../../helpers/mapProductData";
-import { IProduct, IFilters } from "../../types/types";
+import { IProduct, IFilters } from "../../types/generalTypes";
 
 interface IProps {
     products: IProduct[];

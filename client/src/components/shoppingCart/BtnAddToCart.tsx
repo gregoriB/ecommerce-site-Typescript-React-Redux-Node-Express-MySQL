@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Toast from "../toasts/Toast";
 import uuid from "uuid";
-import { IShoppingCart } from "../../types/types";
+import { IShoppingCart } from "../../types/generalTypes";
 import { IShoppingCartPayload } from "../../types/actionTypes";
 
 interface IProps {

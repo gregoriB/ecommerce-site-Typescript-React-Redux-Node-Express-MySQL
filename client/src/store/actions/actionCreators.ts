@@ -1,4 +1,4 @@
-import { IProduct, IUserData } from "../../types/types";
+import { IProduct, IUserData } from "../../types/generalTypes";
 import * as AT from "../../types/actionTypes";
 
 //shopping cart

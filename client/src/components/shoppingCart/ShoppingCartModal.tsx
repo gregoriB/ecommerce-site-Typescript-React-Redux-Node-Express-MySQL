@@ -4,17 +4,15 @@ import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import QuantitySettings from "./QuantitySettings";
+import QuantitySettings from "./QuantityInput";
 import TotalPrice from "./TotalPrice";
-import { IShoppingCart, IShoppingCartItems } from "../../types/types";
+import { IShoppingCart, IShoppingCartItems, IModalToggle } from "../../types/generalTypes";
 
 interface IProps {
     shoppingCart: IShoppingCart;
-    show: boolean;
-    onHide(): void;
 }
 
-const ShoppingCartModal: React.FC<IProps> = ({ shoppingCart, onHide, show }) => {
+const ShoppingCartModal: React.FC<IProps & IModalToggle> = ({ shoppingCart, onHide, show }) => {
     const [items, setItems] = useState<React.ReactElement[]>([]);
     useEffect(() => {
         shoppingCart &&
@@ -30,7 +28,7 @@ const ShoppingCartModal: React.FC<IProps> = ({ shoppingCart, onHide, show }) => 
                                     </PriceContainer>
                                     qty:
                                 </PriceAndQty>
-                                <QuantitySettings itemName={product} quantity={qty} stock={stock} />
+                                <QuantitySettings itemName={product} quantity={qty!} stock={stock!} />
                             </InputsContainer>
                         </ProductContainer>
                     )
