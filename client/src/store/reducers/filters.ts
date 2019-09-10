@@ -1,12 +1,10 @@
 import { IFiltersRtn } from "../../types/actionTypes";
 
 interface initialState {
-    allCategories: string[];
-    selectedCategories: string[];
-    priceRange: number[] | undefined[];
+    [key: string]: string[] | number[] | undefined[];
 }
 
-const initialState: any = {
+const initialState: initialState = {
     allCategories: [],
     selectedCategories: [],
     priceRange: [undefined, undefined]

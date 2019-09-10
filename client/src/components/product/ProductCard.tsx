@@ -4,8 +4,14 @@ import styled from "styled-components";
 import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
+import { IProduct, IFilters } from "../../types/types";
 
-const ProductCard: React.FC<any> = props => {
+interface IProps {
+    categories: string;
+    miscProps: IFilters;
+}
+
+const ProductCard: React.FC<IProduct & IProps> = props => {
     const [isProductModalOpen, setIsProductModalOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(false);
     const { imageURL, itemName, descShort, price, categories, miscProps, stock } = props;

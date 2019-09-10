@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { Form, Button } from "react-bootstrap";
 import styled from "styled-components";
 import * as validate from "../../../helpers/formValidation";
@@ -35,10 +35,11 @@ const RegistrationPage: React.FC<IProps> = ({ showWarning, setUserData }) => {
         }
     };
 
-    type keyboardEvent = React.ChangeEvent<any>;
+    type keyboardEvent = React.ChangeEvent<EventTarget>;
     const handleChange = (e: keyboardEvent) => {
+        const target = e.currentTarget as HTMLInputElement;
         const { validateUsername, validateEmail, validatePassword } = validate;
-        const { name, value } = e.currentTarget;
+        const { name, value } = target;
         let isValid = null;
         if (value) {
             switch (name) {

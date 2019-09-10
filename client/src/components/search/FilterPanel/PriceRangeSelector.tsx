@@ -13,11 +13,12 @@ interface IProps {
 const PriceRangeSelector: React.FC<IProps> = ({ changePriceRangeInFilter, priceRange }) => {
     const [inputValue, setInputValue] = useState([0, 0]);
 
-    type keyboardEvent = React.ChangeEvent<any>;
+    type keyboardEvent = React.ChangeEvent<EventTarget>;
     const handleChange = (e: keyboardEvent) => {
         const inputValueClone = [...inputValue];
-        const { dataset, value } = e.currentTarget;
-        inputValueClone.splice(dataset.input, 1, Number(value));
+        const target = e.currentTarget as HTMLInputElement;
+        const { dataset, value } = target;
+        inputValueClone.splice(Number(dataset.input), 1, Number(value));
         setInputValue(inputValueClone);
     };
 

@@ -1,14 +1,11 @@
 import Components from "./Components";
 import React from "react";
-import { IProduct } from "../types/types";
+import { IProduct, IFilters } from "../types/types";
 
 interface IProps {
     type: string;
     products: IProduct[];
-    miscProps?: {
-        selectedCategories: string[];
-        priceRange: number[] | undefined[];
-    };
+    miscProps?: IFilters;
 }
 
 const mapProductData = ({ type, products, miscProps }: IProps) => {

@@ -9,10 +9,10 @@ import { IProduct, IFilters } from "../../types/types";
 
 interface IProps {
     query: string;
-    populateSearchProducts(items: IProduct[]): void;
     products: IProduct[];
-    addCategoriesToFilter(arr: string[]): void;
     priceRange: number[] | undefined[];
+    addCategoriesToFilter(arr: string[]): void;
+    populateSearchProducts(items: IProduct[]): void;
 }
 
 const SearchPage: React.FC<IProps> = ({
@@ -37,7 +37,7 @@ const SearchPage: React.FC<IProps> = ({
             const min = priceRange[0];
             const max = priceRange[1];
             return products
-                .map((result: any) => {
+                .map((result: IProduct) => {
                     // min or max could be `undefined`
                     if ((min && result.price < min) || (max && result.price > max)) {
                         return null;

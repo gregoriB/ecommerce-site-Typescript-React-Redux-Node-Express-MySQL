@@ -46,7 +46,6 @@ const LoginForm: React.FC<IProps> = ({ username, updateUserData }) => {
         const dbQuery: IQueryDBArgs = { path: "login", query: loginValues, method: "POST" };
         const data = await queryDatabase(dbQuery);
         if (data[0] && data[0].username === loginValues.username) {
-            console.log(data[0]);
             updateUserData(data[0]);
         } else {
             setIsError(true);

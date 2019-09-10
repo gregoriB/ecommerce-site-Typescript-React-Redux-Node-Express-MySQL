@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, RefObject } from "react";
 import { connect } from "react-redux";
 import { updateUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
@@ -47,8 +47,8 @@ const UserSettingsModal: React.FC<IProps> = ({ username, userEmail, updateUserDa
     const updateUserEmailInDB = async () => {
         const query = { oldEmail: userEmail, newEmail: email };
         const dbQuery: IQueryDBArgs = { path: `user/${userEmail}`, query, method: "PUT" };
-        const data = await queryDatabase(dbQuery);
-        if (data && data.affectedRows) {
+        const data: IUserData = await queryDatabase(dbQuery);
+        if (data!.affectedRows) {
             updateUserEmailInStore();
             onHide();
             setIsDeleteOpen(false);
@@ -59,11 +59,12 @@ const UserSettingsModal: React.FC<IProps> = ({ username, userEmail, updateUserDa
         const payload = { username, email };
         updateUserData(payload);
     };
-    const closeBtnRef = useRef<any>(null);
+
+    const closeBtnRef = useRef<any>();
     useEffect(() => {
         // focus save button if changes were made
         if (!isEditingEmail && email !== userEmail) {
-            closeBtnRef && closeBtnRef.current && closeBtnRef.current.focus();
+            closeBtnRef!.current!.focus();
         }
     }, [isEditingEmail, email, userEmail, closeBtnRef]);
 
@@ -100,6 +101,7 @@ const UserSettingsModal: React.FC<IProps> = ({ username, userEmail, updateUserDa
                     onClick={determineSaveEmailOrCloseModal}
                     disabled={isEditingEmail}
                     ref={closeBtnRef}
+                    tabIndex={1}
                 >
                     {checkHasEmailChanged() ? "Save & Close" : "Close Settings"}
                 </Button>

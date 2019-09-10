@@ -12,7 +12,7 @@ import { IFilters } from "../../../types/types";
 import { IFiltersRtn } from "../../../types/actionTypes";
 
 interface IProps {
-    allCategories: string[];
+    allCategories?: string[];
     selectedCategories: string[];
     changeCategoriesInFilter(arr: string[]): IFiltersRtn;
     changePriceRangeInFilter(arr: number[] | undefined[]): IFiltersRtn;
@@ -33,7 +33,7 @@ const FilterPanel: React.FC<IProps> = ({
 
     useEffect(() => {
         setMappedCategories(
-            allCategories.map((category: string) => {
+            allCategories!.map((category: string) => {
                 return <CategoryItem key={category} categoryName={category} />;
             })
         );

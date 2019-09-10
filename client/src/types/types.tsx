@@ -1,5 +1,5 @@
 export interface IProduct {
-    imageURL?: string;
+    imageURL: string;
     itemName: string;
     price: number;
     descShort: string;
@@ -16,14 +16,19 @@ export interface IQueryDBArgs {
     method?: string;
 }
 
+export interface IMiscProps {
+    miscProps: IFilters;
+}
+
 export interface IUserData {
     username: string;
     email: string;
+    affectedRows?: number;
 }
 
 export interface IFilters {
     selectedCategories: string[];
-    allCategories: string[];
+    allCategories?: string[];
     priceRange: number[] | undefined[];
 }
 

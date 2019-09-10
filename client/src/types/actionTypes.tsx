@@ -35,5 +35,5 @@ export interface IUpdateUserDataRtn {
 
 export interface IFiltersRtn {
     type: string;
-    payload: number[] | string[];
+    payload: number[] | string[] | undefined[];
 }

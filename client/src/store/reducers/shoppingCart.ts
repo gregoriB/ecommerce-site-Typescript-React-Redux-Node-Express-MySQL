@@ -11,7 +11,7 @@ const shoppingCart = (state = initialState, action: IShoppingCartRtn) => {
                 ...state,
                 [action.payload.itemName]: {
                     ...action.payload.attributes,
-                    qty: (product && product.qty && product.qty + 1) || 1
+                    qty: (product && product.qty! + 1) || 1
                 }
             });
         case "REMOVE_FROM_CART":

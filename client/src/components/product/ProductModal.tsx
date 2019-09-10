@@ -4,8 +4,22 @@ import styled from "styled-components";
 import ImageModal from "./ImageModal";
 import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
+import { IProduct } from "../../types/types";
 
-const ProductModal: React.FC<any> = ({ imageURL, itemName, price, onHide, descLong, show, stock }) => {
+interface IProps {
+    onHide(): void;
+    show: boolean;
+}
+
+const ProductModal: React.FC<IProduct & IProps> = ({
+    imageURL,
+    itemName,
+    price,
+    onHide,
+    descLong,
+    show,
+    stock
+}) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (

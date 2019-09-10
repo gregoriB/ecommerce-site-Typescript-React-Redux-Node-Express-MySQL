@@ -4,7 +4,13 @@ import styled from "styled-components";
 import Magnifier from "react-magnifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ImageModal: React.FC<any> = ({ show, onHide, image }) => {
+interface IProps {
+    show: boolean;
+    onHide(): void;
+    image: string;
+}
+
+const ImageModal: React.FC<IProps> = ({ show, onHide, image }) => {
     const magnifierOptions = {
         alt: "",
         title: "",
