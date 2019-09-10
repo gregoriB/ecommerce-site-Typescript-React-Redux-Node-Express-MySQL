@@ -5,9 +5,22 @@ import { FormControl } from "react-bootstrap";
 import styled from "styled-components";
 import BtnRemoveFromCart from "./BtnRemoveFromCart";
 
-const QuantityInput: React.FC<any> = ({
+interface INewQty {
+    itemName: string;
+    qty: number;
+}
+
+interface IProps {
+    itemName: string;
+    quantity: number | undefined;
+    stock: number | undefined;
+    removeFromCart(val: { itemName: string }): void;
+    updateQuantityInCart(val: INewQty): void;
+}
+
+const QuantityInput: React.FC<IProps> = ({
     quantity,
-    product,
+    itemName,
     stock,
     removeFromCart,
     updateQuantityInCart
@@ -16,18 +29,19 @@ const QuantityInput: React.FC<any> = ({
     type keyboardEvent = React.ChangeEvent<EventTarget>;
     const handleChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;
-        if (target.value > stock) return;
-        setInputValue(target.value);
+        const value = Number(target.value);
+        if (stock && value > stock) return;
+        setInputValue(value);
     };
 
     const handleBlur = () => {
-        if (inputValue > 0) return;
+        if (inputValue && inputValue > 0) return;
 
-        removeFromCart(product);
+        removeFromCart({ itemName });
     };
     useEffect(() => {
-        updateQuantityInCart({ itemName: product, qty: Number(inputValue) });
-    }, [inputValue, updateQuantityInCart, product]);
+        updateQuantityInCart({ itemName, qty: Number(inputValue) });
+    }, [inputValue, updateQuantityInCart, itemName]);
     return (
         <>
             <StyleFormControl
@@ -39,7 +53,7 @@ const QuantityInput: React.FC<any> = ({
                 max={stock}
             />
             <ButtonContainer>
-                <BtnRemoveFromCart itemName={product} />
+                <BtnRemoveFromCart itemName={itemName} />
             </ButtonContainer>
         </>
     );

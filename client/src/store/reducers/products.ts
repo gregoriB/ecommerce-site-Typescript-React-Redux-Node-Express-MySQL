@@ -1,9 +1,17 @@
-const initialState: any = {
+import { IProduct } from "../../types/types";
+import { IPopulateProductsRtn } from "../../types/actionTypes";
+
+interface initialState {
+    featured: IProduct[];
+    searchResults: IProduct[];
+}
+
+const initialState: initialState = {
     featured: [],
-    SearchResults: []
+    searchResults: []
 };
 
-export default function products(state = initialState, action: any) {
+export default function products(state = initialState, action: IPopulateProductsRtn) {
     switch (action.type) {
         case "FEATURED_RESULTS":
             return (state = {

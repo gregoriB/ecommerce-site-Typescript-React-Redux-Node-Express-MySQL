@@ -9,7 +9,20 @@ const initialFieldsState = {
     password: { text: "", isValid: null, borderColor: "#dfdfdf" }
 };
 
-const RegistrationPage: React.FC<any> = ({ showWarning, setUserData }) => {
+interface ILocalUserData {
+    [key: string]: {
+        text: string;
+        isValid: boolean | null;
+        borderColor: string;
+    };
+}
+
+interface IProps {
+    showWarning(): void;
+    setUserData(val: ILocalUserData): void;
+}
+
+const RegistrationPage: React.FC<IProps> = ({ showWarning, setUserData }) => {
     const [fields, setFields] = useState(initialFieldsState);
     const { username, email, password } = fields;
     type FormElem = React.ChangeEvent<HTMLFormElement>;
@@ -25,10 +38,10 @@ const RegistrationPage: React.FC<any> = ({ showWarning, setUserData }) => {
     type keyboardEvent = React.ChangeEvent<any>;
     const handleChange = (e: keyboardEvent) => {
         const { validateUsername, validateEmail, validatePassword } = validate;
-        const { dataset, value } = e.currentTarget;
+        const { name, value } = e.currentTarget;
         let isValid = null;
         if (value) {
-            switch (dataset.name) {
+            switch (name) {
                 case "username":
                     isValid = validateUsername(value);
                     break;
@@ -44,7 +57,7 @@ const RegistrationPage: React.FC<any> = ({ showWarning, setUserData }) => {
         }
         setFields({
             ...fields,
-            [dataset.name]: {
+            [name]: {
                 text: value,
                 isValid,
                 borderColor: isValid ? "green" : isValid === null ? "#dfdfdf" : "red"
@@ -58,7 +71,6 @@ const RegistrationPage: React.FC<any> = ({ showWarning, setUserData }) => {
                     <Form.Control
                         type="text"
                         placeholder="username"
-                        data-name="username"
                         name="username"
                         value={username.text}
                         onChange={handleChange}
@@ -75,7 +87,6 @@ const RegistrationPage: React.FC<any> = ({ showWarning, setUserData }) => {
                     <Form.Control
                         type="email"
                         placeholder="email"
-                        data-name="email"
                         name="email"
                         value={fields.email.text}
                         onChange={handleChange}
@@ -90,9 +101,8 @@ const RegistrationPage: React.FC<any> = ({ showWarning, setUserData }) => {
                 <Form.Group controlId="formBasicPassword">
                     <Form.Control
                         type="password"
-                        name="new-password"
+                        name="password"
                         placeholder="password"
-                        data-name="password"
                         value={fields.password.text}
                         onChange={handleChange}
                         autoComplete="new-password"

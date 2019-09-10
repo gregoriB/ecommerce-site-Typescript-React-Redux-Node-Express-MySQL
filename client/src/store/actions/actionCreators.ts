@@ -1,47 +1,47 @@
-import { IProducts } from "../../types/types";
+import { IProduct, IUserData } from "../../types/types";
 import * as AT from "../../types/actionTypes";
 
 //shopping cart
-export const addOneToCart = (payload: AT.IAddProductPayload): AT.IAddProductRtrn => ({
+export const addOneToCart = (payload: AT.IShoppingCartPayload): AT.IShoppingCartRtn => ({
     type: "ADD_ONE_TO_CART",
     payload
 });
-export const removeFromCart = (payload: string): AT.IRemoveFromCartRtrn => ({
+export const removeFromCart = (payload: AT.IShoppingCartPayload): AT.IShoppingCartRtn => ({
     type: "REMOVE_FROM_CART",
     payload
 });
-export const updateQuantityInCart = (payload: AT.IUpdateCartQtyPayload): AT.IUpdateCartQtyRtrn => ({
+export const updateQuantityInCart = (payload: AT.IShoppingCartPayload): AT.IShoppingCartRtn => ({
     type: "UPDATE_QUANTITY",
     payload
 });
 
 //toasts
-export const addToast = (payload: React.ReactChild): AT.IAddToastRtrn => ({
+export const addToast = (payload: React.ReactChild): AT.IChangeToastRtn => ({
     type: "ADD_TOAST",
     payload
 });
-export const removeToast = (): AT.IRemoveToastRtrn => ({ type: "REMOVE_TOAST" });
+export const removeToast = (): AT.IChangeToastRtn => ({ type: "REMOVE_TOAST" });
 
 //filters
-export const addCategoriesToFilter = (payload: string[]): AT.IChangeCategoriesInFilterRtn => ({
+export const addCategoriesToFilter = (payload: string[]): AT.IFiltersRtn => ({
     type: "NEW_CATEGORIES",
     payload
 });
-export const changeCategoriesInFilter = (payload: string[]): AT.IChangeCategoriesInFilterRtn => ({
+export const changeCategoriesInFilter = (payload: string[]): AT.IFiltersRtn => ({
     type: "SELECTED_CATEGORIES",
     payload
 });
-export const changePriceRangeInFilter = (payload: number[]): AT.IChangePriceRangeInFiltersRtn => ({
+export const changePriceRangeInFilter = (payload: number[]): AT.IFiltersRtn => ({
     type: "PRICE_RANGE",
     payload
 });
 
 //products
-export const populateFeaturedProducts = (payload: IProducts): AT.IPopulateProductsRtn => ({
+export const populateFeaturedProducts = (payload: IProduct[]): AT.IPopulateProductsRtn => ({
     type: "FEATURED_RESULTS",
     payload
 });
-export const populateSearchProducts = (payload: IProducts): AT.IPopulateProductsRtn => ({
+export const populateSearchProducts = (payload: IProduct[]): AT.IPopulateProductsRtn => ({
     type: "SEARCH_RESULTS",
     payload
 });
@@ -53,8 +53,8 @@ export const updateSearch = (payload: string): AT.IUpdateSearchRtn => ({
 });
 
 //users
-export const updateUserData = (payload: AT.IUpdateUserDataPayload): AT.IUpdateUserDataRtn => ({
+export const updateUserData = (payload: IUserData): AT.IUpdateUserDataRtn => ({
     type: "UPDATE_USER_DATA",
     payload
 });
-export const deleteUserData = (): AT.IDeleteUserRtn => ({ type: "DELETE_USER_DATA" });
+export const deleteUserData = (): AT.IUpdateUserDataRtn => ({ type: "DELETE_USER_DATA" });

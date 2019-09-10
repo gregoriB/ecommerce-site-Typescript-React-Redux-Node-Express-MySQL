@@ -4,16 +4,25 @@ import styled from "styled-components";
 import queryDatabase from "../../helpers/queryDatabase";
 import FeaturedCarousel from "./Carousel";
 import HomeJumbotron from "./HomeJumbotron";
-import { populateFeaturedProducts } from "../../store/actions/actionCreators";
+import { populateFeaturedProducts, updateSearch } from "../../store/actions/actionCreators";
+import { IQueryDBArgs, IProduct } from "../../types/types";
 
-const HomePage: React.FC<any> = ({ populateFeaturedProducts }) => {
+interface IProps {
+    populateFeaturedProducts(val: IProduct[]): void;
+    updateSearch(val: string): void;
+}
+
+const HomePage: React.FC<IProps> = ({ populateFeaturedProducts, updateSearch }) => {
     useEffect(() => {
         (async () => {
-            const dbQuery = { path: "home" };
+            const dbQuery: IQueryDBArgs = { path: "home" };
             const data = await queryDatabase(dbQuery);
             populateFeaturedProducts(data);
         })();
     }, [populateFeaturedProducts]);
+    useEffect(() => {
+        updateSearch("");
+    });
     return (
         <HomeContainer>
             <HomeJumbotron />
@@ -23,7 +32,8 @@ const HomePage: React.FC<any> = ({ populateFeaturedProducts }) => {
 };
 
 const actionCreators = {
-    populateFeaturedProducts
+    populateFeaturedProducts,
+    updateSearch
 };
 
 export default connect(

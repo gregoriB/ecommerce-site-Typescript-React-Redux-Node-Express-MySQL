@@ -8,13 +8,19 @@ import LoginAlert from "./LoginAlert";
 import queryDatabase from "../../../helpers/queryDatabase";
 import RegistrationModal from "../registration/RegistrationModal";
 import { updateUserData } from "../../../store/actions/actionCreators";
+import { IQueryDBArgs, IUserData } from "../../../types/types";
 
 const loginIntialValues = {
     username: "",
     password: ""
 };
 
-const LoginForm: React.FC<any> = ({ userName, updateUserData }) => {
+interface IProps {
+    username: string;
+    updateUserData(val: IUserData): void;
+}
+
+const LoginForm: React.FC<IProps> = ({ username, updateUserData }) => {
     const [loginValues, setLoginValues] = useState(loginIntialValues);
     const [isRegModalOpen, setIsRegModalOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,9 +43,10 @@ const LoginForm: React.FC<any> = ({ userName, updateUserData }) => {
         if (!loginValues.username) {
             return;
         }
-        const dbQuery = { path: "login", query: loginValues, method: "POST" };
+        const dbQuery: IQueryDBArgs = { path: "login", query: loginValues, method: "POST" };
         const data = await queryDatabase(dbQuery);
-        if (data[0] && data[0].userName === loginValues.username) {
+        if (data[0] && data[0].username === loginValues.username) {
+            console.log(data[0]);
             updateUserData(data[0]);
         } else {
             setIsError(true);
@@ -48,8 +55,8 @@ const LoginForm: React.FC<any> = ({ userName, updateUserData }) => {
     };
 
     useEffect(() => {
-        setIsLoggedIn(userName ? true : false);
-    }, [userName]);
+        setIsLoggedIn(username ? true : false);
+    }, [username]);
 
     return (
         <LoginContainer>
@@ -93,11 +100,11 @@ const LoginForm: React.FC<any> = ({ userName, updateUserData }) => {
 };
 
 interface IState {
-    userData: any;
+    userData: IUserData;
 }
 
 const mapStateToProps = (state: IState) => ({
-    userName: state.userData.name
+    username: state.userData.username
 });
 
 const actionCreators = {

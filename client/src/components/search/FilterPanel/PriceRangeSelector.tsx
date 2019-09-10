@@ -3,8 +3,14 @@ import { connect } from "react-redux";
 import { changePriceRangeInFilter } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IFilters } from "../../../types/types";
 
-const PriceRangeSelector: React.FC<any> = ({ changePriceRangeInFilter, priceRange }) => {
+interface IProps {
+    changePriceRangeInFilter(arr: number[] | undefined[]): void;
+    priceRange: number[] | undefined[];
+}
+
+const PriceRangeSelector: React.FC<IProps> = ({ changePriceRangeInFilter, priceRange }) => {
     const [inputValue, setInputValue] = useState([0, 0]);
 
     type keyboardEvent = React.ChangeEvent<any>;
@@ -53,7 +59,7 @@ const PriceRangeSelector: React.FC<any> = ({ changePriceRangeInFilter, priceRang
 };
 
 interface IState {
-    filters: { [key: string]: string[] };
+    filters: IFilters;
 }
 
 const mapStateToProps = (state: IState) => ({

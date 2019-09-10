@@ -5,8 +5,17 @@ import styled from "styled-components";
 import FilterPanel from "./FilterPanel/FilterPanel";
 import SearchResults from "./SearchResults";
 import queryDatabase from "../../helpers/queryDatabase";
+import { IProduct, IFilters } from "../../types/types";
 
-const SearchPage: React.FC<any> = ({
+interface IProps {
+    query: string;
+    populateSearchProducts(items: IProduct[]): void;
+    products: IProduct[];
+    addCategoriesToFilter(arr: string[]): void;
+    priceRange: number[] | undefined[];
+}
+
+const SearchPage: React.FC<IProps> = ({
     query,
     populateSearchProducts,
     products,
@@ -17,7 +26,7 @@ const SearchPage: React.FC<any> = ({
         (async () => {
             // if no search query, instead use default route query.  See server.ts to change the default query.
             const path = query ? `products/${query}` : "products";
-            const data: any = await queryDatabase({ path });
+            const data = await queryDatabase({ path });
             populateSearchProducts(data);
         })();
     }, [query, populateSearchProducts]);
@@ -67,8 +76,8 @@ const SearchPage: React.FC<any> = ({
 
 interface IState {
     searchRequest: { query: string };
-    products: { [key: string]: any };
-    filters: { [key: string]: string[] };
+    products: { searchResults: IProduct[] };
+    filters: IFilters;
 }
 
 const mapStateToProps = (state: IState) => ({

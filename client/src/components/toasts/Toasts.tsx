@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-const Toasts: React.FC<any> = ({ toasts }) => {
-    const [mappedToasts, setMappedToasts] = useState<any>([]);
-    useEffect(() => {
-        toasts.length && setMappedToasts(toasts.map((product: any) => product));
-    }, [toasts]);
-    return <ToastContainer>{mappedToasts}</ToastContainer>;
+interface IProps {
+    toasts: React.ReactChild[];
+}
+
+const Toasts: React.FC<IProps> = ({ toasts }) => {
+    return <ToastContainer>{toasts}</ToastContainer>;
 };
 
 interface IState {
-    toasts: any;
+    toasts: React.ReactChild[];
 }
 
 const mapStateToProps = (state: IState) => ({
-    toasts: state.toasts.toastArr
+    toasts: state.toasts
 });
 
 export default connect(mapStateToProps)(Toasts);

@@ -1,71 +1,39 @@
-import { IProducts } from "./types";
+import { IProduct, IUserData } from "./types";
 
-export interface IAddProductPayload {
+export interface IShoppingCartPayload {
     itemName: string;
-    attribute: {
+    attributes?: {
         [key: string]: number;
     };
+    qty?: number;
+    price?: number;
 }
 
-export interface IAddProductRtrn {
+export interface IShoppingCartRtn {
     type: string;
-    payload: IAddProductPayload;
+    payload: IShoppingCartPayload;
 }
 
-export interface IRemoveFromCartRtrn {
+export interface IChangeToastRtn {
     type: string;
-    payload: string;
-}
-
-export interface IUpdateCartQtyPayload {
-    itemName: string;
-    qty: number;
-}
-
-export interface IUpdateCartQtyRtrn {
-    type: string;
-    payload: IUpdateCartQtyPayload;
-}
-
-export interface IAddToastRtrn {
-    type: string;
-    payload: React.ReactChild;
-}
-
-export interface IRemoveToastRtrn {
-    type: string;
-}
-
-export interface IChangeCategoriesInFilterRtn {
-    type: string;
-    payload: string[];
-}
-
-export interface IChangePriceRangeInFiltersRtn {
-    type: string;
-    payload: number[];
+    payload?: React.ReactChild;
 }
 
 export interface IPopulateProductsRtn {
     type: string;
-    payload: IProducts;
+    payload: IProduct[];
 }
 
 export interface IUpdateSearchRtn {
     type: string;
     payload: string;
 }
-
-export interface IUpdateUserDataPayload {
-    userName: string;
-    userEmail: string;
-}
-
 export interface IUpdateUserDataRtn {
     type: string;
-    payload: IUpdateUserDataPayload;
+    payload?: IUserData;
 }
 
-export interface IDeleteUserRtn {
+export interface IFiltersRtn {
     type: string;
+    payload: number[] | string[];
 }

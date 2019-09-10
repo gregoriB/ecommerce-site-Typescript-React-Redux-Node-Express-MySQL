@@ -32,12 +32,7 @@ const ProductModal: React.FC<any> = ({ imageURL, itemName, price, onHide, descLo
                         />
                         <Price>${price}</Price>
                         <ButtonContainer>
-                            <BtnAddToCart
-                                stock={stock}
-                                price={price}
-                                itemName={itemName}
-                                text="add to shoppingCart"
-                            />
+                            <BtnAddToCart stock={stock} price={price} itemName={itemName} />
                         </ButtonContainer>
                     </ImageAndCartButton>
                 </Content>

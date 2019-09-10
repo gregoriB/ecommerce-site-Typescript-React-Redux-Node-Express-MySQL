@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import { removeToast } from "../../store/actions/actionCreators";
 import Toast from "react-bootstrap/Toast";
 
-const BSToast: React.FC<any> = ({ itemName, removeToast }) => {
+interface IProps {
+    itemName: string;
+    removeToast(): void;
+}
+
+const BSToast: React.FC<IProps> = ({ itemName, removeToast }) => {
     const [showToast, setShowToast] = useState(true);
     const [display, setDisplay] = useState("block");
     const timer = 3000;

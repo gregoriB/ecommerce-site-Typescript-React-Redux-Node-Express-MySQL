@@ -2,8 +2,15 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import mapProductData from "../../helpers/mapProductData";
+import { IProduct, IFilters } from "../../types/types";
 
-const SearchResults: React.FC<any> = ({ products, selectedCategories, priceRange }) => {
+interface IProps {
+    products: IProduct[];
+    selectedCategories: string[];
+    priceRange: number[] | undefined[];
+}
+
+const SearchResults: React.FC<IProps> = ({ products, selectedCategories, priceRange }) => {
     const [mappedChildren, setMappedChildren] = useState();
     useEffect(() => {
         const miscProps = {
@@ -18,8 +25,8 @@ const SearchResults: React.FC<any> = ({ products, selectedCategories, priceRange
 };
 
 interface IState {
-    products: { [key: string]: any };
-    filters: { [key: string]: string[] };
+    products: { searchResults: IProduct[] };
+    filters: IFilters;
 }
 
 const mapStateToProps = (state: IState) => ({

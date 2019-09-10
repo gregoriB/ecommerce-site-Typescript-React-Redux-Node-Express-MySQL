@@ -46,7 +46,7 @@ app.post("/login", (req: Request, res: Response) => {
     if (!username || !password) return;
     if (req.body) {
         queryDatabase(
-            `SELECT user_name AS 'userName', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password='${password}'`,
+            `SELECT user_name AS 'username', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password='${password}'`,
             (results: mysql.Query) => {
                 res.json(results);
             }

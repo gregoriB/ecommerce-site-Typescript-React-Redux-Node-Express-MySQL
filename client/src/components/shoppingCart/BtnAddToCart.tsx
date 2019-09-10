@@ -6,8 +6,19 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Toast from "../toasts/Toast";
 import uuid from "uuid";
+import { IShoppingCart } from "../../types/types";
+import { IShoppingCartPayload } from "../../types/actionTypes";
 
-const BtnAddToCart: React.FC<any> = ({
+interface IProps {
+    shoppingCart: { [key: string]: IShoppingCart };
+    itemName: string;
+    stock: number;
+    price: number;
+    addToast(child: React.ReactChild): void;
+    addOneToCart(val: IShoppingCartPayload): void;
+}
+
+const BtnAddToCart: React.FC<IProps> = ({
     shoppingCart,
     addOneToCart,
     itemName,
@@ -53,11 +64,13 @@ const BtnAddToCart: React.FC<any> = ({
 };
 
 interface IState {
-    shoppingCart: any;
+    shoppingCart: {
+        [key: string]: IShoppingCart;
+    };
 }
 
 const mapStateToProps = (state: IState) => ({
-    shoppingCart: state.shoppingCart.cart
+    shoppingCart: state.shoppingCart
 });
 
 const actionCreators = {

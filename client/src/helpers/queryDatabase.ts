@@ -1,4 +1,6 @@
-const queryDatabase = async ({ path, query, method }: any) => {
+import { IQueryDBArgs } from "../types/types";
+
+const queryDatabase = async ({ path, query, method }: IQueryDBArgs): Promise<any> => {
     let options;
     if (method) {
         options = {

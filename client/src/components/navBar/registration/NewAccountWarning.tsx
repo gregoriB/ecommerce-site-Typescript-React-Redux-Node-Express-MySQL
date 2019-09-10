@@ -4,8 +4,24 @@ import { updateUserData } from "../../../store/actions/actionCreators";
 import { Alert, Button } from "react-bootstrap";
 import styled from "styled-components";
 import queryDatabase from "../../../helpers/queryDatabase";
+import { IUserData } from "../../../types/types";
 
-const NewAccountWarning: React.FC<any> = ({ hideWarning, onHide, userData, updateUserData }) => {
+interface ILocalUserData {
+    [key: string]: {
+        text: string;
+        isValid: boolean | null;
+        borderColor: string;
+    };
+}
+
+interface IProps {
+    hideWarning(): void;
+    onHide(): void;
+    userData: ILocalUserData;
+    updateUserData(val: IUserData): void;
+}
+
+const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, updateUserData }) => {
     const sendRegistrationForm = async () => {
         const { username, email, password } = userData;
         const query = { username: username.text, email: email.text, password: password.text };
@@ -13,7 +29,7 @@ const NewAccountWarning: React.FC<any> = ({ hideWarning, onHide, userData, updat
         const results = await queryDatabase(dbQuery);
         if (results.insertId && results.affectedRows) {
             updateUserData({
-                userName: username.text,
+                username: username.text,
                 email: email.text
             });
             onHide();

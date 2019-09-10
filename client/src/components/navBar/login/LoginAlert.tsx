@@ -1,7 +1,12 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 
-const LoginAlert: React.FC<any> = ({ show, setShow }) => {
+interface IProps {
+    show: boolean;
+    setShow(bool: boolean): void;
+}
+
+const LoginAlert: React.FC<IProps> = ({ show, setShow }) => {
     const handleClose = () => setShow(false);
 
     return (

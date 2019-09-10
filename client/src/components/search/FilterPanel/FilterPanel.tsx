@@ -8,8 +8,17 @@ import styled from "styled-components";
 import CategoryItem from "./CategoryItem";
 import { Form, Button } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
+import { IFilters } from "../../../types/types";
+import { IFiltersRtn } from "../../../types/actionTypes";
 
-const FilterPanel: React.FC<any> = ({
+interface IProps {
+    allCategories: string[];
+    selectedCategories: string[];
+    changeCategoriesInFilter(arr: string[]): IFiltersRtn;
+    changePriceRangeInFilter(arr: number[] | undefined[]): IFiltersRtn;
+}
+
+const FilterPanel: React.FC<IProps> = ({
     allCategories,
     changeCategoriesInFilter,
     changePriceRangeInFilter,
@@ -24,7 +33,7 @@ const FilterPanel: React.FC<any> = ({
 
     useEffect(() => {
         setMappedCategories(
-            allCategories.map((category: any) => {
+            allCategories.map((category: string) => {
                 return <CategoryItem key={category} categoryName={category} />;
             })
         );
@@ -50,7 +59,7 @@ const FilterPanel: React.FC<any> = ({
 };
 
 interface IState {
-    filters: { [key: string]: string[] };
+    filters: IFilters;
 }
 
 const mapStateToProps = (state: IState) => ({

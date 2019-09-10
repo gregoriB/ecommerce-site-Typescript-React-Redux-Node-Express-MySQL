@@ -7,8 +7,17 @@ import AccountDelete from "./AccountDelete";
 import EmailSettings from "./EmailSettings";
 import queryDatabase from "../../../helpers/queryDatabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IQueryDBArgs, IUserData } from "../../../types/types";
 
-const UserSettingsModal: React.FC<any> = ({ userName, userEmail, updateUserData, onHide, show }) => {
+interface IProps {
+    username: string;
+    userEmail: string;
+    updateUserData(val: IUserData): void;
+    onHide(): void;
+    show: boolean;
+}
+
+const UserSettingsModal: React.FC<IProps> = ({ username, userEmail, updateUserData, onHide, show }) => {
     const [email, setEmail] = useState(userEmail);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -37,7 +46,7 @@ const UserSettingsModal: React.FC<any> = ({ userName, userEmail, updateUserData,
 
     const updateUserEmailInDB = async () => {
         const query = { oldEmail: userEmail, newEmail: email };
-        const dbQuery = { path: `user/${userEmail}`, query, method: "PUT" };
+        const dbQuery: IQueryDBArgs = { path: `user/${userEmail}`, query, method: "PUT" };
         const data = await queryDatabase(dbQuery);
         if (data && data.affectedRows) {
             updateUserEmailInStore();
@@ -47,7 +56,7 @@ const UserSettingsModal: React.FC<any> = ({ userName, userEmail, updateUserData,
     };
 
     const updateUserEmailInStore = () => {
-        const payload = { userName, email };
+        const payload = { username, email };
         updateUserData(payload);
     };
     const closeBtnRef = useRef<any>(null);
@@ -69,7 +78,7 @@ const UserSettingsModal: React.FC<any> = ({ userName, userEmail, updateUserData,
             <Modal.Header closeButton>
                 <StyledModalTitle id="contained-modal-title-vcenter">
                     <StyledCogIcon icon="cog" />
-                    {userName}
+                    {username}
                 </StyledModalTitle>
             </Modal.Header>
             <StyledModalBody>
@@ -100,11 +109,11 @@ const UserSettingsModal: React.FC<any> = ({ userName, userEmail, updateUserData,
 };
 
 interface IState {
-    userData: any;
+    userData: IUserData;
 }
 
 const mapStateToProps = (state: IState) => ({
-    userName: state.userData.name,
+    username: state.userData.username,
     userEmail: state.userData.email
 });
 

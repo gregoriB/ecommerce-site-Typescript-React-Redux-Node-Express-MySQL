@@ -1,10 +1,18 @@
+import { IFiltersRtn } from "../../types/actionTypes";
+
+interface initialState {
+    allCategories: string[];
+    selectedCategories: string[];
+    priceRange: number[] | undefined[];
+}
+
 const initialState: any = {
     allCategories: [],
     selectedCategories: [],
     priceRange: [undefined, undefined]
 };
 
-export default function filters(state = initialState, action: any) {
+export default function filters(state = initialState, action: IFiltersRtn) {
     switch (action.type) {
         case "NEW_CATEGORIES":
             return (state = {

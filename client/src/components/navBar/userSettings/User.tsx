@@ -5,8 +5,14 @@ import styled from "styled-components";
 import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserSettingsModal from "./UserSettingsModal";
+import { IUserData } from "../../../types/types";
 
-const User: React.FC<any> = ({ userName, deleteUserData }) => {
+interface IProps {
+    username: string;
+    deleteUserData(): void;
+}
+
+const User: React.FC<IProps> = ({ username, deleteUserData }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const handleLogout = () => {
         deleteUserData();
@@ -18,7 +24,7 @@ const User: React.FC<any> = ({ userName, deleteUserData }) => {
     return (
         <>
             <UserSettingsModal show={isSettingsOpen} onHide={() => setIsSettingsOpen(false)} />
-            <UserName>{userName}</UserName>
+            <UserName>{username}</UserName>
             <StyledDropdownButton
                 alignRight
                 variant="primary"
@@ -42,11 +48,11 @@ const User: React.FC<any> = ({ userName, deleteUserData }) => {
 };
 
 interface IState {
-    userData: any;
+    userData: IUserData;
 }
 
 const mapStateToProps = (state: IState) => ({
-    userName: state.userData.name
+    username: state.userData.username
 });
 
 const actionCreators = {

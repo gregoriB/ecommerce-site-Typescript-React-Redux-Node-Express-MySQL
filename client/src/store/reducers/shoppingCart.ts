@@ -1,42 +1,34 @@
-const initialState: any = {
-    cart: {}
-};
+import { IShoppingCart } from "../../types/types";
+import { IShoppingCartRtn } from "../../types/actionTypes";
 
-const shoppingCart = (state = initialState, action: any) => {
+const initialState: IShoppingCart = {};
+
+const shoppingCart = (state = initialState, action: IShoppingCartRtn) => {
     switch (action.type) {
         case "ADD_ONE_TO_CART":
-            const product = state.cart[action.payload.itemName];
+            const product = state[action.payload.itemName];
             return (state = {
                 ...state,
-                cart: {
-                    ...state.cart,
-                    [action.payload.itemName]: {
-                        ...action.payload.attributes,
-                        qty: (product && product.qty + 1) || 1
-                    }
+                [action.payload.itemName]: {
+                    ...action.payload.attributes,
+                    qty: (product && product.qty && product.qty + 1) || 1
                 }
             });
         case "REMOVE_FROM_CART":
-            const newCart = Object.keys(state.cart)
-                .filter(key => key !== action.payload)
-                .reduce((result: any, current: string) => {
-                    result[current] = state.cart[current];
+            const newCart = Object.keys(state)
+                .filter(key => key !== action.payload.itemName)
+                .reduce((result: IShoppingCart, current: string) => {
+                    result[current] = state[current];
                     return result;
                 }, {});
-            return (state = {
-                ...state,
-                cart: newCart
-            });
+            return (state = newCart);
 
         case "UPDATE_QUANTITY":
             return (state = {
                 ...state,
-                cart: {
-                    ...state.cart,
-                    [action.payload.itemName]: {
-                        ...state.cart[action.payload.itemName],
-                        qty: action.payload.qty
-                    }
+                [action.payload.itemName]: {
+                    ...state[action.payload.itemName],
+                    qty: action.payload.qty
                 }
             });
         default:

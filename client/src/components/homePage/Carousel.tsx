@@ -3,8 +3,13 @@ import { connect } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
 import mapProductData from "../../helpers/mapProductData";
+import { IProduct } from "../../types/types";
 
-const FeaturedCarousel: React.FC<any> = ({ products }) => {
+interface IProps {
+    products: IProduct[];
+}
+
+const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
     const [items, setItems] = useState();
     useEffect(() => {
         const featured = mapProductData({ type: "FeaturedCard", products });
@@ -26,7 +31,7 @@ const FeaturedCarousel: React.FC<any> = ({ products }) => {
 };
 
 interface IState {
-    products: { [key: string]: any };
+    products: { [key: string]: IProduct[] };
 }
 
 const mapStateToProps = (state: IState) => ({

@@ -9,8 +9,16 @@ import {
     changeCategoriesInFilter,
     changePriceRangeInFilter
 } from "../../store/actions/actionCreators";
+import { IFiltersRtn } from "../../types/actionTypes";
 
-const SearchForm: React.FC<any & RouteComponentProps> = ({
+interface IProps {
+    query: string;
+    updateSearch(val: string): void;
+    changeCategoriesInFilter(arr: string[]): IFiltersRtn;
+    changePriceRangeInFilter(arr: number[]): IFiltersRtn;
+}
+
+const SearchForm: React.FC<IProps & RouteComponentProps> = ({
     history,
     query,
     updateSearch,
@@ -20,12 +28,13 @@ const SearchForm: React.FC<any & RouteComponentProps> = ({
     const updateReducers = (value: string) => {
         updateSearch(value);
         changeCategoriesInFilter([]);
-        changePriceRangeInFilter([undefined, undefined]);
+        changePriceRangeInFilter([]);
     };
 
-    type keyboardEvent = React.ChangeEvent<any>;
+    type keyboardEvent = React.ChangeEvent<EventTarget>;
     const handleSearchChange = (e: keyboardEvent) => {
-        updateReducers(e.currentTarget.value);
+        const target = e.currentTarget as HTMLInputElement;
+        updateReducers(target.value);
     };
 
     type FormElem = React.ChangeEvent<HTMLFormElement>;

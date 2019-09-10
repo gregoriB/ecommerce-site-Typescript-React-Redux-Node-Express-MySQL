@@ -1,9 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
+import { updateSearch } from "../../store/actions/actionCreators";
 import { Link } from "react-router-dom";
 import { Jumbotron, Button } from "react-bootstrap";
 import styled from "styled-components";
 
-const HomeJumbotron = () => {
+interface IProps {
+    updateSearch(val: string): void;
+}
+
+const HomeJumbotron: React.FC<IProps> = ({ updateSearch }) => {
     return (
         <StyledJumbotron>
             <BannerContainer>
@@ -15,14 +21,23 @@ const HomeJumbotron = () => {
             </BannerContainer>
             <LinkContainer>
                 <Link to="search">
-                    <Button variant="outline-secondary">Start Shopping!</Button>
+                    <Button variant="outline-secondary" onClick={() => updateSearch("")}>
+                        Start Shopping!
+                    </Button>
                 </Link>
             </LinkContainer>
         </StyledJumbotron>
     );
 };
 
-export default HomeJumbotron;
+const actionCreators = {
+    updateSearch
+};
+
+export default connect(
+    null,
+    actionCreators
+)(HomeJumbotron);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 

@@ -5,7 +5,12 @@ import styled from "styled-components";
 import NewAccountWarning from "./NewAccountWarning";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const RegistrationModal: React.FC<any> = ({ onHide, show }) => {
+interface IProps {
+    onHide(): void;
+    show: boolean;
+}
+
+const RegistrationModal: React.FC<IProps> = ({ onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [userData, setUserData] = useState();
     const handleHide = () => {

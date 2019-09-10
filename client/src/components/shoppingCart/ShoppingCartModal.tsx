@@ -6,15 +6,21 @@ import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import QuantitySettings from "./QuantitySettings";
 import TotalPrice from "./TotalPrice";
+import { IShoppingCart, IShoppingCartItems } from "../../types/types";
 
-const ShoppingCartModal: React.FC<any> = ({ shoppingCart, onHide, show }) => {
-    const [items, setItems] = useState<(React.ReactElement)[]>([]);
+interface IProps {
+    shoppingCart: IShoppingCart;
+    show: boolean;
+    onHide(): void;
+}
 
+const ShoppingCartModal: React.FC<IProps> = ({ shoppingCart, onHide, show }) => {
+    const [items, setItems] = useState<React.ReactElement[]>([]);
     useEffect(() => {
         shoppingCart &&
             setItems(
-                Object.entries(shoppingCart).map(([product, { price, qty, stock }]: any) => {
-                    return (
+                Object.entries(shoppingCart).map(
+                    ([product, { price, qty, stock }]: [string, IShoppingCartItems]) => (
                         <ProductContainer key={product}>
                             <ProductName>{product}</ProductName>
                             <InputsContainer>
@@ -24,16 +30,11 @@ const ShoppingCartModal: React.FC<any> = ({ shoppingCart, onHide, show }) => {
                                     </PriceContainer>
                                     qty:
                                 </PriceAndQty>
-                                <QuantitySettings
-                                    product={product}
-                                    quantity={qty}
-                                    price={price}
-                                    stock={stock}
-                                />
+                                <QuantitySettings itemName={product} quantity={qty} stock={stock} />
                             </InputsContainer>
                         </ProductContainer>
-                    );
-                })
+                    )
+                )
             );
     }, [shoppingCart]);
 
@@ -76,11 +77,11 @@ const ShoppingCartModal: React.FC<any> = ({ shoppingCart, onHide, show }) => {
 };
 
 interface IState {
-    shoppingCart: any;
+    shoppingCart: IShoppingCart;
 }
 
 const mapStateToProps = (state: IState) => ({
-    shoppingCart: state.shoppingCart.cart
+    shoppingCart: state.shoppingCart
 });
 
 export default connect(mapStateToProps)(ShoppingCartModal);

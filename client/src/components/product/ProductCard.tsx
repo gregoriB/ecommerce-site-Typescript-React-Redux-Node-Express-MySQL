@@ -59,13 +59,7 @@ const ProductCard: React.FC<any> = props => {
                     </StyledDescriptionText>
                     <StyledPriceText>${price}</StyledPriceText>
                     <ButtonContainer>
-                        <BtnAddToCart
-                            itemName={itemName}
-                            price={price}
-                            stock={stock}
-                            add={true}
-                            text={"add to shoppingCart"}
-                        />
+                        <BtnAddToCart itemName={itemName} price={price} stock={stock} />
                     </ButtonContainer>
                 </StyledCardBody>
             </StyledCard>

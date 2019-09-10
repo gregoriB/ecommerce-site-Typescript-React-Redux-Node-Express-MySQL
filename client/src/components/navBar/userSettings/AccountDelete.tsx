@@ -4,26 +4,35 @@ import { deleteUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Alert, FormControl, Button } from "react-bootstrap";
 import queryDatabase from "../../../helpers/queryDatabase";
+import { IUserData } from "../../../types/types";
 
-const AccountDelete: React.FC<any> = ({ userData, deleteUserData }) => {
+interface IProps {
+    userEmail: string;
+    deleteUserData(): void;
+}
+
+const AccountDelete: React.FC<IProps> = ({ userEmail, deleteUserData }) => {
     const [input, setInput] = useState("");
     const [isMatchingError, setIsMatchingError] = useState(false);
-    type keyboardEvent = React.ChangeEvent<any>;
+    type keyboardEvent = React.ChangeEvent<EventTarget>;
     const handleInputChange = (e: keyboardEvent) => {
-        setInput(e.currentTarget.value);
+        const target = e.currentTarget as HTMLInputElement;
+        setInput(target.value);
     };
 
     const sendDeleteRequest = async () => {
-        const dbQuery = { path: `user/${userData.email}`, method: "DELETE" };
+        const dbQuery = { path: `user/${userEmail}`, method: "DELETE" };
         const results = await queryDatabase(dbQuery);
         if (results.affectedRows) {
             deleteUserData();
         }
     };
 
-    const deleteAccount = (e: any) => {
+    type FormElem = React.FormEvent<HTMLFormElement>;
+
+    const deleteAccount = (e: FormElem) => {
         e.preventDefault();
-        if (input !== userData.email) {
+        if (input !== userEmail) {
             return setIsMatchingError(true);
         }
         sendDeleteRequest();
@@ -52,11 +61,12 @@ const AccountDelete: React.FC<any> = ({ userData, deleteUserData }) => {
 };
 
 interface IState {
-    userData: any;
+    userData: IUserData;
 }
 
 const mapStateToProps = (state: IState) => ({
-    userData: state.userData
+    username: state.userData.username,
+    userEmail: state.userData.email
 });
 
 const actionCreators = {

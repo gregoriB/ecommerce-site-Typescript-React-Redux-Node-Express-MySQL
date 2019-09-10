@@ -4,8 +4,20 @@ import { changeCategoriesInFilter } from "../../../store/actions/actionCreators"
 import usePrevious from "../../../hooks/usePrevious";
 import { InputGroup } from "react-bootstrap";
 import styled from "styled-components";
+import { IFilters } from "../../../types/types";
+import { IFiltersRtn } from "../../../types/actionTypes";
 
-const CategoryItem: React.FC<any> = ({ categoryName, selectedCategories, changeCategoriesInFilter }) => {
+interface IProps {
+    categoryName: string;
+    selectedCategories: string[];
+    changeCategoriesInFilter(arr: string[]): IFiltersRtn;
+}
+
+const CategoryItem: React.FC<IProps> = ({
+    categoryName,
+    selectedCategories,
+    changeCategoriesInFilter
+}) => {
     const [isChecked, setIsChecked] = useState(false);
     const handleCheckbox = () => {
         setIsChecked(prevState => !prevState);
@@ -46,7 +58,7 @@ const CategoryItem: React.FC<any> = ({ categoryName, selectedCategories, changeC
 };
 
 interface IState {
-    filters: { [key: string]: string[] };
+    filters: IFilters;
 }
 
 const mapStateToProps = (state: IState) => ({

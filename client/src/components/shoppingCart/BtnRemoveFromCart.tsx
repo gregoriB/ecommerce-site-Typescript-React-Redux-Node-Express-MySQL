@@ -5,9 +5,14 @@ import { Button } from "react-bootstrap";
 import { removeFromCart } from "../../store/actions/actionCreators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const BtnRemoveFromCart: React.FC<any> = ({ removeFromCart, itemName }) => {
+interface IProps {
+    itemName: string;
+    removeFromCart(val: { itemName: string }): void;
+}
+
+const BtnRemoveFromCart: React.FC<IProps> = ({ removeFromCart, itemName }) => {
     const handleButtonClick = () => {
-        removeFromCart(itemName);
+        removeFromCart({ itemName });
     };
 
     return (

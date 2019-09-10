@@ -1,24 +1,17 @@
+import { IChangeToastRtn } from "../../types/actionTypes";
 
+const initialState: React.ReactChild[] = [];
 
-const initialState: any = {
-    toastArr: []
-};
-
-export default function toasts(state = initialState, action: any) {
+export default function toasts(state = initialState, action: IChangeToastRtn) {
     switch (action.type) {
         case "ADD_TOAST":
-            const addToastArr = [...state.toastArr];
+            if (!action.payload) return state;
+            const addToastArr = [...state];
             addToastArr.push(action.payload);
-            return (state = {
-                ...state,
-                toastArr: addToastArr
-            });
+            return (state = addToastArr);
         case "REMOVE_TOAST":
-            const removeToastArr = state.toastArr.slice(1);
-            return (state = {
-                ...state,
-                toastArr: removeToastArr
-            });
+            const removeToastArr = state.slice(1);
+            return (state = removeToastArr);
         default:
             return state;
     }
