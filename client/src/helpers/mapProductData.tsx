@@ -1,18 +1,18 @@
-import Components from "./Components";
+import components from "./Components";
 import React from "react";
 import { IProduct, IFilters } from "../types/generalTypes";
 
 interface IProps {
-    type: string;
+    component: string;
     products: IProduct[];
     miscProps?: IFilters;
 }
 
-const mapProductData = ({ type, products, miscProps }: IProps) => {
+const mapProductData = ({ component, products, miscProps }: IProps) => {
     if (!products || products.length < 1 || !Array.isArray(products)) {
         return;
     }
-    const Component = Components[type];
+    const Component = components[component];
     return products.map((item: IProduct, index: number) => (
         <Component
             key={index}
@@ -22,8 +22,8 @@ const mapProductData = ({ type, products, miscProps }: IProps) => {
             descShort={item.descShort}
             descLong={item.descLong}
             price={item.price}
-            categories={item.category}
-            miscProps={miscProps}
+            categories={item.category!}
+            miscProps={miscProps!}
             stock={item.stock}
         />
     ));

@@ -47,7 +47,7 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
                     )
                 )
             );
-    }, [shoppingCart]);
+    }, [shoppingCart, windowWidth]);
 
     return (
         <StyledModal
@@ -55,7 +55,6 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
             onHide={onHide}
             size={windowWidth > 992 ? (Object.values(shoppingCart).length ? "xl" : "lg") : null}
             aria-labelledby="contained-modal-title-right"
-            dialogClassName="modal-100w"
             centered
         >
             <Modal.Header closeButton>
@@ -99,12 +98,17 @@ export default connect(mapStateToProps)(withRouter(ShoppingCartModal));
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 const StyledModal = styled(Modal)`
-    .modal-dialog {
+    &.modal {
         @media (max-width: ${stdBreakPoint}px) {
-            margin: 0 auto;
-            width: 98%;
-            min-width: 98%;
-            max-width: 98%;
+            padding: 0 !important;
+        }
+        .modal-dialog {
+            @media (max-width: ${stdBreakPoint}px) {
+                margin: 0 auto;
+                width: 98%;
+                min-width: 98%;
+                max-width: 98%;
+            }
         }
     }
 `;

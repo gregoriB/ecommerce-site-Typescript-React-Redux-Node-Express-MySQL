@@ -14,6 +14,7 @@ interface IProps {
     itemName: string;
     stock: number;
     price: number;
+    text: string;
     addToast(child: React.ReactChild): void;
     addOneToCart(val: IShoppingCartPayload): void;
 }
@@ -24,7 +25,8 @@ const BtnAddToCart: React.FC<IProps> = ({
     itemName,
     stock,
     price,
-    addToast
+    addToast,
+    text
 }) => {
     const checkIfOutOfStock = useCallback(() => {
         return shoppingCart[itemName] && shoppingCart[itemName].qty >= stock;
@@ -54,15 +56,15 @@ const BtnAddToCart: React.FC<IProps> = ({
         <StyledButton
             disabled={isDisabled}
             onClick={handleButtonClick}
-            variant="outline-primary"
+            variant="outline-info"
             title="Add item to your shopping shoppingCart"
         >
             {isDisabled ? (
                 "Out of Stock"
             ) : (
-                <span>
-                    Add to your cart <StyledCartIcon icon="cart-plus" />
-                </span>
+                <div>
+                    {text} <StyledCartIcon icon="cart-plus" />
+                </div>
             )}
         </StyledButton>
     );
@@ -89,8 +91,14 @@ export default connect(
 )(BtnAddToCart);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
+
 const StyledButton = styled(Button)`
     width: 100%;
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 `;
 
 const StyledCartIcon = styled(FontAwesomeIcon)`

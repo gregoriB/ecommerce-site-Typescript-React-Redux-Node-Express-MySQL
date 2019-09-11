@@ -102,7 +102,9 @@ export default connect(
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
-const PanelContainer = styled.div<any>`
+type isActive = { isActive: boolean };
+
+const PanelContainer = styled.div<isActive>`
     position: fixed;
     top: 60px;
     left: 0;
@@ -110,12 +112,12 @@ const PanelContainer = styled.div<any>`
     justify-content: space-between;
     align-items: center;
     width: 320px;
-    transition: 0.2s;
+    transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     z-index: 1;
     transform: translateX(${props => (props.isActive ? "0" : "-85%")});
 `;
 
-const Panel = styled.div<any>`
+const Panel = styled.div`
     padding: 0.7rem;
     width: 80%;
     margin: 1rem;
@@ -131,10 +133,10 @@ const StyledButton = styled(Button)`
     margin-top: 1rem;
 `;
 
-const StyledEllipsisVIcon = styled.div<any>`
+const StyledEllipsisVIcon = styled.div<isActive>`
     font-size: 4rem;
     width: 10%;
-    color: #6c757d;
+    color: #42484d;
     opacity: ${props => (props.isActive ? "1" : ".5")};
     transition: 0.2s;
     @media (min-width: ${stdBreakPoint + 1}px) {

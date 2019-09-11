@@ -58,5 +58,5 @@ const Header = styled.h4<warning>`
 
 const StyledModalHeader = styled(Modal.Header)`
     position: relative;
-    color: #6c757d;
+    color: #42484d;
 `;

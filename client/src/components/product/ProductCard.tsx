@@ -6,7 +6,7 @@ import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
 import { IProduct, IFilters } from "../../types/generalTypes";
 
-interface IProps {
+export interface IProps {
     categories: string;
     miscProps: IFilters;
 }
@@ -60,13 +60,20 @@ const ProductCard: React.FC<IProduct & IProps> = props => {
                     <StyledDescriptionText>
                         {shortenDescription()}
                         <ShowMoreLink onClick={() => setIsProductModalOpen(true)}>
-                            See More...
+                            Click to read more
                         </ShowMoreLink>
                     </StyledDescriptionText>
-                    <StyledPriceText>${price}</StyledPriceText>
-                    <ButtonContainer>
-                        <BtnAddToCart itemName={itemName} price={price} stock={stock} />
-                    </ButtonContainer>
+                    <PriceAndBtnContainer>
+                        {/* <StyledPriceText>${price}</StyledPriceText> */}
+                        <ButtonContainer>
+                            <BtnAddToCart
+                                itemName={itemName}
+                                price={price}
+                                stock={stock}
+                                text={`$${price} - add to cart`}
+                            />
+                        </ButtonContainer>
+                    </PriceAndBtnContainer>
                 </StyledCardBody>
             </StyledCard>
             <ProductModal
@@ -86,14 +93,6 @@ const ProductContainer = styled.div`
     height: 25rem;
 `;
 
-const ShowMoreLink = styled.button`
-    border: none;
-    background: none;
-    text-decoration: underline;
-    display: block;
-    margin: 0 auto;
-`;
-
 const StyledCard = styled(Card)`
     box-sizing: border-box;
     width: 20rem;
@@ -105,7 +104,7 @@ const StyledCard = styled(Card)`
     align-items: center;
     border-radius: 0;
     :hover {
-        box-shadow: 0 3px 10px #6c757d55;
+        box-shadow: 0 3px 10px #42484d55;
     }
 `;
 
@@ -119,22 +118,40 @@ const StyledCardBody = styled(Card.Body)`
 
 const StyledCardTitle = styled(Card.Title)`
     &.card-title {
+        color: #42484d;
         font-size: 1rem;
     }
 `;
 const StyledDescriptionText = styled(Card.Text)`
+    color: #42484d;
     font-size: 0.7rem;
+    font-style: italic;
     text-align: justify;
 `;
 
 const StyledPriceText = styled(Card.Text)`
+    color: #5e666d;
     font-weight: bold;
     font-size: 0.9rem;
-    margin-left: 1rem;
+    margin: 0;
+    /* margin-right: 1rem; */
 `;
 
-const ButtonContainer = styled.div`
-    width: 70%;
-    /* height: 50px; */
-    margin: 0 auto;
+const ButtonContainer = styled.div``;
+
+const PriceAndBtnContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const ShowMoreLink = styled.button`
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #007bff;
+    border: none;
+    background: none;
+    display: block;
+    text-decoration: underline;
+    margin: 5px auto;
 `;

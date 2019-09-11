@@ -18,7 +18,7 @@ const SearchResults: React.FC<IProps> = ({ products, selectedCategories, priceRa
             selectedCategories,
             priceRange
         };
-        const mapped = mapProductData({ type: "ProductCard", products, miscProps });
+        const mapped = mapProductData({ component: "ProductCard", products, miscProps });
         setMappedChildren(mapped);
     }, [products, selectedCategories, priceRange]);
 

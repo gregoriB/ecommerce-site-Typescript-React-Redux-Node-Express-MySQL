@@ -4,6 +4,7 @@ import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
 import mapProductData from "../../helpers/mapProductData";
 import { IProduct } from "../../types/generalTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     products: IProduct[];
@@ -13,19 +14,19 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
     const [items, setItems] = useState();
     useEffect(() => {
         const mapFeatured = () => {
-            const featured = mapProductData({ type: "FeaturedCard", products });
+            const featured = mapProductData({ component: "FeaturedCard", products });
             featured &&
                 setItems(
                     featured.map((product: React.ReactChild, index: number) => {
                         //if on mobile or small display, map 1 featured item per carousel item, otherwise map 2.
                         if (index % 2 !== 0 && window.innerWidth > 992) return null;
                         return (
-                            <Carousel.Item key={index}>
+                            <StyledCarouselItem key={index}>
                                 {product}
                                 {window.innerWidth > 992 &&
                                     index + 1 <= featured.length &&
                                     featured[index + 1]}
-                            </Carousel.Item>
+                            </StyledCarouselItem>
                         );
                     })
                 );
@@ -59,7 +60,6 @@ const StyledCarousel = styled(Carousel)`
     }
     .carousel-inner {
         display: flex;
-        height: 500px;
         width: 100%;
     }
     .carousel-item {
@@ -79,18 +79,15 @@ const StyledCarousel = styled(Carousel)`
         display: inline-flex;
         justify-content: center;
     }
-    .carousel-control-prev {
-        width: 12%;
-    }
-    .carousel-control-next {
-        width: 12%;
-    }
     .carousel-control-prev-icon {
         padding: 2rem;
         background-color: rgba(0, 0, 0, 0.2);
         background-size: 50%;
         background-position: 45%;
         border-radius: 50%;
+        @media (max-width: ${stdBreakPoint}px) {
+            display: none;
+        }
     }
     .carousel-control-next-icon {
         padding: 2rem;
@@ -98,10 +95,23 @@ const StyledCarousel = styled(Carousel)`
         background-size: 50%;
         background-position: 55%;
         border-radius: 50%;
+        @media (max-width: ${stdBreakPoint}px) {
+            display: none;
+        }
     }
     .carousel-indicators li {
         background: rgba(0, 0, 0, 0.4);
         height: 10px;
         border: none;
+    }
+`;
+
+const StyledCarouselItem = styled(Carousel.Item)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: unset;
+    .card {
+        height: 350px;
     }
 `;

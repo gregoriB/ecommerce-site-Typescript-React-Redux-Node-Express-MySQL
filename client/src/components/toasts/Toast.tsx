@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { removeToast } from "../../store/actions/actionCreators";
 import Toast from "react-bootstrap/Toast";
+import styled from "styled-components";
 
 interface IProps {
     itemName: string;
@@ -43,10 +44,10 @@ const BSToast: React.FC<IProps> = ({ itemName, removeToast }) => {
             onClose={handleOnClose}
             style={{ display }}
         >
-            <Toast.Header>
+            <StyledToastHeader>
                 <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
                 <strong className="mr-auto">Added to Cart</strong>
-            </Toast.Header>
+            </StyledToastHeader>
             <Toast.Body>{itemName}</Toast.Body>
         </Toast>
     );
@@ -60,3 +61,5 @@ export default connect(
     null,
     actionCreators
 )(BSToast);
+
+const StyledToastHeader = styled(Toast.Header)``;

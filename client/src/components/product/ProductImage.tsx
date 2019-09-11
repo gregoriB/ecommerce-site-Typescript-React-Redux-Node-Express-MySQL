@@ -13,7 +13,7 @@ const ProductImage: React.FC<image & allowModal> = ({ image, allowModal }) => {
         !isImageModalOpen && setIsImageModalOpen(true);
     };
     return (
-        <ImageContainer className="image-container">
+        <ImageContainer>
             <ImageDiv image={image} onClick={handleClick} />
 
             {allowModal && (
@@ -38,7 +38,8 @@ const ImageContainer = styled.div`
     padding: 0.5rem;
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 200px;
+    max-height: 100vh;
 `;
 
 const ImageModalContainer = styled.div`

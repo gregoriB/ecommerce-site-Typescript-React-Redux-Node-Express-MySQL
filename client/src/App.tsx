@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import SearchPage from "./search/SearchPage";
-import NavBar from "./navBar/NavBar";
-import Home from "./homePage/HomePage";
+import SearchPage from "./components/search/SearchPage";
+import NavBar from "./components/navBar/NavBar";
+import Home from "./components/homePage/HomePage";
 import { connect } from "react-redux";
-import CheckoutPage from "./shoppingCart/CheckoutPage";
-import Toasts from "./toasts/Toasts";
-import { updateWindowWidth } from "../store/actions/actionCreators";
+import CheckoutPage from "./components/shoppingCart/CheckoutPage";
+import Toasts from "./components/toasts/Toasts";
+import { updateWindowWidth } from "./store/actions/actionCreators";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import styled from "styled-components";
+import "./styles/transitions.css";
 
-import "../styles/transitions.css";
 interface IProps {
     updateWindowWidth(): void;
 }
@@ -42,8 +42,8 @@ const App: React.FC<IProps> = ({ updateWindowWidth }) => {
                             >
                                 <Switch location={location}>
                                     <Route exact path="/" component={Home} />
-                                    <Route exact path="/search" component={SearchPage} />
-                                    <Route exact path="/checkout" component={CheckoutPage} />
+                                    <Route path="/search" component={SearchPage} />
+                                    <Route path="/checkout" component={CheckoutPage} />
                                 </Switch>
                             </CSSTransition>
                         </TransitionGroup>

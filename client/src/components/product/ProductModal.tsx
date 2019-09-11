@@ -5,6 +5,7 @@ import ImageModal from "./ImageModal";
 import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
 import { IProduct, IModalToggle } from "../../types/generalTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 const ProductModal: React.FC<IProduct & IModalToggle> = ({
     imageURL,
@@ -26,22 +27,34 @@ const ProductModal: React.FC<IProduct & IModalToggle> = ({
             centered
             title=""
         >
-            <Modal.Header closeButton />
+            <CloseButton tabIndex={1} className="close" onClick={() => onHide()}>
+                <span aria-hidden="true">×</span>
+                <span className="sr-only">Close</span>
+            </CloseButton>
             <FlexContainer>
                 <Title>{itemName}</Title>
                 <Content>
                     <Desc>{descLong}</Desc>
-                    <ImageAndCartButton>
+                    <ImageAndCartButton className="image-and-cart-button">
                         <ProductImage allowModal={true} image={imageURL} />
                         <ImageModal
                             image={imageURL}
                             show={isModalOpen}
                             onHide={() => setIsModalOpen(false)}
                         />
-                        <Price>${price}</Price>
-                        <ButtonContainer>
-                            <BtnAddToCart stock={stock} price={price} itemName={itemName} />
-                        </ButtonContainer>
+                        <ImageAndStockContainer>
+                            <ButtonContainer>
+                                <BtnAddToCart
+                                    stock={stock}
+                                    price={price}
+                                    itemName={itemName}
+                                    text={`$${price} - add to cart`}
+                                />
+                            </ButtonContainer>
+                            <Stock>
+                                <div>{stock}</div> in stock
+                            </Stock>
+                        </ImageAndStockContainer>
                     </ImageAndCartButton>
                 </Content>
             </FlexContainer>
@@ -54,8 +67,18 @@ export default ProductModal;
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 const StyledModal = styled(Modal)`
-    .modal-dialog {
-        margin-top: 0;
+    &.modal {
+        @media (max-width: ${stdBreakPoint}px) {
+            padding: 0 !important;
+        }
+        .modal-dialog {
+            margin: 0 auto;
+            margin-top: 0;
+            @media (max-width: ${stdBreakPoint}px) {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
     }
 `;
 
@@ -65,7 +88,7 @@ const FlexContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: 90%;
     height: 100%;
     margin: 5vh auto;
     div {
@@ -73,33 +96,93 @@ const FlexContainer = styled.div`
     }
 `;
 const Content = styled.div`
-    justify-content: space-between;
+    justify-content: space-around;
+    @media (max-width: ${stdBreakPoint}px) {
+        justify-content: flex-start;
+        flex-direction: column-reverse;
+    }
 `;
 const ImageAndCartButton = styled.div`
-    position: relative;
-    margin-left: 2rem;
-    text-align: center;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    height: auto;
     max-height: 400px;
     width: 100%;
+    @media (max-width: ${stdBreakPoint}px) {
+        font-size: 1.2rem;
+        text-align: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+`;
+
+const ImageAndStockContainer = styled.div`
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+    @media (min-width: ${stdBreakPoint + 1}px) {
+    }
 `;
 
 const Title = styled.h2`
-    text-align: justify;
+    color: #42484d;
+    text-align: center;
     margin: 2rem auto;
+    margin-bottom: 4rem;
     display: block;
+    width: 80%;
+    @media (max-width: ${stdBreakPoint}px) {
+        font-size: 1.2rem;
+        text-align: center;
+        width: 100%;
+        margin: 2rem auto;
+    }
 `;
 const Desc = styled.p`
+    color: #42484d;
     white-space: pre-wrap;
     max-width: 60%;
+    padding-left: 10vw;
+    @media (max-width: ${stdBreakPoint}px) {
+        font-size: 0.8rem;
+        text-align: justify;
+        max-width: 100%;
+        padding: 0;
+    }
 `;
-const Price = styled.h4`
-    margin: 1rem;
-`;
+
 const ButtonContainer = styled.span`
     display: flex;
-    margin: 2rem auto;
-    margin-top: auto;
+    margin: 0 1rem;
+    align-self: center;
+`;
+
+const Stock = styled.div`
+    margin-left: 2rem;
+    @media (max-width: ${stdBreakPoint}px) {
+        margin: 0;
+        min-width: 120px;
+        max-width: 150px;
+    }
+    div {
+        font-weight: 600;
+        margin-right: 8px;
+        white-space: nowrap;
+        word-wrap: none;
+    }
+`;
+
+const CloseButton = styled.div`
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 1rem 1.2rem;
+    margin: 0;
+    z-index: 2;
+    outline: inital;
+    cursor: pointer;
 `;

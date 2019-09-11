@@ -52,7 +52,10 @@ const StyledCard = styled(Card)`
     margin: 0 1rem;
     height: 100%;
     :hover {
-        box-shadow: 0 3px 10px #6c757d55;
+        box-shadow: 0 3px 10px #42484d55;
+    }
+    @media (max-width: ${stdBreakPoint}px) {
+        margin: 0;
     }
 `;
 

@@ -141,7 +141,7 @@ const StyledModal = styled(Modal)`
 `;
 
 const StyledModalTitle = styled(Modal.Title)`
-    color: #6c757d;
+    color: #42484d;
     width: 100%;
     text-align: center;
 `;

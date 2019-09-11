@@ -14,8 +14,8 @@ const ImageModal: React.FC<IProps & IModalToggle> = ({ show, onHide, image }) =>
         alt: "",
         title: "",
         src: image,
-        width: "50%",
-        height: "auto",
+        width: "unset",
+        height: "unset",
         zoomFactor: 1.8,
         mgWidth: 120,
         mgHeight: 120,
@@ -25,13 +25,16 @@ const ImageModal: React.FC<IProps & IModalToggle> = ({ show, onHide, image }) =>
     return (
         <StyledImageModal
             show={show}
-            size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            onClick={onHide}
+            onHide={onHide}
         >
-            <CloseModal icon="times" />
-            <StyledMagnifier {...magnifierOptions} mgShape={undefined} />
+            <ModalBody>
+                <CloseModal onClick={onHide}>
+                    <FontAwesomeIcon icon="times" />
+                </CloseModal>
+                <StyledMagnifier {...magnifierOptions} mgShape={undefined} />
+            </ModalBody>
         </StyledImageModal>
     );
 };
@@ -40,32 +43,50 @@ export default ImageModal;
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
-const CloseModal = styled(FontAwesomeIcon)`
-    font-size: 1.3rem;
-    user-select: none;
-    cursor: pointer;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    right: 10rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    color: #f8f9fa;
-    text-align: center;
-    :hover {
-        color: white;
+const StyledImageModal = styled(Modal)`
+    background: rgba(0, 0, 0, 0.5);
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        max-width: 80vw;
+        max-height: 100vh;
+    }
+    .modal-content {
+        margin: 0 auto;
+        background: none;
+        border: none;
+        width: unset;
     }
 `;
 
-const StyledMagnifier = styled(Magnifier)`
+const ModalBody = styled.div`
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0 auto;
 `;
 
-const StyledImageModal = styled(Modal)`
-    background: rgba(0, 0, 0, 0.5);
-    .modal-content {
-        background: none;
-        border: none;
+const CloseModal = styled.div`
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #f8f9fa;
+    padding: 0.25rem 0.5rem;
+    margin: 0;
+    user-select: none;
+    z-index: 2;
+    cursor: pointer;
+    mix-blend-mode: difference;
+`;
+
+const StyledMagnifier = styled(Magnifier)`
+    &.magnifier img {
+        width: unset;
+        max-width: 90vw;
+        height: unset;
+        max-height: 90vh;
     }
 `;

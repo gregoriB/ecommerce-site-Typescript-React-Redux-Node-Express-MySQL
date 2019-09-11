@@ -105,9 +105,7 @@ const StyledNavbarBrand = styled(Navbar.Brand)`
     }
 `;
 
-const HomeLink = styled.button`
-    border: none;
-    background: none;
+const HomeLink = styled.div`
     margin: 1rem 0;
     display: none;
     @media (max-width: ${stdBreakPoint}px) {
