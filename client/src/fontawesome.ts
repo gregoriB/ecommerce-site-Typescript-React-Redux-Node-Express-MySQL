@@ -17,7 +17,10 @@ import {
     faCheck,
     faTimes,
     faUserCog,
-    faCog
+    faCog,
+    faChevronRight,
+    faChevronLeft,
+    faEllipsisV
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -37,5 +40,8 @@ library.add(
     faCheck,
     faTimes,
     faUserCog,
-    faCog
+    faCog,
+    faChevronRight,
+    faChevronLeft,
+    faEllipsisV
 );

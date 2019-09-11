@@ -1,0 +1,21 @@
+.page-enter,
+.page-appear {
+    opacity: 0;
+}
+
+.page-enter-active,
+.page-appear-active {
+    opacity: 1;
+    transition: opacity 100ms ease-in 500ms;
+    pointer-events: none;
+}
+
+.page-exit {
+    opacity: 1;
+}
+
+.page-exit-active {
+    opacity: 0;
+    transition: opacity 50ms ease-in;
+    pointer-events: none;
+}

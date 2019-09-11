@@ -6,6 +6,7 @@ import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserSettingsModal from "./UserSettingsModal";
 import { IUserData } from "../../../types/generalTypes";
+import { stdBreakPoint } from "../../../helpers/breakPoints";
 
 interface IProps {
     username: string;
@@ -22,13 +23,13 @@ const User: React.FC<IProps> = ({ username, deleteUserData }) => {
         setIsSettingsOpen(true);
     };
     return (
-        <>
+        <UserContainer>
             <UserSettingsModal show={isSettingsOpen} onHide={() => setIsSettingsOpen(false)} />
             <UserName>{username}</UserName>
             <StyledDropdownButton
                 alignRight
                 variant="primary"
-                size="sm"
+                size="md"
                 title={<FontAwesomeIcon icon="user" />}
                 id="dropdown-menu-align-right"
             >
@@ -43,7 +44,7 @@ const User: React.FC<IProps> = ({ username, deleteUserData }) => {
                     </LogoutContainer>
                 </Nav.Link>
             </StyledDropdownButton>
-        </>
+        </UserContainer>
     );
 };
 
@@ -66,6 +67,16 @@ export default connect(
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
+const UserContainer = styled.div`
+    display: flex;
+    @media (max-width: ${stdBreakPoint}px) {
+        justify-content: center;
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+        width: 100%;
+    }
+`;
+
 const UserName = styled.div`
     display: flex;
     align-items: center;
@@ -83,7 +94,9 @@ const LogoutContainer = styled.div`
 `;
 
 const StyledDropdownButton = styled(DropdownButton)`
-    margin-right: 2rem;
+    @media (min-width: ${stdBreakPoint + 1}px) {
+        margin-right: 2rem;
+    }
     button {
         background: none;
         border: none;

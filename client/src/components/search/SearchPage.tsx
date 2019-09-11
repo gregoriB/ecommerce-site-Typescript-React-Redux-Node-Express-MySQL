@@ -6,6 +6,7 @@ import FilterPanel from "./FilterPanel/FilterPanel";
 import SearchResults from "./SearchResults";
 import queryDatabase from "../../helpers/queryDatabase";
 import { IProduct, IFilters } from "../../types/generalTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     query: string;
@@ -99,6 +100,9 @@ export default connect(
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 const MainDiv = styled.div`
+    position: absolute;
+    top: 60px;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -107,4 +111,7 @@ const MainDiv = styled.div`
     margin: 0 auto;
     padding-left: 2vw;
     padding-right: calc(100vw - 100%);
+    /* @media (max-width: ${stdBreakPoint}px) {
+        margin-top: 60px;
+    } */
 `;

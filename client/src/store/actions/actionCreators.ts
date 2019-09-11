@@ -58,3 +58,6 @@ export const updateUserData = (payload: IUserData): AT.IUpdateUserDataRtn => ({
     payload
 });
 export const deleteUserData = (): AT.IUpdateUserDataRtn => ({ type: "DELETE_USER_DATA" });
+
+//window resizing
+export const updateWindowWidth = () => ({ type: "UPDATE_WINDOW_WIDTH" });

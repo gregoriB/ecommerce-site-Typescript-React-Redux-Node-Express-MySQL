@@ -38,12 +38,12 @@ export default connect(mapStateToProps)(TotalPrice);
 
 const TotalPriceContainer = styled.div`
     display: flex;
-    width: 100%;
+    justify-content: flex-end;
+    margin-right: 10vw;
 `;
 
 const TotalPriceBanner = styled.p`
     margin: 0;
-    margin-left: 69.7%;
     margin-right: 1rem;
     font-weight: 600;
 `;

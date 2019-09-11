@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ProductModal from "../product/ProductModal";
 import ProductImage from "../product/ProductImage";
 import { IProduct } from "../../types/generalTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 const FeaturedCard: React.FC<IProduct> = props => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +41,10 @@ const FeaturedContainer = styled.div`
     width: 60%;
     :nth-of-type(even) {
         width: 30%;
+    }
+    @media (max-width: ${stdBreakPoint}px) {
+        margin: 0;
+        width: 100%;
     }
 `;
 

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import NewAccountWarning from "./NewAccountWarning";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IModalToggle } from "../../../types/generalTypes";
+import { stdBreakPoint } from "../../../helpers/breakPoints";
 
 const RegistrationModal: React.FC<IModalToggle> = ({ onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
@@ -50,6 +51,9 @@ const Header = styled.h4<warning>`
     align-items: center;
     color: ${props => (props.isWarning ? "#856404" : undefined)};
     background: ${props => (props.isWarning ? "#fff3cd" : undefined)};
+    @media (max-width: ${stdBreakPoint}px) {
+        font-size: 1.2rem;
+    }
 `;
 
 const StyledModalHeader = styled(Modal.Header)`

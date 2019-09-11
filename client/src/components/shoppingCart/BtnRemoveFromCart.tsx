@@ -38,7 +38,9 @@ export default connect(
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 const StyledButton = styled(Button)`
-    width: 100%;
+    &.btn {
+        padding: 0;
+    }
 `;
 
 const StyledCartIcon = styled(FontAwesomeIcon)`

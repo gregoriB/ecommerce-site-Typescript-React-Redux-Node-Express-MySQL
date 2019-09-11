@@ -10,9 +10,11 @@ import {
     changePriceRangeInFilter
 } from "../../store/actions/actionCreators";
 import { IFiltersRtn } from "../../types/actionTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     query: string;
+    hideNav(): void;
     updateSearch(val: string): void;
     changeCategoriesInFilter(arr: string[]): IFiltersRtn;
     changePriceRangeInFilter(arr: number[]): IFiltersRtn;
@@ -21,6 +23,7 @@ interface IProps {
 const SearchForm: React.FC<IProps & RouteComponentProps> = ({
     history,
     query,
+    hideNav,
     updateSearch,
     changeCategoriesInFilter,
     changePriceRangeInFilter
@@ -41,6 +44,7 @@ const SearchForm: React.FC<IProps & RouteComponentProps> = ({
     const handleSubmitSearch = (e: FormElem) => {
         e.preventDefault();
         updateReducers(query);
+        hideNav();
         history.push(`/search`);
     };
 
@@ -91,6 +95,9 @@ const InputWrapper = styled.div`
     border-radius: 15px;
     display: flex;
     align-items: center;
+    @media (min-width: ${stdBreakPoint + 1}px) {
+        margin-left: 2vw;
+    }
 `;
 
 const SearchButton = styled.button`

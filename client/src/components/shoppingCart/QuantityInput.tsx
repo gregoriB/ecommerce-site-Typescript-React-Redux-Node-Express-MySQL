@@ -43,19 +43,20 @@ const QuantityInput: React.FC<IProps> = ({
         updateQuantityInCart({ itemName, qty: Number(inputValue) });
     }, [inputValue, updateQuantityInCart, itemName]);
     return (
-        <>
-            <StyleFormControl
-                type="number"
-                value={inputValue}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                min={0}
-                max={stock}
-            />
-            <ButtonContainer>
-                <BtnRemoveFromCart itemName={itemName} />
-            </ButtonContainer>
-        </>
+        <QuantityContainer>
+            <InputContainer>
+                <span>qty: </span>
+                <StyleFormControl
+                    type="number"
+                    value={inputValue}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    min={0}
+                    max={stock}
+                />
+            </InputContainer>
+            <BtnRemoveFromCart itemName={itemName} />
+        </QuantityContainer>
     );
 };
 
@@ -69,15 +70,24 @@ export default connect(
     actionCreators
 )(QuantityInput);
 
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
+const QuantityContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`;
+
+const InputContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+`;
+
 const StyleFormControl = styled(FormControl)`
     &.form-control {
         padding: 0.25rem;
-        width: 25%;
-        margin: 0 1rem;
-        margin-right: 2rem;
+        width: 50px;
+        margin: 0 20px 0 20px;
     }
-`;
-
-const ButtonContainer = styled.div`
-    width: 30px;
 `;

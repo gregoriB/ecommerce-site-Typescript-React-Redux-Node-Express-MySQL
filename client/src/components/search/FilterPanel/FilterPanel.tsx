@@ -10,10 +10,13 @@ import { Form, Button } from "react-bootstrap";
 import PriceRangeSelector from "./PriceRangeSelector";
 import { IFilters } from "../../../types/generalTypes";
 import { IFiltersRtn } from "../../../types/actionTypes";
+import { stdBreakPoint } from "../../../helpers/breakPoints";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
     allCategories?: string[];
     selectedCategories: string[];
+    windowWidth: number;
     changeCategoriesInFilter(arr: string[]): IFiltersRtn;
     changePriceRangeInFilter(arr: number[] | undefined[]): IFiltersRtn;
 }
@@ -22,9 +25,15 @@ const FilterPanel: React.FC<IProps> = ({
     allCategories,
     changeCategoriesInFilter,
     changePriceRangeInFilter,
-    selectedCategories
+    selectedCategories,
+    windowWidth
 }) => {
+    const [isPanelActive, setIsPanelActive] = useState(window.innerWidth > stdBreakPoint);
     const [mappedCategories, setMappedCategories] = useState();
+
+    const togglePanel = () => {
+        setIsPanelActive(prevState => !prevState);
+    };
 
     const clearFilters = () => {
         changeCategoriesInFilter([]);
@@ -38,33 +47,47 @@ const FilterPanel: React.FC<IProps> = ({
             })
         );
     }, [allCategories, selectedCategories]);
+
+    useEffect(() => {
+        setIsPanelActive(window.innerWidth > stdBreakPoint);
+    }, [windowWidth]);
+
     return (
-        <Panel>
-            <h4>Filter by:</h4>
-            <section>
-                <div>Category</div>
-                <Form>{mappedCategories}</Form>
-            </section>
-            <section>
-                <div>Price</div>
-                <PriceRangeSelector />
-            </section>
-            <section>
-                <StyledButton variant="secondary" size="sm" onClick={clearFilters} block>
-                    Clear All Filters
-                </StyledButton>
-            </section>
-        </Panel>
+        <PanelContainer isActive={isPanelActive}>
+            <Panel>
+                <h4>Filter by:</h4>
+                <section>
+                    <div>Category</div>
+                    <Form>{mappedCategories}</Form>
+                </section>
+                <section>
+                    <div>Price</div>
+                    <PriceRangeSelector />
+                </section>
+                <section>
+                    <StyledButton variant="secondary" size="sm" onClick={clearFilters} block>
+                        Clear All Filters
+                    </StyledButton>
+                </section>
+            </Panel>
+            <StyledEllipsisVIcon onClick={togglePanel} isActive={isPanelActive}>
+                <FontAwesomeIcon icon="ellipsis-v" />
+            </StyledEllipsisVIcon>
+        </PanelContainer>
     );
 };
 
 interface IState {
     filters: IFilters;
+    windowSize: {
+        windowWidth: number;
+    };
 }
 
 const mapStateToProps = (state: IState) => ({
     allCategories: state.filters.allCategories,
-    selectedCategories: state.filters.selectedCategories
+    selectedCategories: state.filters.selectedCategories,
+    windowWidth: state.windowSize.windowWidth
 });
 
 const actionCreators = {
@@ -79,15 +102,43 @@ export default connect(
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
-const Panel = styled.div`
-    padding: 1rem;
-    width: 20vw;
+const PanelContainer = styled.div<any>`
+    position: fixed;
+    top: 60px;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 320px;
+    transition: 0.2s;
+    z-index: 1;
+    transform: translateX(${props => (props.isActive ? "0" : "-85%")});
+`;
+
+const Panel = styled.div<any>`
+    padding: 0.7rem;
+    width: 80%;
     margin: 1rem;
     margin-right: 0;
-    background: white;
+    background: #fffe;
     border: 1px solid #dfdfdf;
+    @media (max-width: ${stdBreakPoint}px) {
+        border-radius: 10px;
+    }
 `;
 
 const StyledButton = styled(Button)`
     margin-top: 1rem;
+`;
+
+const StyledEllipsisVIcon = styled.div<any>`
+    font-size: 4rem;
+    width: 10%;
+    color: #6c757d;
+    opacity: ${props => (props.isActive ? "1" : ".5")};
+    transition: 0.2s;
+    @media (min-width: ${stdBreakPoint + 1}px) {
+        visibility: hidden;
+        opacity: 0;
+    }
 `;

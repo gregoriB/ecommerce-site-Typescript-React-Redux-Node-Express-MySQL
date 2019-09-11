@@ -19,15 +19,14 @@ const ProductModal: React.FC<IProduct & IModalToggle> = ({
 
     return (
         <StyledModal
+            onHide={onHide}
             show={show}
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
             title=""
         >
-            <CloseModal className="close" onClick={onHide}>
-                x
-            </CloseModal>
+            <Modal.Header closeButton />
             <FlexContainer>
                 <Title>{itemName}</Title>
                 <Content>
@@ -86,14 +85,7 @@ const ImageAndCartButton = styled.div`
     max-height: 400px;
     width: 100%;
 `;
-const CloseModal = styled.div`
-    cursor: pointer;
-    user-select: none;
-    padding: 2rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-`;
+
 const Title = styled.h2`
     text-align: justify;
     margin: 2rem auto;

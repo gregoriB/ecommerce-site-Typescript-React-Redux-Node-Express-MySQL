@@ -5,6 +5,7 @@ import filters from "./filters";
 import userData from "./userData";
 import shoppingCart from "./shoppingCart";
 import toasts from "./toasts";
+import windowSize from "./window";
 
 export default combineReducers({
     products,
@@ -12,5 +13,6 @@ export default combineReducers({
     filters,
     userData,
     shoppingCart,
-    toasts
+    toasts,
+    windowSize
 });

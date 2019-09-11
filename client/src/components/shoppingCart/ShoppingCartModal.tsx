@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import QuantitySettings from "./QuantityInput";
+import QuantityInput from "./QuantityInput";
 import TotalPrice from "./TotalPrice";
 import { IShoppingCart, IShoppingCartItems, IModalToggle } from "../../types/generalTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
+    windowWidth: number;
     shoppingCart: IShoppingCart;
+    hideNav(): void;
 }
 
-const ShoppingCartModal: React.FC<IProps & IModalToggle> = ({ shoppingCart, onHide, show }) => {
+const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> = ({
+    shoppingCart,
+    onHide,
+    show,
+    hideNav,
+    history,
+    windowWidth
+}) => {
     const [items, setItems] = useState<React.ReactElement[]>([]);
+
+    const navigateToCheckoutPage = () => {
+        onHide();
+        hideNav();
+        history.push(`/checkout`);
+    };
     useEffect(() => {
         shoppingCart &&
             setItems(
@@ -22,13 +38,10 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle> = ({ shoppingCart, onHi
                         <ProductContainer key={product}>
                             <ProductName>{product}</ProductName>
                             <InputsContainer>
-                                <PriceAndQty>
-                                    <PriceContainer>
-                                        price: <span>${price}</span>
-                                    </PriceContainer>
-                                    qty:
-                                </PriceAndQty>
-                                <QuantitySettings itemName={product} quantity={qty!} stock={stock!} />
+                                <PriceContainer>
+                                    price: <span>${price}</span>
+                                </PriceContainer>
+                                <QuantityInput itemName={product} quantity={qty!} stock={stock!} />
                             </InputsContainer>
                         </ProductContainer>
                     )
@@ -37,11 +50,12 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle> = ({ shoppingCart, onHi
     }, [shoppingCart]);
 
     return (
-        <Modal
+        <StyledModal
             show={show}
             onHide={onHide}
-            size={Object.values(shoppingCart).length ? "xl" : "lg"}
+            size={windowWidth > 992 ? (Object.values(shoppingCart).length ? "xl" : "lg") : null}
             aria-labelledby="contained-modal-title-right"
+            dialogClassName="modal-100w"
             centered
         >
             <Modal.Header closeButton>
@@ -50,39 +64,50 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle> = ({ shoppingCart, onHi
             <Modal.Body>
                 {items.length > 0 ? (
                     <div>
-                        <div>{items}</div>
+                        {items}
                         <TotalPrice />
                     </div>
                 ) : (
-                    <div>
-                        <h4>Your cart is empty</h4>
-                    </div>
+                    <h4>Your cart is empty</h4>
                 )}
             </Modal.Body>
             <Modal.Footer>
                 {items.length > 0 ? (
-                    <Link to="checkout" onClick={onHide}>
-                        Go to checkout
-                    </Link>
+                    <LinkToCheckout onClick={navigateToCheckoutPage}>Go to checkout</LinkToCheckout>
                 ) : (
                     <Button variant="outline-secondary" onClick={onHide}>
                         Close
                     </Button>
                 )}
             </Modal.Footer>
-        </Modal>
+        </StyledModal>
     );
 };
 
 interface IState {
     shoppingCart: IShoppingCart;
+    windowSize: { windowWidth: number };
 }
 
 const mapStateToProps = (state: IState) => ({
-    shoppingCart: state.shoppingCart
+    shoppingCart: state.shoppingCart,
+    windowWidth: state.windowSize.windowWidth
 });
 
-export default connect(mapStateToProps)(ShoppingCartModal);
+export default connect(mapStateToProps)(withRouter(ShoppingCartModal));
+
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
+const StyledModal = styled(Modal)`
+    .modal-dialog {
+        @media (max-width: ${stdBreakPoint}px) {
+            margin: 0 auto;
+            width: 98%;
+            min-width: 98%;
+            max-width: 98%;
+        }
+    }
+`;
 
 const ProductContainer = styled.div`
     display: flex;
@@ -93,31 +118,20 @@ const ProductContainer = styled.div`
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
     width: 100%;
+    @media (max-width: ${stdBreakPoint}px) {
+        font-size: 0.8rem;
+    }
 `;
 
 const InputsContainer = styled.div`
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-
-    width: 30%;
-    form .form-control {
-        width: 100%;
-    }
-    div {
-        width: 15%;
-        button {
-            padding: 0;
-        }
-    }
-`;
-
-const PriceAndQty = styled.span`
-    display: flex;
     justify-content: space-between;
-    word-wrap: none;
-    white-space: nowrap;
-    width: 100%;
+    align-items: center;
+    width: 300px;
+    @media (max-width: ${stdBreakPoint}px) {
+        flex-direction: column-reverse;
+        width: unset;
+    }
 `;
 
 const ProductName = styled.div`
@@ -126,7 +140,16 @@ const ProductName = styled.div`
 
 const PriceContainer = styled.div`
     display: flex;
+    justify-content: space-between;
+    word-wrap: none;
+    white-space: nowrap;
     span {
         margin-left: 1rem;
     }
+`;
+
+const LinkToCheckout = styled.button`
+    background: none;
+    border: none;
+    color: #007bff;
 `;

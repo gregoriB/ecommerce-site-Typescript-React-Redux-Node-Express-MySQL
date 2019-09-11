@@ -45,6 +45,11 @@ const BtnAddToCart: React.FC<IProps> = ({
         setIsDisabled(checkIfOutOfStock());
     }, [checkIfOutOfStock]);
 
+    useEffect(() => {
+        const product = { itemName, attributes: { price, stock } };
+        addOneToCart(product);
+    }, [itemName, addOneToCart, price, stock]);
+
     return (
         <StyledButton
             disabled={isDisabled}

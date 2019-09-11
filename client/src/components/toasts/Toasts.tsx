@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     toasts: React.ReactChild[];
@@ -29,4 +30,7 @@ const ToastContainer = styled.div`
     right: 2vw;
     width: 25vw;
     z-index: 100000;
+    @media (max-width: ${stdBreakPoint}px) {
+        width: 50vw;
+    }
 `;

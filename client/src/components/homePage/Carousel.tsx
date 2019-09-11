@@ -12,19 +12,29 @@ interface IProps {
 const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
     const [items, setItems] = useState();
     useEffect(() => {
-        const featured = mapProductData({ type: "FeaturedCard", products });
-        featured &&
-            setItems(
-                featured.map((product: React.ReactChild, index: number) => {
-                    if (index % 2 !== 0) return null;
-                    return (
-                        <Carousel.Item key={index}>
-                            {product}
-                            {index + 1 <= featured.length && featured[index + 1]}
-                        </Carousel.Item>
-                    );
-                })
-            );
+        const mapFeatured = () => {
+            const featured = mapProductData({ type: "FeaturedCard", products });
+            featured &&
+                setItems(
+                    featured.map((product: React.ReactChild, index: number) => {
+                        //if on mobile or small display, map 1 featured item per carousel item, otherwise map 2.
+                        if (index % 2 !== 0 && window.innerWidth > 992) return null;
+                        return (
+                            <Carousel.Item key={index}>
+                                {product}
+                                {window.innerWidth > 992 &&
+                                    index + 1 <= featured.length &&
+                                    featured[index + 1]}
+                            </Carousel.Item>
+                        );
+                    })
+                );
+        };
+        mapFeatured();
+        window.addEventListener("resize", mapFeatured);
+        return () => {
+            window.removeEventListener("resize", mapFeatured);
+        };
     }, [setItems, products]);
 
     return <StyledCarousel interval={3000}>{items}</StyledCarousel>;

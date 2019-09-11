@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import mapProductData from "../../helpers/mapProductData";
 import { IProduct, IFilters } from "../../types/generalTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     products: IProduct[];
@@ -47,5 +48,12 @@ const Display = styled.div`
     grid-gap: 10px;
     justify-items: center;
     align-items: center;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 0fr));
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    margin-left: 250px;
+    @media (max-width: ${stdBreakPoint}px) {
+        padding: 0;
+        width: 100vw;
+        grid-gap: 0;
+        margin: 0;
+    }
 `;

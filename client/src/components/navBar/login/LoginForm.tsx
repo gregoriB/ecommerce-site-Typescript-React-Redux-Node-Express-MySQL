@@ -9,6 +9,7 @@ import queryDatabase from "../../../helpers/queryDatabase";
 import RegistrationModal from "../registration/RegistrationModal";
 import { updateUserData } from "../../../store/actions/actionCreators";
 import { IQueryDBArgs, IUserData } from "../../../types/generalTypes";
+import { stdBreakPoint } from "../../../helpers/breakPoints";
 
 const loginIntialValues = {
     username: "",
@@ -62,8 +63,8 @@ const LoginForm: React.FC<IProps> = ({ username, updateUserData }) => {
             {isError && <LoginAlert show={isError} setShow={setIsError} />}
             {(isLoggedIn && <User />) || (
                 <LoginContainer>
-                    <Form inline onSubmit={handleSubmitLogin}>
-                        <FormControl
+                    <StyledForm inline onSubmit={handleSubmitLogin}>
+                        <StyleFormControl
                             type="text"
                             name="username"
                             value={loginValues.username}
@@ -71,7 +72,7 @@ const LoginForm: React.FC<IProps> = ({ username, updateUserData }) => {
                             className="mr-sm-2 form-control-sm"
                             onChange={handleLoginChange}
                         />
-                        <FormControl
+                        <StyleFormControl
                             type="password"
                             name="password"
                             value={loginValues.password}
@@ -79,10 +80,10 @@ const LoginForm: React.FC<IProps> = ({ username, updateUserData }) => {
                             className="mr-sm-2 form-control-sm"
                             onChange={handleLoginChange}
                         />
-                        <Button type="submit" className="btn-sm" variant="outline-primary">
+                        <StyledButton type="submit" className="btn-sm" variant="outline-primary">
                             <StyledSignInIcon icon="sign-in-alt" size="lg" />
-                        </Button>
-                    </Form>
+                        </StyledButton>
+                    </StyledForm>
                     <span>
                         <RegistrationLink onClick={() => setIsRegModalOpen(true)}>
                             register new account
@@ -117,13 +118,28 @@ export default connect(
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
+const StyledForm = styled(Form)`
+    &.form-inline {
+        @media (max-width: ${stdBreakPoint}px) {
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        @media (min-width: ${stdBreakPoint + 1}px) {
+            flex-flow: unset;
+        }
+    }
+`;
+
 const LoginContainer = styled.div`
     display: flex;
-    margin-left: auto;
     span {
         display: flex;
         align-items: center;
         margin: 0 1rem;
+    }
+    @media (max-width: ${stdBreakPoint}px) {
+        flex-direction: column;
+        justify-content: flex-start;
     }
 `;
 
@@ -132,8 +148,34 @@ const RegistrationLink = styled.button`
     border: none;
     text-decoration: underline;
     color: #007bff;
+    @media (max-width: ${stdBreakPoint}px) {
+        margin: 1rem 0;
+    }
 `;
 
 const StyledSignInIcon = styled(FontAwesomeIcon)`
     margin: 0 0.5rem;
+`;
+
+const StyleFormControl = styled(FormControl)`
+    &.form-control {
+        max-width: 150px;
+        @media (max-width: ${stdBreakPoint}px) {
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: unset;
+        }
+    }
+`;
+
+const StyledButton = styled(Button)`
+    @media (max-width: ${stdBreakPoint}px) {
+        &.btn {
+            text-align: left;
+            width: 100%;
+            ::after {
+                content: "login";
+            }
+        }
+    }
 `;
