@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import QuantityInput from "./QuantityInput";
 import TotalPrice from "./TotalPrice";
-import { IShoppingCart, IShoppingCartItems, IModalToggle } from "../../types/generalTypes";
+import { IShoppingCart, IModalToggle } from "../../types/generalTypes";
 import { stdBreakPoint } from "../../helpers/breakPoints";
+import CartItems from "./CartItems";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface IProps {
     windowWidth: number;
@@ -23,31 +24,12 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
     history,
     windowWidth
 }) => {
-    const [items, setItems] = useState<React.ReactElement[]>([]);
-
+    const [isCartPopulated, setIsCartPopulated] = useState(false);
     const navigateToCheckoutPage = () => {
         onHide();
         hideNav();
         history.push(`/checkout`);
     };
-    useEffect(() => {
-        shoppingCart &&
-            setItems(
-                Object.entries(shoppingCart).map(
-                    ([product, { price, qty, stock }]: [string, IShoppingCartItems]) => (
-                        <ProductContainer key={product}>
-                            <ProductName>{product}</ProductName>
-                            <InputsContainer>
-                                <PriceContainer>
-                                    price: <span>${price}</span>
-                                </PriceContainer>
-                                <QuantityInput itemName={product} quantity={qty!} stock={stock!} />
-                            </InputsContainer>
-                        </ProductContainer>
-                    )
-                )
-            );
-    }, [shoppingCart, windowWidth]);
 
     return (
         <StyledModal
@@ -58,20 +40,17 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">Shopping Cart</Modal.Title>
+                <StyledModalTitle id="contained-modal-title-vcenter">
+                    <FontAwesomeIcon icon="shopping-cart" />
+                    <div>Shopping Cart</div>
+                </StyledModalTitle>
             </Modal.Header>
-            <Modal.Body>
-                {items.length > 0 ? (
-                    <div>
-                        {items}
-                        <TotalPrice />
-                    </div>
-                ) : (
-                    <h4>Your cart is empty</h4>
-                )}
-            </Modal.Body>
+            <StyledModalBody>
+                <CartItems setIsCartPopulated={setIsCartPopulated} />
+                {isCartPopulated && <TotalPrice />}
+            </StyledModalBody>
             <Modal.Footer>
-                {items.length > 0 ? (
+                {isCartPopulated ? (
                     <LinkToCheckout onClick={navigateToCheckoutPage}>Go to checkout</LinkToCheckout>
                 ) : (
                     <Button variant="outline-secondary" onClick={onHide}>
@@ -103,6 +82,7 @@ const StyledModal = styled(Modal)`
             padding: 0 !important;
         }
         .modal-dialog {
+            transition: 0.2s !important;
             @media (max-width: ${stdBreakPoint}px) {
                 margin: 0 auto;
                 width: 98%;
@@ -110,46 +90,31 @@ const StyledModal = styled(Modal)`
                 max-width: 98%;
             }
         }
+        .modal-content {
+            min-height: 45vh;
+        }
     }
 `;
 
-const ProductContainer = styled.div`
+const StyledModalTitle = styled(Modal.Title)`
     display: flex;
-    justify-content: space-between;
+    position: relative;
     align-items: center;
-    border: 1px solid transparent;
-    border-bottom-color: #dee2e6;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    @media (max-width: ${stdBreakPoint}px) {
-        font-size: 0.8rem;
+    color: #42484d;
+    div {
+        margin: 0 2rem;
+        @media (max-height: ${stdBreakPoint}px) {
+            font-size: 1.2rem;
+        }
     }
 `;
 
-const InputsContainer = styled.div`
+const StyledModalBody = styled(Modal.Body)`
+    height: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    width: 300px;
-    @media (max-width: ${stdBreakPoint}px) {
-        flex-direction: column-reverse;
-        width: unset;
-    }
-`;
-
-const ProductName = styled.div`
-    width: 55%;
-`;
-
-const PriceContainer = styled.div`
-    display: flex;
     justify-content: space-between;
-    word-wrap: none;
-    white-space: nowrap;
-    span {
-        margin-left: 1rem;
-    }
 `;
 
 const LinkToCheckout = styled.button`

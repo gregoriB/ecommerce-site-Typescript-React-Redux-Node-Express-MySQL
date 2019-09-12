@@ -51,6 +51,8 @@ const StyledImageModal = styled(Modal)`
         margin: 0 auto;
         max-width: 80vw;
         max-height: 100vh;
+        transform: none !important;
+        transition: 0.2s;
     }
     .modal-content {
         margin: 0 auto;

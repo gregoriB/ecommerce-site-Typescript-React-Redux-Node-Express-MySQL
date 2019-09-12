@@ -129,14 +129,6 @@ const StyledDescriptionText = styled(Card.Text)`
     text-align: justify;
 `;
 
-const StyledPriceText = styled(Card.Text)`
-    color: #5e666d;
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin: 0;
-    /* margin-right: 1rem; */
-`;
-
 const ButtonContainer = styled.div``;
 
 const PriceAndBtnContainer = styled.div`

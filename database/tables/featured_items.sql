@@ -5,7 +5,3 @@ CREATE TABLE featured_items (
     fi_item INT NOT NULL,
     FOREIGN KEY (fi_item) REFERENCES items (item_id)
 );
-
-INSERT INTO featured_items (fi_item) VALUES (1), (2), (5), (6);
-
-SELECT * FROM featured_items;

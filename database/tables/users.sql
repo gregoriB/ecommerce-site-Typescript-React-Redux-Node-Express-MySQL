@@ -8,16 +8,3 @@ CREATE TABLE users (
     user_password VARBINARY(255)
 );
 
-INSERT INTO users (user_email, user_name, user_password)
-VALUES (
-    'brandon.gregori@gmail.com',
-    'gregorib',
-    'password'
-),
-(
-    'brandon@brandon-gregori.com',
-    'brandon',
-    'password12'
-);
-
-SELECT * FROM users;

@@ -1,15 +1,23 @@
-DROP TABLE IF EXISTS items;
 
-CREATE TABLE items (
-    item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    item_name TEXT,
-    item_img_url TEXT,
-    item_desc_short TEXT,
-    item_desc_long TEXT,
-    item_sku VARCHAR(50),
-    item_price INT,
-    item_stock INT
-);
+INSERT INTO categories (cat_name) VALUES ('Arcade Sticks'), ('Stick Parts'), ('Adapters'), ('Accessories');
+
+SELECT * FROM categories;
+
+
+INSERT INTO featured_items (fi_item) VALUES (1), (2), (5), (6);
+
+SELECT * FROM featured_items;
+
+INSERT INTO item_categories (ic_item, ic_category) VALUES 
+    (1, 2), 
+    (1, 3), 
+    (2, 1), 
+    (3, 2), 
+    (4, 2), 
+    (5, 3), 
+    (6, 4);
+
+SELECT * FROM item_categories;
 
 INSERT INTO items (item_name, item_img_url, item_desc_short, item_desc_long, item_sku, item_price, item_stock)
 VALUES (
@@ -145,3 +153,22 @@ True last and next generation support is achievable with basic know how with lit
         );
 
 SELECT * FROM items;
+
+
+INSERT INTO user_items (ui_user, ui_item, ui_qty) VALUES (1, 3, 2), (1, 2, 4), (2, 5, 8), (2, 1, 3), (2, 2, 10);
+
+SELECT * FROM user_items;
+
+INSERT INTO users (user_email, user_name, user_password)
+VALUES (
+    'brandon.gregori@gmail.com',
+    'gregorib',
+    'password'
+),
+(
+    'brandon@brandon-gregori.com',
+    'brandon',
+    'password12'
+);
+
+SELECT * FROM users;

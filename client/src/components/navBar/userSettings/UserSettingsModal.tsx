@@ -147,6 +147,7 @@ const StyledModalTitle = styled(Modal.Title)`
 `;
 
 const StyledCogIcon = styled(FontAwesomeIcon)`
+    color: #42484d;
     float: left;
 `;
 

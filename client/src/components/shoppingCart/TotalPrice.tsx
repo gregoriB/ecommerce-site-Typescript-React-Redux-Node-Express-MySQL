@@ -36,10 +36,13 @@ const mapStateToProps = (state: IState) => ({
 
 export default connect(mapStateToProps)(TotalPrice);
 
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const TotalPriceContainer = styled.div`
     display: flex;
     justify-content: flex-end;
-    margin-right: 10vw;
+    margin-right: 4vw;
+    align-self: flex-end;
 `;
 
 const TotalPriceBanner = styled.p`

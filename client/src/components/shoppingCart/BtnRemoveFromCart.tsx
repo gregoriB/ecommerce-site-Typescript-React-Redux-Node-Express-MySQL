@@ -37,6 +37,7 @@ export default connect(
 )(BtnRemoveFromCart);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
+
 const StyledButton = styled(Button)`
     &.btn {
         padding: 0;

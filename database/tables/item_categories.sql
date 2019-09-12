@@ -8,13 +8,3 @@ CREATE TABLE item_categories (
     FOREIGN KEY (ic_category) REFERENCES categories (cat_id)
 );
 
-INSERT INTO item_categories (ic_item, ic_category) VALUES 
-    (1, 2), 
-    (1, 3), 
-    (2, 1), 
-    (3, 2), 
-    (4, 2), 
-    (5, 3), 
-    (6, 4);
-
-SELECT * FROM item_categories;

@@ -9,7 +9,3 @@ CREATE TABLE user_items (
   FOREIGN KEY (ui_item) REFERENCES items (item_id)
 );
 
-
-INSERT INTO user_items (ui_user, ui_item, ui_qty) VALUES (1, 3, 2), (1, 2, 4), (2, 5, 8), (2, 1, 3), (2, 2, 10);
-
-SELECT * FROM user_items;

@@ -47,11 +47,6 @@ const BtnAddToCart: React.FC<IProps> = ({
         setIsDisabled(checkIfOutOfStock());
     }, [checkIfOutOfStock]);
 
-    useEffect(() => {
-        const product = { itemName, attributes: { price, stock } };
-        addOneToCart(product);
-    }, [itemName, addOneToCart, price, stock]);
-
     return (
         <StyledButton
             disabled={isDisabled}
@@ -60,7 +55,7 @@ const BtnAddToCart: React.FC<IProps> = ({
             title="Add item to your shopping shoppingCart"
         >
             {isDisabled ? (
-                "Out of Stock"
+                "Stock Limit Reached"
             ) : (
                 <div>
                     {text} <StyledCartIcon icon="cart-plus" />
