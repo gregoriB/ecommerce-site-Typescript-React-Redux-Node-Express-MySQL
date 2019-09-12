@@ -41,7 +41,7 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
         >
             <Modal.Header closeButton>
                 <StyledModalTitle id="contained-modal-title-vcenter">
-                    <FontAwesomeIcon icon="shopping-cart" />
+                    <StyleCartIcon icon="shopping-cart" />
                     <div>Shopping Cart</div>
                 </StyledModalTitle>
             </Modal.Header>
@@ -121,4 +121,9 @@ const LinkToCheckout = styled.button`
     background: none;
     border: none;
     color: #007bff;
+`;
+
+const StyleCartIcon = styled(FontAwesomeIcon)`
+    opacity: 0.7;
+    color: #42484d;
 `;

@@ -13,6 +13,7 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import styled from "styled-components";
 import "./styles/transitions.css";
+import { stdBreakPoint } from "./helpers/breakPoints";
 
 interface IProps {
     updateWindowWidth(): void;
@@ -49,7 +50,6 @@ const App: React.FC<IProps> = ({ updateWindowWidth }) => {
                         </TransitionGroup>
                     )}
                 />
-
                 <Toasts />
             </Router>
         </AppContainer>
@@ -77,4 +77,22 @@ const AppContainer = styled.div`
     left: 0;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
+    ::-webkit-scrollbar {
+        background: #f8f9fa;
+        width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #6c757d;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #5a6168;
+    }
+    ::-webkit-scrollbar-track {
+        background: #f8f9fa;
+    }
+    @media (max-width: ${stdBreakPoint}px) {
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+    }
 `;

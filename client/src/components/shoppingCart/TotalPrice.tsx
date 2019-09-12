@@ -48,5 +48,6 @@ const TotalPriceContainer = styled.div`
 const TotalPriceBanner = styled.p`
     margin: 0;
     margin-right: 1rem;
+    color: #42484d;
     font-weight: 600;
 `;

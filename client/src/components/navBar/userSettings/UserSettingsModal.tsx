@@ -8,6 +8,7 @@ import EmailSettings from "./EmailSettings";
 import queryDatabase from "../../../helpers/queryDatabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IQueryDBArgs, IUserData, IModalToggle } from "../../../types/generalTypes";
+import { stdBreakPoint } from "../../../helpers/breakPoints";
 
 interface IProps {
     username: string;
@@ -83,7 +84,8 @@ const UserSettingsModal: React.FC<IProps & IModalToggle> = ({
             <Modal.Header closeButton>
                 <StyledModalTitle id="contained-modal-title-vcenter">
                     <StyledCogIcon icon="cog" />
-                    {username}
+
+                    <div>{username}</div>
                 </StyledModalTitle>
             </Modal.Header>
             <StyledModalBody>
@@ -141,14 +143,21 @@ const StyledModal = styled(Modal)`
 `;
 
 const StyledModalTitle = styled(Modal.Title)`
+    display: flex;
+    position: relative;
+    align-items: center;
     color: #42484d;
-    width: 100%;
-    text-align: center;
+    div {
+        margin: 0 2rem;
+        @media (max-height: ${stdBreakPoint}px) {
+            font-size: 1.2rem;
+        }
+    }
 `;
 
 const StyledCogIcon = styled(FontAwesomeIcon)`
     color: #42484d;
-    float: left;
+    opacity: 0.7;
 `;
 
 const StyledModalBody = styled(Modal.Body)`

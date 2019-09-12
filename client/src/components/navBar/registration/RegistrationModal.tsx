@@ -17,11 +17,14 @@ const RegistrationModal: React.FC<IModalToggle> = ({ onHide, show }) => {
 
     return (
         <Modal show={show} aria-labelledby="contained-modal-title-vcenter" centered onHide={handleHide}>
-            <StyledModalHeader closeButton>
-                <FontAwesomeIcon icon="edit" />
-                <Header isWarning={isWarning}>{isWarning ? "WARNING" : "Register New Account"}</Header>
-            </StyledModalHeader>
-
+            <Modal.Header style={{ background: isWarning ? "#fff3cd" : undefined }} closeButton>
+                <StyledModalTitle id="contained-modal-title-vcenter">
+                    <StyleEditIcon icon="edit" />
+                    <Header isWarning={isWarning}>
+                        {isWarning ? "WARNING" : "Register New Account"}
+                    </Header>
+                </StyledModalTitle>
+            </Modal.Header>
             {isWarning ? (
                 <NewAccountWarning
                     userData={userData}
@@ -40,23 +43,25 @@ export default RegistrationModal;
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 type warning = { isWarning: boolean };
-const Header = styled.h4<warning>`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
+const Header = styled.div<warning>`
     align-items: center;
+    margin-left: 2rem;
     color: ${props => (props.isWarning ? "#856404" : undefined)};
-    background: ${props => (props.isWarning ? "#fff3cd" : undefined)};
+    font-size: 1.2rem;
     @media (max-width: ${stdBreakPoint}px) {
-        font-size: 1.2rem;
+        margin-left: 0.5rem;
     }
 `;
 
-const StyledModalHeader = styled(Modal.Header)`
+const StyledModalTitle = styled(Modal.Title)`
+    display: flex;
     position: relative;
+    align-items: center;
+    color: #42484d;
+    width: 100%;
+`;
+
+const StyleEditIcon = styled(FontAwesomeIcon)`
+    opacity: 0.7;
     color: #42484d;
 `;

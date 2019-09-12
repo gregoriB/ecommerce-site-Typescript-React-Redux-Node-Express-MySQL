@@ -58,7 +58,7 @@ const SearchForm: React.FC<IProps & RouteComponentProps> = ({
                     onChange={handleSearchChange}
                 />
                 <SearchButton>
-                    <FontAwesomeIcon icon="search" />
+                    <StyledSearchIcon icon="search" />
                 </SearchButton>
             </InputWrapper>
         </Form>
@@ -115,4 +115,9 @@ const StyledFormControl = styled(FormControl)`
         border: none;
         margin-right: 0 !important;
     }
+`;
+
+const StyledSearchIcon = styled(FontAwesomeIcon)`
+    opacity: 0.7;
+    color: #42484d;
 `;

@@ -35,7 +35,7 @@ const BSToast: React.FC<IProps> = ({ itemName, removeToast }) => {
     });
 
     return (
-        <Toast
+        <StyledToast
             autohide={true}
             delay={timer}
             className="fade"
@@ -49,7 +49,7 @@ const BSToast: React.FC<IProps> = ({ itemName, removeToast }) => {
                 <strong className="mr-auto">Added to Cart</strong>
             </StyledToastHeader>
             <Toast.Body>{itemName}</Toast.Body>
-        </Toast>
+        </StyledToast>
     );
 };
 
@@ -63,3 +63,5 @@ export default connect(
 )(BSToast);
 
 const StyledToastHeader = styled(Toast.Header)``;
+
+const StyledToast = styled(Toast)``;

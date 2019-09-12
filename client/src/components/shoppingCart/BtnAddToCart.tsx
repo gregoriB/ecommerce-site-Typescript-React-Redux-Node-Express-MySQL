@@ -51,7 +51,7 @@ const BtnAddToCart: React.FC<IProps> = ({
         <StyledButton
             disabled={isDisabled}
             onClick={handleButtonClick}
-            variant="outline-info"
+            variant="outline-primary"
             title="Add item to your shopping shoppingCart"
         >
             {isDisabled ? (
@@ -88,7 +88,9 @@ export default connect(
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 const StyledButton = styled(Button)`
-    width: 100%;
+    .btn {
+        width: 100%;
+    }
     div {
         display: flex;
         justify-content: center;

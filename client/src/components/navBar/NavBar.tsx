@@ -57,7 +57,7 @@ export default withRouter(NavBar);
 type isExpanded = { isExpanded: boolean };
 
 const NavContainer = styled.div<isExpanded>`
-    position: sticky;
+    position: fixed;
     padding: 0;
     top: 0;
     left: 0;
@@ -69,12 +69,12 @@ const NavContainer = styled.div<isExpanded>`
     height: 60px;
     @media (max-width: ${stdBreakPoint}px) {
         height: ${props => (props.isExpanded ? "100vh" : "60px")};
-        position: fixed;
     }
 `;
 
 const StyledNavbar = styled(Navbar)`
     &.navbar {
+        position: fixed;
         display: flex;
         justify-content: flex-start;
         width: 100%;
@@ -82,9 +82,6 @@ const StyledNavbar = styled(Navbar)`
         margin: 0 auto;
         @media (min-width: ${stdBreakPoint + 1}px) {
             padding: 0.375rem 4rem;
-        }
-        @media (max-width: ${stdBreakPoint}px) {
-            position: fixed;
         }
     }
 `;

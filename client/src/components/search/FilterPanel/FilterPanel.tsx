@@ -113,7 +113,7 @@ const PanelContainer = styled.div<isActive>`
     align-items: center;
     width: 320px;
     transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-    z-index: 1;
+    z-index: 12;
     transform: translateX(${props => (props.isActive ? "0" : "-85%")});
 `;
 
@@ -137,7 +137,7 @@ const StyledEllipsisVIcon = styled.div<isActive>`
     font-size: 4rem;
     width: 10%;
     color: #42484d;
-    opacity: ${props => (props.isActive ? "1" : ".5")};
+    opacity: ${props => (props.isActive ? ".7" : ".4")};
     transition: 0.2s;
     @media (min-width: ${stdBreakPoint + 1}px) {
         visibility: hidden;

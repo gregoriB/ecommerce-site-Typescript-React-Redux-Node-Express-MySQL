@@ -64,7 +64,4 @@ const HomeContainer = styled.div`
     width: 100%;
     max-width: 2000px;
     margin: 0 auto;
-    /* @media (max-width: ${stdBreakPoint}) {
-        margin-top: 60px;
-    } */
 `;

@@ -21,6 +21,8 @@ const mapStateToProps = (state: IState) => ({
 
 export default connect(mapStateToProps)(Toasts);
 
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const ToastContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -29,8 +31,12 @@ const ToastContainer = styled.div`
     bottom: 1vh;
     right: 2vw;
     width: 25vw;
-    z-index: 100000;
+    max-height: 90vh;
+    z-index: 10;
     @media (max-width: ${stdBreakPoint}px) {
-        width: 50vw;
+        width: 100vw;
+        align-items: flex-end;
+        right: 0;
+        bottom: 0;
     }
 `;

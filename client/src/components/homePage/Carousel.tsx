@@ -38,7 +38,7 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
         };
     }, [setItems, products]);
 
-    return <StyledCarousel interval={3000}>{items}</StyledCarousel>;
+    return <StyledCarousel interval={3500}>{items}</StyledCarousel>;
 };
 
 interface IState {
@@ -66,35 +66,25 @@ const StyledCarousel = styled(Carousel)`
         width: 100%;
         justify-content: center;
     }
-    .carousel-item-left {
-        display: inline-flex;
-        width: 100%;
-    }
+    .carousel-item-left,
     .carousel-item-right {
         display: inline-flex;
         width: 100%;
     }
+
     .carousel-item.active {
         width: 100%;
         display: inline-flex;
         justify-content: center;
     }
-    .carousel-control-prev-icon {
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
         padding: 2rem;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: #6c757d;
         background-size: 50%;
         background-position: 45%;
         border-radius: 50%;
-        @media (max-width: ${stdBreakPoint}px) {
-            display: none;
-        }
-    }
-    .carousel-control-next-icon {
-        padding: 2rem;
-        background-color: rgba(0, 0, 0, 0.2);
-        background-size: 50%;
-        background-position: 55%;
-        border-radius: 50%;
+        opacity: 0.6;
         @media (max-width: ${stdBreakPoint}px) {
             display: none;
         }
