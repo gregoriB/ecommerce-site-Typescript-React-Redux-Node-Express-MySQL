@@ -18,7 +18,6 @@ const HomePage: React.FC<IProps> = ({ populateFeaturedProducts, updateSearch, wi
         (async () => {
             const dbQuery: IQueryDBArgs = { path: "home" };
             const data: IProduct[] = await queryDatabase(dbQuery);
-            console.log(data);
             populateFeaturedProducts(data);
         })();
     }, [populateFeaturedProducts]);
