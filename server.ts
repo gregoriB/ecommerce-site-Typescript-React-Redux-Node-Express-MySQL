@@ -51,7 +51,7 @@ app.post("/login", (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) return;
     if (req.body) {
-        const query = `SELECT user_name AS 'username', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password=AES_ENCRYPT('${hash}', '${password}')`;
+        const query = `SELECT user_name AS 'username', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password=AES_ENCRYPT('${password}','${hash}')`;
         queryDatabase(query, (results: mysql.Query) => {
             res.json(results);
         });
@@ -60,7 +60,7 @@ app.post("/login", (req: Request, res: Response) => {
 
 app.post("/user", (req: Request, res: Response) => {
     const { username, email, password } = req.body;
-    const values = `('${email}', '${username}', AES_ENCRYPT('${hash}', '${password}'))`;
+    const values = `('${email}', '${username}', AES_ENCRYPT('${password}', '${hash}'))`;
     queryDatabase(
         `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
         (results: mysql.Query) => {

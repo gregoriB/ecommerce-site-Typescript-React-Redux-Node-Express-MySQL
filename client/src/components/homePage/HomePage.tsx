@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import queryDatabase from "../../helpers/queryDatabase";
-import { stdBreakPoint } from "../../helpers/breakPoints";
 import FeaturedCarousel from "./Carousel";
 import HomeJumbotron from "./HomeJumbotron";
 import { populateFeaturedProducts, updateSearch } from "../../store/actions/actionCreators";

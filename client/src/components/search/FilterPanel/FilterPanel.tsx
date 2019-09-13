@@ -112,9 +112,9 @@ const PanelContainer = styled.div<isActive>`
     justify-content: space-between;
     align-items: center;
     width: 320px;
+    transform: translateX(${props => (props.isActive ? "0" : "-85%")});
     transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
     z-index: 12;
-    transform: translateX(${props => (props.isActive ? "0" : "-85%")});
 `;
 
 const Panel = styled.div`

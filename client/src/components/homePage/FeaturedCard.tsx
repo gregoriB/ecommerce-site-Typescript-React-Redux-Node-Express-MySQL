@@ -65,4 +65,6 @@ const StyledCardHeader = styled(Card.Header)`
 
 const StyledCardBody = styled(Card.Body)`
     text-align: center;
+    display: flex;
+    align-items: center;
 `;

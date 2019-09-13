@@ -8,9 +8,10 @@ import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     products: IProduct[];
+    windowWidth: number;
 }
 
-const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
+const FeaturedCarousel: React.FC<IProps> = ({ products, windowWidth }) => {
     const [items, setItems] = useState();
     useEffect(() => {
         const mapFeatured = () => {
@@ -36,7 +37,7 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
         return () => {
             window.removeEventListener("resize", mapFeatured);
         };
-    }, [setItems, products]);
+    }, [setItems, products, windowWidth]);
 
     if (!items) return null;
     return <StyledCarousel interval={3500}>{items}</StyledCarousel>;
@@ -44,10 +45,12 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
 
 interface IState {
     products: { [key: string]: IProduct[] };
+    windowSize: { windowWidth: number };
 }
 
 const mapStateToProps = (state: IState) => ({
-    products: state.products.featured
+    products: state.products.featured,
+    windowWidth: state.windowSize.windowWidth
 });
 
 export default connect(mapStateToProps)(FeaturedCarousel);
@@ -55,7 +58,6 @@ export default connect(mapStateToProps)(FeaturedCarousel);
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 const StyledCarousel = styled(Carousel)`
-    display: flex;
     .carousel {
         display: flex;
     }
@@ -103,6 +105,10 @@ const StyledCarouselItem = styled(Carousel.Item)`
     align-items: center;
     height: unset;
     .card {
-        height: 350px;
+        height: 500px;
+        @media (max-width: ${stdBreakPoint}px) {
+            height: unset;
+            max-height: 350px;
+        }
     }
 `;
