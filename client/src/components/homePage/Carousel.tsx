@@ -38,6 +38,7 @@ const FeaturedCarousel: React.FC<IProps> = ({ products }) => {
         };
     }, [setItems, products]);
 
+    if (!items) return null;
     return <StyledCarousel interval={3500}>{items}</StyledCarousel>;
 };
 

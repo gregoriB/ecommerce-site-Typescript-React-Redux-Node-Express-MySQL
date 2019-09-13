@@ -32,7 +32,7 @@ const ToastContainer = styled.div`
     right: 2vw;
     width: 25vw;
     max-height: 90vh;
-    z-index: 10;
+    z-index: 1051;
     @media (max-width: ${stdBreakPoint}px) {
         width: 100vw;
         align-items: flex-end;

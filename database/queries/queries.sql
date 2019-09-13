@@ -1,23 +1,6 @@
 
 INSERT INTO categories (cat_name) VALUES ('Arcade Sticks'), ('Stick Parts'), ('Adapters'), ('Accessories');
 
-SELECT * FROM categories;
-
-
-INSERT INTO featured_items (fi_item) VALUES (1), (2), (5), (6);
-
-SELECT * FROM featured_items;
-
-INSERT INTO item_categories (ic_item, ic_category) VALUES 
-    (1, 2), 
-    (1, 3), 
-    (2, 1), 
-    (3, 2), 
-    (4, 2), 
-    (5, 3), 
-    (6, 4);
-
-SELECT * FROM item_categories;
 
 INSERT INTO items (item_name, item_img_url, item_desc_short, item_desc_long, item_sku, item_price, item_stock)
 VALUES (
@@ -152,23 +135,27 @@ True last and next generation support is achievable with basic know how with lit
             150
         );
 
-SELECT * FROM items;
+INSERT INTO item_categories (ic_item, ic_category) VALUES 
+    (1, 2), 
+    (1, 3), 
+    (2, 1), 
+    (3, 2), 
+    (4, 2), 
+    (5, 3), 
+    (6, 4);
 
-
-INSERT INTO user_items (ui_user, ui_item, ui_qty) VALUES (1, 3, 2), (1, 2, 4), (2, 5, 8), (2, 1, 3), (2, 2, 10);
-
-SELECT * FROM user_items;
+INSERT INTO featured_items (fi_item) VALUES (1), (2), (5), (6);
 
 INSERT INTO users (user_email, user_name, user_password)
 VALUES (
     'brandon.gregori@gmail.com',
     'gregorib',
-    'password'
+    AES_ENCRYPT('super_meter', "!Q")
 ),
 (
     'brandon@brandon-gregori.com',
     'brandon',
-    'password12'
+    AES_ENCRYPT('super_meter', "password1!")
 );
 
-SELECT * FROM users;
+INSERT INTO user_items (ui_user, ui_item, ui_qty) VALUES (1, 3, 2), (1, 2, 4), (2, 5, 8), (2, 1, 3), (2, 2, 10);

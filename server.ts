@@ -3,6 +3,7 @@ import mysql = require("mysql");
 import path = require("path");
 import cors = require("cors");
 import { Application, Request, Response } from "express";
+import crypto = require("crypto");
 
 require("dotenv").config();
 
@@ -13,6 +14,11 @@ const app: Application = express(),
         origin: "*",
         optionsSuccessStatus: 200
     };
+
+//used alongside MySQL password encryption
+const CRYPTO_PASS = process.env.CRYPTO_PASS;
+const secret: string = typeof CRYPTO_PASS === "string" ? CRYPTO_PASS : JSON.stringify(CRYPTO_PASS);
+const hash = crypto.createHmac("sha256", secret).digest("hex");
 
 app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" : "build"}`)));
 app.use(cors(corsOptions));
@@ -45,18 +51,16 @@ app.post("/login", (req: Request, res: Response) => {
     const { username, password } = req.body;
     if (!username || !password) return;
     if (req.body) {
-        queryDatabase(
-            `SELECT user_name AS 'username', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password='${password}'`,
-            (results: mysql.Query) => {
-                res.json(results);
-            }
-        );
+        const query = `SELECT user_name AS 'username', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password=AES_ENCRYPT('${hash}', '${password}')`;
+        queryDatabase(query, (results: mysql.Query) => {
+            res.json(results);
+        });
     }
 });
 
 app.post("/user", (req: Request, res: Response) => {
     const { username, email, password } = req.body;
-    const values = `('${email}', '${username}', '${password}')`;
+    const values = `('${email}', '${username}', AES_ENCRYPT('${hash}', '${password}'))`;
     queryDatabase(
         `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
         (results: mysql.Query) => {

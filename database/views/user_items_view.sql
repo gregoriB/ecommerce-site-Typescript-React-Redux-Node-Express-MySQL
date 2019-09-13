@@ -1,6 +1,6 @@
-DROP VIEW IF EXISTS ui;
+DROP VIEW IF EXISTS user_items_view;
 
-CREATE VIEW ui AS
+CREATE VIEW user_items_view AS
   SELECT
     user_id,
     user_name,
@@ -14,4 +14,4 @@ CREATE VIEW ui AS
   GROUP BY
     user_id;
 
-SELECT * FROM ui \G
+SELECT * FROM user_items_view \G
