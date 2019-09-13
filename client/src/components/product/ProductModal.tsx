@@ -153,6 +153,9 @@ const Desc = styled.p`
         max-width: 100%;
         padding: 0;
     }
+    @media (min-width: 1599px) {
+        padding: 0;
+    }
 `;
 
 const ButtonContainer = styled.span`

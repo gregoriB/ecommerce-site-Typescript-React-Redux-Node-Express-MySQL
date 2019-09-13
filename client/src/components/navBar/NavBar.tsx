@@ -22,31 +22,29 @@ const NavBar: React.FC<RouteComponentProps> = ({ history }) => {
     };
 
     return (
-        <>
-            <NavContainer isExpanded={isExpanded}>
-                <StyledNavbar bg="light" expand="lg" expanded={isExpanded}>
-                    <StyledNavbarToggle aria-controls="basic-navbar-nav" onClick={toggleNav} />
-                    <StyledNavbarCollapse id="basic-navbar-nav">
-                        <BrandSearchContainer>
-                            <HomeButton onClick={navigateToHomePage}>
-                                <StyledNavbarBrand>Super Meter Arcade</StyledNavbarBrand>
-                                <HomeLink>Home</HomeLink>
-                            </HomeButton>
-                            <SearchForm hideNav={() => setIsExpanded(false)} />
-                        </BrandSearchContainer>
-                        <LoginForm />
-                    </StyledNavbarCollapse>
-                    <ShoppingCartModal
-                        show={isModalOpen}
-                        hideNav={() => setIsExpanded(false)}
-                        onHide={() => setIsModalOpen(false)}
-                    />
-                </StyledNavbar>
-                <ShoppingCartButton onClick={() => setIsModalOpen(true)} variant="outline-secondary">
-                    <StyledShoppingCartIcon icon="shopping-cart" size="1x" />
-                </ShoppingCartButton>
-            </NavContainer>
-        </>
+        <NavContainer isExpanded={isExpanded}>
+            <StyledNavbar bg="light" expand="lg" expanded={isExpanded}>
+                <StyledNavbarToggle aria-controls="basic-navbar-nav" onClick={toggleNav} />
+                <StyledNavbarCollapse id="basic-navbar-nav">
+                    <BrandSearchContainer>
+                        <HomeButton onClick={navigateToHomePage}>
+                            <StyledNavbarBrand>Super Meter Arcade</StyledNavbarBrand>
+                            <HomeLink>Home</HomeLink>
+                        </HomeButton>
+                        <SearchForm hideNav={() => setIsExpanded(false)} />
+                    </BrandSearchContainer>
+                    <LoginForm />
+                </StyledNavbarCollapse>
+                <ShoppingCartModal
+                    show={isModalOpen}
+                    hideNav={() => setIsExpanded(false)}
+                    onHide={() => setIsModalOpen(false)}
+                />
+            </StyledNavbar>
+            <ShoppingCartButton onClick={() => setIsModalOpen(true)} variant="outline-secondary">
+                <StyledShoppingCartIcon icon="shopping-cart" size="1x" />
+            </ShoppingCartButton>
+        </NavContainer>
     );
 };
 
@@ -57,13 +55,14 @@ export default withRouter(NavBar);
 type isExpanded = { isExpanded: boolean };
 
 const NavContainer = styled.div<isExpanded>`
-    position: fixed;
+    position: relative;
+    margin: 0 auto;
     padding: 0;
     top: 0;
     left: 0;
-    display: flex;
     z-index: 100;
-    width: 100vw;
+    width: 100%;
+    max-width: 1600px;
     background: #f8f9fa;
     transition: height 0.2s;
     height: 60px;
@@ -74,11 +73,8 @@ const NavContainer = styled.div<isExpanded>`
 
 const StyledNavbar = styled(Navbar)`
     &.navbar {
-        position: fixed;
-        display: flex;
-        justify-content: flex-start;
         width: 100%;
-        max-width: 2000px;
+        max-width: 1600px;
         margin: 0 auto;
         @media (min-width: ${stdBreakPoint + 1}px) {
             padding: 0.375rem 4rem;
@@ -131,7 +127,7 @@ const ShoppingCartButton = styled(Button)`
         align-self: center;
         position: absolute;
         top: 0.5rem;
-        right: calc(1.5rem + (100% - 100vw));
+        right: 1rem;
         margin: 0;
     }
 `;

@@ -68,13 +68,14 @@ export default connect(
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 const AppContainer = styled.div`
+    position: relative;
     overflow-x: hidden;
     width: 100vw;
     height: 100vh;
+    max-width: 1600px;
     margin: 0 auto;
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
+    margin: 0 auto;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
     ::-webkit-scrollbar {

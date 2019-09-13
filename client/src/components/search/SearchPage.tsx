@@ -108,10 +108,10 @@ const MainDiv = styled.div`
     align-items: flex-start;
     background-color: #f8f9fa;
     width: 100vw;
+    max-width: 1600px;
     margin: 0 auto;
     padding-left: 2vw;
-    padding-right: calc(100vw - 100%);
-    /* @media (max-width: ${stdBreakPoint}px) {
-        margin-top: 60px;
-    } */
+    @media (max-width: 1599px) {
+        padding-right: calc(100vw - 100%);
+    }
 `;

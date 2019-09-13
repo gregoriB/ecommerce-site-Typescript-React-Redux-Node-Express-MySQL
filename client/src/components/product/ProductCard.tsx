@@ -103,6 +103,7 @@ const StyledCard = styled(Card)`
     justify-content: center;
     align-items: center;
     border-radius: 0;
+    transition: box-shadow 0.2s;
     :hover {
         box-shadow: 0 3px 10px #42484d55;
     }

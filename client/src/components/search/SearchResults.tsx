@@ -49,7 +49,6 @@ const Display = styled.div`
     justify-items: center;
     align-items: center;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    margin-left: 250px;
     @media (max-width: ${stdBreakPoint}px) {
         padding: 0;
         width: 100vw;

@@ -105,21 +105,24 @@ export default connect(
 type isActive = { isActive: boolean };
 
 const PanelContainer = styled.div<isActive>`
-    position: fixed;
-    top: 60px;
-    left: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 320px;
-    transform: translateX(${props => (props.isActive ? "0" : "-85%")});
-    transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
-    z-index: 12;
+    width: 400px;
+    @media (max-width: ${stdBreakPoint}px) {
+        width: 320px;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        transform: translateX(${props => (props.isActive ? "0" : "-89%")});
+        transition: transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+        z-index: 12;
+    }
 `;
 
 const Panel = styled.div`
     padding: 0.7rem;
-    width: 80%;
+    width: 100%;
     margin: 1rem;
     margin-right: 0;
     background: #fffe;

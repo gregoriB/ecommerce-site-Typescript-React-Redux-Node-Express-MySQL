@@ -51,6 +51,7 @@ const FeaturedContainer = styled.div`
 const StyledCard = styled(Card)`
     margin: 0 1rem;
     height: 100%;
+    transition: box-shadow 0.2s;
     :hover {
         box-shadow: 0 3px 10px #42484d55;
     }

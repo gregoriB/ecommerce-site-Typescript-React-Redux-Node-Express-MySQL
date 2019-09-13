@@ -100,14 +100,6 @@ const InputWrapper = styled.div`
     }
 `;
 
-const SearchButton = styled.button`
-    background: white;
-    border: none;
-    position: absolute;
-    margin-right: 0.3rem;
-    right: 0;
-`;
-
 const StyledFormControl = styled(FormControl)`
     &.form-control {
         background: transparent;
@@ -120,4 +112,19 @@ const StyledFormControl = styled(FormControl)`
 const StyledSearchIcon = styled(FontAwesomeIcon)`
     opacity: 0.7;
     color: #42484d;
+    transition: opacity 0.2s;
+    :hover {
+        opacity: 1;
+    }
+`;
+
+const SearchButton = styled.button`
+    background: white;
+    border: none;
+    position: absolute;
+    margin-right: 0.3rem;
+    right: 0;
+    :hover ${StyledSearchIcon} {
+        opacity: 1;
+    }
 `;

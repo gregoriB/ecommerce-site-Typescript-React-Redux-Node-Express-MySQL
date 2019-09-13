@@ -15,7 +15,9 @@ const CheckoutPage = () => {
 export default CheckoutPage;
 
 const BannerContainer = styled.div`
-    margin-top: 10%;
+    position: absolute;
+    top: 20vh;
+    margin: 0 auto;
     width: 100%;
     height: 80%;
     text-align: center;
