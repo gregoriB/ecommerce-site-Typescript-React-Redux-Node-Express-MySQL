@@ -24,17 +24,22 @@ app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" :
 app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
+interface IReqProps {
+    [key: string]: string;
+}
+
 app.get("/products", (req: Request, res: Response) => {
-    queryDatabase(`SELECT * FROM item_categories_view`, (results: mysql.Query) => {
+    queryDatabase("SELECT * FROM item_categories_view", [], (results: mysql.Query) => {
         res.json(results);
     });
 });
 
 app.get("/products/:search", (req: Request, res: Response) => {
-    const { search } = req.params;
+    const { search }: IReqProps = req.params;
     const params = search === "null" ? "" : search;
     queryDatabase(
-        `SELECT * FROM item_categories_view WHERE itemName LIKE '%${params}%'`,
+        "SELECT * FROM item_categories_view WHERE itemName LIKE ?",
+        [`%${params}%`],
         (results: mysql.Query) => {
             res.json(results);
         }
@@ -42,27 +47,29 @@ app.get("/products/:search", (req: Request, res: Response) => {
 });
 
 app.get("/home", (req: Request, res: Response) => {
-    queryDatabase("SELECT * FROM featured_items_view", (results: mysql.Query) => {
+    queryDatabase("SELECT * FROM featured_items_view", [], (results: mysql.Query) => {
         res.json(results);
     });
 });
 
 app.post("/login", (req: Request, res: Response) => {
-    const { username, password } = req.body;
+    const { username, password }: IReqProps = req.body;
     if (!username || !password) return;
     if (req.body) {
-        const query = `SELECT user_name AS 'username', user_email AS 'email' FROM users WHERE user_name='${username}' AND user_password=AES_ENCRYPT('${password}','${hash}')`;
-        queryDatabase(query, (results: mysql.Query) => {
+        const query =
+            'SELECT user_name AS "username", user_email AS "email" FROM users WHERE user_name = ? AND user_password=AES_ENCRYPT(?, ?)';
+        queryDatabase(query, [username, password, hash], (results: mysql.Query) => {
             res.json(results);
         });
     }
 });
 
 app.post("/user", (req: Request, res: Response) => {
-    const { username, email, password } = req.body;
-    const values = `('${email}', '${username}', AES_ENCRYPT('${password}', '${hash}'))`;
+    const { username, email, password }: IReqProps = req.body;
+    const values = "(?, ?, AES_ENCRYPT(?, ?))";
     queryDatabase(
         `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
+        [email, username, password, hash],
         (results: mysql.Query) => {
             res.json(results);
         }
@@ -70,17 +77,17 @@ app.post("/user", (req: Request, res: Response) => {
 });
 
 app.put("/user/:email", (req: Request, res: Response) => {
-    const { oldEmail, newEmail } = req.body;
-    const query = `UPDATE users SET user_email='${newEmail}' WHERE user_email='${oldEmail}'`;
-    queryDatabase(query, (results: mysql.Query) => {
+    const { oldEmail, newEmail }: IReqProps = req.body;
+    const query = "UPDATE users SET user_email = ? WHERE user_email = ?";
+    queryDatabase(query, [newEmail, oldEmail], (results: mysql.Query) => {
         res.json(results);
     });
 });
 
 app.delete("/user/:email", (req: Request, res: Response) => {
-    const email = req.params.email;
+    const email: string = req.params.email;
     if (email) {
-        queryDatabase(`DELETE FROM users WHERE user_email='${email}'`, (results: mysql.Query) => {
+        queryDatabase("DELETE FROM users WHERE user_email = ?", [email], (results: mysql.Query) => {
             res.json(results);
         });
     }
@@ -93,9 +100,9 @@ const dbCredentials = {
     database: process.env.DB_DATABASE
 };
 
-function queryDatabase(query: string, callback: Function) {
+function queryDatabase(query: string, arr: string[], callback: Function) {
     const connection = mysql.createConnection(dbCredentials);
-    connection.query(query, (error: mysql.MysqlError, results: mysql.Query) => {
+    connection.query(query, arr, (error: mysql.MysqlError | null, results: mysql.Query) => {
         if (error) throw error;
         callback(results);
     });
