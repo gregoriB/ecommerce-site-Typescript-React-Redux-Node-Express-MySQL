@@ -1,7 +1,5 @@
-DROP TABLE IF EXISTS user_items;
-
 CREATE TABLE user_items (
-  ui_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ui_id SERIAL PRIMARY KEY,
   ui_user INT NOT NULL,
   ui_item INT NOT NULL,
   ui_qty INT NOT NULL,

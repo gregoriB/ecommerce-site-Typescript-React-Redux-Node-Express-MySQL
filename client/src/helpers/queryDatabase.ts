@@ -11,7 +11,7 @@ const queryDatabase = async ({ path, query, method }: IQueryDBArgs): Promise<any
     }
     const response = await fetch(`http://localhost:34567/${path}`, options);
     const results = await response.json();
-    return results;
+    return results.rows;
 };
 
 export default queryDatabase;

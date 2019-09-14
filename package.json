@@ -14,6 +14,7 @@
         "ecommerce-react-redux": "file:client",
         "express": "^4.17.1",
         "mysql": "^2.17.1",
+        "pg": "^7.12.1",
         "react": "^16.8.6",
         "react-bootstrap": "^1.0.0-beta.12",
         "react-dom": "^16.8.6",

@@ -1,5 +1,3 @@
-DROP VIEW IF EXISTS user_items_view;
-
 CREATE VIEW user_items_view AS
   SELECT
     user_id,
@@ -11,7 +9,4 @@ CREATE VIEW user_items_view AS
       ON users.user_id = user_items.ui_user
     INNER JOIN items
       ON user_items.ui_item = items.item_id
-  GROUP BY
-    user_id;
-
-SELECT * FROM user_items_view \G
+  GROUP BY user_id;

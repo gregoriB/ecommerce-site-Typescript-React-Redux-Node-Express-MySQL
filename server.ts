@@ -1,11 +1,12 @@
 import express = require("express");
-import mysql = require("mysql");
 import path = require("path");
 import cors = require("cors");
 import { Application, Request, Response } from "express";
 import crypto = require("crypto");
 
-require("dotenv").config();
+const { Client } = require("pg");
+
+require("dotenv").config({ path: __dirname + "/envs/postgres/.env" });
 
 const app: Application = express(),
     nodeEnv = app.get("env"),
@@ -15,7 +16,7 @@ const app: Application = express(),
         optionsSuccessStatus: 200
     };
 
-//used alongside MySQL password encryption
+//used alongside Postgres password encryption
 const CRYPTO_PASS = process.env.CRYPTO_PASS;
 const secret: string = typeof CRYPTO_PASS === "string" ? CRYPTO_PASS : JSON.stringify(CRYPTO_PASS);
 const hash = crypto.createHmac("sha256", secret).digest("hex");
@@ -29,7 +30,7 @@ interface IReqProps {
 }
 
 app.get("/products", (req: Request, res: Response) => {
-    queryDatabase("SELECT * FROM item_categories_view", [], (results: mysql.Query) => {
+    queryDatabase("SELECT * FROM item_categories_view", [], (results: any) => {
         res.json(results);
     });
 });
@@ -40,14 +41,14 @@ app.get("/products/:search", (req: Request, res: Response) => {
     queryDatabase(
         "SELECT * FROM item_categories_view WHERE itemName LIKE ?",
         [`%${params}%`],
-        (results: mysql.Query) => {
+        (results: any) => {
             res.json(results);
         }
     );
 });
 
 app.get("/home", (req: Request, res: Response) => {
-    queryDatabase("SELECT * FROM featured_items_view", [], (results: mysql.Query) => {
+    queryDatabase("SELECT * FROM featured_items_view", [], (results: any) => {
         res.json(results);
     });
 });
@@ -58,7 +59,7 @@ app.post("/login", (req: Request, res: Response) => {
     if (req.body) {
         const query =
             'SELECT user_name AS "username", user_email AS "email" FROM users WHERE user_name = ? AND user_password=AES_ENCRYPT(?, ?)';
-        queryDatabase(query, [username, password, hash], (results: mysql.Query) => {
+        queryDatabase(query, [username, password, hash], (results: any) => {
             res.json(results);
         });
     }
@@ -70,7 +71,7 @@ app.post("/user", (req: Request, res: Response) => {
     queryDatabase(
         `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
         [email, username, password, hash],
-        (results: mysql.Query) => {
+        (results: any) => {
             res.json(results);
         }
     );
@@ -79,7 +80,7 @@ app.post("/user", (req: Request, res: Response) => {
 app.put("/user/:email", (req: Request, res: Response) => {
     const { oldEmail, newEmail }: IReqProps = req.body;
     const query = "UPDATE users SET user_email = ? WHERE user_email = ?";
-    queryDatabase(query, [newEmail, oldEmail], (results: mysql.Query) => {
+    queryDatabase(query, [newEmail, oldEmail], (results: any) => {
         res.json(results);
     });
 });
@@ -87,7 +88,7 @@ app.put("/user/:email", (req: Request, res: Response) => {
 app.delete("/user/:email", (req: Request, res: Response) => {
     const email: string = req.params.email;
     if (email) {
-        queryDatabase("DELETE FROM users WHERE user_email = ?", [email], (results: mysql.Query) => {
+        queryDatabase("DELETE FROM users WHERE user_email = ?", [email], (results: any) => {
             res.json(results);
         });
     }
@@ -96,17 +97,19 @@ app.delete("/user/:email", (req: Request, res: Response) => {
 const dbCredentials = {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
+    database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+    port: process.env.DB_PORT
 };
 
 function queryDatabase(query: string, arr: string[], callback: Function) {
-    const connection = mysql.createConnection(dbCredentials);
-    connection.query(query, arr, (error: mysql.MysqlError | null, results: mysql.Query) => {
-        if (error) throw error;
-        callback(results);
+    const client = new Client({ ...dbCredentials });
+    client.connect();
+    client.query(query, arr, (err: any, res: any) => {
+        if (err) throw err;
+        callback(res);
+        client.end();
     });
-    connection.end();
 }
 
 const listener = app.listen(34567, () => {

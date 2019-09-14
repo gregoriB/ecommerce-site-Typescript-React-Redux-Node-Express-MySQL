@@ -6,7 +6,6 @@ import FilterPanel from "./FilterPanel/FilterPanel";
 import SearchResults from "./SearchResults";
 import queryDatabase from "../../helpers/queryDatabase";
 import { IProduct, IFilters } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     query: string;
@@ -37,30 +36,29 @@ const SearchPage: React.FC<IProps> = ({
         const mapResults = () => {
             const min = priceRange[0];
             const max = priceRange[1];
-            return products
-                .map((result: IProduct) => {
-                    // min or max could be `undefined`
-                    if ((min && result.price < min) || (max && result.price > max)) {
-                        return null;
-                    }
-                    return result.category && JSON.parse(result.category); //array from DB is a string so it needs to be parsed
-                })
-                .filter(Boolean); //get rid of those null array items
+            return products.map((result: IProduct) => {
+                // min or max could be `undefined`
+                if ((min && result.price < min) || (max && result.price > max)) {
+                    return null;
+                }
+                return result.category;
+            });
         };
         const filterDuplicateCategories = (matrix: string[][]) => {
             type tempObj = { [key: string]: number };
             const tempObj: tempObj = {};
             matrix.forEach((categoryArray: string[]) => {
-                categoryArray.forEach((category: string) => {
-                    tempObj[category] = tempObj[category] + 1 || 1;
-                });
+                categoryArray &&
+                    categoryArray.forEach((category: string) => {
+                        tempObj[category] = tempObj[category] + 1 || 1;
+                    });
             });
             return tempObj;
         };
         if (products) {
-            const resultsMapped = mapResults();
-            const filterdCategoriesObj = filterDuplicateCategories(resultsMapped);
-            const filteredCategoriesArr = Object.keys(filterdCategoriesObj).sort(
+            const resultsMapped: any = mapResults();
+            const filteredCategoriesObj = filterDuplicateCategories(resultsMapped);
+            const filteredCategoriesArr = Object.keys(filteredCategoriesObj).sort(
                 (a: string, b: string) => (a > b ? 1 : -1)
             );
             addCategoriesToFilter(filteredCategoriesArr);
