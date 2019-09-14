@@ -2,7 +2,7 @@ CREATE VIEW user_items_view AS
   SELECT
     user_id,
     user_name,
-    JSON_ARRAYAGG(item_name) AS 'Shopping Cart'
+    array_agg(item_name) AS "shoppingCart"
   FROM
     users
     INNER JOIN user_items

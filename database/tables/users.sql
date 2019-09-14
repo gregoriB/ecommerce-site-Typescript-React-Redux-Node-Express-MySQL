@@ -3,6 +3,5 @@ CREATE TABLE users (
     user_joindate TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     user_email VARCHAR(255),
     user_name VARCHAR(255),
-    user_password BYTEA
+    user_password TEXT
 );
-

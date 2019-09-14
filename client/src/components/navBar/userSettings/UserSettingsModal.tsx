@@ -53,7 +53,7 @@ const UserSettingsModal: React.FC<IProps & IModalToggle> = ({
         const query = { oldEmail: userEmail, newEmail: email };
         const dbQuery: IQueryDBArgs = { path: `user/${userEmail}`, query, method: "PUT" };
         const data: IUserData = await queryDatabase(dbQuery);
-        if (data!.affectedRows) {
+        if (data) {
             updateUserEmailInStore();
             onHide();
             setIsDeleteOpen(false);

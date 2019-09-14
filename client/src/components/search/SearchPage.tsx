@@ -36,13 +36,15 @@ const SearchPage: React.FC<IProps> = ({
         const mapResults = () => {
             const min = priceRange[0];
             const max = priceRange[1];
-            return products.map((result: IProduct) => {
-                // min or max could be `undefined`
-                if ((min && result.price < min) || (max && result.price > max)) {
-                    return null;
-                }
-                return result.category;
-            });
+            return products
+                .map((result: IProduct) => {
+                    // min or max could be `undefined`
+                    if ((min && result.price < min) || (max && result.price > max)) {
+                        return null;
+                    }
+                    return result.category;
+                })
+                .filter(Boolean); //get rid of those null array items
         };
         const filterDuplicateCategories = (matrix: string[][]) => {
             type tempObj = { [key: string]: number };

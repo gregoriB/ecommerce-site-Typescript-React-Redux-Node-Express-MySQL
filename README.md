@@ -1,1 +1,1 @@
-Work in progress full-stack Ecommerce website. Made with Typescript, React, Node, Express, and MySQL.
+Full-stack Ecommerce website. Made with Typescript, React, Redux, Node, Express, and SQL.
