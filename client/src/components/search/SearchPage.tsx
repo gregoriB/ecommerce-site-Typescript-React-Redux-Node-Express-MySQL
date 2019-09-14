@@ -6,7 +6,6 @@ import FilterPanel from "./FilterPanel/FilterPanel";
 import SearchResults from "./SearchResults";
 import queryDatabase from "../../helpers/queryDatabase";
 import { IProduct, IFilters } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     query: string;

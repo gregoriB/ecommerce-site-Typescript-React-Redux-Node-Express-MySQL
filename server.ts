@@ -5,7 +5,7 @@ import cors = require("cors");
 import { Application, Request, Response } from "express";
 import crypto = require("crypto");
 
-require("dotenv").config();
+require("dotenv").config({ path: __dirname + "/envs/mysql/.env" });
 
 const app: Application = express(),
     nodeEnv = app.get("env"),
