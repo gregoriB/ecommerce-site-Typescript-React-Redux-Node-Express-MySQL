@@ -7,7 +7,6 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.21",
         "@fortawesome/free-solid-svg-icons": "^5.10.1",
         "@fortawesome/react-fontawesome": "^0.1.4",
-        "@types/node": "^12.7.5",
         "bootstrap": "^4.3.1",
         "cors": "^2.8.5",
         "dotenv": "^8.0.0",
@@ -24,12 +23,14 @@
         "react-scripts": "3.0.1",
         "react-transition-group": "^4.2.1",
         "styled-components": "^4.3.2",
+        "typescript": "^3.6.3",
         "uuid": "^3.3.3"
     },
     "devDependencies": {
         "@types/cors": "^2.8.5",
         "@types/express": "^4.17.0",
         "@types/jest": "24.0.15",
+        "@types/node": "^12.7.5",
         "@types/react": "^16.9.2",
         "@types/react-dom": "16.8.5",
         "@types/react-redux": "^7.1.1",
