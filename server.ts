@@ -94,11 +94,8 @@ app.delete("/user/:email", (req: Request, res: Response) => {
 });
 
 const dbCredentials = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+    host: process.env.DATABASE_URL,
+    ssl: true
 };
 
 function queryDatabase(query: string, arr: string[], callback: Function) {
@@ -112,7 +109,7 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
 }
 
 const listener = app.listen(process.env.PORT, () => {
-    console.info("\x1b[33m", `${nodeEnv} server`);
+    console.info("\x1b[33m", `production server`);
     console.info(
         "\x1b[36m", //cyan font color
         "SERVER LISTENING:",
