@@ -45,7 +45,7 @@
     "scripts": {
         "build-ts": "tsc server.ts",
         "react-build": "cd ./client && react-scripts build",
-        "postinstall": "concurrently \"npm run build-ts\" \"react-scripts build\"",
+        "postinstall": "concurrently \"npm run build-ts\" \"cd ./client && react-scripts build\"",
         "start": "npm run serve",
         "serve": "node server.js",
         "watch-node": "nodemon server.js",
