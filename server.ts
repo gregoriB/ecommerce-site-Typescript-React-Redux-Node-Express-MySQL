@@ -10,7 +10,6 @@ require("dotenv").config();
 
 const app: Application = express(),
     nodeEnv = app.get("env"),
-    isDevelopment = nodeEnv !== "production",
     corsOptions = {
         origin: "*",
         optionsSuccessStatus: 200
@@ -21,7 +20,7 @@ const CRYPTO_PASS = process.env.CRYPTO_PASS;
 const secret: string = typeof CRYPTO_PASS === "string" ? CRYPTO_PASS : JSON.stringify(CRYPTO_PASS);
 const hash = crypto.createHmac("sha256", secret).digest("hex");
 
-app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" : "build"}`)));
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use(cors(corsOptions));
 app.use(express.json({ type: "applications/json" }));
 
