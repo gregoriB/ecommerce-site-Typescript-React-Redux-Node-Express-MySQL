@@ -1,6 +1,6 @@
 {
     "name": "ecommerce-site",
-    "version": "1.0",
+    "version": "0.1.0",
     "description": "Full-stack ecommerce site written with Typescript.  Uses React for the front-end and Node/Express/SQL for the back-end.",
     "main": "server.ts",
     "dependencies": {

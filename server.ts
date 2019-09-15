@@ -6,7 +6,7 @@ import crypto = require("crypto");
 
 const { Client } = require("pg");
 
-require("dotenv").config({ path: __dirname + "/envs/postgres/.env" });
+require("dotenv").config();
 
 const app: Application = express(),
     nodeEnv = app.get("env"),
