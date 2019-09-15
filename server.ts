@@ -108,12 +108,12 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
     });
 }
 
-const listener = app.listen(process.env.PORT, () => {
-    console.info("\x1b[33m", `production server`);
-    console.info(
-        "\x1b[36m", //cyan font color
-        "SERVER LISTENING:",
-        "\x1b[33m", //yellow font color
-        listener.address()
-    );
-});
+// const listener = app.listen(process.env.PORT, () => {
+//     console.info("\x1b[33m", `production server`);
+//     console.info(
+//         "\x1b[36m", //cyan font color
+//         "SERVER LISTENING:",
+//         "\x1b[33m", //yellow font color
+//         listener.address()
+//     );
+// });
