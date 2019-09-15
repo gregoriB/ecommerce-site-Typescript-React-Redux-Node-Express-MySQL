@@ -50,7 +50,7 @@
         "react-build": "cd ./client && react-scripts build",
         "server": "node-ts server.ts",
         "devStart": "concurrently \"npm run dev\" \"npm run client\"",
-        "start": "node-ts server.ts"
+        "start": "node server.ts"
     },
     "repository": {
         "type": "git",
