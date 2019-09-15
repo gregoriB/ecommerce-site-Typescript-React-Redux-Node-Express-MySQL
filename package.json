@@ -44,13 +44,14 @@
         "typescript": "3.5.3"
     },
     "scripts": {
-        "build": "concurrently \"tsc -p .\" \"npm run react-build\"",
         "client": "npm start --prefix client",
         "dev": "nodemon server.ts",
         "react-build": "cd ./client && react-scripts build",
         "server": "node-ts server.ts",
         "devStart": "concurrently \"npm run dev\" \"npm run client\"",
-        "start": "node server.ts"
+        "start": "node build/index.js",
+        "build": "tsc",
+        "postinstall": "npm run build"
     },
     "repository": {
         "type": "git",
