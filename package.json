@@ -45,7 +45,7 @@
         "ts-node": "^8.3.0"
     },
     "scripts": {
-        "build-ts": "tsc",
+        "build-ts": "tsc server.ts",
         "react-build": "cd ./client && react-scripts build",
         "postinstall": "concurrently \"npm run build-ts\" \"cd ./client && react-scripts build\"",
         "start": "npm run serve",
