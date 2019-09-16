@@ -108,12 +108,9 @@ const dbCredentials: ConnectionConfig & ClientConfig = {
 
 function queryDatabase(query: string, arr: string[], callback: Function) {
     const client = new Client({ ...dbCredentials });
-    console.log(dbCredentials);
-    console.log(query, arr);
     client.connect();
     client.query(query, arr, (err: Error, res: QueryResult) => {
         if (err) console.error(err);
-        console.log("query: " + res);
         callback(res);
         client.end();
     });
