@@ -1,15 +1,12 @@
-import express = require("express");
-import path = require("path");
-import cors = require("cors");
-import { Application, Request, Response } from "express";
-import crypto = require("crypto");
-
-const { Client } = require("pg");
+import express, { Application, Request, Response } from "express";
+import path from "path";
+import cors from "cors";
+import crypto from "crypto";
+import { Client, QueryResult } from "pg";
 
 require("dotenv").config();
 
 const app: Application = express(),
-    nodeEnv = app.get("env"),
     corsOptions = {
         origin: "*",
         optionsSuccessStatus: 200
@@ -29,7 +26,7 @@ interface IReqProps {
 }
 
 app.get("/products", (req: Request, res: Response) => {
-    queryDatabase("SELECT * FROM item_categories_view", [], (results: any) => {
+    queryDatabase("SELECT * FROM item_categories_view", [], (results: QueryResult) => {
         res.json(results);
     });
 });
@@ -40,14 +37,14 @@ app.get("/products/:search", (req: Request, res: Response) => {
     queryDatabase(
         `SELECT * FROM item_categories_view WHERE "itemName" like $1`,
         [`%${params}%`],
-        (results: any) => {
+        (results: QueryResult) => {
             res.json(results);
         }
     );
 });
 
 app.get("/home", (req: Request, res: Response) => {
-    queryDatabase("SELECT * FROM featured_items_view", [], (results: any) => {
+    queryDatabase("SELECT * FROM featured_items_view", [], (results: QueryResult) => {
         res.json(results);
     });
 });
@@ -58,7 +55,7 @@ app.post("/login", (req: Request, res: Response) => {
     if (req.body) {
         const query =
             'SELECT user_name AS "username", user_email AS "email" FROM users WHERE user_name = $1 AND user_password = crypt($2, $3)';
-        queryDatabase(query, [username, password, hash], (results: any) => {
+        queryDatabase(query, [username, password, hash], (results: QueryResult) => {
             res.json(results);
         });
     }
@@ -70,7 +67,7 @@ app.post("/user", (req: Request, res: Response) => {
     queryDatabase(
         `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
         [email, username, password, hash],
-        (results: any) => {
+        (results: QueryResult) => {
             res.json(results);
         }
     );
@@ -79,7 +76,7 @@ app.post("/user", (req: Request, res: Response) => {
 app.put("/user/:email", (req: Request, res: Response) => {
     const { oldEmail, newEmail }: IReqProps = req.body;
     const query = "UPDATE users SET user_email = $1 WHERE user_email = $2";
-    queryDatabase(query, [newEmail, oldEmail], (results: any) => {
+    queryDatabase(query, [newEmail, oldEmail], (results: QueryResult) => {
         res.json(results);
     });
 });
@@ -87,7 +84,7 @@ app.put("/user/:email", (req: Request, res: Response) => {
 app.delete("/user/:email", (req: Request, res: Response) => {
     const email: string = req.params.email;
     if (email) {
-        queryDatabase("DELETE FROM users WHERE user_email = $1", [email], (results: any) => {
+        queryDatabase("DELETE FROM users WHERE user_email = $1", [email], (results: QueryResult) => {
             res.json(results);
         });
     }
@@ -101,7 +98,7 @@ const dbCredentials = {
 function queryDatabase(query: string, arr: string[], callback: Function) {
     const client = new Client({ ...dbCredentials });
     client.connect();
-    client.query(query, arr, (err: any, res: any) => {
+    client.query(query, arr, (err: Error, res: QueryResult) => {
         if (err) throw err;
         callback(res);
         client.end();
