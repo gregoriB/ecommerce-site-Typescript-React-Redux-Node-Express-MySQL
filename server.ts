@@ -1,8 +1,11 @@
-import express, { Application, Request, Response } from "express";
-import path from "path";
-import cors from "cors";
-import crypto from "crypto";
-import { Client, QueryResult, ConnectionConfig, ClientConfig } from "pg";
+import express = require("express");
+import path = require("path");
+import cors = require("cors");
+import crypto = require("crypto");
+import { Application, Request, Response } from "express";
+import { QueryResult, ConnectionConfig, ClientConfig } from "pg";
+
+const { Client } = require("pg");
 
 require("dotenv").config({ path: __dirname + "/envs/postgres/.env" });
 
