@@ -30,7 +30,6 @@ interface IReqProps {
 }
 
 app.get("/products", (req: Request, res: Response) => {
-    console.log("products");
     queryDatabase("SELECT * FROM item_categories_view", [], (results: QueryResult) => {
         res.json(results);
     });
@@ -96,7 +95,7 @@ app.delete("/user/:email", (req: Request, res: Response) => {
 });
 
 app.get("*", () => {
-    console.log("~~~~~~~~~~~ path doesn't exist!! ~~~~~~~~~~~ ");
+    console.log(" ~~~~~~~~~~~ path doesn't exist!! ~~~~~~~~~~~ ");
 });
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
@@ -108,7 +107,8 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
     const client = new Client({ ...dbCredentials });
     client.connect();
     client.query(query, arr, (err: Error, res: QueryResult) => {
-        if (err) throw err;
+        if (err) console.error(err);
+        console.log(res);
         callback(res);
         client.end();
     });
