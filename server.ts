@@ -40,7 +40,7 @@ app.get("/products/:search", (req: Request, res: Response) => {
     const { search }: IReqProps = req.params;
     const params = search === "null" ? "" : search;
     queryDatabase(
-        `SELECT * FROM item_categories_view WHERE "itemName" like $1`,
+        `SELECT * FROM item_categories_view WHERE "itemName" ILIKE $1`,
         [`%${params}%`],
         (results: QueryResult) => {
             res.json(results);
@@ -59,7 +59,7 @@ app.post("/login", (req: Request, res: Response) => {
     if (!username || !password) return;
     if (req.body) {
         const query =
-            'SELECT user_name AS "username", user_email AS "email" FROM users WHERE user_name = $1 AND user_password = crypt($2, $3)';
+            'SELECT user_name AS "username", user_email AS "email" FROM users WHERE LOWER(user_name) = $1 AND user_password = crypt($2, $3)';
         queryDatabase(query, [username, password, hash], (results: QueryResult) => {
             res.json(results);
         });
@@ -80,7 +80,7 @@ app.post("/user", (req: Request, res: Response) => {
 
 app.put("/user/:email", (req: Request, res: Response) => {
     const { oldEmail, newEmail }: IReqProps = req.body;
-    const query = "UPDATE users SET user_email = $1 WHERE user_email = $2";
+    const query = "UPDATE users SET user_email = $1 WHERE LOWER(user_email) = $2";
     queryDatabase(query, [newEmail, oldEmail], (results: QueryResult) => {
         res.json(results);
     });
@@ -89,9 +89,13 @@ app.put("/user/:email", (req: Request, res: Response) => {
 app.delete("/user/:email", (req: Request, res: Response) => {
     const email: string = req.params.email;
     if (email) {
-        queryDatabase("DELETE FROM users WHERE user_email = $1", [email], (results: QueryResult) => {
-            res.json(results);
-        });
+        queryDatabase(
+            "DELETE FROM users WHERE LOWER(user_email) = $1",
+            [email],
+            (results: QueryResult) => {
+                res.json(results);
+            }
+        );
     }
 });
 
