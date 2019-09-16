@@ -109,7 +109,8 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
     });
 }
 
-const listener = app.listen(process.env.PORT, () => {
+const port = process.env.PORT || 8080;
+const listener = app.listen(port, () => {
     console.info("\x1b[33m", `production server`);
     console.info(
         "\x1b[36m", //cyan font color
