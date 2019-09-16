@@ -28,6 +28,7 @@ interface IReqProps {
 }
 
 app.get("/products", (req: Request, res: Response) => {
+    console.log("test");
     queryDatabase("SELECT * FROM item_categories_view", [], (results: QueryResult) => {
         res.json(results);
     });
@@ -94,11 +95,8 @@ app.delete("/user/:email", (req: Request, res: Response) => {
 });
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT)
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
 };
 
 function queryDatabase(query: string, arr: string[], callback: Function) {
@@ -111,7 +109,7 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
     });
 }
 
-const listener = app.listen(process.env.PORT, () => {
+const listener = app.listen(34567, () => {
     console.info("\x1b[33m", `production server`);
     console.info(
         "\x1b[36m", //cyan font color
