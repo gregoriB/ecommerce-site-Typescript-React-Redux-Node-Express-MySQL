@@ -9,7 +9,7 @@ const queryDatabase = async ({ path, query, method }: IQueryDBArgs): Promise<any
             headers: { "Content-Type": "applications/json" }
         };
     }
-    const response = await fetch(`https://super-meter-arcade.herokuapp.com/${path}`, options);
+    const response = await fetch(`${process.env.SERVER_URL}/${path}`, options);
     const data = await response.json();
     return data.rows.length ? data.rows : data;
 };

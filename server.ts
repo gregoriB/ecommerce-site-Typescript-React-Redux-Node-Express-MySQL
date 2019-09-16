@@ -30,6 +30,7 @@ interface IReqProps {
 }
 
 app.get("/products", (req: Request, res: Response) => {
+    console.log("products");
     queryDatabase("SELECT * FROM item_categories_view", [], (results: QueryResult) => {
         res.json(results);
     });
