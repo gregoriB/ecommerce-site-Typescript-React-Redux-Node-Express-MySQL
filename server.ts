@@ -3,7 +3,8 @@ import path = require("path");
 import cors = require("cors");
 import crypto = require("crypto");
 import { Application, Request, Response } from "express";
-import { Client, ConnectionConfig, ClientConfig, QueryResult } from "pg";
+import { ConnectionConfig, ClientConfig, QueryResult } from "pg";
+const { Client } = require("pg");
 
 require("dotenv").config();
 
