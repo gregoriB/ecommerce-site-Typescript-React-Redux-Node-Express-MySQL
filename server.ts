@@ -1,8 +1,12 @@
-import express, { Application, Request, Response } from "express";
-import path from "path";
-import cors from "cors";
-import crypto from "crypto";
-import { Client, QueryResult } from "pg";
+import express = require("express");
+import path = require("path");
+import cors = require("cors");
+import { Application, Request, Response } from "express";
+import crypto = require("crypto");
+
+import { ConnectionConfig, ClientConfig, QueryResult } from "pg";
+
+const { Client } = require("pg");
 
 require("dotenv").config();
 
@@ -90,7 +94,7 @@ app.delete("/user/:email", (req: Request, res: Response) => {
     }
 });
 
-const dbCredentials = {
+const dbCredentials: ConnectionConfig & ClientConfig = {
     host: process.env.DATABASE_URL,
     ssl: true
 };

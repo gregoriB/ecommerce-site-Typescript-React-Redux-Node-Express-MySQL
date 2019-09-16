@@ -30,3 +30,7 @@ server.js
 /cheatsheets
 /dist
 /database/nonEssential
+
+.yarnclean
+
+.package-lock.json
