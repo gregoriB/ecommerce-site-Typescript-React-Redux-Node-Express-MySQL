@@ -10,7 +10,7 @@ const queryDatabase = async ({ path, query, method }: IQueryDBArgs): Promise<any
         };
     }
     const port = process.env.PORT || 8080;
-    const response = await fetch(`localhost:${port}/${path}`, options);
+    const response = await fetch(`http://localhost:${port}/${path}`, options);
     const data = await response.json();
     return data.rows.length ? data.rows : data;
 };
