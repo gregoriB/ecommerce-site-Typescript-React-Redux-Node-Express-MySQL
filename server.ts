@@ -95,9 +95,7 @@ app.delete("/user/:email", (req: Request, res: Response) => {
     }
 });
 
-app.get("*", () => {
-    console.log(" ~~~~~~~~~~~ path doesn't exist!! ~~~~~~~~~~~ ");
-});
+app.get("*", req => console.log(req, " ~~ path doesn't exist ~~ "));
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
     host: process.env.DATABASE_URL,
@@ -106,10 +104,12 @@ const dbCredentials: ConnectionConfig & ClientConfig = {
 
 function queryDatabase(query: string, arr: string[], callback: Function) {
     const client = new Client({ ...dbCredentials });
+    console.log(dbCredentials);
+    console.log(query, arr);
     client.connect();
     client.query(query, arr, (err: Error, res: QueryResult) => {
         if (err) console.error(err);
-        console.log(res);
+        console.log("query: " + res);
         callback(res);
         client.end();
     });

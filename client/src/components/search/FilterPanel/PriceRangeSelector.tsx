@@ -93,7 +93,7 @@ const RangeButton = styled.button`
     border-radius: 3px;
     background: #f8f9fa;
     margin: 0;
-    padding: 0 0.5rem;
+    padding: 0.15rem 0.5rem;
     font-weight: bold;
     transition: 0.1s;
     :hover {
