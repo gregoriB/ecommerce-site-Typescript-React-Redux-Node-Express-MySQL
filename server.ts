@@ -95,6 +95,10 @@ app.delete("/user/:email", (req: Request, res: Response) => {
     }
 });
 
+app.get("*", () => {
+    console.log("~~~~~~~~~~~ path doesn't exist!! ~~~~~~~~~~~ ");
+});
+
 const dbCredentials: ConnectionConfig & ClientConfig = {
     host: process.env.DATABASE_URL,
     ssl: true
