@@ -72,6 +72,7 @@ const StyledCarousel = styled(Carousel)`
     }
     .carousel-item-left,
     .carousel-item-right {
+        visibility: visible;
         display: inline-flex;
         width: 100%;
     }
