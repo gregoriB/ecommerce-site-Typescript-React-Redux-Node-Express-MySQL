@@ -107,13 +107,12 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
     console.log(dbCredentials);
     console.log(query, arr);
     client.connect();
-    client
-        .query(query, arr, (err: Error, res: QueryResult) => {
-            if (err) console.error(err);
-            console.log("query: " + res);
-            callback(res);
-        })
-        .then(() => client.end());
+    client.query(query, arr, (err: Error, res: QueryResult) => {
+        if (err) console.error(err);
+        console.log("query: " + res);
+        callback(res);
+        client.end();
+    });
 }
 
 const port = process.env.PORT || 8080;
