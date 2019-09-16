@@ -1,28 +1,28 @@
 import express = require("express");
 import path = require("path");
 import cors = require("cors");
-import { Application, Request, Response } from "express";
 import crypto = require("crypto");
-
-import { ConnectionConfig, ClientConfig, QueryResult } from "pg";
-
-const { Client } = require("pg");
+import { Application, Request, Response } from "express";
+import { Client, ConnectionConfig, ClientConfig, QueryResult } from "pg";
 
 require("dotenv").config();
-
-const app: Application = express(),
-    corsOptions = {
-        origin: "*",
-        optionsSuccessStatus: 200
-    };
 
 //used alongside Postgres password encryption
 const CRYPTO_PASS = process.env.CRYPTO_PASS;
 const secret: string = typeof CRYPTO_PASS === "string" ? CRYPTO_PASS : JSON.stringify(CRYPTO_PASS);
 const hash = crypto.createHmac("sha256", secret).digest("hex");
 
-app.use(express.static(path.join(__dirname, "client/build")));
+const app: Application = express(),
+    corsOptions = {
+        origin: "*",
+        methods: ["GET", "PUT", "POST"],
+        optionsSuccessStatus: 200
+    };
+
+app.options("*", cors());
 app.use(cors(corsOptions));
+
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use(express.json({ type: "applications/json" }));
 
 interface IReqProps {
