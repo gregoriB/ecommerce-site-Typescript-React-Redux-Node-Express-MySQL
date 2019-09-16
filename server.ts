@@ -98,7 +98,7 @@ app.delete("/user/:email", (req: Request, res: Response) => {
 app.get("*", req => console.log(req, " ~~ path doesn't exist ~~ "));
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
-    host: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: true
 };
 
@@ -107,12 +107,13 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
     console.log(dbCredentials);
     console.log(query, arr);
     client.connect();
-    client.query(query, arr, (err: Error, res: QueryResult) => {
-        if (err) console.error(err);
-        console.log("query: " + res);
-        callback(res);
-        client.end();
-    });
+    client
+        .query(query, arr, (err: Error, res: QueryResult) => {
+            if (err) console.error(err);
+            console.log("query: " + res);
+            callback(res);
+        })
+        .then(() => client.end());
 }
 
 const port = process.env.PORT || 8080;
