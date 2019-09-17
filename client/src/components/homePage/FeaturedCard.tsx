@@ -61,7 +61,7 @@ const StyledCardHeader = styled(Card.Header)`
     &.card-header {
         border-radius: 0;
         box-sizing: border-box;
-        padding: 1rem 0;
+        padding: 1rem;
         text-align: center;
     }
 `;
