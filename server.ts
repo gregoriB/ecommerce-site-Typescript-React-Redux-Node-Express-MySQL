@@ -97,8 +97,9 @@ app.delete("/user/:email", (req: Request, res: Response) => {
     }
 });
 
-app.get("/*", function(req, res) {
-    res.sendFile(path.resolve(__dirname, "client/build/index.html"));
+app.get("*", (req, res) => {
+    const url = path.join(__dirname, "client/build", "index.html");
+    res.sendFile(url);
 });
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
