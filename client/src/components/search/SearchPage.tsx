@@ -58,7 +58,7 @@ const SearchPage: React.FC<IProps> = ({
             return tempObj;
         };
         if (products && products.length) {
-            const resultsMapped: any = mapResults();
+            const resultsMapped: any[] = mapResults();
             const filteredCategoriesObj = filterDuplicateCategories(resultsMapped);
             const filteredCategoriesArr = Object.keys(filteredCategoriesObj).sort(
                 (a: string, b: string) => (a > b ? 1 : -1)

@@ -19,7 +19,7 @@ const RegistrationModal: React.FC<IModalToggle> = ({ onHide, show }) => {
         <Modal show={show} aria-labelledby="contained-modal-title-vcenter" centered onHide={handleHide}>
             <Modal.Header style={{ background: isWarning ? "#fff3cd" : undefined }} closeButton>
                 <StyledModalTitle id="contained-modal-title-vcenter">
-                    <StyleEditIcon icon="edit" />
+                    <StyleEditIcon icon={isWarning ? "exclamation-circle" : "edit"} />
                     <Header isWarning={isWarning}>
                         {isWarning ? "WARNING" : "Register New Account"}
                     </Header>
