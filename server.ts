@@ -97,6 +97,10 @@ app.delete("/user/:email", (req: Request, res: Response) => {
     }
 });
 
+app.get("/*", function(req, res) {
+    res.sendFile(path.resolve(__dirname, "client/build/index.html"));
+});
+
 const dbCredentials: ConnectionConfig & ClientConfig = {
     connectionString: process.env.DATABASE_URL,
     ssl: true
