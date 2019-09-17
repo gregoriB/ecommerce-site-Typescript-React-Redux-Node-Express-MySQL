@@ -99,7 +99,9 @@ app.delete("/user/:email", (req: Request, res: Response) => {
     }
 });
 
-app.get("*", req => console.log(req, " ~~ path doesn't exist ~~ "));
+app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.resolve(__dirname, "/client/build", "index.html"));
+});
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
     connectionString: process.env.DATABASE_URL,
