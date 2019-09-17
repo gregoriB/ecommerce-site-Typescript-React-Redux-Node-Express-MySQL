@@ -65,7 +65,7 @@ const NavContainer = styled.div<isExpanded>`
     max-width: 1600px;
     background: #f8f9fa;
     transition: height 0.2s;
-    height: 60px;
+    height: 52px;
     @media (max-width: ${stdBreakPoint}px) {
         height: ${props => (props.isExpanded ? "100vh" : "60px")};
     }
@@ -126,7 +126,7 @@ const ShoppingCartButton = styled(Button)`
         margin: 0 2rem;
         align-self: center;
         position: absolute;
-        top: 0.5rem;
+        top: 0.3rem;
         right: 1rem;
         margin: 0;
     }

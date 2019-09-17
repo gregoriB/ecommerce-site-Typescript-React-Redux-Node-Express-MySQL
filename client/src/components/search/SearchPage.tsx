@@ -101,7 +101,7 @@ export default connect(
 
 const MainDiv = styled.div`
     position: absolute;
-    top: 60px;
+    top: 52px;
     left: 0;
     display: flex;
     justify-content: center;

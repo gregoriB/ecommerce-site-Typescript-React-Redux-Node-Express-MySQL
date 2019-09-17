@@ -58,7 +58,7 @@ export default connect(
 
 const HomeContainer = styled.div`
     position: absolute;
-    top: 60px;
+    top: 52px;
     left: 0;
     width: 100%;
     max-width: 2000px;
