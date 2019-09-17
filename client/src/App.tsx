@@ -11,7 +11,6 @@ import { updateWindowWidth } from "./store/actions/actionCreators";
 
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import "./styles/bootstrap.css";
 import "./styles/transitions.css";
 import styled from "styled-components";
 import { stdBreakPoint } from "./helpers/breakPoints";
