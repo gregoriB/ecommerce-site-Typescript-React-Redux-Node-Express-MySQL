@@ -12,6 +12,6 @@ CREATE VIEW featured_items_view AS
     items
     INNER JOIN featured_items
       ON items.item_id = featured_items.fi_item
-  GROUP BY
-    item_id;
+    GROUP BY id
+    ORDER BY id ASC;
 

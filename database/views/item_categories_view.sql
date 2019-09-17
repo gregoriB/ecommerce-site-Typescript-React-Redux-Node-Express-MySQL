@@ -17,4 +17,5 @@ CREATE VIEW item_categories_view AS
     JOIN
       categories c
     ON ic.ic_category = c.cat_id
-    GROUP BY item_id;
+    GROUP BY id
+    ORDER BY id ASC;
