@@ -110,6 +110,7 @@ const StyledDropdownItem = styled(Dropdown.Item)`
     border: none;
     width: 100%;
     margin: 0 auto;
+    padding: 0.5rem 0;
     :hover {
         transition: 0.2s;
         color: white !important;

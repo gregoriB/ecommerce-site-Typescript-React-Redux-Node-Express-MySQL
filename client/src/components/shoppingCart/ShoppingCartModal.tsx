@@ -121,6 +121,7 @@ const LinkToCheckout = styled.button`
     background: none;
     border: none;
     color: #007bff;
+    padding: 0.2rem 0.5rem;
 `;
 
 const StyleCartIcon = styled(FontAwesomeIcon)`

@@ -146,4 +146,5 @@ const ShowMoreLink = styled.button`
     display: block;
     text-decoration: underline;
     margin: 5px auto;
+    padding: 0.2rem 0.5rem;
 `;
