@@ -18,10 +18,7 @@ const FeaturedCard: React.FC<IProduct> = props => {
     return (
         <FeaturedContainer>
             <StyledCard onClick={handleClick}>
-                <StyledCardHeader>
-                    ${price}
-                    <div>{itemName}</div>
-                </StyledCardHeader>
+                <StyledCardHeader>{itemName}</StyledCardHeader>
                 <StyledCardBody>
                     <ProductImage allowModal={false} image={imageURL} />
                 </StyledCardBody>
@@ -61,7 +58,12 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledCardHeader = styled(Card.Header)`
-    border-radius: 0;
+    &.card-header {
+        border-radius: 0;
+        box-sizing: border-box;
+        padding: 1rem 0;
+        text-align: center;
+    }
 `;
 
 const StyledCardBody = styled(Card.Body)`
