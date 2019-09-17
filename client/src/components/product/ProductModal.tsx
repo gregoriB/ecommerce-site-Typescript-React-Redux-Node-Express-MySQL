@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
 import ImageModal from "./ImageModal";
@@ -17,7 +17,11 @@ const ProductModal: React.FC<IProduct & IModalToggle> = ({
     stock
 }) => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const descRef = useRef<HTMLDivElement | null>(null);
 
+    useEffect(() => {
+        descRef.current && (descRef.current!.innerHTML = descLong);
+    });
     return (
         <StyledModal
             onHide={onHide}
@@ -34,7 +38,7 @@ const ProductModal: React.FC<IProduct & IModalToggle> = ({
             <FlexContainer>
                 <Title>{itemName}</Title>
                 <Content>
-                    <Desc>{descLong}</Desc>
+                    <Desc ref={descRef} />
                     <ImageAndCartButton className="image-and-cart-button">
                         <ProductImage allowModal={true} image={imageURL} />
                         <ImageModal
@@ -147,6 +151,10 @@ const Desc = styled.p`
     white-space: pre-wrap;
     max-width: 60%;
     padding-left: 10vw;
+    ul {
+        display: flex;
+        flex-direction: column;
+    }
     @media (max-width: ${stdBreakPoint}px) {
         font-size: 0.8rem;
         text-align: justify;
