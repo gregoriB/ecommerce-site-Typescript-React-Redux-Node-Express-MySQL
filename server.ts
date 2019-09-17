@@ -110,7 +110,6 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
     const client = new Client({ ...dbCredentials });
     client.connect();
     client.query(query, arr, (err: Error, res: QueryResult) => {
-        if (err) console.error(err);
         callback(res);
         client.end();
     });
