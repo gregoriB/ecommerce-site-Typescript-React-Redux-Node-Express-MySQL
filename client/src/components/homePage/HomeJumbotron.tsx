@@ -47,7 +47,7 @@ const StyledJumbotron = styled(Jumbotron)`
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
-        max-height: 450px;
+        max-height: 350px;
         @media (max-width: ${stdBreakPoint}px) {
             text-align: center;
             padding: 3vh 5vw;
