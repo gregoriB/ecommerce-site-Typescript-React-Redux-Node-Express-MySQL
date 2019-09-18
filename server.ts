@@ -4,6 +4,7 @@ import cors = require("cors");
 import crypto = require("crypto");
 import { Application, Request, Response } from "express";
 import { ConnectionConfig, ClientConfig, QueryResult } from "pg";
+
 const { Client } = require("pg");
 
 require("dotenv").config();
@@ -14,6 +15,9 @@ const secret: string = typeof CRYPTO_PASS === "string" ? CRYPTO_PASS : JSON.stri
 const hash = crypto.createHmac("sha256", secret).digest("hex");
 
 const app: Application = express(),
+    nodeEnv = app.get("env"),
+    isDevelopment = nodeEnv !== "production",
+    viewFolder = isDevelopment ? "public" : "build",
     corsOptions = {
         origin: "*",
         methods: ["GET", "PUT", "POST"],
@@ -23,7 +27,7 @@ const app: Application = express(),
 app.options("*", cors());
 app.use(cors(corsOptions));
 
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, `client/${viewFolder}`)));
 app.use(express.json({ type: "applications/json" }));
 
 interface IReqProps {
@@ -100,7 +104,7 @@ app.delete("/user/:email", (req: Request, res: Response) => {
 });
 
 app.get("*", (req: Request, res: Response) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "client", viewFolder, "index.html"));
 });
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
@@ -119,7 +123,7 @@ function queryDatabase(query: string, arr: string[], callback: Function) {
 
 const port = process.env.PORT || 8080;
 const listener = app.listen(port, () => {
-    console.info("\x1b[33m", `production server`);
+    console.info("\x1b[33m", `${nodeEnv} server`);
     console.info(
         "\x1b[36m", //cyan font color
         "SERVER LISTENING:",
