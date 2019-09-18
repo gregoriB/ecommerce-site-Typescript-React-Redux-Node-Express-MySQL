@@ -43,7 +43,7 @@ export default connect(
 const StyledJumbotron = styled(Jumbotron)`
     &.jumbotron {
         background: white;
-        padding: 7vh 10vw;
+        padding: 5vh 10vw;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
