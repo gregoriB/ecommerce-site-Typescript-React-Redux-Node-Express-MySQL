@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store/index";
 
 import "./styles/normalize.css";
-import "./store/body.css";
+import "./styles/body.css";
 import "./fontAwesome/fontawesome";
 
 import App from "./App";
