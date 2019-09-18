@@ -6,7 +6,7 @@ import { Application, Request, Response } from "express";
 import { ConnectionConfig, ClientConfig, QueryResult } from "pg";
 const { Client } = require("pg");
 
-require("dotenv").config({ path: __dirname + "/envs/mysql/.env" });
+require("dotenv").config();
 
 //used alongside Postgres password encryption
 const CRYPTO_PASS = process.env.CRYPTO_PASS;
