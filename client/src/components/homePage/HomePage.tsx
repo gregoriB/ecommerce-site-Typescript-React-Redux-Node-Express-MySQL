@@ -65,6 +65,7 @@ const HomeContainer = styled.div`
     left: 0;
     width: 100%;
     max-width: ${maxWidth}px;
+    min-height: 90vh;
     margin: 0 auto;
     @media (min-width: ${maxWidth}px) {
         left: calc((100vw - ${maxWidth}px) / 2);

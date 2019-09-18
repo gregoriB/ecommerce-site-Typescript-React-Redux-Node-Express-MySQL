@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Jumbotron, Button } from "react-bootstrap";
 
 import { updateSearch } from "../../store/actions/actionCreators";
-import { stdBreakPoint } from "../../helpers/breakPoints";
+import { stdBreakPoint, maxWidth } from "../../helpers/breakPoints";
 
 interface IProps {
     updateSearch(val: string): void;
@@ -47,10 +47,14 @@ const StyledJumbotron = styled(Jumbotron)`
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+        max-height: 500px;
         @media (max-width: ${stdBreakPoint}px) {
             text-align: center;
             padding: 3vh 5vw;
             margin-bottom: 1rem;
+        }
+        @media (min-width: ${maxWidth}px) {
+            padding: 8rem;
         }
     }
 `;
