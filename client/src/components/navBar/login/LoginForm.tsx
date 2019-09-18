@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { FormControl, Form, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { FormControl, Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import User from "../userSettings/User";
-import LoginAlert from "./LoginAlert";
-import queryDatabase from "../../../helpers/queryDatabase";
-import RegistrationModal from "../registration/RegistrationModal";
+
 import { updateUserData } from "../../../store/actions/actionCreators";
-import { IQueryDBArgs, IUserData } from "../../../types/generalTypes";
+import queryDatabase from "../../../helpers/queryDatabase";
 import { stdBreakPoint } from "../../../helpers/breakPoints";
+import { IQueryDBArgs, IUserData } from "../../../types/generalTypes";
+
+import RegistrationModal from "../registration/RegistrationModal";
+import LoginAlert from "./LoginAlert";
+import User from "../userSettings/User";
 
 const loginIntialValues = {
     username: "",

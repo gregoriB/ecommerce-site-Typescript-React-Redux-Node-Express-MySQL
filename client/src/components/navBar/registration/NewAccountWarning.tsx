@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateUserData } from "../../../store/actions/actionCreators";
-import { Alert, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { Alert, Button } from "react-bootstrap";
+
+import { updateUserData } from "../../../store/actions/actionCreators";
 import queryDatabase from "../../../helpers/queryDatabase";
 import { IUserData } from "../../../types/generalTypes";
 

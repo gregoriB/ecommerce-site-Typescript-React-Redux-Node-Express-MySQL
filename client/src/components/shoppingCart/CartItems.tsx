@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { IShoppingCart, IShoppingCartItems } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
-import QuantityInput from "./QuantityInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { stdBreakPoint } from "../../helpers/breakPoints";
+import { IShoppingCart, IShoppingCartItems } from "../../types/generalTypes";
+
+import QuantityInput from "./QuantityInput";
 
 interface IProps {
     shoppingCart: IShoppingCart;
@@ -55,7 +57,7 @@ const CartItems: React.FC<IProps> = ({ shoppingCart, windowWidth, setIsCartPopul
     }, [cartRef, setEmptyCartMargin, windowWidth]);
 
     return (
-        <CartItemsContainer margin={emptyCartMargin}>
+        <CartItemsContainer margin={emptyCartMargin} items={items}>
             {items.length ? (
                 items
             ) : (
@@ -82,10 +84,13 @@ export default connect(mapStateToProps)(CartItems);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
-type margin = { margin: number };
+interface IStyleProps {
+    margin: number;
+    items: React.ReactChild[];
+}
 
-const CartItemsContainer = styled.div<margin>`
-    margin-top: ${props => props.margin}px;
+const CartItemsContainer = styled.div<IStyleProps>`
+    margin-top: ${props => (props.items.length ? 0 : props.margin)}px;
     box-sizing: border-box;
     width: 100%;
     height: 100%;

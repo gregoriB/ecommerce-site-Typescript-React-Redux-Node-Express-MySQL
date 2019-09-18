@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+
 import products from "./products";
 import searchRequest from "./searchRequest";
 import filters from "./filters";

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { deleteUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Alert, FormControl, Button } from "react-bootstrap";
+
+import { deleteUserData } from "../../../store/actions/actionCreators";
 import queryDatabase from "../../../helpers/queryDatabase";
 import { IUserData } from "../../../types/generalTypes";
 

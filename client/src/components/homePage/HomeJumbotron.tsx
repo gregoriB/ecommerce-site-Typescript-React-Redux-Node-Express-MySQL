@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateSearch } from "../../store/actions/actionCreators";
 import { Link } from "react-router-dom";
-import { Jumbotron, Button } from "react-bootstrap";
 import styled from "styled-components";
+import { Jumbotron, Button } from "react-bootstrap";
+
+import { updateSearch } from "../../store/actions/actionCreators";
 import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {

@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { updateUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Modal, Button } from "react-bootstrap";
-import AccountDelete from "./AccountDelete";
-import EmailSettings from "./EmailSettings";
-import queryDatabase from "../../../helpers/queryDatabase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IQueryDBArgs, IUserData, IModalToggle } from "../../../types/generalTypes";
+
+import { updateUserData } from "../../../store/actions/actionCreators";
+import queryDatabase from "../../../helpers/queryDatabase";
 import { stdBreakPoint } from "../../../helpers/breakPoints";
+import { IQueryDBArgs, IUserData, IModalToggle } from "../../../types/generalTypes";
+
+import EmailSettings from "./EmailSettings";
+import AccountDelete from "./AccountDelete";
 
 interface IProps {
     username: string;

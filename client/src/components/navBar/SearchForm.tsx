@@ -1,16 +1,17 @@
 import React from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
-import { Form, FormControl } from "react-bootstrap";
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import styled from "styled-components";
+import { Form, FormControl } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
     updateSearch,
     changeCategoriesInFilter,
     changePriceRangeInFilter
 } from "../../store/actions/actionCreators";
-import { IFiltersRtn } from "../../types/actionTypes";
 import { stdBreakPoint } from "../../helpers/breakPoints";
+import { IFiltersRtn } from "../../types/actionTypes";
 
 interface IProps {
     query: string;

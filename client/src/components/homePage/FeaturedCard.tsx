@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
 import styled from "styled-components";
+import { Card } from "react-bootstrap";
+
+import { stdBreakPoint } from "../../helpers/breakPoints";
+import { IProduct } from "../../types/generalTypes";
+
 import ProductModal from "../product/ProductModal";
 import ProductImage from "../product/ProductImage";
-import { IProduct } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
 
 const FeaturedCard: React.FC<IProduct> = props => {
     const [isModalOpen, setIsModalOpen] = useState(false);

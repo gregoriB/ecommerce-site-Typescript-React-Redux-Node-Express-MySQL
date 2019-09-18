@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
-import RegistrationForm from "./RegistrationForm";
 import styled from "styled-components";
-import NewAccountWarning from "./NewAccountWarning";
+import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IModalToggle } from "../../../types/generalTypes";
+
 import { stdBreakPoint } from "../../../helpers/breakPoints";
+import { IModalToggle } from "../../../types/generalTypes";
+
+import RegistrationForm from "./RegistrationForm";
+import NewAccountWarning from "./NewAccountWarning";
 
 const RegistrationModal: React.FC<IModalToggle> = ({ onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);

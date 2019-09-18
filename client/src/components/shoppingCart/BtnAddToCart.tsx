@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { addOneToCart, addToast } from "../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Toast from "../toasts/Toast";
 import uuid from "uuid";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { addOneToCart, addToast } from "../../store/actions/actionCreators";
 import { IShoppingCart } from "../../types/generalTypes";
 import { IShoppingCartPayload } from "../../types/actionTypes";
+
+import Toast from "../toasts/Toast";
 
 interface IProps {
     shoppingCart: { [key: string]: IShoppingCart };

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+
 import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {

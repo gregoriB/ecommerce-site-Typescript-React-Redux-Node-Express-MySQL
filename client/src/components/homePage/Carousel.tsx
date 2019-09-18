@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Carousel } from "react-bootstrap";
 import styled from "styled-components";
+import { Carousel } from "react-bootstrap";
+
 import mapProductData from "../../helpers/mapProductData";
-import { IProduct } from "../../types/generalTypes";
 import { stdBreakPoint } from "../../helpers/breakPoints";
+import { IProduct } from "../../types/generalTypes";
 
 interface IProps {
     products: IProduct[];

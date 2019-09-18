@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
+import { Form, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
     changeCategoriesInFilter,
     changePriceRangeInFilter
 } from "../../../store/actions/actionCreators";
-import styled from "styled-components";
-import CategoryItem from "./CategoryItem";
-import { Form, Button } from "react-bootstrap";
-import PriceRangeSelector from "./PriceRangeSelector";
+import { stdBreakPoint } from "../../../helpers/breakPoints";
 import { IFilters } from "../../../types/generalTypes";
 import { IFiltersRtn } from "../../../types/actionTypes";
-import { stdBreakPoint } from "../../../helpers/breakPoints";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import CategoryItem from "./CategoryItem";
+import PriceRangeSelector from "./PriceRangeSelector";
 
 interface IProps {
     allCategories?: string[];

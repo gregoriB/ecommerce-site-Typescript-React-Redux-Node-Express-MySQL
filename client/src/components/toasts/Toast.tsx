@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { removeToast } from "../../store/actions/actionCreators";
-import Toast from "react-bootstrap/Toast";
 import styled from "styled-components";
+import Toast from "react-bootstrap/Toast";
+
+import { removeToast } from "../../store/actions/actionCreators";
 
 interface IProps {
     itemName: string;

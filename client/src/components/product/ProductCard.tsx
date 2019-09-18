@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
+
+import { IProduct, IFilters } from "../../types/generalTypes";
+
 import ProductModal from "./ProductModal";
 import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
-import { IProduct, IFilters } from "../../types/generalTypes";
 
 export interface IProps {
     categories: string[];

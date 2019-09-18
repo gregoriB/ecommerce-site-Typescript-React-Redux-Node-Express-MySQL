@@ -1,8 +1,11 @@
 import React from "react";
-import NavBar from "./components/navBar/NavBar";
-import Main from "./components/Main";
 import { BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
+
+import { maxWidth } from "./helpers/breakPoints";
+
+import NavBar from "./components/navBar/NavBar";
+import Main from "./components/Main";
 
 import "./styles/transitions.css";
 
@@ -19,7 +22,9 @@ const App = () => {
 
 export default App;
 
+/* ~~~~~~ -- styling -- ~~~~~~ */
+
 const AppContainer = styled.div`
     margin: 0 auto;
-    max-width: 1600px;
+    max-width: ${maxWidth}px;
 `;
