@@ -6,6 +6,7 @@ import FeaturedCarousel from "./Carousel";
 import HomeJumbotron from "./HomeJumbotron";
 import { populateFeaturedProducts, updateSearch } from "../../store/actions/actionCreators";
 import { IQueryDBArgs, IProduct } from "../../types/generalTypes";
+import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     windowWidth: number;
@@ -61,6 +62,12 @@ const HomeContainer = styled.div`
     top: 52px;
     left: 0;
     width: 100%;
-    max-width: 2000px;
+    max-width: 1600px;
     margin: 0 auto;
+    @media (min-width: 1600px) {
+        left: calc((100vw - 1600px) / 2);
+    }
+    @media (max-width: ${stdBreakPoint}px) {
+        top: 60px;
+    }
 `;

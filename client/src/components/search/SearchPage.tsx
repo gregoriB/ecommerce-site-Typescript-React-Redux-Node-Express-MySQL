@@ -57,8 +57,8 @@ const SearchPage: React.FC<IProps> = ({
             });
             return tempObj;
         };
-        if (products && products.length) {
-            const resultsMapped: any[] = mapResults();
+        if (products) {
+            const resultsMapped: any = mapResults();
             const filteredCategoriesObj = filterDuplicateCategories(resultsMapped);
             const filteredCategoriesArr = Object.keys(filteredCategoriesObj).sort(
                 (a: string, b: string) => (a > b ? 1 : -1)
@@ -113,5 +113,8 @@ const MainDiv = styled.div`
     padding-left: 2vw;
     @media (max-width: 1599px) {
         padding-right: calc(100vw - 100%);
+    }
+    @media (min-width: 1600px) {
+        left: calc((100vw - 1600px) / 2);
     }
 `;
