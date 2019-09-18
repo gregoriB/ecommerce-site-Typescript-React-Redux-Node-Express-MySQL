@@ -69,9 +69,8 @@ export default connect(
 
 const AppContainer = styled.div`
     position: relative;
-    overflow-x: hidden;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     max-width: 1600px;
     margin: 0 auto;
     position: relative;
