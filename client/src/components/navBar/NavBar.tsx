@@ -62,22 +62,28 @@ const NavContainer = styled.div<isExpanded>`
     left: 0;
     z-index: 100;
     width: 100%;
+    max-width: 1600px;
     background: #f8f9fa;
     transition: height 0.2s;
     height: 60px;
     @media (max-width: ${stdBreakPoint}px) {
         height: ${props => (props.isExpanded ? "100vh" : "60px")};
     }
+    @media (min-width: 1600px) {
+        left: calc((100vw - 1600px) / 2);
+    }
 `;
 
 const StyledNavbar = styled(Navbar)`
     &.navbar {
+        box-sizing: border-box;
         width: 100%;
         max-width: 1600px;
         margin: 0 auto;
         height: 52px;
         @media (min-width: ${stdBreakPoint + 1}px) {
             padding: 0.375rem 4rem;
+            padding-top: 0.75rem;
         }
     }
 `;

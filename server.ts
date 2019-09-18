@@ -31,14 +31,12 @@ interface IReqProps {
 }
 
 app.get("/products", (req: Request, res: Response) => {
-    console.log("test");
     queryDatabase("SELECT * FROM item_categories_view", [], (results: QueryResult) => {
         res.json(results);
     });
 });
 
 app.get("/products/:search", (req: Request, res: Response) => {
-    console.log("etst");
     const { search }: IReqProps = req.params;
     const params = search === "null" ? "" : search;
     queryDatabase(

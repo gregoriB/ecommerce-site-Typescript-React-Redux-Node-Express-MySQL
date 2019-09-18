@@ -101,7 +101,7 @@ export default connect(
 
 const MainDiv = styled.div`
     position: absolute;
-    top: 60px;
+    top: 52px;
     left: 0;
     display: flex;
     justify-content: center;
@@ -113,5 +113,8 @@ const MainDiv = styled.div`
     padding-left: 2vw;
     @media (max-width: 1599px) {
         padding-right: calc(100vw - 100%);
+    }
+    @media (min-width: 1600px) {
+        left: calc((100vw - 1600px) / 2);
     }
 `;
