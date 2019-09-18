@@ -84,6 +84,7 @@ const PriceRangeContainer = styled.form`
 `;
 
 const RangeLabel = styled.label`
+    width: 1rem;
     margin: 0;
     font-size: 0.8rem;
 `;
