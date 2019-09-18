@@ -82,15 +82,13 @@ export default connect(mapStateToProps)(CartItems);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
-type margin = { margin: number };
-
 interface IStyleProps {
     margin: number;
     items: React.ReactChild[];
 }
 
 const CartItemsContainer = styled.div<IStyleProps>`
-    margin-top: ${props => (props.items.length ? props.margin : 0)}px;
+    margin-top: ${props => (props.items.length ? 0 : props.margin)}px;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
