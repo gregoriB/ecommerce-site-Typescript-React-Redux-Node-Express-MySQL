@@ -55,7 +55,7 @@ const CartItems: React.FC<IProps> = ({ shoppingCart, windowWidth, setIsCartPopul
     }, [cartRef, setEmptyCartMargin, windowWidth]);
 
     return (
-        <CartItemsContainer margin={emptyCartMargin}>
+        <CartItemsContainer margin={emptyCartMargin} items={items}>
             {items.length ? (
                 items
             ) : (
@@ -84,8 +84,13 @@ export default connect(mapStateToProps)(CartItems);
 
 type margin = { margin: number };
 
-const CartItemsContainer = styled.div<margin>`
-    margin-top: ${props => props.margin}px;
+interface IStyleProps {
+    margin: number;
+    items: React.ReactChild[];
+}
+
+const CartItemsContainer = styled.div<IStyleProps>`
+    margin-top: ${props => (props.items.length ? props.margin : 0)}px;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
