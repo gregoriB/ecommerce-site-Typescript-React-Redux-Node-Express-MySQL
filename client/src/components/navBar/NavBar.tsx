@@ -55,7 +55,7 @@ export default withRouter(NavBar);
 type isExpanded = { isExpanded: boolean };
 
 const NavContainer = styled.div<isExpanded>`
-    position: relative;
+    position: fixed;
     margin: 0 auto;
     padding: 0;
     top: 0;
