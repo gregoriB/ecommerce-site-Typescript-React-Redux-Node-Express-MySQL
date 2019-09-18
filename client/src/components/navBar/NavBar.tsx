@@ -127,7 +127,7 @@ const ShoppingCartButton = styled(Button)`
         align-self: center;
         position: absolute;
         top: 0.3rem;
-        right: 1rem;
+        right: 2rem;
         margin: 0;
     }
 `;
