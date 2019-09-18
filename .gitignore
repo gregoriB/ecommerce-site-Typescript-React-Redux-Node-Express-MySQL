@@ -30,5 +30,6 @@ server.js
 /cheatsheets
 /dist
 /database/nonEssential
+/client/tsconfig.json
 
 .package-lock.json

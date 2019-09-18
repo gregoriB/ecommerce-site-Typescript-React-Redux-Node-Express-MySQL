@@ -9,7 +9,8 @@ const queryDatabase = async ({ path, query, method }: IQueryDBArgs): Promise<any
             headers: { "Content-Type": "applications/json" }
         };
     }
-    const response = await fetch(`/${path}`, options);
+    const server = process.env.NODE_ENV === "production" ? "" : "http://localhost:34567";
+    const response = await fetch(`${server}/${path}`, options);
     const data = await response.json();
     return data.rows.length ? data.rows : data;
 };
