@@ -59,8 +59,9 @@ export default connect(mapStateToProps)(FeaturedCarousel);
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
 const StyledCarousel = styled(Carousel)`
-    .carousel {
+    &.carousel {
         display: flex;
+        margin-top: 7vh;
     }
 
     .carousel-inner {
