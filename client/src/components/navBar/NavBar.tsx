@@ -76,6 +76,7 @@ const StyledNavbar = styled(Navbar)`
         max-width: 1600px;
         margin: 0 auto;
         height: 52px;
+        padding-left: calc(100vw - 100%);
         @media (min-width: ${stdBreakPoint + 1}px) {
             padding: 0.375rem 4rem;
         }
@@ -129,6 +130,9 @@ const ShoppingCartButton = styled(Button)`
         top: 0.3rem;
         right: 2rem;
         margin: 0;
+        @media (min-width: 1600px) {
+            right: calc((100vw - 1600px) / 2);
+        }
     }
 `;
 
