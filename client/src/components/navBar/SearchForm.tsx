@@ -124,6 +124,7 @@ const SearchButton = styled.button`
     position: absolute;
     margin-right: 0.3rem;
     right: 0;
+    padding: 0.2rem;
     :hover ${StyledSearchIcon} {
         opacity: 1;
     }

@@ -108,9 +108,8 @@ const PanelContainer = styled.div<isActive>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 400px;
+    width: 320px;
     @media (max-width: ${stdBreakPoint}px) {
-        width: 320px;
         position: fixed;
         top: 60px;
         left: 0;

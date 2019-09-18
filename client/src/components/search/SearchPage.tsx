@@ -42,7 +42,7 @@ const SearchPage: React.FC<IProps> = ({
                     if ((min && result.price < min) || (max && result.price > max)) {
                         return null;
                     }
-                    return result.category && JSON.parse(result.category); //array from DB is a string so it needs to be parsed
+                    return result.category;
                 })
                 .filter(Boolean); //get rid of those null array items
         };
@@ -50,16 +50,17 @@ const SearchPage: React.FC<IProps> = ({
             type tempObj = { [key: string]: number };
             const tempObj: tempObj = {};
             matrix.forEach((categoryArray: string[]) => {
-                categoryArray.forEach((category: string) => {
-                    tempObj[category] = tempObj[category] + 1 || 1;
-                });
+                categoryArray &&
+                    categoryArray.forEach((category: string) => {
+                        tempObj[category] = tempObj[category] + 1 || 1;
+                    });
             });
             return tempObj;
         };
         if (products) {
-            const resultsMapped = mapResults();
-            const filterdCategoriesObj = filterDuplicateCategories(resultsMapped);
-            const filteredCategoriesArr = Object.keys(filterdCategoriesObj).sort(
+            const resultsMapped: any = mapResults();
+            const filteredCategoriesObj = filterDuplicateCategories(resultsMapped);
+            const filteredCategoriesArr = Object.keys(filteredCategoriesObj).sort(
                 (a: string, b: string) => (a > b ? 1 : -1)
             );
             addCategoriesToFilter(filteredCategoriesArr);
@@ -100,7 +101,7 @@ export default connect(
 
 const MainDiv = styled.div`
     position: absolute;
-    top: 60px;
+    top: 52px;
     left: 0;
     display: flex;
     justify-content: center;
@@ -112,5 +113,8 @@ const MainDiv = styled.div`
     padding-left: 2vw;
     @media (max-width: 1599px) {
         padding-right: calc(100vw - 100%);
+    }
+    @media (min-width: 1600px) {
+        left: calc((100vw - 1600px) / 2);
     }
 `;

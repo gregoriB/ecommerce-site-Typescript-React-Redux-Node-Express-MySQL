@@ -26,8 +26,8 @@ const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, up
         const { username, email, password } = userData;
         const query = { username: username.text, email: email.text, password: password.text };
         const dbQuery = { path: "user", query, method: "POST" };
-        const results = await queryDatabase(dbQuery);
-        if (results.insertId && results.affectedRows) {
+        const data = await queryDatabase(dbQuery);
+        if (data.rowCount) {
             updateUserData({
                 username: username.text,
                 email: email.text

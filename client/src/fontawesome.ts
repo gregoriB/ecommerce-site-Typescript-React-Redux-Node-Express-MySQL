@@ -21,7 +21,8 @@ import {
     faChevronRight,
     faChevronLeft,
     faEllipsisV,
-    faFrown
+    faFrown,
+    faExclamationCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -45,5 +46,6 @@ library.add(
     faChevronRight,
     faChevronLeft,
     faEllipsisV,
-    faFrown
+    faFrown,
+    faExclamationCircle
 );

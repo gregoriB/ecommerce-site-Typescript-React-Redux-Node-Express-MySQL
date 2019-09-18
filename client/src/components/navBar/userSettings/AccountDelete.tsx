@@ -22,8 +22,8 @@ const AccountDelete: React.FC<IProps> = ({ userEmail, deleteUserData }) => {
 
     const sendDeleteRequest = async () => {
         const dbQuery = { path: `user/${userEmail}`, method: "DELETE" };
-        const results = await queryDatabase(dbQuery);
-        if (results.affectedRows) {
+        const data = await queryDatabase(dbQuery);
+        if (data.rowCount) {
             deleteUserData();
         }
     };

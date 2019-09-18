@@ -1,7 +1,5 @@
-DROP TABLE IF EXISTS items;
-
 CREATE TABLE items (
-    item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    item_id SERIAL PRIMARY KEY,
     item_name TEXT,
     item_img_url TEXT,
     item_desc_short TEXT,

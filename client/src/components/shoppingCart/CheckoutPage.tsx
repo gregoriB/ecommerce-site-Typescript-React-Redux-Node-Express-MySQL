@@ -17,10 +17,13 @@ export default CheckoutPage;
 const BannerContainer = styled.div`
     position: absolute;
     top: 20vh;
+    left: 0;
     margin: 0 auto;
-    width: 100%;
     height: 80%;
     text-align: center;
+    @media (min-width: 1600px) {
+        left: calc((100vw - 1600px) / 2);
+    }
 `;
 
 const ConstructionBanner = styled.img`

@@ -137,7 +137,6 @@ const EditingGroup = styled.div`
     position: relative;
     width: 80%;
     margin-left: calc(-1rem - 1px);
-    height: 2rem;
 `;
 
 const ToolTip = styled.div`
