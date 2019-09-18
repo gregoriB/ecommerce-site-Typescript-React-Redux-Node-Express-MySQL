@@ -55,7 +55,7 @@ export default withRouter(NavBar);
 type isExpanded = { isExpanded: boolean };
 
 const NavContainer = styled.div<isExpanded>`
-    position: relative;
+    position: fixed;
     margin: 0 auto;
     padding: 0;
     top: 0;
@@ -69,15 +69,21 @@ const NavContainer = styled.div<isExpanded>`
     @media (max-width: ${stdBreakPoint}px) {
         height: ${props => (props.isExpanded ? "100vh" : "60px")};
     }
+    @media (min-width: 1600px) {
+        left: calc((100vw - 1600px) / 2);
+    }
 `;
 
 const StyledNavbar = styled(Navbar)`
     &.navbar {
+        box-sizing: border-box;
         width: 100%;
         max-width: 1600px;
         margin: 0 auto;
+        height: 52px;
         @media (min-width: ${stdBreakPoint + 1}px) {
             padding: 0.375rem 4rem;
+            padding-top: 0.75rem;
         }
     }
 `;

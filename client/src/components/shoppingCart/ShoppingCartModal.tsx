@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { Modal } from "react-bootstrap";
@@ -31,6 +31,8 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
         history.push(`/checkout`);
     };
 
+    const cartRef = useRef<HTMLDivElement | null>(null);
+
     return (
         <StyledModal
             show={show}
@@ -45,8 +47,8 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
                     <div>Shopping Cart</div>
                 </StyledModalTitle>
             </Modal.Header>
-            <StyledModalBody>
-                <CartItems setIsCartPopulated={setIsCartPopulated} />
+            <StyledModalBody ref={cartRef}>
+                <CartItems setIsCartPopulated={setIsCartPopulated} cartRef={cartRef} />
                 {isCartPopulated && <TotalPrice />}
             </StyledModalBody>
             <Modal.Footer>
@@ -121,6 +123,7 @@ const LinkToCheckout = styled.button`
     background: none;
     border: none;
     color: #007bff;
+    padding: 0.2rem 0.5rem;
 `;
 
 const StyleCartIcon = styled(FontAwesomeIcon)`

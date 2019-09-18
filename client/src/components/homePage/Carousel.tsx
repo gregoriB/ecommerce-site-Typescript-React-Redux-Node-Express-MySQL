@@ -61,25 +61,33 @@ const StyledCarousel = styled(Carousel)`
     .carousel {
         display: flex;
     }
+
     .carousel-inner {
         display: flex;
         width: 100%;
     }
+
     .carousel-item {
-        width: 100%;
-        justify-content: center;
+        display: none;
     }
+
     .carousel-item-left,
     .carousel-item-right {
         display: inline-flex;
         width: 100%;
     }
 
-    .carousel-item.active {
+    .carousel-item.active,
+    .carousel-item-next,
+    .carousel-item-prev {
+        transition: -webkit-transform 0.6s ease;
+        transition: transform 0.6s ease;
+        transition: transform 0.6s ease, -webkit-transform 0.6s ease;
         width: 100%;
         display: inline-flex;
         justify-content: center;
     }
+
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
         padding: 2rem;
@@ -92,6 +100,7 @@ const StyledCarousel = styled(Carousel)`
             display: none;
         }
     }
+
     .carousel-indicators li {
         background: rgba(0, 0, 0, 0.4);
         height: 10px;
@@ -100,7 +109,7 @@ const StyledCarousel = styled(Carousel)`
 `;
 
 const StyledCarouselItem = styled(Carousel.Item)`
-    display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
     height: unset;

@@ -1,27 +1,29 @@
 import express = require("express");
-import mysql = require("mysql");
 import path = require("path");
 import cors = require("cors");
-import { Application, Request, Response } from "express";
 import crypto = require("crypto");
+import { Application, Request, Response } from "express";
+import { ConnectionConfig, ClientConfig, QueryResult } from "pg";
+const { Client } = require("pg");
 
 require("dotenv").config({ path: __dirname + "/envs/mysql/.env" });
 
-const app: Application = express(),
-    nodeEnv = app.get("env"),
-    isDevelopment = nodeEnv !== "production",
-    corsOptions = {
-        origin: "*",
-        optionsSuccessStatus: 200
-    };
-
-//used alongside MySQL password encryption
+//used alongside Postgres password encryption
 const CRYPTO_PASS = process.env.CRYPTO_PASS;
 const secret: string = typeof CRYPTO_PASS === "string" ? CRYPTO_PASS : JSON.stringify(CRYPTO_PASS);
 const hash = crypto.createHmac("sha256", secret).digest("hex");
 
-app.use(express.static(path.join(__dirname, `client/${isDevelopment ? "public" : "build"}`)));
+const app: Application = express(),
+    corsOptions = {
+        origin: "*",
+        methods: ["GET", "PUT", "POST"],
+        optionsSuccessStatus: 200
+    };
+
+app.options("*", cors());
 app.use(cors(corsOptions));
+
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use(express.json({ type: "applications/json" }));
 
 interface IReqProps {
@@ -29,7 +31,7 @@ interface IReqProps {
 }
 
 app.get("/products", (req: Request, res: Response) => {
-    queryDatabase("SELECT * FROM item_categories_view", [], (results: mysql.Query) => {
+    queryDatabase("SELECT * FROM item_categories_view", [], (results: QueryResult) => {
         res.json(results);
     });
 });
@@ -38,16 +40,16 @@ app.get("/products/:search", (req: Request, res: Response) => {
     const { search }: IReqProps = req.params;
     const params = search === "null" ? "" : search;
     queryDatabase(
-        "SELECT * FROM item_categories_view WHERE itemName LIKE ?",
+        `SELECT * FROM item_categories_view WHERE "itemName" ILIKE $1`,
         [`%${params}%`],
-        (results: mysql.Query) => {
+        (results: QueryResult) => {
             res.json(results);
         }
     );
 });
 
 app.get("/home", (req: Request, res: Response) => {
-    queryDatabase("SELECT * FROM featured_items_view", [], (results: mysql.Query) => {
+    queryDatabase("SELECT * FROM featured_items_view", [], (results: QueryResult) => {
         res.json(results);
     });
 });
@@ -57,8 +59,8 @@ app.post("/login", (req: Request, res: Response) => {
     if (!username || !password) return;
     if (req.body) {
         const query =
-            'SELECT user_name AS "username", user_email AS "email" FROM users WHERE user_name = ? AND user_password=AES_ENCRYPT(?, ?)';
-        queryDatabase(query, [username, password, hash], (results: mysql.Query) => {
+            'SELECT user_name AS "username", user_email AS "email" FROM users WHERE LOWER(user_name) = $1 AND user_password = crypt($2, $3)';
+        queryDatabase(query, [username, password, hash], (results: QueryResult) => {
             res.json(results);
         });
     }
@@ -66,11 +68,11 @@ app.post("/login", (req: Request, res: Response) => {
 
 app.post("/user", (req: Request, res: Response) => {
     const { username, email, password }: IReqProps = req.body;
-    const values = "(?, ?, AES_ENCRYPT(?, ?))";
+    const values = "($1, $2, crypt($3, $4))";
     queryDatabase(
         `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
         [email, username, password, hash],
-        (results: mysql.Query) => {
+        (results: QueryResult) => {
             res.json(results);
         }
     );
@@ -78,8 +80,8 @@ app.post("/user", (req: Request, res: Response) => {
 
 app.put("/user/:email", (req: Request, res: Response) => {
     const { oldEmail, newEmail }: IReqProps = req.body;
-    const query = "UPDATE users SET user_email = ? WHERE user_email = ?";
-    queryDatabase(query, [newEmail, oldEmail], (results: mysql.Query) => {
+    const query = "UPDATE users SET user_email = $1 WHERE LOWER(user_email) = $2";
+    queryDatabase(query, [newEmail, oldEmail], (results: QueryResult) => {
         res.json(results);
     });
 });
@@ -87,30 +89,37 @@ app.put("/user/:email", (req: Request, res: Response) => {
 app.delete("/user/:email", (req: Request, res: Response) => {
     const email: string = req.params.email;
     if (email) {
-        queryDatabase("DELETE FROM users WHERE user_email = ?", [email], (results: mysql.Query) => {
-            res.json(results);
-        });
+        queryDatabase(
+            "DELETE FROM users WHERE LOWER(user_email) = $1",
+            [email],
+            (results: QueryResult) => {
+                res.json(results);
+            }
+        );
     }
 });
 
-const dbCredentials = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+app.get("*", (req: Request, res: Response) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
+
+const dbCredentials: ConnectionConfig & ClientConfig = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
 };
 
 function queryDatabase(query: string, arr: string[], callback: Function) {
-    const connection = mysql.createConnection(dbCredentials);
-    connection.query(query, arr, (error: mysql.MysqlError | null, results: mysql.Query) => {
-        if (error) throw error;
-        callback(results);
+    const client = new Client({ ...dbCredentials });
+    client.connect();
+    client.query(query, arr, (err: Error, res: QueryResult) => {
+        callback(res);
+        client.end();
     });
-    connection.end();
 }
 
-const listener = app.listen(34567, () => {
-    console.info("\x1b[33m", `${nodeEnv} server`);
+const port = process.env.PORT || 8080;
+const listener = app.listen(port, () => {
+    console.info("\x1b[33m", `production server`);
     console.info(
         "\x1b[36m", //cyan font color
         "SERVER LISTENING:",

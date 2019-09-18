@@ -1,16 +1,14 @@
-DROP VIEW IF EXISTS item_categories_view;
-
 CREATE VIEW item_categories_view AS
   SELECT
-    item_id AS 'id',
-    item_name AS 'itemName',
-    item_img_url AS 'imageURL',
-    item_desc_short AS 'descShort',
-    item_desc_long AS 'descLong',
-    item_sku AS 'sku',
-    item_price AS 'price',
-    item_stock AS 'stock',
-    JSON_ARRAYAGG(cat_name) AS 'category'
+    item_id AS "id",
+    item_name AS "itemName",
+    item_img_url AS "imageURL",
+    item_desc_short AS "descShort",
+    item_desc_long AS "descLong",
+    item_sku AS "sku",
+    item_price AS "price",
+    item_stock AS "stock",
+    array_agg(cat_name) AS "category"
     FROM
       items i
     JOIN
@@ -19,6 +17,5 @@ CREATE VIEW item_categories_view AS
     JOIN
       categories c
     ON ic.ic_category = c.cat_id
-    GROUP BY item_id \G
-
-SELECT * FROM item_categories_view \G
+    GROUP BY id
+    ORDER BY id ASC;

@@ -148,6 +148,7 @@ const RegistrationLink = styled.button`
     border: none;
     text-decoration: underline;
     color: #007bff;
+    padding: 0.2rem 0.5rem;
     @media (max-width: ${stdBreakPoint}px) {
         margin: 1rem 0;
     }

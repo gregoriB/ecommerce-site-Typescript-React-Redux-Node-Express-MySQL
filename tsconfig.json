@@ -1,14 +1,16 @@
 {
-    "include": ["server.ts", "client/src"],
     "compilerOptions": {
         "target": "es5",
-        "lib": ["es2017", "dom", "dom.iterable"],
+        "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
+        "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "strict": true,
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
         "forceConsistentCasingInFileNames": true,
-        "esModuleInterop": true,
         "module": "commonjs",
         "moduleResolution": "node",
         "resolveJsonModule": true,
@@ -16,7 +18,5 @@
         "noEmit": true,
         "jsx": "react"
     },
-    "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./"
+    "includes": ["server.ts"]
 }

@@ -9,11 +9,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 interface IProps {
     shoppingCart: IShoppingCart;
     windowWidth: number;
+    cartRef: React.RefObject<HTMLDivElement>;
     setIsCartPopulated(bool: boolean): void;
 }
 
-const CartItems: React.FC<IProps> = ({ shoppingCart, windowWidth, setIsCartPopulated }) => {
+const CartItems: React.FC<IProps> = ({ shoppingCart, windowWidth, setIsCartPopulated, cartRef }) => {
     const [items, setItems] = useState<React.ReactElement[]>([]);
+    const [emptyCartMargin, setEmptyCartMargin] = useState(0);
 
     useEffect(() => {
         const mapCartItems = () => {
@@ -42,8 +44,18 @@ const CartItems: React.FC<IProps> = ({ shoppingCart, windowWidth, setIsCartPopul
         }
     }, [shoppingCart, windowWidth, setIsCartPopulated]);
 
+    useEffect(() => {
+        // setting margin for top of empty cart message
+        if (cartRef.current) {
+            const { offsetHeight } = cartRef.current;
+            const emptyCartHeight = 130;
+            const oneRem = 16; // compensate for modal body padding
+            setEmptyCartMargin((offsetHeight - emptyCartHeight) / 2 - oneRem);
+        }
+    }, [cartRef, setEmptyCartMargin, windowWidth]);
+
     return (
-        <CartItemsContainer>
+        <CartItemsContainer margin={emptyCartMargin}>
             {items.length ? (
                 items
             ) : (
@@ -70,21 +82,30 @@ export default connect(mapStateToProps)(CartItems);
 
 /* ~~~~~~ -- styling -- ~~~~~~ */
 
-const CartItemsContainer = styled.div`
+type margin = { margin: number };
+
+const CartItemsContainer = styled.div<margin>`
+    margin-top: ${props => props.margin}px;
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
 `;
 
 const EmptyCartIndicator = styled.h5`
-    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     opacity: 0.4;
+    height: 130px;
+    font-size: 100%;
 `;
 
 const StyledFrownIcon = styled(FontAwesomeIcon)`
     display: block;
     color: #42484d;
-    font-size: 4rem;
+    font-size: 300%;
     margin: 0 auto;
     margin-top: 1rem;
 `;

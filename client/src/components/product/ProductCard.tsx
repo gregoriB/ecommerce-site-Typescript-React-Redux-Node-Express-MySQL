@@ -7,7 +7,7 @@ import BtnAddToCart from "../shoppingCart/BtnAddToCart";
 import { IProduct, IFilters } from "../../types/generalTypes";
 
 export interface IProps {
-    categories: string;
+    categories: string[];
     miscProps: IFilters;
 }
 
@@ -25,10 +25,9 @@ const ProductCard: React.FC<IProduct & IProps> = props => {
 
         return descShort.slice(0, 150).trim() + "...";
     };
-
     useEffect(() => {
         if (categories && selectedCategories.length) {
-            const categoryArray = JSON.parse(categories);
+            const categoryArray = categories;
             let categoryMatches = 0;
             categoryArray.forEach((category: string) => {
                 selectedCategories.includes(category) && categoryMatches++;
@@ -147,4 +146,5 @@ const ShowMoreLink = styled.button`
     display: block;
     text-decoration: underline;
     margin: 5px auto;
+    padding: 0.2rem 0.5rem;
 `;

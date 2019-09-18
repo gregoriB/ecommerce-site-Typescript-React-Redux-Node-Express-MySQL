@@ -7,7 +7,7 @@ export interface IProduct {
     stock: number;
     length?: number;
     index: number;
-    category?: string;
+    category?: string[];
 }
 
 export interface IQueryDBArgs {
