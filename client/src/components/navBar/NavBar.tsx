@@ -76,9 +76,12 @@ const StyledNavbar = styled(Navbar)`
         max-width: 1600px;
         margin: 0 auto;
         height: 52px;
-        padding-left: calc(100vw - 100%);
         @media (min-width: ${stdBreakPoint + 1}px) {
             padding: 0.375rem 4rem;
+        }
+        @media (min-width: 1600px) {
+            padding-left: calc(4rem + (100vw - 100%) / 2);
+            padding-right: calc(4rem - (100vw - 100%) / 2);
         }
     }
 `;
@@ -127,11 +130,11 @@ const ShoppingCartButton = styled(Button)`
         margin: 0 2rem;
         align-self: center;
         position: absolute;
-        top: 0.3rem;
+        top: calc(26px - (2.5rem / 2));
         right: 2rem;
         margin: 0;
         @media (min-width: 1600px) {
-            right: calc((100vw - 1600px) / 2);
+            right: calc(((100vw - 1600px) / 2) - (100vw - 100%));
         }
     }
 `;
