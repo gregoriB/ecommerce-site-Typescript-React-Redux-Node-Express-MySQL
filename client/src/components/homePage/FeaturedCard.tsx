@@ -14,7 +14,7 @@ const FeaturedCard: React.FC<IProduct> = props => {
         isModalOpen && e.preventDefault();
         setIsModalOpen(true);
     };
-    const { imageURL, itemName, price } = props;
+    const { imageURL, itemName } = props;
     return (
         <FeaturedContainer>
             <StyledCard onClick={handleClick}>
