@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { addCategoriesToFilter, populateSearchProducts } from "../../store/actions/actionCreators";
 import styled from "styled-components";
-import FilterPanel from "./FilterPanel/FilterPanel";
-import SearchResults from "./SearchResults";
+
+import { addCategoriesToFilter, populateSearchProducts } from "../../store/actions/actionCreators";
 import queryDatabase from "../../helpers/queryDatabase";
+import { maxWidth } from "../../helpers/breakPoints";
 import { IProduct, IFilters } from "../../types/generalTypes";
+
+import SearchResults from "./SearchResults";
+import FilterPanel from "./FilterPanel/FilterPanel";
 
 interface IProps {
     query: string;
@@ -108,13 +111,13 @@ const MainDiv = styled.div`
     align-items: flex-start;
     background-color: #f8f9fa;
     width: 100vw;
-    max-width: 1600px;
+    max-width: ${maxWidth}px;
     margin: 0 auto;
     padding-left: 2vw;
     @media (max-width: 1599px) {
         padding-right: calc(100vw - 100%);
     }
-    @media (min-width: 1600px) {
-        left: calc((100vw - 1600px) / 2);
+    @media (min-width: ${maxWidth}px) {
+        left: calc((100vw - ${maxWidth}px) / 2);
     }
 `;

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { maxWidth } from "../../helpers/breakPoints";
+
 const CheckoutPage = () => {
     return (
         <BannerContainer>
@@ -21,8 +23,8 @@ const BannerContainer = styled.div`
     margin: 0 auto;
     height: 80%;
     text-align: center;
-    @media (min-width: 1600px) {
-        left: calc((100vw - 1600px) / 2);
+    @media (min-width: ${maxWidth}px) {
+        left: calc((100vw - ${maxWidth}px) / 2);
     }
 `;
 

@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+
+import { populateFeaturedProducts, updateSearch } from "../../store/actions/actionCreators";
 import queryDatabase from "../../helpers/queryDatabase";
+import { stdBreakPoint, maxWidth } from "../../helpers/breakPoints";
+import { IQueryDBArgs, IProduct } from "../../types/generalTypes";
+
 import FeaturedCarousel from "./Carousel";
 import HomeJumbotron from "./HomeJumbotron";
-import { populateFeaturedProducts, updateSearch } from "../../store/actions/actionCreators";
-import { IQueryDBArgs, IProduct } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
 
 interface IProps {
     windowWidth: number;
@@ -62,10 +64,10 @@ const HomeContainer = styled.div`
     top: 52px;
     left: 0;
     width: 100%;
-    max-width: 1600px;
+    max-width: ${maxWidth}px;
     margin: 0 auto;
-    @media (min-width: 1600px) {
-        left: calc((100vw - 1600px) / 2);
+    @media (min-width: ${maxWidth}px) {
+        left: calc((100vw - ${maxWidth}px) / 2);
     }
     @media (max-width: ${stdBreakPoint}px) {
         top: 60px;

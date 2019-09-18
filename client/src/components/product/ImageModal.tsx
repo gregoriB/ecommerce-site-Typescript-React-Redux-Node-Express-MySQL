@@ -1,8 +1,9 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
 import styled from "styled-components";
+import { Modal } from "react-bootstrap";
 import Magnifier from "react-magnifier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { IModalToggle } from "../../types/generalTypes";
 
 interface IProps {

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { removeFromCart, updateQuantityInCart } from "../../store/actions/actionCreators";
-import { FormControl } from "react-bootstrap";
 import styled from "styled-components";
+import { FormControl } from "react-bootstrap";
+
+import { removeFromCart, updateQuantityInCart } from "../../store/actions/actionCreators";
+
 import BtnRemoveFromCart from "./BtnRemoveFromCart";
 
 interface INewQty {

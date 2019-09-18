@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { changePriceRangeInFilter } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { changePriceRangeInFilter } from "../../../store/actions/actionCreators";
 import { IFilters } from "../../../types/generalTypes";
 
 interface IProps {

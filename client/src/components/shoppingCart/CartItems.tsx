@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { IShoppingCart, IShoppingCartItems } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
-import QuantityInput from "./QuantityInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { stdBreakPoint } from "../../helpers/breakPoints";
+import { IShoppingCart, IShoppingCartItems } from "../../types/generalTypes";
+
+import QuantityInput from "./QuantityInput";
 
 interface IProps {
     shoppingCart: IShoppingCart;

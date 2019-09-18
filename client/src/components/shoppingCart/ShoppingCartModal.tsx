@@ -1,14 +1,15 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import { Modal } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import styled from "styled-components";
-import TotalPrice from "./TotalPrice";
-import { IShoppingCart, IModalToggle } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
-import CartItems from "./CartItems";
+import { Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { stdBreakPoint } from "../../helpers/breakPoints";
+import { IShoppingCart, IModalToggle } from "../../types/generalTypes";
+
+import CartItems from "./CartItems";
+import TotalPrice from "./TotalPrice";
 
 interface IProps {
     windowWidth: number;

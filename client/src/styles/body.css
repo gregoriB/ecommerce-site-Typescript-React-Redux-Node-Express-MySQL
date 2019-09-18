@@ -1,0 +1,12 @@
+@font-face {
+    font-family: "Open Sans";
+    src: url("../fonts/OpenSans-Regular.ttf") format("truetype"),
+        url("../fonts/OpenSans-RegularItalic.ttf") format("truetype"),
+        url("../fonts/OpenSans-Bold.ttf") format("truetype");
+    font-display: block;
+}
+
+body {
+    margin: 0;
+    background-color: #f8f9fa;
+}

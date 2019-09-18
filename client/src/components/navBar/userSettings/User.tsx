@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { deleteUserData } from "../../../store/actions/actionCreators";
 import styled from "styled-components";
 import { Nav, Dropdown, DropdownButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UserSettingsModal from "./UserSettingsModal";
-import { IUserData } from "../../../types/generalTypes";
+
+import { deleteUserData } from "../../../store/actions/actionCreators";
 import { stdBreakPoint } from "../../../helpers/breakPoints";
+import { IUserData } from "../../../types/generalTypes";
+
+import UserSettingsModal from "./UserSettingsModal";
 
 interface IProps {
     username: string;

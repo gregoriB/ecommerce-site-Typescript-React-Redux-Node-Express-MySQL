@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Modal } from "react-bootstrap";
 import styled from "styled-components";
+import { Modal } from "react-bootstrap";
+
+import { stdBreakPoint } from "../../helpers/breakPoints";
+import { IProduct, IModalToggle } from "../../types/generalTypes";
+
 import ImageModal from "./ImageModal";
 import ProductImage from "./ProductImage";
 import BtnAddToCart from "../shoppingCart/BtnAddToCart";
-import { IProduct, IModalToggle } from "../../types/generalTypes";
-import { stdBreakPoint } from "../../helpers/breakPoints";
 
 const ProductModal: React.FC<IProduct & IModalToggle> = ({
     imageURL,

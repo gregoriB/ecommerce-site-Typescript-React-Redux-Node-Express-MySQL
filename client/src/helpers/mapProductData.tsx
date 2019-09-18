@@ -1,5 +1,6 @@
 import components from "./Components";
 import React from "react";
+
 import { IProduct, IFilters } from "../types/generalTypes";
 
 interface IProps {

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { validateEmail } from "../../../helpers/formValidation";
-import { Button, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, FormControl } from "react-bootstrap";
+
+import { validateEmail } from "../../../helpers/formValidation";
 
 interface IProps {
     email: string;

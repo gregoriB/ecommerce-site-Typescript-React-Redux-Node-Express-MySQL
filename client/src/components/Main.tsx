@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
-
-import SearchPage from "./search/SearchPage";
-import Home from "./homePage/HomePage";
 import { connect } from "react-redux";
-import CheckoutPage from "./shoppingCart/CheckoutPage";
-import Toasts from "./toasts/Toasts";
-import { updateWindowWidth } from "../store/actions/actionCreators";
-
+import { Switch, Route } from "react-router-dom";
+import styled from "styled-components";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-import styled from "styled-components";
+import { updateWindowWidth } from "../store/actions/actionCreators";
+
+import SearchPage from "./search/SearchPage";
 import { stdBreakPoint } from "../helpers/breakPoints";
+import CheckoutPage from "./shoppingCart/CheckoutPage";
+import Toasts from "./toasts/Toasts";
+import Home from "./homePage/HomePage";
 
 interface IProps {
     updateWindowWidth(): void;

@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
-import { removeFromCart } from "../../store/actions/actionCreators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { removeFromCart } from "../../store/actions/actionCreators";
 
 interface IProps {
     itemName: string;

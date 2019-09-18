@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
+import { InputGroup } from "react-bootstrap";
+
 import { changeCategoriesInFilter } from "../../../store/actions/actionCreators";
 import usePrevious from "../../../hooks/usePrevious";
-import { InputGroup } from "react-bootstrap";
-import styled from "styled-components";
 import { IFilters } from "../../../types/generalTypes";
 import { IFiltersRtn } from "../../../types/actionTypes";
 
