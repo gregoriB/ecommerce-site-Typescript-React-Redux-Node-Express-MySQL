@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store/index";
 
 import "./styles/normalize.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/body.css";
 import "./fontAwesome/fontawesome";
 
