@@ -134,6 +134,7 @@ const ShoppingCartButton = styled(Button)`
         right: 2rem;
         margin: 0;
         @media (min-width: 1600px) {
+            /* automatically postition button for UW monitors and adjust for scrollbar presence */
             right: calc(((100vw - 1600px) / 2) - (100vw - 100%));
         }
     }
