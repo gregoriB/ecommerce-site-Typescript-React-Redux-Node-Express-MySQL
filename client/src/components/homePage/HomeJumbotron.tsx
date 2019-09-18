@@ -14,7 +14,7 @@ const HomeJumbotron: React.FC<IProps> = ({ updateSearch }) => {
     return (
         <StyledJumbotron>
             <BannerContainer>
-                <BannerH1>The best place for fighting game supplies</BannerH1>
+                <BannerH1>The best place for fighting-game supplies</BannerH1>
                 <Description></Description>
             </BannerContainer>
             <LinkContainer>
