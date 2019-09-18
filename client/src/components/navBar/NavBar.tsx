@@ -60,13 +60,11 @@ const NavContainer = styled.div<isExpanded>`
     padding: 0;
     top: 0;
     left: 0;
-    display: flex;
-    justify-content: center;
     z-index: 100;
-    width: 100vw;
+    width: 100%;
     background: #f8f9fa;
     transition: height 0.2s;
-    height: 52px;
+    height: 60px;
     @media (max-width: ${stdBreakPoint}px) {
         height: ${props => (props.isExpanded ? "100vh" : "60px")};
     }
@@ -77,6 +75,7 @@ const StyledNavbar = styled(Navbar)`
         width: 100%;
         max-width: 1600px;
         margin: 0 auto;
+        height: 52px;
         @media (min-width: ${stdBreakPoint + 1}px) {
             padding: 0.375rem 4rem;
         }
