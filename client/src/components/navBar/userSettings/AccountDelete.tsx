@@ -15,12 +15,15 @@ interface IProps {
 const AccountDelete: React.FC<IProps> = ({ userEmail, deleteUserData }) => {
     const [input, setInput] = useState("");
     const [isMatchingError, setIsMatchingError] = useState(false);
+
     type keyboardEvent = React.ChangeEvent<EventTarget>;
+    //controlled inputs
     const handleInputChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;
         setInput(target.value);
     };
 
+    //delete user from database, then handle change to user in client
     const sendDeleteRequest = async () => {
         const dbQuery = { path: `user/${userEmail}`, method: "DELETE" };
         const data = await queryDatabase(dbQuery);

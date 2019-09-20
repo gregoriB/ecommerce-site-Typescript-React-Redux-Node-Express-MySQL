@@ -30,7 +30,7 @@ const LoginForm: React.FC<IProps> = ({ username, updateUserData }) => {
     const [isError, setIsError] = useState(false);
 
     type keyboardEvent = React.ChangeEvent<EventTarget>;
-
+    //controlled inputs
     const handleLoginChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;
         setLoginValues({

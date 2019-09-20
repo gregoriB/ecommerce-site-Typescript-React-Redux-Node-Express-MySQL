@@ -7,6 +7,7 @@ interface IComponents {
     [key: string]: React.FunctionComponent<IProduct & IProps>;
 }
 
+// used in mapProductData.tsx to dynamically map either component
 const components: IComponents = {
     FeaturedCard,
     ProductCard

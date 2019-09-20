@@ -36,6 +36,7 @@ const SearchForm: React.FC<IProps & RouteComponentProps> = ({
     };
 
     type keyboardEvent = React.ChangeEvent<EventTarget>;
+    //controlled input
     const handleSearchChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;
         updateReducers(target.value);

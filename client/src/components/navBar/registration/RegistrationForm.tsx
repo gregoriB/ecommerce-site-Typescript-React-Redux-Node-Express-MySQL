@@ -26,22 +26,25 @@ interface IProps {
 const RegistrationPage: React.FC<IProps> = ({ showWarning, setUserData }) => {
     const [fields, setFields] = useState(initialFieldsState);
     const { username, email, password } = fields;
+
     type FormElem = React.ChangeEvent<HTMLFormElement>;
     const handleSubmit = (e: FormElem) => {
         e.preventDefault();
         if (username.isValid && email.isValid && password.isValid) {
             setUserData(fields);
-            showWarning();
+            showWarning(); //warn user that website is not a real store before creating a new account
             setFields(initialFieldsState);
         }
     };
 
     type keyboardEvent = React.ChangeEvent<EventTarget>;
+    //controlled inputs
     const handleChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;
         const { validateUsername, validateEmail, validatePassword } = validate;
         const { name, value } = target;
         let isValid = null;
+
         if (value) {
             switch (name) {
                 case "username":

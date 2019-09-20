@@ -12,6 +12,8 @@ import NewAccountWarning from "./NewAccountWarning";
 const RegistrationModal: React.FC<IModalToggle> = ({ onHide, show }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [userData, setUserData] = useState();
+
+    //close registration modal and warning
     const handleHide = () => {
         onHide();
         setIsWarning(false);

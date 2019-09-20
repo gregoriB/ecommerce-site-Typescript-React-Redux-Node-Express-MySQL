@@ -42,6 +42,7 @@ const FilterPanel: React.FC<IProps> = ({
         changePriceRangeInFilter([undefined, undefined]);
     };
 
+    //map categories for filter panel
     useEffect(() => {
         setMappedCategories(
             allCategories!.map((category: string) => {

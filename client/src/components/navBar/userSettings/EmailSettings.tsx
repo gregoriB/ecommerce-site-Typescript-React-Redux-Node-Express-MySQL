@@ -24,7 +24,7 @@ const EmailSettings: React.FC<IProps> = ({
     const [emailInput, setEmailInput] = useState(email);
 
     type keyboardEvent = React.ChangeEvent<EventTarget>;
-
+    //controlled inputs
     const handleInputChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;
         setEmailInput(target.value);

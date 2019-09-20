@@ -17,7 +17,7 @@ const hash = crypto.createHmac("sha256", secret).digest("hex");
 const app: Application = express(),
     nodeEnv = app.get("env"),
     isDevelopment = nodeEnv !== "production",
-    viewFolder = isDevelopment ? "public" : "build",
+    viewFolder = isDevelopment ? "public" : "build", //determine if app is in production
     corsOptions = {
         origin: "*",
         methods: ["GET", "PUT", "POST"],
@@ -34,12 +34,14 @@ interface IReqProps {
     [key: string]: string;
 }
 
+//product page with no search
 app.get("/products", (req: Request, res: Response) => {
     queryDatabase("SELECT * FROM item_categories_view", [], (results: QueryResult) => {
         res.json(results);
     });
 });
 
+//product page custom search params
 app.get("/products/:search", (req: Request, res: Response) => {
     const { search }: IReqProps = req.params;
     const params = search === "null" ? "" : search;
@@ -52,6 +54,7 @@ app.get("/products/:search", (req: Request, res: Response) => {
     );
 });
 
+//products in carousel on home page
 app.get("/home", (req: Request, res: Response) => {
     queryDatabase("SELECT * FROM featured_items_view", [], (results: QueryResult) => {
         res.json(results);
@@ -70,6 +73,7 @@ app.post("/login", (req: Request, res: Response) => {
     }
 });
 
+//create new user
 app.post("/user", (req: Request, res: Response) => {
     const { username, email, password }: IReqProps = req.body;
     const values = "($1, $2, crypt($3, $4))";
@@ -82,6 +86,7 @@ app.post("/user", (req: Request, res: Response) => {
     );
 });
 
+//update user email
 app.put("/user/:email", (req: Request, res: Response) => {
     const { oldEmail, newEmail }: IReqProps = req.body;
     const query = "UPDATE users SET user_email = $1 WHERE LOWER(user_email) = $2";
@@ -90,6 +95,7 @@ app.put("/user/:email", (req: Request, res: Response) => {
     });
 });
 
+//delete user
 app.delete("/user/:email", (req: Request, res: Response) => {
     const email: string = req.params.email;
     if (email) {
@@ -103,6 +109,7 @@ app.delete("/user/:email", (req: Request, res: Response) => {
     }
 });
 
+//catch all for react-router
 app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.resolve(__dirname, "client", viewFolder, "index.html"));
 });

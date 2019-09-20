@@ -14,6 +14,8 @@ interface IProps {
 
 const SearchResults: React.FC<IProps> = ({ products, selectedCategories, priceRange }) => {
     const [mappedChildren, setMappedChildren] = useState();
+
+    //map search results to page
     useEffect(() => {
         const miscProps = {
             selectedCategories,

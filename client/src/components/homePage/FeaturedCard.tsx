@@ -12,14 +12,14 @@ const FeaturedCard: React.FC<IProduct> = props => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     type mouseClick = React.MouseEvent<HTMLElement>;
-    const handleClick = (e: mouseClick) => {
+    const openModal = (e: mouseClick) => {
         isModalOpen && e.preventDefault();
         setIsModalOpen(true);
     };
     const { imageURL, itemName } = props;
     return (
         <FeaturedContainer>
-            <StyledCard onClick={handleClick}>
+            <StyledCard onClick={openModal}>
                 <StyledCardHeader>{itemName}</StyledCardHeader>
                 <StyledCardBody>
                     <ProductImage allowModal={false} image={imageURL} />

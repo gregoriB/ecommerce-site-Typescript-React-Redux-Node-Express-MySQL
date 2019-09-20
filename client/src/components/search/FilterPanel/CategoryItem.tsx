@@ -20,16 +20,18 @@ const CategoryItem: React.FC<IProps> = ({
     changeCategoriesInFilter
 }) => {
     const [isChecked, setIsChecked] = useState(false);
+    //controlled checkbox
     const handleCheckbox = () => {
         setIsChecked(prevState => !prevState);
     };
 
     const checkboxPrevState = usePrevious(isChecked);
-
+    //if no category filters, then no checkboxes are checked
     useEffect(() => {
         !selectedCategories.length && setIsChecked(false);
     }, [selectedCategories, setIsChecked]);
 
+    //update category filters array if checkbox is changed
     useEffect(() => {
         if (checkboxPrevState === isChecked) return;
         let categories = [...selectedCategories];

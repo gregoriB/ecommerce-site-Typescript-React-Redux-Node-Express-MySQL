@@ -23,11 +23,13 @@ interface IProps {
 }
 
 const NewAccountWarning: React.FC<IProps> = ({ hideWarning, onHide, userData, updateUserData }) => {
+    //submit form to backend
     const sendRegistrationForm = async () => {
         const { username, email, password } = userData;
         const query = { username: username.text, email: email.text, password: password.text };
         const dbQuery = { path: "user", query, method: "POST" };
         const data = await queryDatabase(dbQuery);
+
         if (data.rowCount) {
             updateUserData({
                 username: username.text,

@@ -35,6 +35,8 @@ const BtnAddToCart: React.FC<IProps> = ({
     }, [shoppingCart, itemName, stock]);
 
     const [isDisabled, setIsDisabled] = useState(checkIfOutOfStock());
+
+    //add to cart and update states accordingly
     const handleButtonClick = () => {
         const product = { itemName, attributes: { price, stock } };
         if (checkIfOutOfStock()) {

@@ -28,7 +28,9 @@ const QuantityInput: React.FC<IProps> = ({
     updateQuantityInCart
 }) => {
     const [inputValue, setInputValue] = useState(quantity!);
+
     type keyboardEvent = React.ChangeEvent<EventTarget>;
+    //controlled input
     const handleChange = (e: keyboardEvent) => {
         const target = e.currentTarget as HTMLInputElement;
         const value = Number(target.value);
@@ -36,11 +38,14 @@ const QuantityInput: React.FC<IProps> = ({
         setInputValue(value);
     };
 
+    //if qty set to 0, remove from cart when user clicks away
     const handleBlur = () => {
         if (inputValue && inputValue > 0) return;
 
         removeFromCart({ itemName });
     };
+
+    //update cart reducer
     useEffect(() => {
         updateQuantityInCart({ itemName, qty: Number(inputValue) });
     }, [inputValue, updateQuantityInCart, itemName]);

@@ -18,12 +18,15 @@ interface IProps {
 
 const HomePage: React.FC<IProps> = ({ populateFeaturedProducts, updateSearch, windowWidth }) => {
     useEffect(() => {
+        //update carousel products on page load
         (async () => {
             const dbQuery: IQueryDBArgs = { path: "home" };
             const data: IProduct[] = await queryDatabase(dbQuery);
             populateFeaturedProducts(data);
         })();
     }, [populateFeaturedProducts]);
+
+    //reset product search
     useEffect(() => {
         updateSearch("");
     }, [updateSearch]);

@@ -15,6 +15,7 @@ const PriceRangeSelector: React.FC<IProps> = ({ changePriceRangeInFilter, priceR
     const [inputValue, setInputValue] = useState([0, 0]);
 
     type keyboardEvent = React.ChangeEvent<EventTarget>;
+    //controlled input
     const handleChange = (e: keyboardEvent) => {
         const inputValueClone = [...inputValue];
         const target = e.currentTarget as HTMLInputElement;
@@ -29,6 +30,7 @@ const PriceRangeSelector: React.FC<IProps> = ({ changePriceRangeInFilter, priceR
         changePriceRangeInFilter([...inputValue]);
     };
 
+    //if min or max undefined, they are changed to 0
     useEffect(() => {
         const min = priceRange[0],
             max = priceRange[1];

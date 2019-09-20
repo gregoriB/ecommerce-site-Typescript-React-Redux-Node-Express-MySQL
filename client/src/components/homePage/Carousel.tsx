@@ -14,6 +14,8 @@ interface IProps {
 
 const FeaturedCarousel: React.FC<IProps> = ({ products, windowWidth }) => {
     const [items, setItems] = useState();
+
+    //populate carousel products from redux store
     useEffect(() => {
         const mapFeatured = () => {
             const featured = mapProductData({ component: "FeaturedCard", products });

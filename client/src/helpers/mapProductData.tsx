@@ -13,7 +13,7 @@ const mapProductData = ({ component, products, miscProps }: IProps) => {
     if (!products || products.length < 1 || !Array.isArray(products)) {
         return;
     }
-    const Component = components[component];
+    const Component = components[component]; // <FeaturedCard /> or <ProductCard />
     return products.map((item: IProduct, index: number) => (
         <Component
             key={index}

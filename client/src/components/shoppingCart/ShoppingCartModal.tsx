@@ -26,12 +26,14 @@ const ShoppingCartModal: React.FC<IProps & IModalToggle & RouteComponentProps> =
     windowWidth
 }) => {
     const [isCartPopulated, setIsCartPopulated] = useState(false);
+
     const navigateToCheckoutPage = () => {
         onHide();
         hideNav();
         history.push(`/checkout`);
     };
 
+    //ref used for styling body in <CartItems />
     const cartRef = useRef<HTMLDivElement | null>(null);
 
     return (

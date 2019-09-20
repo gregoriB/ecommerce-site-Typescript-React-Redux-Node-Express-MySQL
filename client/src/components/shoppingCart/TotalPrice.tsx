@@ -11,6 +11,7 @@ interface IProps {
 const TotalPrice: React.FC<IProps> = ({ shoppingCart }) => {
     const [total, setTotal] = useState(0);
 
+    //update total
     useEffect(() => {
         let newTotal = 0;
         Object.values(shoppingCart).forEach(({ price, qty }: IShoppingCartItems) => {
@@ -20,6 +21,7 @@ const TotalPrice: React.FC<IProps> = ({ shoppingCart }) => {
         });
         setTotal(newTotal);
     }, [shoppingCart]);
+
     return (
         <TotalPriceContainer>
             <TotalPriceBanner>Total:</TotalPriceBanner>${total}

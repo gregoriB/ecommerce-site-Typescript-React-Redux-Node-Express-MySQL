@@ -16,6 +16,7 @@ interface IProps {
     updateWindowWidth(): void;
 }
 const Main: React.FC<IProps> = ({ updateWindowWidth }) => {
+    //window size stored in redux store for use with mobile styling
     useEffect(() => {
         const updateWindowWidthReducer = () => {
             updateWindowWidth();

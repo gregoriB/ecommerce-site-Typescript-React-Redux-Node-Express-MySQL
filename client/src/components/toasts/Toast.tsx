@@ -19,12 +19,14 @@ const BSToast: React.FC<IProps> = ({ itemName, removeToast }) => {
         cleanupToast();
     };
 
+    //prevent toast from blocking UI and UI mouse events when it is closed
     const cleanupToast = () => {
         setShowToast(false);
         setDisplay("none");
         removeToast();
     };
 
+    //automatically close toast after set amt of time
     useEffect(() => {
         let timeout = window.setTimeout(() => {
             cleanupToast();

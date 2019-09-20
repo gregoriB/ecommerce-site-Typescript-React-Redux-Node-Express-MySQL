@@ -19,6 +19,7 @@ const ProductCard: React.FC<IProduct & IProps> = props => {
     const { imageURL, itemName, descShort, price, categories, miscProps, stock } = props;
     const { selectedCategories, priceRange } = miscProps;
 
+    //keep description small enough to fit in product card
     const shortenDescription = () => {
         const maxLength = 150;
         if (descShort.length < maxLength) {
@@ -27,6 +28,8 @@ const ProductCard: React.FC<IProduct & IProps> = props => {
 
         return descShort.slice(0, 150).trim() + "...";
     };
+
+    //if product categories are not in the category filters, hide the product
     useEffect(() => {
         if (categories && selectedCategories.length) {
             const categoryArray = categories;
