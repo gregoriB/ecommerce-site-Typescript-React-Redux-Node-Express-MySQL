@@ -64,13 +64,17 @@ app.post("/login", (req: Request, res: Response) => {
         queryDatabase(
             "SELECT user_salt AS salt FROM users WHERE user_name = $1",
             [username],
-            (results: QueryResult) => {
-                const salt = results.rows[0].salt;
+            (saltResults: QueryResult) => {
+                const salt = saltResults.rows[0].salt;
                 const query =
                     'SELECT user_name AS "username", user_email AS "email" FROM users WHERE LOWER(user_name) = $1 AND user_password = crypt($2, $3)';
-                queryDatabase(query, [username, password, salt], (results: QueryResult) => {
-                    res.json(results);
-                });
+                if (saltResults.rows.length) {
+                    queryDatabase(query, [username, password, salt], (loginResults: QueryResult) => {
+                        res.json(loginResults);
+                    });
+                } else {
+                    res.json(saltResults);
+                }
             }
         );
     }
