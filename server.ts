@@ -9,11 +9,6 @@ const { Client } = require("pg");
 
 require("dotenv").config();
 
-//used alongside Postgres password encryption
-const CRYPTO_PASS = process.env.CRYPTO_PASS;
-const secret: string = typeof CRYPTO_PASS === "string" ? CRYPTO_PASS : JSON.stringify(CRYPTO_PASS);
-const hash = crypto.createHmac("sha256", secret).digest("hex");
-
 const app: Application = express(),
     nodeEnv = app.get("env"),
     isDevelopment = nodeEnv !== "production",
@@ -44,7 +39,7 @@ app.get("/products", (req: Request, res: Response) => {
 //product page custom search params
 app.get("/products/:search", (req: Request, res: Response) => {
     const { search }: IReqProps = req.params;
-    const params = search === "null" ? "" : search;
+    const params = search === "null" ? "" : search; //if no search params, return all items
     queryDatabase(
         `SELECT * FROM item_categories_view WHERE "itemName" ILIKE $1`,
         [`%${params}%`],
@@ -61,25 +56,39 @@ app.get("/home", (req: Request, res: Response) => {
     });
 });
 
+//user login
 app.post("/login", (req: Request, res: Response) => {
     const { username, password }: IReqProps = req.body;
     if (!username || !password) return;
     if (req.body) {
-        const query =
-            'SELECT user_name AS "username", user_email AS "email" FROM users WHERE LOWER(user_name) = $1 AND user_password = crypt($2, $3)';
-        queryDatabase(query, [username, password, hash], (results: QueryResult) => {
-            res.json(results);
-        });
+        queryDatabase(
+            "SELECT user_salt AS salt FROM users WHERE user_name = $1",
+            [username],
+            (results: QueryResult) => {
+                const salt = results.rows[0].salt;
+                const query =
+                    'SELECT user_name AS "username", user_email AS "email" FROM users WHERE LOWER(user_name) = $1 AND user_password = crypt($2, $3)';
+                queryDatabase(query, [username, password, salt], (results: QueryResult) => {
+                    res.json(results);
+                });
+            }
+        );
     }
 });
+
+const generateSalt = () => {
+    const buf = crypto.randomBytes(256);
+    return crypto.createHmac("sha256", buf).digest("hex");
+};
 
 //create new user
 app.post("/user", (req: Request, res: Response) => {
     const { username, email, password }: IReqProps = req.body;
-    const values = "($1, $2, crypt($3, $4))";
+    const salt = generateSalt();
+    const values = "($1, $2, crypt($3, $4), $4)";
     queryDatabase(
-        `INSERT INTO users (user_email, user_name, user_password) VALUES ${values}`,
-        [email, username, password, hash],
+        `INSERT INTO users (user_email, user_name, user_password, user_salt) VALUES ${values}`,
+        [email, username, password, salt],
         (results: QueryResult) => {
             res.json(results);
         }
@@ -115,11 +124,16 @@ app.get("*", (req: Request, res: Response) => {
 });
 
 const dbCredentials: ConnectionConfig & ClientConfig = {
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
+    // connectionString: process.env.DATABASE_URL,
+    // ssl: true
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: Number(process.env.DB_PORT)
 };
 
-function queryDatabase(query: string, arr: string[], callback: Function) {
+function queryDatabase(query: string, arr: any[], callback: Function) {
     const client = new Client({ ...dbCredentials });
     client.connect();
     client.query(query, arr, (err: Error, res: QueryResult) => {
